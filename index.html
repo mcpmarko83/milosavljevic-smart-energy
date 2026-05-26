@@ -1,181 +1,333 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;}
-body{
-    background-color:#04070b;
-    color:#f3f4f6;
-    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Arial,sans-serif;
-    line-height:1.6;
-    overflow-x:hidden;
-}
+    <style>
+        /* ==========================
+           BASE RESET + PERFORMANCE
+        ========================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* NEON */
-.neon-text{
-    color:#fff;
-    text-shadow:0 0 15px rgba(76,175,80,0.5),0 0 30px rgba(76,175,80,0.2);
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* LOGO */
-.blended-logo{
-    max-width:280px;
-    width:100%;
-    mix-blend-mode:screen;
-}
+        body {
+            background: #04070b;
+            color: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-/* ================= COUNTERS ================= */
-.stats-section{
-    padding:70px 20px;
-    text-align:center;
-}
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
 
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-    gap:20px;
-}
+        /* Reduce motion for mobile performance */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
 
-.counter-box{
-    background:rgba(13,20,30,0.6);
-    border:1px solid rgba(255,255,255,0.05);
-    border-radius:18px;
-    padding:25px 15px;
-    backdrop-filter:blur(12px);
-    transition:0.3s ease;
-}
+        /* ==========================
+           TYPOGRAPHY
+        ========================== */
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 12px rgba(76,175,80,.35);
+        }
 
-.counter-box:hover{
-    transform:translateY(-5px);
-    border-color:#4caf50;
-    box-shadow:0 0 25px rgba(76,175,80,0.15);
-}
+        /* ==========================
+           LAYOUT HELPERS
+        ========================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
 
-/* iOS STYLE ICON */
-.icon-ios{
-    width:56px;
-    height:56px;
-    margin:0 auto 12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:16px;
-    background:rgba(255,255,255,0.06);
-    backdrop-filter:blur(10px);
-    font-size:26px;
-}
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
 
-.counter{
-    font-size:34px;
-    font-weight:700;
-    color:#fff;
-}
+        /* FIXED RESPONSIVE GRID */
+        .grid-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
 
-.counter-box p{
-    color:#9ca3af;
-    font-size:12px;
-    margin-top:6px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-}
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
 
-/* HERO */
-.hero{
-    text-align:center;
-    padding:90px 20px 60px;
-}
+        /* ==========================
+           HEADER
+        ========================== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10,15,24,.75);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
 
-.btn{
-    display:inline-block;
-    background:linear-gradient(135deg,#2e7d32,#4caf50);
-    color:white;
-    padding:14px 40px;
-    border-radius:30px;
-    text-decoration:none;
-    font-weight:600;
-}
-</style>
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+        /* ==========================
+           HERO
+        ========================== */
+        .hero {
+            text-align: center;
+            padding: 70px 0 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 999px;
+            background: linear-gradient(135deg,#2e7d32,#4caf50);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 6px 25px rgba(76,175,80,.25);
+        }
+
+        /* ==========================
+           CARDS (OPTIMIZED)
+        ========================== */
+        .card {
+            background: rgba(13,20,30,.7);
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 14px;
+            padding: 22px;
+            will-change: transform;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            transition: transform .25s ease;
+        }
+
+        /* ==========================
+           FOLDERS (OPTIMIZED)
+        ========================== */
+        .folder {
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(10,15,20,.6);
+        }
+
+        .folder-header {
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .folder-content {
+            display: none;
+            padding: 14px;
+        }
+
+        .folder.open .folder-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 10px;
+        }
+
+        .folder.open {
+            border-color: #4caf50;
+        }
+
+        /* ==========================
+           IMAGES
+        ========================== */
+        .project-img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* ==========================
+           FORM
+        ========================== */
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.1);
+            background: rgba(0,0,0,.3);
+            color: #fff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg,#2e7d32,#4caf50);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ==========================
+           LIGHTBOX (SIMPLIFIED)
+        ========================== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        /* ==========================
+           MOBILE OPTIMIZATION
+        ========================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<section class="hero">
-    <img src="logo.jpg" class="blended-logo">
-    <h1 class="neon-text" style="margin:20px 0;font-size:38px;">
-        Pametna energija za budućnost
-    </h1>
-    <p style="color:#9ca3af;max-width:600px;margin:0 auto 25px;">
-        Elektroinstalacije, automatizacija i industrijski sistemi.
-    </p>
-    <a class="btn" href="#kontakt">Kontakt</a>
-</section>
+<audio id="bg-music" src="Muzika.mp3" loop></audio>
 
-<!-- ================= COUNTERS SECTION ================= -->
-<section class="stats-section">
+<div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" />
+</div>
 
-    <div class="stats-grid">
-
-        <div class="counter-box">
-            <div class="icon-ios">⚡</div>
-            <div class="counter" data-target="26">0</div>
-            <p>Godina iskustva</p>
-        </div>
-
-        <div class="counter-box">
-            <div class="icon-ios">🏗️</div>
-            <div class="counter" data-target="120">0</div>
-            <p>Projekata</p>
-        </div>
-
-        <div class="counter-box">
-            <div class="icon-ios">🔌</div>
-            <div class="counter" data-target="5000">0</div>
-            <p>m kablova</p>
-        </div>
-
-        <div class="counter-box">
-            <div class="icon-ios">🕒</div>
-            <div class="counter" data-target="24">0</div>
-            <p>7 podrška</p>
-        </div>
-
+<header>
+    <div class="header-inner container">
+        <div>Smart Energy</div>
+        <button id="music-toggle">🔊 Music</button>
     </div>
-</section>
+</header>
 
-<!-- HERO CONTINUATION -->
-<section style="text-align:center;padding:40px 20px;">
-    <h2 style="color:#fff;">Inženjerska preciznost i pouzdanost</h2>
-</section>
+<div class="container">
+
+    <section class="hero">
+        <h1 class="neon-text">Inženjerska tradicija za pametnu budućnost</h1>
+        <p>Elektroinstalacije, automatizacija i robotika</p>
+        <a class="btn" href="#kontakt">Kontakt</a>
+    </section>
+
+    <section class="grid grid-2">
+        <div class="card">
+            <h3>Sigurnost</h3>
+            <p>Nevidljiva energija zahtijeva disciplinu i proceduru.</p>
+        </div>
+        <div class="card">
+            <h3>Preciznost</h3>
+            <p>Uredan ormar znači stabilan sistem.</p>
+        </div>
+    </section>
+
+    <section style="margin-top:30px;">
+        <div class="folder" onclick="toggleFolder(this)">
+            <div class="folder-header">
+                <span>📁 Projekti</span>
+                <span>▶</span>
+            </div>
+            <div class="folder-content">
+                <img class="project-img" src="img1.jpg" />
+                <img class="project-img" src="img2.jpg" />
+                <img class="project-img" src="img3.jpg" />
+                <img class="project-img" src="img4.jpg" />
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" style="margin-top:40px;">
+        <h2>Kontakt</h2>
+        <form id="form">
+            <input placeholder="Ime" required />
+            <input placeholder="Telefon" required />
+            <input placeholder="Email" type="email" required />
+            <textarea placeholder="Poruka" required></textarea>
+            <button>Pošalji</button>
+        </form>
+    </section>
+
+</div>
 
 <script>
-/* COUNTER ANIMATION */
-function animateCounters(){
-    const counters=document.querySelectorAll('.counter');
+const music = document.getElementById('bg-music');
+const toggle = document.getElementById('music-toggle');
 
-    counters.forEach(counter=>{
-        const update=()=>{
-            const target=+counter.getAttribute('data-target');
-            const current=+counter.innerText;
-            const inc=Math.ceil(target/80);
+let started = false;
 
-            if(current<target){
-                counter.innerText=current+inc;
-                setTimeout(update,30);
-            }else{
-                counter.innerText=target;
-            }
-        };
-        update();
-    });
+function playMusic(){
+    if(!started){
+        music.play().catch(()=>{});
+        started = true;
+    }
 }
 
-window.addEventListener('load',animateCounters);
+document.addEventListener('click', playMusic, {once:true});
+
+toggle.onclick = () => {
+    if(music.paused){
+        music.play();
+    } else {
+        music.pause();
+    }
+};
+
+function toggleFolder(el){
+    el.classList.toggle('open');
+}
+
+const lightbox = document.getElementById('lightbox');
+const imgBox = document.getElementById('lightbox-img');
+
+document.querySelectorAll('.project-img').forEach(img=>{
+    img.onclick = () => {
+        imgBox.src = img.src;
+        lightbox.classList.add('active');
+    }
+});
+
+lightbox.onclick = () => lightbox.classList.remove('active');
+
 </script>
 
 </body>
