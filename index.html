@@ -719,9 +719,10 @@
                     </a>
                 </div>
 
-                <!-- 100% SIGURAN SISTEM SA DIREKTNIM ŠKOLSKIM ODGOVOROM NA EKRANU -->
+                <!-- FORMA SA DINAMIČKIM NASLOVOM KOJI SE MIJENJA NAKON SLANJA -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
-                    <h3 style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
+                    <!-- ID 'form-title' nam omogućava da preko JavaScripta zamijenimo tekst -->
+                    <h3 id="form-title" style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     
                     <form id="clean-contact-form">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -748,7 +749,7 @@
                         <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji poruku</button>
                     </form>
 
-                    <!-- Prelijep neonski boks koji klijentu ispisuje školsku poruku zahvalnosti -->
+                    <!-- Neonski boks sa potvrdnim tekstom -->
                     <div id="status-box" class="status-box">
                         ✅ <strong>Uspješno poslato!</strong><br><br>
                         Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge.<br>
@@ -853,18 +854,18 @@
         });
 
         // ==========================================================================
-        // JS POGON KOJI RADI PREKO AZRA BESPLATNE AJAX SYNTAXE (FORMSUBMIT SAKRIVEN)
+        // JS POGON KOJI RADI PREKO AJAX SYNTAXE I MIJENJA NASLOV NAKON SLANJA
         // ==========================================================================
         document.getElementById('clean-contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const btn = document.getElementById('submit-btn');
             const box = document.getElementById('status-box');
+            const formTitle = document.getElementById('form-title');
             
             btn.innerText = "⏳ Slanje u toku...";
             btn.disabled = true;
 
-            // Slanje u pozadini direktno na tvoj Outlook (Iskopirani podaci)
             fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -877,8 +878,13 @@
                 })
             })
             .then(response => {
-                // Kada skripta završi slanje, sakrij formu i otvori prelepi neonski odgovor
+                // Skrivamo formu
                 document.getElementById('clean-contact-form').style.display = 'none';
+                
+                // Mijenjamo stari naslov u novi futuristički i školski naziv
+                formTitle.innerText = "Informacija pošiljaocu";
+                
+                // Prikazujemo zeleni neonski boks sa tekstom
                 box.style.display = 'block';
             })
             .catch(error => {
