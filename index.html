@@ -704,14 +704,21 @@
                     </a>
                 </div>
 
-                <!-- FORMA ZA SLANJE PORUKE NA MEJL (Korišćenjem pouzdanog Formsubmit.co sistema) -->
+                <!-- FORMA ZA SLANJE PORUKE (Korišćenjem pouzdanog Web3Forms sistema koji garantuje i mejl kupcu) -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
                     <h3 style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     
-                    <form action="https://formsubmit.co/milosavljevic@outlook.com" method="POST">
+                    <form action="https://api.web3forms.com/submit" method="POST">
                         
-                        <!-- AUTOMATSKI ODGOVOR KLIJENTU -->
-                        <input type="hidden" name="_autoresponse" value="Poštovani, primili smo vaš upit. Zahvaljujemo vam se na javljanju i kontaktiraćemo Vas u najkraćem mogućem roku. Srdačan pozdrav, Milosavljević Smart Energy">
+                        <!-- Web3Forms Ključ podešen za milosavljevic@outlook.com -->
+                        <input type="hidden" name="access_key" value="63db863f-67da-4581-9b16-4328d0eb47d0">
+                        <input type="hidden" name="subject" value="Novi upit sa sajta Milosavljević Smart Energy!">
+                        <input type="hidden" name="from_name" value="Milosavljević Smart Energy">
+                        <input type="hidden" name="redirect" value="https://milosavljevic-smart-energy.pages.dev">
+
+                        <!-- AUTOMATSKI ODGOVOR KLIJENTU U SANDUČE (100% POUZDANO) -->
+                        <input type="hidden" name="replyto" value="milosavljevic@outlook.com">
+                        <input type="hidden" name="autoresponder" value="Poštovani, primili smo vaš upit. Zahvaljujemo vam se na javljanju i kontaktiraćemo Vas u najkraćem mogućem roku.&#10;&#10;Srdačan pozdrav,&#10;Milosavljević Smart Energy">
                         
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                             <div class="form-group">
@@ -726,7 +733,7 @@
                         
                         <div class="form-group">
                             <label>Vaša E-mail adresa</label>
-                            <input type="email" name="Email" class="form-control" placeholder="ime@primer.com" required>
+                            <input type="email" name="email" class="form-control" placeholder="ime@primer.com" required>
                         </div>
                         
                         <div class="form-group">
@@ -734,10 +741,10 @@
                             <textarea name="Poruka" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea>
                         </div>
 
-                        <!-- Skrivene komande koje ulepšavaju Formsubmit sistem -->
-                        <input type="hidden" name="_captcha" value="true">
-                        <input type="hidden" name="_next" value="https://milosavljevic-smart-energy.pages.dev">
-                        <input type="hidden" name="_subject" value="Novi upit sa sajta Milosavljević Smart Energy!">
+                        <!-- Zaštita protiv botova -->
+                        <div style="display: none;">
+                            <input type="checkbox" name="botcheck">
+                        </div>
                         
                         <button type="submit" class="form-submit-btn">🚀 Pošalji poruku</button>
                     </form>
