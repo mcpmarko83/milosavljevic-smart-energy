@@ -2,7 +2,7 @@
 <html lang="sr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
         /* ==========================================================================
@@ -13,6 +13,9 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+            /* iOS sistemski font stack */
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
         html {
             scroll-behavior: smooth;
@@ -20,9 +23,11 @@
         body {
             background-color: #04070b;
             color: #f3f4f6;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            /* iOS 'zaključan' osjećaj na Androidu */
+            overscroll-behavior-y: none;
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         /* Tipografski neonski akcenti */
@@ -93,6 +98,9 @@
             -webkit-backdrop-filter: blur(16px);
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+        /* iOS Tap Feedback */
+        .abstract-card:active { transform: scale(0.98); }
+        
         .abstract-card.full-width {
             grid-column: span 2;
         }
@@ -157,6 +165,7 @@
             -webkit-backdrop-filter: blur(8px);
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+        .folder-box:active { background: rgba(255, 255, 255, 0.05); }
         .folder-arrow {
             transition: transform 0.3s ease;
             color: #4caf50;
@@ -189,12 +198,10 @@
             border: 1px solid rgba(255, 255, 255, 0.02);
             transition: all 0.3s ease;
             cursor: pointer;
-            touch-action: none; 
+            touch-action: manipulation; 
         }
-        .project-img:hover {
-            border-color: #4caf50;
-            transform: scale(1.04) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.25);
+        .project-img:active {
+            transform: scale(0.95);
         }
 
         /* UI dugme za kontrolu zvuka u navigaciji */
@@ -238,7 +245,8 @@
             border-radius: 8px;
             padding: 12px 16px;
             color: #ffffff;
-            font-size: 15px;
+            /* iOS 16px fix za auto-zoom */
+            font-size: 16px;
             font-family: inherit;
             transition: all 0.3s ease;
         }
@@ -260,9 +268,8 @@
             box-shadow: 0 4px 15px rgba(76,175,80,0.25);
             transition: all 0.3s ease;
         }
-        .form-submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76,175,80,0.4);
+        .form-submit-btn:active {
+            transform: scale(0.97);
         }
 
         /* Neonski statusni boks za potvrdu na ekranu */
@@ -294,6 +301,7 @@
             align-items: center;
             justify-content: center;
             z-index: 999999 !important;
+            backdrop-filter: blur(20px);
         }
         .lightbox-overlay.active {
             display: flex;
@@ -388,9 +396,7 @@
             </a>
         </section>
 
-        <!-- ==========================================================================
-            STRUKTURA: REMEK-DELO RASPORED ČLANAKA (ASIMETRIČNA FILOZOFIJA RADA)
-            ========================================================================== -->
+        <!-- FILOZOFIJA RADA -->
         <section style="padding:40px 0; margin-bottom:50px;">
             <div style="text-align:center; margin-bottom:45px;">
                 <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing: 2px;">Naša Filozofija Rada</span>
@@ -719,9 +725,8 @@
                     </a>
                 </div>
 
-                <!-- FORMA SA DINAMIČKIM NASLOVOM KOJI SE MIJENJA NAKON SLANJA -->
+                <!-- FORMA -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
-                    <!-- ID 'form-title' nam omogućava da preko JavaScripta zamijenimo tekst -->
                     <h3 id="form-title" style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     
                     <form id="clean-contact-form">
