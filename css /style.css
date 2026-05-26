@@ -1,1 +1,7 @@
-
+/* Sve kopiraj odavde: */
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body { background-color: #04070b; color: #f3f4f6; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif; line-height: 1.6; overflow-x: hidden; }
+/* ... ostatak tvog CSS koda ... */
+.neon-text { color: #ffffff; text-shadow: 0 0 15px rgba(76, 175, 80, 0.5), 0 0 30px rgba(76, 175, 80, 0.2); }
+/* ... itd, do samog kraja tvog originalnog CSS-a ... */
