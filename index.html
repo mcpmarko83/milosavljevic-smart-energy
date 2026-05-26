@@ -392,7 +392,7 @@
                     </div>
                     <h4 style="font-size: 20px; color: #ffffff; margin-bottom: 14px; font-weight: 600;">1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
                     <p style="color: #9ca3af; font-size: 15px; font-weight: 300; line-height: 1.7;">
-                        Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije and rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.
+                        Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.
                     </p>
                 </div>
                 
@@ -704,14 +704,11 @@
                     </a>
                 </div>
 
-                <!-- FORMA ZA SLANJE PORUKE NA MEJL (Povratak na ispravan FormSubmit sistem) -->
+                <!-- FORMA ZA SLANJE PORUKE (Čist, neograničen FormSubmit bez sumnjivih autorespondera) -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
                     <h3 style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     
                     <form action="https://formsubmit.co/milosavljevic@outlook.com" method="POST">
-                        
-                        <!-- ISPRAVLJEN AUTOMATSKI ODGOVOR KUPCU -->
-                        <input type="hidden" name="_autoresponse" value="Poštovani, primili smo vaš upit. Zahvaljujemo vam se na javljanju i kontaktiraćemo Vas u najkraćem mogućem roku. Srdačan pozdrav, Milosavljević Smart Energy">
                         
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                             <div class="form-group">
@@ -726,7 +723,6 @@
                         
                         <div class="form-group">
                             <label>Vaša E-mail adresa</label>
-                            <!-- OVDE JE BILA GREŠKA: "email" mora biti isključivo malim slovima da bi FormSubmit znao kome da vrati poruku -->
                             <input type="email" name="email" class="form-control" placeholder="ime@primer.com" required>
                         </div>
                         
@@ -735,7 +731,7 @@
                             <textarea name="Poruka" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea>
                         </div>
 
-                        <!-- Skrivene komande koje ulepšavaju Formsubmit sistem -->
+                        <!-- Konfiguracija FormSubmit-a -->
                         <input type="hidden" name="_captcha" value="true">
                         <input type="hidden" name="_next" value="https://milosavljevic-smart-energy.pages.dev">
                         <input type="hidden" name="_subject" value="Novi upit sa sajta Milosavljević Smart Energy!">
