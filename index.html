@@ -704,11 +704,11 @@
                     </a>
                 </div>
 
-                <!-- FORMA ZA SLANJE PORUKE NA MEJL -->
+                <!-- FORMA ZA SLANJE PORUKE NA MEJL (Korišćenjem pouzdanog Formsubmit.co sistema) -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
                     <h3 style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     
-                    <form action="https://formspree.io/f/xoqgkyww" method="POST">
+                    <form action="https://formsubmit.co/milosavljevic@outlook.com" method="POST">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                             <div class="form-group">
                                 <label>Ime i prezime</label>
@@ -722,7 +722,7 @@
                         
                         <div class="form-group">
                             <label>Vaša E-mail adresa</label>
-                            <input type="email" name="_replyto" class="form-control" placeholder="ime@primer.com" required>
+                            <input type="email" name="Email" class="form-control" placeholder="ime@primer.com" required>
                         </div>
                         
                         <div class="form-group">
@@ -730,8 +730,10 @@
                             <textarea name="Poruka" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea>
                         </div>
 
-                        <!-- Skriveno podešavanje da se nakon slanja klijent vrati na sajt -->
+                        <!-- Skrivene komande koje ulepšavaju Formsubmit sistem -->
+                        <input type="hidden" name="_captcha" value="true">
                         <input type="hidden" name="_next" value="https://milosavljevic-smart-energy.pages.dev">
+                        <input type="hidden" name="_subject" value="Novi upit sa sajta Milosavljević Smart Energy!">
                         
                         <button type="submit" class="form-submit-btn">🚀 Pošalji poruku</button>
                     </form>
