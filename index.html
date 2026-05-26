@@ -26,36 +26,37 @@
             position: relative;
         }
 
-        /* DODATO: Apstraktna električna animacija u pozadini */
+        /* 4. PROMJENA: Apstraktna animacija struje u pozadini */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0.07) 0%, transparent 70%);
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(76, 175, 80, 0.05), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(58, 134, 255, 0.05), transparent 30%);
             z-index: -2;
             pointer-events: none;
-            animation: pulseCore 8s infinite alternate;
+            animation: pulseBackground 8s ease-in-out infinite alternate;
         }
         body::after {
             content: '';
             position: fixed;
             top: -50%; left: -50%; width: 200%; height: 200%;
             background-image: 
-                linear-gradient(rgba(76, 175, 80, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(76, 175, 80, 0.04) 1px, transparent 1px);
+                linear-gradient(rgba(76, 175, 80, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(76, 175, 80, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
             z-index: -1;
             pointer-events: none;
-            transform: perspective(600px) rotateX(60deg) translateY(0) translateZ(-200px);
-            animation: electricGridMove 15s linear infinite;
+            animation: moveGrid 25s linear infinite;
         }
-        @keyframes pulseCore {
-            0% { opacity: 0.6; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1.1); }
+        @keyframes pulseBackground {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; transform: scale(1.05); }
         }
-        @keyframes electricGridMove {
-            0% { transform: perspective(600px) rotateX(60deg) translateY(0) translateZ(-200px); }
-            100% { transform: perspective(600px) rotateX(60deg) translateY(40px) translateZ(-200px); }
+        @keyframes moveGrid {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
         }
 
         /* Tipografski neonski akcenti */
@@ -332,8 +333,11 @@
             display: flex;
         }
         .lightbox-img {
-            max-width: 92%;
-            max-height: 82%;
+            /* 2. PROMJENA: Stabilna slika na android/mobilnim uredjajima, sprecava 'bjezanje' slike */
+            max-width: 95vw;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
             object-fit: contain;
             border-radius: 10px;
             border: 2px solid #4caf50;
@@ -360,10 +364,8 @@
         @media (max-width: 900px) {
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
-        }
-
-        /* DODATO: Sive ikone na Android uređajima (mobilnim) */
-        @media (max-width: 768px) {
+            
+            /* 1. PROMJENA: Sive ikone iskljucivo na Android/mobilnim uredjajima */
             .project-img {
                 filter: grayscale(100%);
             }
@@ -788,8 +790,8 @@
         music.volume = 0.25; 
         let musicStarted = false;
 
-        // PROMJENA: Muzika se pokreće automatski na prvi klik/dodir bilo gdje na stranici
-        function playMusicOnFirstInteraction() {
+        // 3. PROMJENA: JS za puštanje muzike strogo na prvi interaktivni dodir/klik
+        function playMusicOnFirstTouch() {
             if (!musicStarted) {
                 if (window.AudioContext || window.webkitAudioContext) {
                     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -797,21 +799,23 @@
                         audioCtx.resume();
                     }
                 }
+
                 music.play().then(() => {
                     musicStarted = true;
                     musicIcon.textContent = "🔊";
                     musicText.textContent = "Muzika: Aktivna";
                 }).catch(error => {
-                    console.log("Audio spreman za reprodukciju nakon interakcije.");
+                    console.log("Sistem spreman, čeka interakciju.");
                 });
                 
-                document.removeEventListener('click', playMusicOnFirstInteraction);
-                document.removeEventListener('touchstart', playMusicOnFirstInteraction);
+                // Uklanjanje event listenera nakon prvog okidanja
+                document.removeEventListener('click', playMusicOnFirstTouch);
+                document.removeEventListener('touchstart', playMusicOnFirstTouch);
             }
         }
-        
-        document.addEventListener('click', playMusicOnFirstInteraction);
-        document.addEventListener('touchstart', playMusicOnFirstInteraction, { passive: true });
+
+        document.addEventListener('click', playMusicOnFirstTouch);
+        document.addEventListener('touchstart', playMusicOnFirstTouch, { passive: true });
 
         musicToggle.addEventListener('click', function(e) {
             e.stopPropagation();
