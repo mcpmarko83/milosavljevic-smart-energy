@@ -5,109 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
-        /* ==========================================================================
-           1. CORE SETTINGS & NEON MATRIX (Reset i Globalni Stilovi)
-           ========================================================================== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            background-color: #04070b;
-            color: #f3f4f6;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body { background-color: #04070b; color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; overflow-x: hidden; }
+        
+        .neon-text { color: #ffffff; text-shadow: 0 0 15px rgba(76, 175, 80, 0.5); }
+        .hide-mobile { @media (max-width: 768px) { display: none; } }
+        
+        .blended-logo { max-width: 280px; width: 100%; height: auto; mix-blend-mode: screen; filter: brightness(1.1) contrast(1.05); }
+        .blended-moto { width: 100%; height: auto; display: block; mix-blend-mode: screen; }
+        
+        .grid-philosophie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .abstract-card { background: linear-gradient(135deg, rgba(13, 20, 30, 0.7) 0%, rgba(7, 10, 15, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 35px; }
 
-        /* Tipografski neonski akcenti */
-        .neon-text {
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5), 0 0 30px rgba(76, 175, 80, 0.2);
-        }
-        .hide-mobile {
-            @media (max-width: 768px) { display: none; }
-        }
+        /* iPhone style folderi */
+        .folder-box { background: rgba(13, 20, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 20px; margin-bottom: 15px; cursor: pointer; }
+        .folder-arrow { transition: transform 0.3s ease; color: #4caf50; }
+        .folder-box.open .folder-arrow { transform: rotate(90deg); }
+        .folder-content { display: grid; grid-template-rows: 0fr; transition: 0.3s; opacity: 0; }
+        .folder-box.open .folder-content { grid-template-rows: 1fr; opacity: 1; margin-top: 15px; }
+        
+        .inner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+        .project-img { width: 100%; height: 90px; object-fit: cover; border-radius: 8px; cursor: pointer; }
 
-        /* ==========================================================================
-           2. PREMIUM REZULTATI STAPANJA SLIKA (Estetika bez oštrih ivica)
-           ========================================================================== */
-        .blended-logo {
-            max-width: 280px;
-            width: 100%;
-            height: auto;
-            mix-blend-mode: screen;
-            filter: brightness(1.1) contrast(1.05);
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .blended-logo:hover {
-            transform: scale(1.04);
-        }
-        .blended-moto {
-            width: 100%;
-            height: auto;
-            display: block;
-            mix-blend-mode: screen;
-            filter: brightness(1.15) drop-shadow(0 0 20px rgba(58, 134, 255, 0.25));
-        }
-        .om-image-container {
-            position: relative;
-            display: inline-block;
-            max-width: 280px;
-            width: 100%;
-            border-radius: 14px;
-            overflow: hidden;
-            background: rgba(17, 25, 40, 0.4);
-            padding: 12px;
-            border: 1px solid rgba(76, 175, 80, 0.15);
-            box-shadow: 0 0 40px rgba(76, 175, 80, 0.05); 
-        }
-        .blended-om {
-            width: 100%;
-            height: auto;
-            display: block;
-            mix-blend-mode: lighten;
-            filter: contrast(1.2) brightness(1.1);
-        }
+        .music-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
+        
+        .form-control { width: 100%; background: #0c111c; border: 1px solid #1f2937; border-radius: 10px; padding: 12px; color: white; margin-bottom: 15px; }
+        .form-submit-btn { width: 100%; background: #4caf50; color: white; border: none; padding: 14px; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        
+        .status-box { display: none; background: rgba(76, 175, 80, 0.1); border: 1px solid #4caf50; padding: 20px; border-radius: 12px; color: #4caf50; margin-top: 20px; }
 
-        /* ==========================================================================
-           3. INTERAKTIVNE KARTICE (Asimetrična arhitektura i 3D efekat)
-           ========================================================================== */
-        .grid-philosophie {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-        .abstract-card {
-            background: linear-gradient(135deg, rgba(13, 20, 30, 0.7) 0%, rgba(7, 10, 15, 0.9) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            padding: 35px;
-            position: relative;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .abstract-card.full-width {
-            grid-column: span 2;
-        }
-        .abstract-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px 0 0 16px;
-            transition: background 0.4s ease;
-        }
-        /* Hover mikro-animacije poliranja */
-        .abstract-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30
+        .lightbox-overlay { position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .lightbox-img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 2px solid #4caf50; }
+        
+        @media (max-width: 900px) { .grid-philosophie { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="Muzika.mp3" loop></audio>
+    <div id="lightbox" class="lightbox-overlay"><img id="lightbox-img" class="lightbox-img"></div>
+
+    <header style="padding: 20px; text-align: center; position: sticky; top: 0; background: rgba(4, 7, 11, 0.9); z-index: 100;">
+        <h2 class="neon-text">MILOSAVLJEVIĆ <span style="color:#4caf50;">SMART ENERGY</span></h2>
+    </header>
+
+    <div style="max-width:1100px; margin:0 auto; padding:20px;">
+        <div id="reference">
+            <div class="folder-box">
+                <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <h3 style="color:white;">Kućne instalacije</h3>
+                    </div>
+                    <span class="folder-arrow">▶</span>
+                </div>
+                <div class="folder-content">
+                    <div class="inner-grid">
+                        <img src="Nasi projekti/01_Kucne_instalacije/1.jpg" class="project-img">
+                        <img src="Nasi projekti/01_Kucne_instalacije/2.jpg" class="project-img">
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <section id="kontakt" style="margin-top:50px;">
+            <form id="clean-contact-form" class="abstract-card">
+                <h3 id="form-title" style="color:white; margin-bottom:20px;">Pošaljite nam upit direktno sa sajta</h3>
+                <input type="text" id="ins_name" class="form-control" placeholder="Ime i prezime" required>
+                <input type="tel" id="ins_phone" class="form-control" placeholder="Telefon" required>
+                <textarea id="ins_message" class="form-control" rows="4" placeholder="Opis radova" required></textarea>
+                <button type="submit" id="submit-btn" class="form-submit-btn">POŠALJI</button>
+            </form>
+            <div id="status-box" class="status-box">✅ Uspješno poslato!</div>
+        </section>
+    </div>
+
+    <script>
+        function toggleFolder(el) { el.classList.toggle('open'); }
+        
+        // POPRAVLJENI ANDROID KLIK: Bez touchstart konflikta
+        document.querySelectorAll
