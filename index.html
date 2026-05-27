@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
+        /* ==========================================================================
+           1. CORE SETTINGS + APSTRAKTNA POZADINA
+        ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -60,7 +60,9 @@
             @media (max-width: 768px) { display: none; }
         }
 
-        /* Slike */
+        /* ==========================================================================
+           2. SLIKE (Logo, Moto, Omov zakon)
+        ========================================================================== */
         .blended-logo {
             max-width: 280px;
             width: 100%;
@@ -103,7 +105,9 @@
             border-radius: 50%;
         }
 
-        /* Kartice */
+        /* ==========================================================================
+           3. INTERAKTIVNE KARTICE (FILOZOFSKI TEKSTOVI - DUGAČKI)
+        ========================================================================== */
         .grid-philosophie {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -166,7 +170,9 @@
             100% { transform: scale(4); opacity: 0; }
         }
 
-        /* ========== WINDOWS 11 FOLDERI (CSS IZGLED) ========== */
+        /* ==========================================================================
+           4. FOLDERI (WINDOWS 11 STIL – ŽUTI, SA SLIKAMA KOJE SE MIJENJAJU)
+        ========================================================================== */
         .folder-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -209,48 +215,16 @@
             gap: 12px;
         }
 
-        /* Windows 11 folder ikona (CSS) - zatvorena */
-        .win11-folder {
+        /* Folder ikone – SVG slike koje se mijenjaju */
+        .folder-img {
             width: 52px;
             height: 44px;
-            position: relative;
-            background: #FDB813;  /* žuta osnova */
-            border-radius: 4px 4px 6px 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+            object-fit: contain;
+            transition: transform 0.2s ease;
             flex-shrink: 0;
-            transition: all 0.2s ease;
         }
-        .win11-folder::before {
-            content: '';
-            position: absolute;
-            top: -7px;
-            left: 6px;
-            width: 24px;
-            height: 10px;
-            background: #FDB813;
-            border-radius: 2px 2px 0 0;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
-        }
-        /* Otvoreni folder */
-        .win11-folder.open-folder {
-            background: #FDD835;
-            border-radius: 6px 6px 4px 4px;
-        }
-        .win11-folder.open-folder::before {
-            content: '';
-            position: absolute;
-            top: -9px;
-            left: 4px;
-            width: 28px;
-            height: 12px;
-            background: #FDD835;
-            border-radius: 4px 4px 0 0;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
-        }
-        /* Hover efekat */
-        .folder-box:hover .win11-folder {
+        .folder-box:hover .folder-img {
             transform: scale(1.03);
-            filter: brightness(1.05);
         }
 
         .project-img {
@@ -267,7 +241,7 @@
             transform: scale(1.02);
         }
 
-        /* Dugmad */
+        /* Dugmad u headeru */
         .music-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -288,7 +262,7 @@
             box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
         }
 
-        /* Forma */
+        /* Kontakt forma */
         .form-group {
             margin-bottom: 20px;
             text-align: left;
@@ -389,7 +363,7 @@
             z-index: 1000000;
         }
 
-        /* Bočna dugmad */
+        /* FIKSNA BOČNA DUGMAD */
         .floating-buttons {
             position: fixed;
             bottom: 30px;
@@ -430,8 +404,7 @@
         @media (max-width: 768px) {
             .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
             .float-btn { width: 48px; height: 48px; font-size: 24px; }
-            .win11-folder { width: 44px; height: 38px; }
-            .win11-folder::before { top: -6px; left: 5px; width: 20px; height: 8px; }
+            .folder-img { width: 44px; height: 38px; }
         }
         @media (max-width: 900px) {
             .grid-philosophie { grid-template-columns: 1fr; }
@@ -454,8 +427,11 @@
         <img id="lightbox-img" class="lightbox-img" src="" alt="Uvećan prikaz">
     </div>
 
+    <!-- Bočne kontrole -->
     <div class="floating-buttons">
-        <div id="side-music-toggle" class="float-btn" title="Muzika"><span id="side-music-icon">🔊</span></div>
+        <div id="side-music-toggle" class="float-btn" title="Muzika">
+            <span id="side-music-icon">🔊</span>
+        </div>
         <div id="back-to-top" class="float-btn" title="Vrh">↑</div>
     </div>
 
@@ -482,7 +458,7 @@
             <a href="#kontakt" style="display:inline-block; background:linear-gradient(135deg,#2e7d32,#4caf50); color:#fff; padding:14px 45px; border-radius:30px; text-decoration:none; font-weight:600;">Kontaktirajte Nas</a>
         </section>
 
-        <!-- Filozofija (sa ORIGINALNIM dugim tekstom) -->
+        <!-- Filozofija (ORIGINALNI DUGAČKI TEKSTOVI) -->
         <section style="padding:40px 0; margin-bottom:50px;">
             <div style="text-align:center; margin-bottom:45px;">
                 <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:11px; font-weight:bold;">Naša Filozofija Rada</span>
@@ -515,7 +491,7 @@
             </div>
         </section>
 
-        <!-- Istorijat (originalni tekst) -->
+        <!-- Istorijat (ORIGINALNI DUGAČKI TEKST) -->
         <section style="margin-bottom:50px;">
             <div style="background:linear-gradient(135deg, rgba(13,19,31,0.5), rgba(6,9,14,0.5)); backdrop-filter:blur(10px); border-radius:20px; padding:45px 40px;">
                 <div style="display:flex; flex-wrap:wrap; gap:40px; align-items:center;">
@@ -532,14 +508,16 @@
             </div>
         </section>
 
-        <!-- Folderi (Windows 11 CSS folderi) -->
+        <!-- ========== FOLDERI SA WINDOWS 11 IKONAMA (ISTI RADI SAVRŠENO) ========== -->
         <section style="margin-bottom:50px;">
             <div style="text-align:center; margin-bottom:45px;">
                 <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px;">Reference</span>
                 <h2 style="font-size:28px; color:#fff; margin-top:12px;">Pregled projekata po folderima</h2>
-                <p style="color:#9ca3af;">Klikni na folder – otvara se sadržaj, a ikona postaje otvorena.</p>
+                <p style="color:#9ca3af;">Klikni na folder – otvara se sadržaj, a ikona foldera postaje otvorena.</p>
             </div>
-            <div id="folders-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;"></div>
+            <div id="folders-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
+                <!-- Folderi će biti generisani putem JS-a -->
+            </div>
             <!-- Automatizacija folder -->
             <div id="auto-folder" style="background:linear-gradient(135deg, rgba(16,24,39,0.6), rgba(10,26,15,0.4)); border:1px solid rgba(76,175,80,0.35); border-radius:20px; padding:40px; text-align:center; margin-top:40px; backdrop-filter:blur(12px);">
                 <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:5px 14px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
@@ -548,7 +526,7 @@
                 <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.6); max-width:500px; margin:0 auto; text-align:left;">
                     <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
                         <div style="display:flex; align-items:center; gap:15px;">
-                            <div class="win11-folder" id="autoFolderIcon"></div>
+                            <img class="folder-img" data-closed="closedAuto" data-open="openAuto" src="" alt="folder">
                             <div><h3 style="color:#fff; font-size:17px;">07 Automatizacija i robotika</h3><p style="font-size:12px; color:#3a86ff;">Industrija 4.0 i pametni sistemi</p></div>
                         </div>
                         <span class="folder-arrow">▶</span>
@@ -565,7 +543,7 @@
             </div>
         </section>
 
-        <!-- Kontakt (sa placeholderima) -->
+        <!-- Kontakt (SA PLACEHOLDERIMA) -->
         <section id="kontakt" style="padding:60px 0; max-width:750px; margin:0 auto; text-align:center;">
             <h2 style="font-size:26px; color:#fff; margin-bottom:25px;">Kontakt</h2>
             <div style="background:linear-gradient(135deg, rgba(14,20,32,0.6), rgba(5,8,12,0.6)); border:1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; backdrop-filter:blur(10px);">
@@ -615,7 +593,10 @@
     </div>
 
     <script>
-        // Podaci za foldere
+        // SVG ZATVORENOG I OTVORENOG FOLDERA (WINDOWS 11 STIL)
+        const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFDD66'/%3E%3Cstop offset='100%25' stop-color='%23FFB300'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' filter='url(%23shadow)' stroke='%23E5A000' stroke-width='0.5'/%3E%3C/svg%3E`;
+        const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE68F'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3Cfilter id='shadowOpen' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' filter='url(%23shadowOpen)' stroke='%23E5A000' stroke-width='0.5'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23FFC107' stroke-width='2' /%3E%3C/svg%3E`;
+
         const foldersData = [
             { name: "01 Kućne instalacije", desc: "Privatne kuće i porodični objekti", path: "01_Kucne_instalacije" },
             { name: "01b Vikendice i apartmani", desc: "Odmarališta i vikend objekti", path: "01b_Vikendice" },
@@ -632,7 +613,6 @@
             const folderBox = document.createElement('div');
             folderBox.className = 'folder-box';
             folderBox.setAttribute('data-folder-id', folder.path);
-            
             const headerDiv = document.createElement('div');
             headerDiv.style.display = 'flex';
             headerDiv.style.alignItems = 'center';
@@ -644,13 +624,17 @@
             leftDiv.style.alignItems = 'center';
             leftDiv.style.gap = '15px';
             
-            const folderIcon = document.createElement('div');
-            folderIcon.className = 'win11-folder';
+            const img = document.createElement('img');
+            img.className = 'folder-img';
+            img.src = closedFolderSVG;
+            img.setAttribute('data-closed', closedFolderSVG);
+            img.setAttribute('data-open', openFolderSVG);
+            img.alt = 'folder';
             
             const textDiv = document.createElement('div');
             textDiv.innerHTML = `<h3 style="color:#fff; font-size:17px; margin:0;">${folder.name}</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">${folder.desc}</p>`;
             
-            leftDiv.appendChild(folderIcon);
+            leftDiv.appendChild(img);
             leftDiv.appendChild(textDiv);
             
             const arrowSpan = document.createElement('span');
@@ -678,38 +662,47 @@
             container.appendChild(folderBox);
         });
 
-        // Funkcija za togglovanje foldera i ikone
         function toggleFolderWithIcon(folderElement) {
             const isOpen = folderElement.classList.contains('open');
-            const folderIcon = folderElement.querySelector('.win11-folder');
-            if (!isOpen) {
-                folderElement.classList.add('open');
-                if (folderIcon) folderIcon.classList.add('open-folder');
-                // Zatvori ostale
+            const folderImg = folderElement.querySelector('.folder-img');
+            if (folderImg) {
+                if (!isOpen) {
+                    folderImg.src = folderImg.getAttribute('data-open');
+                } else {
+                    folderImg.src = folderImg.getAttribute('data-closed');
+                }
+            }
+            if (isOpen) {
+                folderElement.classList.remove('open');
+            } else {
                 document.querySelectorAll('.folder-box').forEach(box => {
                     if (box !== folderElement && box.classList.contains('open')) {
                         box.classList.remove('open');
-                        const otherIcon = box.querySelector('.win11-folder');
-                        if (otherIcon) otherIcon.classList.remove('open-folder');
+                        const otherImg = box.querySelector('.folder-img');
+                        if (otherImg) otherImg.src = otherImg.getAttribute('data-closed');
                     }
                 });
-            } else {
-                folderElement.classList.remove('open');
-                if (folderIcon) folderIcon.classList.remove('open-folder');
+                folderElement.classList.add('open');
             }
         }
 
-        // Automatizacija folder
-        const autoBox = document.querySelector('#auto-folder .folder-box');
-        const autoIcon = document.getElementById('autoFolderIcon');
-        if (autoBox && autoIcon) {
-            const originalToggle = autoBox.querySelector('div[onclick]');
-            if (originalToggle) {
-                originalToggle.onclick = function(e) { toggleFolderWithIcon(autoBox); };
+        const autoFolderBox = document.querySelector('#auto-folder .folder-box');
+        if (autoFolderBox) {
+            const autoImg = autoFolderBox.querySelector('.folder-img');
+            if (autoImg) {
+                autoImg.setAttribute('data-closed', closedFolderSVG);
+                autoImg.setAttribute('data-open', openFolderSVG);
+                autoImg.src = closedFolderSVG;
+            }
+            const autoHeader = autoFolderBox.querySelector('div[onclick]');
+            if (autoHeader) {
+                autoHeader.removeAttribute('onclick');
+                autoHeader.style.cursor = 'pointer';
+                autoHeader.onclick = function(e) { toggleFolderWithIcon(autoFolderBox); };
             }
         }
 
-        // Muzika i ostalo
+        // MUZIKA I OSTALE FUNKCIJE (ISTE KAO RANIJE, RAde)
         const music = document.getElementById('bg-music');
         const toggle1 = document.getElementById('music-toggle');
         const toggle2 = document.getElementById('side-music-toggle');
