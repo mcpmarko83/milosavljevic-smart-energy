@@ -356,6 +356,69 @@
             z-index: 1000000;
         }
 
+        /* ==========================================================================
+           6. NOVA FIKSNA BOČNA DUGMAD (MUZIKA + POVRATAK NA VRH)
+           ========================================================================== */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 99999;
+        }
+        .float-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(20, 30, 45, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: white;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: floatIn 0.5s ease-out;
+        }
+        .float-btn:hover {
+            transform: scale(1.1);
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+        }
+        .float-btn:active {
+            transform: scale(0.95);
+        }
+        @keyframes floatIn {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
+                gap: 12px;
+            }
+            .float-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+            }
+        }
+
         @media (max-width: 900px) {
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
@@ -375,6 +438,16 @@
     <div id="lightbox" class="lightbox-overlay">
         <span class="lightbox-close" id="close-btn">&times;</span>
         <img id="lightbox-img" class="lightbox-img" src="" alt="Uvećan prikaz">
+    </div>
+
+    <!-- FIKSNE BOČNE KONTROLE -->
+    <div class="floating-buttons">
+        <div id="side-music-toggle" class="float-btn" title="Uključi/isključi muziku">
+            <span id="side-music-icon">🔊</span>
+        </div>
+        <div id="back-to-top" class="float-btn" title="Povratak na vrh">
+            ↑
+        </div>
     </div>
 
     <header style="background-color: rgba(10, 15, 24, 0.6); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 14px 24px; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(0,0,0,0.4);">
@@ -774,29 +847,58 @@
             }
         }
 
-        // 2. AUDIO LOGIKA
+        // 2. AUDIO LOGIKA (HEADER + BOČNO DUGME SINHRONIZOVANO)
         const music = document.getElementById('bg-music');
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
         const musicText = document.getElementById('music-text');
         
+        // Bočna dugmad
+        const sideMusicToggle = document.getElementById('side-music-toggle');
+        const sideMusicIcon = document.getElementById('side-music-icon');
+        const backToTopBtn = document.getElementById('back-to-top');
+        
         music.volume = 0.25; 
         let musicStarted = false;
 
+        function updateMusicUI(isPlaying) {
+            // Ažuriraj header
+            if (isPlaying) {
+                musicIcon.textContent = "🔊";
+                musicText.textContent = "Muzika: Aktivna";
+                sideMusicIcon.textContent = "🔊";
+            } else {
+                musicIcon.textContent = "🔇";
+                musicText.textContent = "Muzika: Isključena";
+                sideMusicIcon.textContent = "🔇";
+            }
+        }
+
+        function startMusic() {
+            music.play().then(() => {
+                musicStarted = true;
+                updateMusicUI(true);
+            }).catch(e => console.log("Autoplay blocked, user must interact"));
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                updateMusicUI(true);
+            } else {
+                music.pause();
+                updateMusicUI(false);
+            }
+            musicStarted = true;
+        }
+
+        // Pokušaj pokretanja muzike nakon prvog korisničkog klika/tap
         function instantAudioStart() {
             if (!musicStarted) {
-                if (window.AudioContext || window.webkitAudioContext) {
-                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    if (audioCtx.state === 'suspended') { audioCtx.resume(); }
-                }
-                music.play().then(() => {
-                    musicStarted = true;
-                    musicIcon.textContent = "🔊";
-                    musicText.textContent = "Muzika: Aktivna";
-                    document.removeEventListener('click', instantAudioStart);
-                    document.removeEventListener('touchstart', instantAudioStart);
-                    document.removeEventListener('scroll', instantAudioStart);
-                }).catch(error => { console.log("Sistem spreman."); });
+                startMusic();
+                document.removeEventListener('click', instantAudioStart);
+                document.removeEventListener('touchstart', instantAudioStart);
+                document.removeEventListener('scroll', instantAudioStart);
             }
         }
 
@@ -804,21 +906,25 @@
         document.addEventListener('touchstart', instantAudioStart, { passive: true });
         document.addEventListener('scroll', instantAudioStart, { passive: true });
 
+        // Događaji za header dugme
         musicToggle.addEventListener('click', function(e) {
             e.stopPropagation();
-            if (music.paused) {
-                music.play();
-                musicStarted = true;
-                musicIcon.textContent = "🔊";
-                musicText.textContent = "Muzika: Aktivna";
-            } else {
-                music.pause();
-                musicIcon.textContent = "🔇";
-                musicText.textContent = "Muzika: Isključena";
-            }
+            toggleMusic();
+        });
+        
+        // Događaj za bočno dugme
+        sideMusicToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleMusic();
         });
 
-        // 3. LIGHTBOX LOGIKA (Popravljeno za mobitel)
+        // 3. POVRATAK NA VRH (glatko skrolanje)
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 4. LIGHTBOX LOGIKA
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.getElementById('close-btn');
@@ -845,7 +951,7 @@
         lightbox.addEventListener('click', closeLightbox);
         closeBtn.addEventListener('click', closeLightbox);
 
-        // 4. KONTAKT FORMA (AJAX)
+        // 5. KONTAKT FORMA (AJAX)
         document.getElementById('clean-contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
