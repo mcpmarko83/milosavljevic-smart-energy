@@ -18,14 +18,14 @@
             scroll-behavior: smooth;
         }
         body {
-            background-color: transparent; /* Zbog apstraktne pozadine ispod */
+            background-color: transparent;
             color: #f3f4f6;
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* MODERNA APSTRAKTNA POZADINA (CSS Animacija umjesto slike) */
+        /* MODERNA APSTRAKTNA POZADINA */
         .abstract-bg {
             position: fixed;
             top: 0;
@@ -54,7 +54,6 @@
             100% { transform: translate(-50px, -50px) scale(0.9); }
         }
 
-        /* Tipografski neonski akcenti */
         .neon-text {
             color: #ffffff;
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.5), 0 0 30px rgba(76, 175, 80, 0.2);
@@ -64,47 +63,56 @@
         }
 
         /* ==========================================================================
-           2. POPRAVLJENE SLIKE (Logo i Moto više ne gube boju)
+           2. SLIKE (Logo, Moto, Omov zakon) - UKLONJENA BIJELA POZADINA + OKRUGLI FORMAT
            ========================================================================== */
         .blended-logo {
             max-width: 280px;
             width: 100%;
             height: auto;
-            /* Umjesto mix-blend-mode koristimo drop-shadow za bolju vidljivost */
             filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .blended-logo:hover {
             transform: scale(1.04);
         }
+
+        /* MOTO slika - uklanjanje bijele pozadine pomoću blend mode */
         .blended-moto {
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 0 15px rgba(58, 134, 255, 0.25));
+            mix-blend-mode: screen;
+            filter: drop-shadow(0 0 15px rgba(58, 134, 255, 0.3));
         }
+
+        /* OKRUGLI OMOV ZAKON sa neonskim okvirom */
         .om-image-container {
             position: relative;
             display: inline-block;
             max-width: 280px;
             width: 100%;
-            border-radius: 14px;
+            border-radius: 50%;
             overflow: hidden;
-            background: rgba(17, 25, 40, 0.4);
-            padding: 12px;
-            border: 1px solid rgba(76, 175, 80, 0.15);
-            box-shadow: 0 0 40px rgba(76, 175, 80, 0.05); 
+            background: radial-gradient(circle at 30% 20%, rgba(76,175,80,0.2), rgba(0,0,0,0.6));
+            padding: 6px;
+            border: 2px solid rgba(76, 175, 80, 0.6);
+            box-shadow: 0 0 35px rgba(76, 175, 80, 0.3);
+            transition: all 0.3s ease;
+        }
+        .om-image-container:hover {
+            transform: scale(1.02);
+            border-color: #4caf50;
+            box-shadow: 0 0 45px rgba(76, 175, 80, 0.5);
         }
         .blended-om {
             width: 100%;
             height: auto;
             display: block;
-            filter: contrast(1.1) brightness(1.05);
-            border-radius: 6px;
+            border-radius: 50%;
         }
 
         /* ==========================================================================
-           3. INTERAKTIVNE KARTICE (Asimetrična arhitektura i 3D efekat)
+           3. INTERAKTIVNE KARTICE
            ========================================================================== */
         .grid-philosophie {
             display: grid;
@@ -141,10 +149,8 @@
         }
         .abstract-card.card-zelena:hover { border-color: rgba(76, 175, 80, 0.3); }
         .abstract-card.card-zelena:hover::before { background: #4caf50; }
-        
         .abstract-card.card-plava:hover { border-color: rgba(58, 134, 255, 0.35); }
         .abstract-card.card-plava:hover::before { background: #3a86ff; }
-        
         .abstract-card.card-crvena:hover { border-color: rgba(230, 57, 70, 0.35); }
         .abstract-card.card-crvena:hover::before { background: #e63946; }
 
@@ -172,7 +178,7 @@
         }
 
         /* ==========================================================================
-           4. PRO-UI DJELIĆI (iPhone Stakleni Folderi)
+           4. FOLDERI I PROJEKTI
            ========================================================================== */
         .folder-box {
             background: rgba(255, 255, 255, 0.03);
@@ -186,7 +192,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .folder-box.open {
-            background: rgba(76, 175, 80, 0.08); 
+            background: rgba(76, 175, 80, 0.08);
             border-color: rgba(76, 175, 80, 0.3);
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
@@ -222,14 +228,14 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.3s ease;
             cursor: pointer;
-            touch-action: manipulation; 
+            touch-action: manipulation;
         }
         .project-img:active, .project-img:hover {
             border-color: #4caf50;
             transform: scale(1.02);
         }
 
-        /* UI dugme za kontrolu zvuka u navigaciji */
+        /* Dugmad u headeru */
         .music-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -242,7 +248,6 @@
             align-items: center;
             gap: 8px;
             backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
         .music-btn:hover {
@@ -251,7 +256,7 @@
             box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
         }
 
-        /* Stilovi za kontakt formu */
+        /* Kontakt forma */
         .form-group {
             margin-bottom: 20px;
             text-align: left;
@@ -296,8 +301,6 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76,175,80,0.4);
         }
-
-        /* Neonski statusni boks za potvrdu na ekranu */
         .status-box {
             display: none;
             background: rgba(76, 175, 80, 0.15);
@@ -312,9 +315,7 @@
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.1);
         }
 
-        /* ==========================================================================
-           5. LIGHTBOX OVERLAY (Popravljeno za Android/iOS)
-           ========================================================================== */
+        /* Lightbox */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -357,7 +358,7 @@
         }
 
         /* ==========================================================================
-           6. NOVA FIKSNA BOČNA DUGMAD (MUZIKA + POVRATAK NA VRH)
+           5. FIKSNA BOČNA DUGMAD (MUZIKA + POVRATAK NA VRH)
            ========================================================================== */
         .floating-buttons {
             position: fixed;
@@ -440,7 +441,7 @@
         <img id="lightbox-img" class="lightbox-img" src="" alt="Uvećan prikaz">
     </div>
 
-    <!-- FIKSNE BOČNE KONTROLE -->
+    <!-- FIKSNA BOČNA DUGMAD -->
     <div class="floating-buttons">
         <div id="side-music-toggle" class="float-btn" title="Uključi/isključi muziku">
             <span id="side-music-icon">🔊</span>
@@ -452,18 +453,15 @@
 
     <header style="background-color: rgba(10, 15, 24, 0.6); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 14px 24px; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(0,0,0,0.4);">
         <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns: 1fr auto 1fr; align-items:center;">
-            
             <div style="justify-self: start;">
                 <p style="margin:0; font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:2px; font-weight:600;" class="hide-mobile">Tradicija od 1998.</p>
             </div>
-            
             <div style="display:flex; align-items:center; gap:14px; justify-self: center;">
                 <img src="logo.jpg" alt="Milosavljević Logo" style="height:38px; width:auto; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));">
                 <h2 style="margin:0; font-size:16px; color:#ffffff; letter-spacing:1.5px; font-weight: 700; text-transform: uppercase;">
                     MILOSAVLJEVIĆ <span style="color:#4caf50;">SMART ENERGY</span>
                 </h2>
             </div>
-            
             <div style="justify-self: end;">
                 <button id="music-toggle" class="music-btn">
                     <span id="music-icon">🔊</span> <span id="music-text" class="hide-mobile">Muzika: Isključena</span>
@@ -474,6 +472,7 @@
 
     <div style="max-width:1200px; margin:0 auto; padding:0 20px;">
 
+        <!-- Hero sekcija -->
         <section style="padding:90px 0 70px 0; text-align:center;">
             <div style="margin-bottom:30px; display: inline-block;">
                 <img src="logo.jpg" alt="Milosavljević Smart Energy" class="blended-logo">
@@ -489,14 +488,13 @@
             </a>
         </section>
 
+        <!-- Filozofija -->
         <section style="padding:40px 0; margin-bottom:50px;">
             <div style="text-align:center; margin-bottom:45px;">
                 <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing: 2px;">Naša Filozofija Rada</span>
                 <h2 style="font-size:28px; color:#ffffff; margin-top:12px; letter-spacing: -0.5px;">Principi inženjerske izvrsnosti</h2>
             </div>
-            
             <div class="grid-philosophie">
-                
                 <div class="abstract-card card-zelena full-width">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
                         <span style="font-size: 28px; filter: drop-shadow(0 0 10px #4caf50);">👁️‍🗨️</span>
@@ -507,7 +505,6 @@
                         Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.
                     </p>
                 </div>
-                
                 <div class="abstract-card card-plava">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
                         <span style="font-size: 28px; filter: drop-shadow(0 0 10px #3a86ff);">🎛️</span>
@@ -515,10 +512,9 @@
                     </div>
                     <h4 style="font-size: 19px; color: #ffffff; margin-bottom: 14px; font-weight: 600;">2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
                     <p style="color: #9ca3af; font-size: 14.5px; font-weight: 300; line-height: 1.7;">
-                        Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu. Takav pristup omogućava da sistem radi stabilno decenijama.
+                        Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu.
                     </p>
                 </div>
-                
                 <div class="abstract-card card-crvena">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
                         <span style="font-size: 28px; filter: drop-shadow(0 0 10px #e63946);">🛡️</span>
@@ -526,12 +522,13 @@
                     </div>
                     <h4 style="font-size: 19px; color: #ffffff; margin-bottom: 14px; font-weight: 600;">3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
                     <p style="color: #9ca3af; font-size: 14.5px; font-weight: 300; line-height: 1.7;">
-                        Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote. Kvalitet se prepoznaje po stabilnosti.
+                        Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote.
                     </p>
                 </div>
             </div>
         </section>
 
+        <!-- Moto sekcija (slika sa uklonjenom bijelom) -->
         <section style="padding:10px 0; margin-bottom:50px;">
             <div style="background: rgba(13, 20, 30, 0.3); border-radius: 20px; padding: 35px; text-align: center; border: 1px solid rgba(255,255,255,0.015);">
                 <p style="margin:0 0 20px 0; font-size:11px; color:#3a86ff; font-weight:bold; text-transform:uppercase; letter-spacing:2px;">Naš Moto i Vodilja</p>
@@ -541,6 +538,7 @@
             </div>
         </section>
 
+        <!-- Istorijat + Omov zakon (okrugli format) -->
         <section style="padding:10px 0; margin-bottom:50px;">
             <div style="background: linear-gradient(135deg, rgba(13,19,31,0.5) 0%, rgba(6,9,14,0.5) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.04); border-radius:20px; padding:45px 40px;">
                 <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
@@ -561,267 +559,127 @@
             </div>
         </section>
 
+        <!-- Folderi sa projektima (ostaje nepromijenjeno) -->
         <section style="padding:10px 0; margin-bottom:50px;">
             <div style="text-align:center; margin-bottom:45px;">
                 <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">Reference</span>
                 <h2 style="font-size:28px; color:#ffffff; margin-top:12px; letter-spacing: -0.5px;">Pregled projekata po folderima</h2>
                 <p style="color:#9ca3af; font-size:15px; font-weight: 300;">Klikni na folder, pa dodirni sliku za prikaz preko celog ekrana.</p>
             </div>
-
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-                
+                <!-- Kućne instalacije -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">01 Kućne instalacije</h3>
-                                <p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Privatne kuće i porodični objekti</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">01 Kućne instalacije</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Privatne kuće i porodični objekti</p></div></div>
                         <span class="folder-arrow" style="font-size:20px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid">
-                            <img src="Nasi projekti/01_Kucne_instalacije/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/01_Kucne_instalacije/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/01_Kucne_instalacije/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/01_Kucne_instalacije/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid"><img src="Nasi projekti/01_Kucne_instalacije/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/01_Kucne_instalacije/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/01_Kucne_instalacije/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/01_Kucne_instalacije/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
-
+                <!-- Vikendice -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">01b Vikendice i apartmani</h3>
-                                <p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Odmarališta i vikend objekti</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">01b Vikendice i apartmani</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Odmarališta i vikend objekti</p></div></div>
                         <span class="folder-arrow" style="font-size:20px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid">
-                            <img src="Nasi projekti/01b_Vikendice/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/01b_Vikendice/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/01b_Vikendice/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/01b_Vikendice/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid"><img src="Nasi projekti/01b_Vikendice/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/01b_Vikendice/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/01b_Vikendice/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/01b_Vikendice/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
-
+                <!-- Stambene zgrade -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">02 Stambene zgrade</h3>
-                                <p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Kompletan inženjering i elektro-montaža</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">02 Stambene zgrade</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Kompletan inženjering i elektro-montaža</p></div></div>
                         <span class="folder-arrow" style="font-size:20px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid">
-                            <img src="Nasi projekti/02_Stambene_zgrade/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/02_Stambene_zgrade/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/02_Stambene_zgrade/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/02_Stambene_zgrade/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid"><img src="Nasi projekti/02_Stambene_zgrade/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/02_Stambene_zgrade/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/02_Stambene_zgrade/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/02_Stambene_zgrade/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
-
+                <!-- Komercijalni -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">03 Komercijalni objekti</h3>
-                                <p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Industrijski pogoni, hale i kancelarije</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">03 Komercijalni objekti</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Industrijski pogoni, hale i kancelarije</p></div></div>
                         <span class="folder-arrow" style="font-size:20px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid">
-                            <img src="Nasi projekti/03_Komercijalni_objekti/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/03_Komercijalni_objekti/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/03_Komercijalni_objekti/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/03_Komercijalni_objekti/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid"><img src="Nasi projekti/03_Komercijalni_objekti/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/03_Komercijalni_objekti/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/03_Komercijalni_objekti/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/03_Komercijalni_objekti/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
-
+                <!-- Vjerski -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">04 Vjerski objekti</h3>
-                                <p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Instalacije projektovane za dugo trajanje</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">04 Vjerski objekti</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Instalacije projektovane za dugo trajanje</p></div></div>
                         <span class="folder-arrow" style="font-size:20px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid">
-                            <img src="Nasi projekti/04_Vjerski_objekti/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/04_Vjerski_objekti/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/04_Vjerski_objekti/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/04_Vjerski_objekti/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid"><img src="Nasi projekti/04_Vjerski_objekti/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/04_Vjerski_objekti/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/04_Vjerski_objekti/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/04_Vjerski_objekti/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
-
+                <!-- Ulična rasvjeta -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">05 Ulična rasvjeta</h3>
-                                <p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">LED rasvjeta i javna infrastruktura</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">05 Ulična rasvjeta</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">LED rasvjeta i javna infrastruktura</p></div></div>
                         <span class="folder-arrow" style="font-size:20px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid">
-                            <img src="Nasi projekti/05_Ulicna_rasvjeta/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/05_Ulicna_rasvjeta/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/05_Ulicna_rasvjeta/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/05_Ulicna_rasvjeta/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid"><img src="Nasi projekti/05_Ulicna_rasvjeta/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/05_Ulicna_rasvjeta/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/05_Ulicna_rasvjeta/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/05_Ulicna_rasvjeta/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
-
+                <!-- Distributivne mreže -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">06 Distributivne mreže</h3>
-                                <p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Niskonaponske mreže i trafostanice</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">06 Distributivne mreže</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">Niskonaponske mreže i trafostanice</p></div></div>
                         <span class="folder-arrow" style="font-size:20px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid">
-                            <img src="Nasi projekti/06_Elektrodistributivne_mreze/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/06_Elektrodistributivne_mreze/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/06_Elektrodistributivne_mreze/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/06_Elektrodistributivne_mreze/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid"><img src="Nasi projekti/06_Elektrodistributivne_mreze/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/06_Elektrodistributivne_mreze/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/06_Elektrodistributivne_mreze/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/06_Elektrodistributivne_mreze/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
-
             </div>
 
-            <div style="background: linear-gradient(135deg, rgba(16, 24, 39, 0.6) 0%, rgba(10, 26, 15, 0.4) 100%); border: 1px solid rgba(76, 175, 80, 0.35); border-radius:20px; padding:40px; text-align:center; margin-top:40px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+            <!-- Automatizacija i robotika (poseban folder) -->
+            <div style="background: linear-gradient(135deg, rgba(16, 24, 39, 0.6) 0%, rgba(10, 26, 15, 0.4) 100%); border: 1px solid rgba(76, 175, 80, 0.35); border-radius:20px; padding:40px; text-align:center; margin-top:40px; backdrop-filter: blur(12px);">
                 <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:5px 14px; border-radius:50px; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">Glavna Orijentacija</span>
-                <h3 style="font-size:23px; color:#4caf50; margin:15px 0 10px 0; letter-spacing: -0.3px;">Fokus na polju: Automatizacija i Robotika</h3>
+                <h3 style="font-size:23px; color:#4caf50; margin:15px 0 10px 0;">Fokus na polju: Automatizacija i Robotika</h3>
                 <p style="color:#9ca3af; font-size:16px; max-width:750px; margin:0 auto 25px auto; font-weight: 300;">
-                    Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema. Klikni na folder ispod za slike automatizacije.
+                    Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.
                 </p>
-                
                 <div class="folder-box" style="background: rgba(4, 7, 11, 0.6); max-width:500px; margin:0 auto; text-align:left;">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                        <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
-                            <span style="font-size:42px;">📁</span>
-                            <div>
-                                <h3 style="color:#ffffff; font-size:17px; margin:0;">07 Automatizacija i robotika</h3>
-                                <p style="margin:2px 0 0 0; font-size:12px; color:#3a86ff;">Industrija 4.0 i pametni sistemi</p>
-                            </div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:15px;"><span style="font-size:42px;">📁</span><div><h3 style="color:#ffffff; font-size:17px; margin:0;">07 Automatizacija i robotika</h3><p style="margin:2px 0 0 0; font-size:12px; color:#3a86ff;">Industrija 4.0 i pametni sistemi</p></div></div>
                         <span class="folder-arrow" style="font-size:18px; font-weight:bold;">▶</span>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid" style="grid-template-columns: repeat(4, 1fr);">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
-                    </div>
+                    <div class="folder-content"><div class="inner-grid" style="grid-template-columns: repeat(4, 1fr);"><img src="Nasi projekti/07_Automatizacija_i_robotika/1.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/07_Automatizacija_i_robotika/2.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/07_Automatizacija_i_robotika/3.jpg" class="project-img" onerror="this.style.display='none';"><img src="Nasi projekti/07_Automatizacija_i_robotika/4.jpg" class="project-img" onerror="this.style.display='none';"></div></div>
                 </div>
             </div>
         </section>
 
+        <!-- Kontakt sekcija -->
         <section id="kontakt" style="padding:60px 0; max-width:750px; margin:0 auto; text-align:center;">
-            <h2 style="font-size:26px; color:#ffffff; margin-bottom:25px; letter-spacing: -0.5px;">Kontakt</h2>
-            <div style="background: linear-gradient(135deg, rgba(14,20,32,0.6) 0%, rgba(5,8,12,0.6) 100%); border: 1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; box-shadow: 0 4px 25px rgba(0,0,0,0.55); backdrop-filter: blur(10px);">
-                <p style="margin:0 0 30px 0; font-weight:600; color:#4caf50; font-size:24px; letter-spacing: 0.5px;">Milosavljević Smart Energy</p>
-                
+            <h2 style="font-size:26px; color:#ffffff; margin-bottom:25px;">Kontakt</h2>
+            <div style="background: linear-gradient(135deg, rgba(14,20,32,0.6) 0%, rgba(5,8,12,0.6) 100%); border: 1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; backdrop-filter: blur(10px);">
+                <p style="margin:0 0 30px 0; font-weight:600; color:#4caf50; font-size:24px;">Milosavljević Smart Energy</p>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 35px;">
-                    
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px 15px; border-radius: 12px; text-align: center;">
-                        <h4 style="color: #ffffff; font-size: 18px; margin-bottom: 15px; font-weight: 600;">Rajko Milosavljević</h4>
+                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px 15px; border-radius: 12px;">
+                        <h4 style="color: #ffffff; font-size: 18px; margin-bottom: 15px;">Rajko Milosavljević</h4>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <a href="tel:+38765728595" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #2e7d32, #4caf50); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 13.5px;">
-                                📞 Pozovi telefonom
-                            </a>
-                            <a href="viber://chat?number=%2B38765728595" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #59267c, #7360f2); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 13.5px;">
-                                💜 Piši na Viber
-                            </a>
-                            <a href="https://wa.me/38765728595" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #128c7e, #25d366); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 13.5px;">
-                                💚 Piši na WhatsApp
-                            </a>
+                            <a href="tel:+38765728595" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #2e7d32, #4caf50); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600;">📞 Pozovi telefonom</a>
+                            <a href="viber://chat?number=%2B38765728595" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #59267c, #7360f2); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600;">💜 Piši na Viber</a>
+                            <a href="https://wa.me/38765728595" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #128c7e, #25d366); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600;">💚 Piši na WhatsApp</a>
                         </div>
                     </div>
-
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px 15px; border-radius: 12px; text-align: center;">
-                        <h4 style="color: #ffffff; font-size: 18px; margin-bottom: 15px; font-weight: 600;">Marko Milosavljević</h4>
+                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px 15px; border-radius: 12px;">
+                        <h4 style="color: #ffffff; font-size: 18px; margin-bottom: 15px;">Marko Milosavljević</h4>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <a href="tel:+38766921100" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #1976d2, #2196f3); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 13.5px;">
-                                📞 Pozovi telefonom
-                            </a>
-                            <a href="viber://chat?number=%2B38766921100" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #59267c, #7360f2); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 13.5px;">
-                                💜 Piši na Viber
-                            </a>
-                            <a href="https://wa.me/38766921100" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #128c7e, #25d366); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 13.5px;">
-                                💚 Piši na WhatsApp
-                            </a>
+                            <a href="tel:+38766921100" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #1976d2, #2196f3); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600;">📞 Pozovi telefonom</a>
+                            <a href="viber://chat?number=%2B38766921100" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #59267c, #7360f2); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600;">💜 Piši na Viber</a>
+                            <a href="https://wa.me/38766921100" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #128c7e, #25d366); color: white; padding: 11px; border-radius: 30px; text-decoration: none; font-weight: 600;">💚 Piši na WhatsApp</a>
                         </div>
                     </div>
                 </div>
-
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 25px; margin-bottom: 35px;">
-                    <p style="color: #9ca3af; font-size: 14px; margin-bottom: 8px;">Zvanična e-mail adresa:</p>
-                    <a href="mailto:milosavljevic@outlook.com" style="color: #4caf50; font-size: 18px; font-weight: 600; text-decoration: none; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 8px;">
-                        ✉️ milosavljevic@outlook.com
-                    </a>
+                    <p style="color: #9ca3af; font-size: 14px;">Zvanična e-mail adresa:</p>
+                    <a href="mailto:milosavljevic@outlook.com" style="color: #4caf50; font-size: 18px; font-weight: 600; text-decoration: none;">✉️ milosavljevic@outlook.com</a>
                 </div>
-
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
-                    <h3 id="form-title" style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
-                    
+                    <h3 id="form-title" style="color: #ffffff; font-size: 19px; margin-bottom: 20px; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     <form id="clean-contact-form">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                            <div class="form-group">
-                                <label>Ime i prezime</label>
-                                <input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Vaš broj telefona</label>
-                                <input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required>
-                            </div>
+                            <div class="form-group"><label>Ime i prezime</label><input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required></div>
+                            <div class="form-group"><label>Vaš broj telefona</label><input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required></div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label>Vaša E-mail adresa</label>
-                            <input type="email" id="ins_email" class="form-control" placeholder="ime@primer.com" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Poruka / Opis radova</label>
-                            <textarea id="ins_message" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea>
-                        </div>
-                        
+                        <div class="form-group"><label>Vaša E-mail adresa</label><input type="email" id="ins_email" class="form-control" placeholder="ime@primer.com" required></div>
+                        <div class="form-group"><label>Poruka / Opis radova</label><textarea id="ins_message" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea></div>
                         <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji poruku</button>
                     </form>
-
                     <div id="status-box" class="status-box">
                         ✅ <strong>Uspješno poslato!</strong><br><br>
                         Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge.<br>
@@ -829,7 +687,6 @@
                         <em>Srdačan pozdrav, Milosavljević Smart Energy</em>
                     </div>
                 </div>
-
             </div>
         </section>
     </div>
@@ -847,22 +704,19 @@
             }
         }
 
-        // 2. AUDIO LOGIKA (HEADER + BOČNO DUGME SINHRONIZOVANO)
+        // 2. AUDIO LOGIKA (HEADER + BOČNO DUGME)
         const music = document.getElementById('bg-music');
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
         const musicText = document.getElementById('music-text');
-        
-        // Bočna dugmad
         const sideMusicToggle = document.getElementById('side-music-toggle');
         const sideMusicIcon = document.getElementById('side-music-icon');
         const backToTopBtn = document.getElementById('back-to-top');
-        
-        music.volume = 0.25; 
+
+        music.volume = 0.25;
         let musicStarted = false;
 
         function updateMusicUI(isPlaying) {
-            // Ažuriraj header
             if (isPlaying) {
                 musicIcon.textContent = "🔊";
                 musicText.textContent = "Muzika: Aktivna";
@@ -878,7 +732,7 @@
             music.play().then(() => {
                 musicStarted = true;
                 updateMusicUI(true);
-            }).catch(e => console.log("Autoplay blocked, user must interact"));
+            }).catch(e => console.log("Autoplay blocked"));
         }
 
         function toggleMusic() {
@@ -892,7 +746,6 @@
             musicStarted = true;
         }
 
-        // Pokušaj pokretanja muzike nakon prvog korisničkog klika/tap
         function instantAudioStart() {
             if (!musicStarted) {
                 startMusic();
@@ -901,64 +754,49 @@
                 document.removeEventListener('scroll', instantAudioStart);
             }
         }
-
         document.addEventListener('click', instantAudioStart);
         document.addEventListener('touchstart', instantAudioStart, { passive: true });
         document.addEventListener('scroll', instantAudioStart, { passive: true });
 
-        // Događaji za header dugme
-        musicToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleMusic();
-        });
-        
-        // Događaj za bočno dugme
-        sideMusicToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleMusic();
-        });
+        musicToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleMusic(); });
+        sideMusicToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleMusic(); });
 
-        // 3. POVRATAK NA VRH (glatko skrolanje)
-        backToTopBtn.addEventListener('click', function(e) {
+        // 3. POVRATAK NA VRH
+        backToTopBtn.addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // 4. LIGHTBOX LOGIKA
+        // 4. LIGHTBOX
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.getElementById('close-btn');
 
         function initImages() {
-            const images = document.querySelectorAll('.project-img');
-            images.forEach(img => {
-                img.addEventListener('click', function(e) {
+            document.querySelectorAll('.project-img').forEach(img => {
+                img.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     lightboxImg.src = this.src;
                     lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden'; 
+                    document.body.style.overflow = 'hidden';
                 });
             });
         }
-
         function closeLightbox(e) {
             e.preventDefault();
             lightbox.classList.remove('active');
-            document.body.style.overflow = ''; 
+            document.body.style.overflow = '';
         }
-
         lightbox.addEventListener('click', closeLightbox);
         closeBtn.addEventListener('click', closeLightbox);
 
-        // 5. KONTAKT FORMA (AJAX)
+        // 5. FORMA
         document.getElementById('clean-contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const btn = document.getElementById('submit-btn');
             const box = document.getElementById('status-box');
             const formTitle = document.getElementById('form-title');
-            
             btn.innerText = "⏳ Slanje u toku...";
             btn.disabled = true;
 
@@ -973,12 +811,12 @@
                     "_subject": "Novi upit sa sajta Milosavljević Smart Energy!"
                 })
             })
-            .then(response => {
+            .then(() => {
                 document.getElementById('clean-contact-form').style.display = 'none';
                 formTitle.innerText = "Informacija pošiljaocu";
                 box.style.display = 'block';
             })
-            .catch(error => {
+            .catch(() => {
                 btn.innerText = "❌ Greška pri slanju";
                 btn.disabled = false;
             });
