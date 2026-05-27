@@ -6,7 +6,7 @@
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
         /* ==========================================================================
-           1. CORE SETTINGS & NEON MATRIX (Reset i Globalni Stilovi)
+           1. CORE SETTINGS, APSTRAKTNA POZADINA & GLOBALNI STILOVI
            ========================================================================== */
         * {
             box-sizing: border-box;
@@ -18,7 +18,14 @@
             scroll-behavior: smooth;
         }
         body {
+            /* Apstraktna pozadina */
             background-color: #04070b;
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(76, 175, 80, 0.06), transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(58, 134, 255, 0.05), transparent 40%),
+                radial-gradient(circle at 50% 10%, rgba(230, 57, 70, 0.03), transparent 30%);
+            background-attachment: fixed;
+            
             color: #f3f4f6;
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
             line-height: 1.6;
@@ -35,7 +42,7 @@
         }
 
         /* ==========================================================================
-           2. PREMIUM REZULTATI STAPANJA SLIKA (Estetika bez oštrih ivica)
+           2. PREMIUM REZULTATI STAPANJA SLIKA
            ========================================================================== */
         .blended-logo {
             max-width: 280px;
@@ -107,7 +114,6 @@
             border-radius: 16px 0 0 16px;
             transition: background 0.4s ease;
         }
-        /* Hover mikro-animacije poliranja */
         .abstract-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(76, 175, 80, 0.03);
@@ -121,7 +127,6 @@
         .abstract-card.card-crvena:hover { border-color: rgba(230, 57, 70, 0.35); }
         .abstract-card.card-crvena:hover::before { background: #e63946; }
 
-        /* Pulsirajući mrežni čvorovi */
         .pulse-node {
             width: 9px;
             height: 9px;
@@ -146,17 +151,28 @@
         }
 
         /* ==========================================================================
-           4. PRO-UI DJELIĆI (Uredne reference i harmonizovani folderi)
+           4. PRO-UI DJELIĆI (iPhone Stakleni Folderi)
            ========================================================================== */
         .folder-box {
-            background: rgba(13, 20, 30, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
+            /* Osnovni iPhone stakleni izgled */
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
             padding: 24px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
+        
+        /* Kad je folder otvoren dobija prelijepu prozirno-zelenu nijansu */
+        .folder-box.open {
+            background: rgba(76, 175, 80, 0.08); 
+            border-color: rgba(76, 175, 80, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
         .folder-arrow {
             transition: transform 0.3s ease;
             color: #4caf50;
@@ -185,16 +201,16 @@
             width: 100%;
             height: 95px;
             object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.3s ease;
             cursor: pointer;
-            touch-action: none; 
+            /* Optimizacija za Android touch */
+            touch-action: manipulation; 
         }
-        .project-img:hover {
+        .project-img:active, .project-img:hover {
             border-color: #4caf50;
-            transform: scale(1.04) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.25);
+            transform: scale(1.02);
         }
 
         /* UI dugme za kontrolu zvuka u navigaciji */
@@ -281,7 +297,7 @@
         }
 
         /* ==========================================================================
-           5. LIGHTBOX OVERLAY
+           5. LIGHTBOX OVERLAY (Popravljeno za Android/iOS)
            ========================================================================== */
         .lightbox-overlay {
             position: fixed;
@@ -294,13 +310,14 @@
             align-items: center;
             justify-content: center;
             z-index: 999999 !important;
+            touch-action: none; /* Sprečava skrolovanje ispod na mobilnom */
         }
         .lightbox-overlay.active {
             display: flex;
         }
         .lightbox-img {
-            max-width: 92%;
-            max-height: 82%;
+            max-width: 95%;
+            max-height: 85%;
             object-fit: contain;
             border-radius: 10px;
             border: 2px solid #4caf50;
@@ -308,17 +325,17 @@
         }
         .lightbox-close {
             position: absolute;
-            top: 25px;
-            right: 25px;
+            top: 20px;
+            right: 20px;
             color: #ffffff;
-            font-size: 35px;
+            font-size: 40px;
             font-weight: bold;
             cursor: pointer;
             width: 50px;
             height: 50px;
             text-align: center;
             line-height: 45px;
-            background-color: rgba(255,255,255,0.08);
+            background-color: rgba(255,255,255,0.1);
             border-radius: 50%;
             z-index: 1000000;
         }
@@ -373,7 +390,7 @@
     <div style="max-width:1200px; margin:0 auto; padding:0 20px;">
 
         <!-- HERO BRANDING SEKCIJA -->
-        <section style="padding:90px 0 70px 0; text-align:center; background: radial-gradient(circle at center, rgba(76, 175, 80, 0.06) 0%, rgba(4, 7, 11, 0) 72%);">
+        <section style="padding:90px 0 70px 0; text-align:center;">
             <div style="margin-bottom:30px; display: inline-block;">
                 <img src="logo.jpg" alt="Milosavljević Smart Energy" class="blended-logo">
             </div>
@@ -449,7 +466,7 @@
 
         <!-- O NAMA SEKCIJA -->
         <section style="padding:10px 0; margin-bottom:50px;">
-            <div style="background: linear-gradient(135deg, #0d131f 0%, #06090e 100%); border: 1px solid rgba(255,255,255,0.04); border-radius:20px; padding:45px 40px;">
+            <div style="background: linear-gradient(135deg, rgba(13,19,31,0.8) 0%, rgba(6,9,14,0.8) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.04); border-radius:20px; padding:45px 40px;">
                 <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
                     <div style="flex: 1; min-width: 320px;">
                         <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">Istorijat</span>
@@ -481,7 +498,7 @@
                 
                 <!-- FOLDER 1 -->
                 <div class="folder-box">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -503,7 +520,7 @@
 
                 <!-- FOLDER 1b -->
                 <div class="folder-box">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -525,7 +542,7 @@
 
                 <!-- FOLDER 2 -->
                 <div class="folder-box">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -547,7 +564,7 @@
 
                 <!-- FOLDER 3 -->
                 <div class="folder-box">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -569,7 +586,7 @@
 
                 <!-- FOLDER 4 -->
                 <div class="folder-box">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -591,7 +608,7 @@
 
                 <!-- FOLDER 5 -->
                 <div class="folder-box">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -613,7 +630,7 @@
 
                 <!-- FOLDER 6 -->
                 <div class="folder-box">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -644,8 +661,8 @@
                 </p>
                 
                 <!-- FOLDER 7 -->
-                <div class="folder-box" style="background-color:rgba(4, 7, 11, 0.6); max-width:500px; margin:0 auto; text-align:left; border-color: rgba(76, 175, 80, 0.15);">
-                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; width:100%;">
+                <div class="folder-box" style="background: rgba(4, 7, 11, 0.6); max-width:500px; margin:0 auto; text-align:left;">
+                    <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
                             <span style="font-size:42px;">📁</span>
                             <div>
@@ -668,11 +685,11 @@
         </section>
 
         <!-- ==========================================================================
-            NAPREDNA KONTAKT SEKCIJA (Direktne veze, Mejl i Forma za poruke)
+            NAPREDNA KONTAKT SEKCIJA
             ========================================================================== -->
         <section id="kontakt" style="padding:60px 0; max-width:750px; margin:0 auto; text-align:center;">
             <h2 style="font-size:26px; color:#ffffff; margin-bottom:25px; letter-spacing: -0.5px;">Kontakt</h2>
-            <div style="background: linear-gradient(135deg, #0e1420 0%, #05080c 100%); border: 1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; box-shadow: 0 4px 25px rgba(0,0,0,0.55);">
+            <div style="background: linear-gradient(135deg, rgba(14,20,32,0.9) 0%, rgba(5,8,12,0.9) 100%); border: 1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; box-shadow: 0 4px 25px rgba(0,0,0,0.55); backdrop-filter: blur(10px);">
                 <p style="margin:0 0 30px 0; font-weight:600; color:#4caf50; font-size:24px; letter-spacing: 0.5px;">Milosavljević Smart Energy</p>
                 
                 <!-- Grid za Rajka i Marka -->
@@ -719,9 +736,8 @@
                     </a>
                 </div>
 
-                <!-- FORMA SA DINAMIČKIM NASLOVOM KOJI SE MIJENJA NAKON SLANJA -->
+                <!-- FORMA SA DINAMIČKIM NASLOVOM -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
-                    <!-- ID 'form-title' nam omogućava da preko JavaScripta zamijenimo tekst -->
                     <h3 id="form-title" style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     
                     <form id="clean-contact-form">
@@ -764,22 +780,20 @@
 
     <!-- AUDIO, LIGHTBOX I NAPREDNI INTEGRISANI JS POGON -->
     <script>
+        // --- 1. LOGIKA ZA FOLDERE (Harmonika) ---
         function toggleFolder(folderElement) {
             if (folderElement.classList.contains('open')) {
                 folderElement.classList.remove('open');
-                folderElement.style.borderColor = 'rgba(255, 255, 255, 0.03)';
             } else {
+                // Zatvori ostale prije nego što otvoriš novi
                 document.querySelectorAll('.folder-box').forEach(box => {
                     box.classList.remove('open');
-                    box.style.borderColor = 'rgba(255, 255, 255, 0.03)';
                 });
                 folderElement.classList.add('open');
-                folderElement.style.borderColor = '#4caf50';
             }
         }
 
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
+        // --- 2. LOGIKA ZA ZVUK ---
         const music = document.getElementById('bg-music');
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
@@ -792,22 +806,17 @@
             if (!musicStarted) {
                 if (window.AudioContext || window.webkitAudioContext) {
                     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    if (audioCtx.state === 'suspended') {
-                        audioCtx.resume();
-                    }
+                    if (audioCtx.state === 'suspended') { audioCtx.resume(); }
                 }
 
                 music.play().then(() => {
                     musicStarted = true;
                     musicIcon.textContent = "🔊";
                     musicText.textContent = "Muzika: Aktivna";
-                    
                     document.removeEventListener('click', instantAudioStart);
                     document.removeEventListener('touchstart', instantAudioStart);
                     document.removeEventListener('scroll', instantAudioStart);
-                }).catch(error => {
-                    console.log("Sistem spreman.");
-                });
+                }).catch(error => { console.log("Sistem spreman."); });
             }
         }
 
@@ -829,33 +838,34 @@
             }
         });
 
+        // --- 3. OPTIMIZOVAN LIGHTBOX ZA ANDROID/iOS ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('close-btn');
+
         function initImages() {
             const images = document.querySelectorAll('.project-img');
             images.forEach(img => {
-                img.addEventListener('touchstart', function(e) {
-                    lightboxImg.src = this.src;
-                    lightbox.classList.add('active');
-                }, { passive: true });
-
                 img.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation(); // Sprečava otvaranje/zatvaranje foldera iza
                     lightboxImg.src = this.src;
                     lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Sprečava skrol dok je slika otvorena
                 });
             });
         }
 
-        lightbox.addEventListener('touchstart', function(e) {
+        function closeLightbox(e) {
+            e.preventDefault();
             lightbox.classList.remove('active');
-        }, { passive: true });
-        
-        lightbox.addEventListener('click', function() {
-            lightbox.classList.remove('active');
-        });
+            document.body.style.overflow = ''; // Vraća skrol
+        }
 
-        // ==========================================================================
-        // JS POGON KOJI RADI PREKO AJAX SYNTAXE I MIJENJA NASLOV NAKON SLANJA
-        // ==========================================================================
+        lightbox.addEventListener('click', closeLightbox);
+        closeBtn.addEventListener('click', closeLightbox);
+
+        // --- 4. FORMA (AJAX) ---
         document.getElementById('clean-contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -878,13 +888,8 @@
                 })
             })
             .then(response => {
-                // Skrivamo formu
                 document.getElementById('clean-contact-form').style.display = 'none';
-                
-                // Mijenjamo stari naslov u novi futuristički i školski naziv
                 formTitle.innerText = "Informacija pošiljaocu";
-                
-                // Prikazujemo zeleni neonski boks sa tekstom
                 box.style.display = 'block';
             })
             .catch(error => {
