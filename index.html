@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
-        /* ==========================================================================
-           1. CORE SETTINGS + APSTRAKTNA POZADINA
-        ========================================================================== */
+        /* ========== OSVJEŽENI STILOVI (isti kao prije, samo dodan margin za ikone) ========== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -60,9 +58,7 @@
             @media (max-width: 768px) { display: none; }
         }
 
-        /* ==========================================================================
-           2. SLIKE (Logo, Moto, Omov zakon) - blend i okrugli
-        ========================================================================== */
+        /* Slike */
         .blended-logo {
             max-width: 280px;
             width: 100%;
@@ -70,9 +66,7 @@
             filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .blended-logo:hover {
-            transform: scale(1.04);
-        }
+        .blended-logo:hover { transform: scale(1.04); }
         .blended-moto {
             width: 100%;
             height: auto;
@@ -105,9 +99,7 @@
             border-radius: 50%;
         }
 
-        /* ==========================================================================
-           3. INTERAKTIVNE KARTICE
-        ========================================================================== */
+        /* Kartice */
         .grid-philosophie {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -122,9 +114,7 @@
             backdrop-filter: blur(16px);
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .abstract-card.full-width {
-            grid-column: span 2;
-        }
+        .abstract-card.full-width { grid-column: span 2; }
         .abstract-card::before {
             content: '';
             position: absolute;
@@ -136,10 +126,7 @@
             border-radius: 16px 0 0 16px;
             transition: background 0.4s ease;
         }
-        .abstract-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(76, 175, 80, 0.03);
-        }
+        .abstract-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(76, 175, 80, 0.03); }
         .abstract-card.card-zelena:hover { border-color: rgba(76, 175, 80, 0.3); }
         .abstract-card.card-zelena:hover::before { background: #4caf50; }
         .abstract-card.card-plava:hover { border-color: rgba(58, 134, 255, 0.35); }
@@ -170,9 +157,7 @@
             100% { transform: scale(4); opacity: 0; }
         }
 
-        /* ==========================================================================
-           4. FOLDERI (WINDOWS 11 STIL – ŽUTI, SA SLIKAMA KOJE SE MIJENJAJU)
-        ========================================================================== */
+        /* Folderi - stil kutije isti, ali ikona je inline SVG */
         .folder-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -214,19 +199,6 @@
             grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
             gap: 12px;
         }
-
-        /* Folder ikone – SVG slike koje se mijenjaju */
-        .folder-img {
-            width: 52px;
-            height: 44px;
-            object-fit: contain;
-            transition: transform 0.2s ease;
-            flex-shrink: 0;
-        }
-        .folder-box:hover .folder-img {
-            transform: scale(1.03);
-        }
-
         .project-img {
             width: 100%;
             height: 95px;
@@ -241,7 +213,7 @@
             transform: scale(1.02);
         }
 
-        /* Dugmad u headeru */
+        /* Dugmad */
         .music-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -262,7 +234,7 @@
             box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
         }
 
-        /* Kontakt forma */
+        /* Forma */
         .form-group {
             margin-bottom: 20px;
             text-align: left;
@@ -363,7 +335,7 @@
             z-index: 1000000;
         }
 
-        /* FIKSNA BOČNA DUGMAD */
+        /* Bočna dugmad */
         .floating-buttons {
             position: fixed;
             bottom: 30px;
@@ -404,397 +376,502 @@
         @media (max-width: 768px) {
             .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
             .float-btn { width: 48px; height: 48px; font-size: 24px; }
-            .folder-img { width: 44px; height: 38px; }
+            .folder-svg { width: 44px; height: 38px; }
         }
         @media (max-width: 900px) {
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
         }
+
+        .folder-svg {
+            width: 52px;
+            height: 44px;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+        .folder-box:hover .folder-svg {
+            transform: scale(1.03);
+        }
     </style>
 </head>
 <body>
 
-    <div class="abstract-bg">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
-    </div>
+<div class="abstract-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+</div>
 
-    <audio id="bg-music" src="Muzika.mp3" loop></audio>
+<audio id="bg-music" src="Muzika.mp3" loop></audio>
 
-    <div id="lightbox" class="lightbox-overlay">
-        <span class="lightbox-close" id="close-btn">&times;</span>
-        <img id="lightbox-img" class="lightbox-img" src="" alt="Uvećan prikaz">
-    </div>
+<div id="lightbox" class="lightbox-overlay">
+    <span class="lightbox-close" id="close-btn">&times;</span>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="Uvećan prikaz">
+</div>
 
-    <!-- Bočne kontrole -->
-    <div class="floating-buttons">
-        <div id="side-music-toggle" class="float-btn" title="Muzika">
-            <span id="side-music-icon">🔊</span>
+<div class="floating-buttons">
+    <div id="side-music-toggle" class="float-btn"><span id="side-music-icon">🔊</span></div>
+    <div id="back-to-top" class="float-btn">↑</div>
+</div>
+
+<header style="background: rgba(10,15,24,0.6); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.05); padding:14px 24px; position:sticky; top:0; z-index:1000;">
+    <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center;">
+        <div><p class="hide-mobile" style="font-size:11px; color:#6b7280;">Tradicija od 1998.</p></div>
+        <div style="display:flex; align-items:center; gap:14px;">
+            <img src="logo.jpg" alt="Logo" style="height:38px; filter:drop-shadow(0 0 5px rgba(255,255,255,0.2));">
+            <h2 style="font-size:16px; color:#fff;">MILOSAVLJEVIĆ <span style="color:#4caf50;">SMART ENERGY</span></h2>
         </div>
-        <div id="back-to-top" class="float-btn" title="Vrh">↑</div>
+        <div style="justify-self:end;">
+            <button id="music-toggle" class="music-btn"><span id="music-icon">🔊</span> <span id="music-text" class="hide-mobile">Muzika: Isključena</span></button>
+        </div>
     </div>
+</header>
 
-    <header style="background: rgba(10,15,24,0.6); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.05); padding:14px 24px; position:sticky; top:0; z-index:1000;">
-        <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center;">
-            <div><p class="hide-mobile" style="font-size:11px; color:#6b7280;">Tradicija od 1998.</p></div>
-            <div style="display:flex; align-items:center; gap:14px;">
-                <img src="logo.jpg" alt="Logo" style="height:38px; filter:drop-shadow(0 0 5px rgba(255,255,255,0.2));">
-                <h2 style="font-size:16px; color:#fff;">MILOSAVLJEVIĆ <span style="color:#4caf50;">SMART ENERGY</span></h2>
+<div style="max-width:1200px; margin:0 auto; padding:0 20px;">
+    <!-- Hero -->
+    <section style="padding:90px 0 70px 0; text-align:center;">
+        <div><img src="logo.jpg" alt="Milosavljević Smart Energy" class="blended-logo"></div>
+        <h1 class="neon-text" style="font-size:40px; margin:20px 0;">Inženjerska tradicija za <span style="color:#3a86ff;">pametnu budućnost</span></h1>
+        <p style="font-size:18px; color:#9ca3af; max-width:650px; margin:0 auto 35px;">Od robusnih elektrodistributivnih mreža do naprednih industrijskih robotskih sistema i automatizacije.</p>
+        <a href="#kontakt" style="display:inline-block; background:linear-gradient(135deg,#2e7d32,#4caf50); color:#fff; padding:14px 45px; border-radius:30px; text-decoration:none; font-weight:600;">Kontaktirajte Nas</a>
+    </section>
+
+    <!-- Filozofija -->
+    <section style="padding:40px 0; margin-bottom:50px;">
+        <div style="text-align:center; margin-bottom:45px;">
+            <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:11px; font-weight:bold;">Naša Filozofija Rada</span>
+            <h2 style="font-size:28px; color:#fff; margin-top:12px;">Principi inženjerske izvrsnosti</h2>
+        </div>
+        <div class="grid-philosophie">
+            <div class="abstract-card card-zelena full-width">
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">👁️‍🗨️</span><div class="pulse-node" style="background:#4caf50;"></div></div>
+                <h4 style="font-size:20px; margin:15px 0 10px;">1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
+                <p>Amateri se plaše, mi poštujemo kroz stroge procedure. Svaki korak zasniva se na blokadi napona i sigurnosti.</p>
             </div>
-            <div style="justify-self:end;">
-                <button id="music-toggle" class="music-btn"><span id="music-icon">🔊</span> <span id="music-text" class="hide-mobile">Muzika: Isključena</span></button>
+            <div class="abstract-card card-plava">
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🎛️</span><div class="pulse-node" style="background:#3a86ff;"></div></div>
+                <h4 style="font-size:19px; margin:15px 0 10px;">2. Kako ormar izgleda unutra, tako sistem radi</h4>
+                <p>Estetika unutar ormara = pouzdanost i bezbjednost. Pedantno složeni provodnici garantuju decenije rada.</p>
+            </div>
+            <div class="abstract-card card-crvena">
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🛡️</span><div class="pulse-node" style="background:#e63946;"></div></div>
+                <h4 style="font-size:19px; margin:15px 0 10px;">3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
+                <p>Ne popravljamo stalno – uradimo tako da nas više ne zovete zbog istog problema.</p>
             </div>
         </div>
-    </header>
+    </section>
 
-    <div style="max-width:1200px; margin:0 auto; padding:0 20px;">
+    <!-- Moto -->
+    <section style="margin-bottom:50px;">
+        <div style="background:rgba(13,20,30,0.3); border-radius:20px; padding:35px; text-align:center;">
+            <p style="font-size:11px; color:#3a86ff;">Naš Moto i Vodilja</p>
+            <div style="max-width:700px; margin:0 auto;"><img src="moto.jpg" class="blended-moto"></div>
+        </div>
+    </section>
 
-        <!-- Hero -->
-        <section style="padding:90px 0 70px 0; text-align:center;">
-            <div><img src="logo.jpg" alt="Milosavljević Smart Energy" class="blended-logo"></div>
-            <h1 class="neon-text" style="font-size:40px; margin:20px 0;">Inženjerska tradicija za <span style="color:#3a86ff;">pametnu budućnost</span></h1>
-            <p style="font-size:18px; color:#9ca3af; max-width:650px; margin:0 auto 35px;">Od robusnih elektrodistributivnih mreža do naprednih industrijskih robotskih sistema i automatizacije.</p>
-            <a href="#kontakt" style="display:inline-block; background:linear-gradient(135deg,#2e7d32,#4caf50); color:#fff; padding:14px 45px; border-radius:30px; text-decoration:none; font-weight:600;">Kontaktirajte Nas</a>
-        </section>
-
-        <!-- Filozofija -->
-        <section style="padding:40px 0; margin-bottom:50px;">
-            <div style="text-align:center; margin-bottom:45px;">
-                <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:11px; font-weight:bold;">Naša Filozofija Rada</span>
-                <h2 style="font-size:28px; color:#fff; margin-top:12px;">Principi inženjerske izvrsnosti</h2>
-            </div>
-            <div class="grid-philosophie">
-                <div class="abstract-card card-zelena full-width">
-                    <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">👁️‍🗨️</span><div class="pulse-node" style="background:#4caf50;"></div></div>
-                    <h4 style="font-size:20px; margin:15px 0 10px;">1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
-                    <p>Amateri se plaše, mi poštujemo kroz stroge procedure. Svaki korak zasniva se na blokadi napona i sigurnosti.</p>
+    <!-- Istorijat + Omov zakon -->
+    <section style="margin-bottom:50px;">
+        <div style="background:linear-gradient(135deg, rgba(13,19,31,0.5), rgba(6,9,14,0.5)); backdrop-filter:blur(10px); border-radius:20px; padding:45px 40px;">
+            <div style="display:flex; flex-wrap:wrap; gap:40px; align-items:center;">
+                <div style="flex:1; min-width:280px;">
+                    <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px;">Istorijat</span>
+                    <h2 style="font-size:30px; color:#fff; margin:16px 0;">Elektro kompanija sa čvrstim temeljima</h2>
+                    <p><strong>Milosavljević Smart Energy od 1998.</strong> Projektujemo, gradimo i održavamo infrastrukturu, vjerske i komercijalne objekte, danas fokus na automatizaciji i robotici.</p>
                 </div>
-                <div class="abstract-card card-plava">
-                    <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🎛️</span><div class="pulse-node" style="background:#3a86ff;"></div></div>
-                    <h4 style="font-size:19px; margin:15px 0 10px;">2. Kako ormar izgleda unutra, tako sistem radi</h4>
-                    <p>Estetika unutar ormara = pouzdanost i bezbjednost. Pedantno složeni provodnici garantuju decenije rada.</p>
-                </div>
-                <div class="abstract-card card-crvena">
-                    <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🛡️</span><div class="pulse-node" style="background:#e63946;"></div></div>
-                    <h4 style="font-size:19px; margin:15px 0 10px;">3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
-                    <p>Ne popravljamo stalno – uradimo tako da nas više ne zovete zbog istog problema.</p>
+                <div style="flex:1; text-align:center;">
+                    <p style="font-size:11px; color:#4caf50;">Inženjerska Preciznost</p>
+                    <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om"></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Moto -->
-        <section style="margin-bottom:50px;">
-            <div style="background:rgba(13,20,30,0.3); border-radius:20px; padding:35px; text-align:center;">
-                <p style="font-size:11px; color:#3a86ff;">Naš Moto i Vodilja</p>
-                <div style="max-width:700px; margin:0 auto;"><img src="moto.jpg" class="blended-moto"></div>
-            </div>
-        </section>
-
-        <!-- Istorijat + Omov zakon -->
-        <section style="margin-bottom:50px;">
-            <div style="background:linear-gradient(135deg, rgba(13,19,31,0.5), rgba(6,9,14,0.5)); backdrop-filter:blur(10px); border-radius:20px; padding:45px 40px;">
-                <div style="display:flex; flex-wrap:wrap; gap:40px; align-items:center;">
-                    <div style="flex:1; min-width:280px;">
-                        <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px;">Istorijat</span>
-                        <h2 style="font-size:30px; color:#fff; margin:16px 0;">Elektro kompanija sa čvrstim temeljima</h2>
-                        <p><strong>Milosavljević Smart Energy od 1998.</strong> Projektujemo, gradimo i održavamo infrastrukturu, vjerske i komercijalne objekte, danas fokus na automatizaciji i robotici.</p>
-                    </div>
-                    <div style="flex:1; text-align:center;">
-                        <p style="font-size:11px; color:#4caf50;">Inženjerska Preciznost</p>
-                        <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== FOLDERI SA WINDOWS 11 IKONAMA KOJE SE MIJENJAJU ========== -->
-        <section style="margin-bottom:50px;">
-            <div style="text-align:center; margin-bottom:45px;">
-                <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px;">Reference</span>
-                <h2 style="font-size:28px; color:#fff; margin-top:12px;">Pregled projekata po folderima</h2>
-                <p style="color:#9ca3af;">Klikni na folder – otvara se sadržaj, a ikona foldera postaje otvorena.</p>
-            </div>
-            <div id="folders-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-                <!-- Folderi će biti generisani putem JS-a da bi se lakše upravljalo ikonama, ali da bi kod ostao čist, uradićemo ručno sa data atributima -->
-            </div>
-            <!-- Automatizacija folder -->
-            <div id="auto-folder" style="background:linear-gradient(135deg, rgba(16,24,39,0.6), rgba(10,26,15,0.4)); border:1px solid rgba(76,175,80,0.35); border-radius:20px; padding:40px; text-align:center; margin-top:40px; backdrop-filter:blur(12px);">
-                <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:5px 14px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
-                <h3 style="font-size:23px; color:#4caf50; margin:15px 0 10px;">Fokus na polju: Automatizacija i Robotika</h3>
-                <p style="color:#9ca3af; max-width:750px; margin:0 auto 25px;">Integracija robotskih ćelija, industrijski elektro-ormari i Smart Home sistemi.</p>
-                <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.6); max-width:500px; margin:0 auto; text-align:left;">
-                    <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
-                        <div style="display:flex; align-items:center; gap:15px;">
-                            <img class="folder-img" data-closed="closedAuto" data-open="openAuto" src="" alt="folder">
-                            <div><h3 style="color:#fff; font-size:17px;">07 Automatizacija i robotika</h3><p style="font-size:12px; color:#3a86ff;">Industrija 4.0</p></div>
+    <!-- Folderi sa Windows 11 ikonama - inline SVG -->
+    <section style="margin-bottom:50px;">
+        <div style="text-align:center; margin-bottom:45px;">
+            <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px;">Reference</span>
+            <h2 style="font-size:28px; color:#fff; margin-top:12px;">Pregled projekata po folderima</h2>
+            <p style="color:#9ca3af;">Klikni na folder – otvara se sadržaj, a ikona foldera postaje otvorena.</p>
+        </div>
+        <div id="folders-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;"></div>
+        
+        <!-- Automatizacija folder -->
+        <div id="auto-folder" style="background:linear-gradient(135deg, rgba(16,24,39,0.6), rgba(10,26,15,0.4)); border:1px solid rgba(76,175,80,0.35); border-radius:20px; padding:40px; text-align:center; margin-top:40px; backdrop-filter:blur(12px);">
+            <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:5px 14px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
+            <h3 style="font-size:23px; color:#4caf50; margin:15px 0 10px;">Fokus na polju: Automatizacija i Robotika</h3>
+            <p style="color:#9ca3af; max-width:750px; margin:0 auto 25px;">Integracija robotskih ćelija, industrijski elektro-ormari i Smart Home sistemi.</p>
+            <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.6); max-width:500px; margin:0 auto; text-align:left;">
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <div class="folder-svg-container">
+                            <svg class="folder-svg closed-folder" width="52" height="44" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="gradAutoClosed" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#FFDD66"/>
+                                        <stop offset="100%" stop-color="#FFB300"/>
+                                    </linearGradient>
+                                    <filter id="shadowAutoClosed" x="-10%" y="-10%" width="130%" height="130%">
+                                        <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.4"/>
+                                    </filter>
+                                </defs>
+                                <path d="M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z" fill="url(#gradAutoClosed)" filter="url(#shadowAutoClosed)" stroke="#E5A000" stroke-width="0.5"/>
+                            </svg>
+                            <svg class="folder-svg open-folder" style="display:none;" width="52" height="44" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="gradAutoOpen" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#FFE68F"/>
+                                        <stop offset="100%" stop-color="#FFC107"/>
+                                    </linearGradient>
+                                    <filter id="shadowAutoOpen" x="-10%" y="-10%" width="130%" height="130%">
+                                        <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.4"/>
+                                    </filter>
+                                </defs>
+                                <path d="M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z" fill="url(#gradAutoOpen)" filter="url(#shadowAutoOpen)" stroke="#E5A000" stroke-width="0.5"/>
+                                <path d="M4 12 L20 12 L24 18 L44 18" fill="none" stroke="#FFC107" stroke-width="2"/>
+                            </svg>
                         </div>
-                        <span class="folder-arrow">▶</span>
+                        <div><h3 style="color:#fff; font-size:17px;">07 Automatizacija i robotika</h3><p style="font-size:12px; color:#3a86ff;">Industrija 4.0</p></div>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid" style="grid-template-columns:repeat(4,1fr);">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/1.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/2.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/3.jpg" class="project-img" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/4.jpg" class="project-img" onerror="this.style.display='none';">
-                        </div>
+                    <span class="folder-arrow">▶</span>
+                </div>
+                <div class="folder-content">
+                    <div class="inner-grid" style="grid-template-columns:repeat(4,1fr);">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/1.jpg" class="project-img" onerror="this.style.display='none';">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/2.jpg" class="project-img" onerror="this.style.display='none';">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/3.jpg" class="project-img" onerror="this.style.display='none';">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/4.jpg" class="project-img" onerror="this.style.display='none';">
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Kontakt -->
-        <section id="kontakt" style="padding:60px 0; max-width:750px; margin:0 auto; text-align:center;">
-            <h2 style="font-size:26px; color:#fff; margin-bottom:25px;">Kontakt</h2>
-            <div style="background:linear-gradient(135deg, rgba(14,20,32,0.6), rgba(5,8,12,0.6)); border:1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; backdrop-filter:blur(10px);">
-                <p style="font-weight:600; color:#4caf50; font-size:24px;">Milosavljević Smart Energy</p>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:25px; margin:35px 0;">
-                    <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:25px;">
-                        <h4 style="color:#fff;">Rajko Milosavljević</h4>
-                        <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                            <a href="tel:+38765728595" style="background:linear-gradient(135deg,#2e7d32,#4caf50); color:white; padding:11px; border-radius:30px; text-decoration:none;">📞 Pozovi</a>
-                            <a href="viber://chat?number=%2B38765728595" style="background:linear-gradient(135deg,#59267c,#7360f2); color:white; padding:11px; border-radius:30px;">💜 Viber</a>
-                            <a href="https://wa.me/38765728595" target="_blank" style="background:linear-gradient(135deg,#128c7e,#25d366); color:white; padding:11px; border-radius:30px;">💚 WhatsApp</a>
-                        </div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:25px;">
-                        <h4 style="color:#fff;">Marko Milosavljević</h4>
-                        <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                            <a href="tel:+38766921100" style="background:linear-gradient(135deg,#1976d2,#2196f3); color:white; padding:11px; border-radius:30px;">📞 Pozovi</a>
-                            <a href="viber://chat?number=%2B38766921100" style="background:linear-gradient(135deg,#59267c,#7360f2); color:white; padding:11px; border-radius:30px;">💜 Viber</a>
-                            <a href="https://wa.me/38766921100" target="_blank" style="background:linear-gradient(135deg,#128c7e,#25d366); color:white; padding:11px; border-radius:30px;">💚 WhatsApp</a>
-                        </div>
+    <!-- Kontakt -->
+    <section id="kontakt" style="padding:60px 0; max-width:750px; margin:0 auto; text-align:center;">
+        <h2 style="font-size:26px; color:#fff; margin-bottom:25px;">Kontakt</h2>
+        <div style="background:linear-gradient(135deg, rgba(14,20,32,0.6), rgba(5,8,12,0.6)); border:1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; backdrop-filter:blur(10px);">
+            <p style="font-weight:600; color:#4caf50; font-size:24px;">Milosavljević Smart Energy</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:25px; margin:35px 0;">
+                <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:25px;">
+                    <h4 style="color:#fff;">Rajko Milosavljević</h4>
+                    <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
+                        <a href="tel:+38765728595" style="background:linear-gradient(135deg,#2e7d32,#4caf50); color:white; padding:11px; border-radius:30px; text-decoration:none;">📞 Pozovi</a>
+                        <a href="viber://chat?number=%2B38765728595" style="background:linear-gradient(135deg,#59267c,#7360f2); color:white; padding:11px; border-radius:30px; text-decoration:none;">💜 Viber</a>
+                        <a href="https://wa.me/38765728595" target="_blank" style="background:linear-gradient(135deg,#128c7e,#25d366); color:white; padding:11px; border-radius:30px; text-decoration:none;">💚 WhatsApp</a>
                     </div>
                 </div>
-                <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:25px;">
-                    <p>E-mail:</p>
-                    <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px;">✉️ milosavljevic@outlook.com</a>
-                </div>
-                <div style="margin-top:35px;">
-                    <h3 id="form-title" style="color:#fff; text-align:left;">Pošaljite upit</h3>
-                    <form id="clean-contact-form">
-                        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px;">
-                            <div class="form-group"><label>Ime</label><input type="text" id="ins_name" class="form-control" required></div>
-                            <div class="form-group"><label>Telefon</label><input type="tel" id="ins_phone" class="form-control" required></div>
-                        </div>
-                        <div class="form-group"><label>E-mail</label><input type="email" id="ins_email" class="form-control" required></div>
-                        <div class="form-group"><label>Poruka</label><textarea id="ins_message" class="form-control" rows="4" required></textarea></div>
-                        <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji</button>
-                    </form>
-                    <div id="status-box" class="status-box">✅ Uspješno poslato! Kontaktiraćemo Vas uskoro.</div>
+                <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:25px;">
+                    <h4 style="color:#fff;">Marko Milosavljević</h4>
+                    <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
+                        <a href="tel:+38766921100" style="background:linear-gradient(135deg,#1976d2,#2196f3); color:white; padding:11px; border-radius:30px; text-decoration:none;">📞 Pozovi</a>
+                        <a href="viber://chat?number=%2B38766921100" style="background:linear-gradient(135deg,#59267c,#7360f2); color:white; padding:11px; border-radius:30px; text-decoration:none;">💜 Viber</a>
+                        <a href="https://wa.me/38766921100" target="_blank" style="background:linear-gradient(135deg,#128c7e,#25d366); color:white; padding:11px; border-radius:30px; text-decoration:none;">💚 WhatsApp</a>
+                    </div>
                 </div>
             </div>
-        </section>
-    </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:25px;">
+                <p>E-mail:</p>
+                <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px;">✉️ milosavljevic@outlook.com</a>
+            </div>
+            <div style="margin-top:35px;">
+                <h3 id="form-title" style="color:#fff; text-align:left;">Pošaljite upit</h3>
+                <form id="clean-contact-form">
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:15px;">
+                        <div class="form-group"><label>Ime</label><input type="text" id="ins_name" class="form-control" required></div>
+                        <div class="form-group"><label>Telefon</label><input type="tel" id="ins_phone" class="form-control" required></div>
+                    </div>
+                    <div class="form-group"><label>E-mail</label><input type="email" id="ins_email" class="form-control" required></div>
+                    <div class="form-group"><label>Poruka</label><textarea id="ins_message" class="form-control" rows="4" required></textarea></div>
+                    <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji</button>
+                </form>
+                <div id="status-box" class="status-box">✅ Uspješno poslato! Kontaktiraćemo Vas uskoro.</div>
+            </div>
+        </div>
+    </section>
+</div>
 
-    <script>
-        // ==================== SVG ZATVORENOG I OTVORENOG FOLDERA (WINDOWS 11 STIL) ====================
-        // Zatvoren folder – žuti, sa sjenom, ravni uglovi (Windows 11 ima blago zaobljenje)
-        const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFDD66'/%3E%3Cstop offset='100%25' stop-color='%23FFB300'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' filter='url(%23shadow)' stroke='%23E5A000' stroke-width='0.5'/%3E%3C/svg%3E`;
-        // Otvoren folder – sa "preklopom" pozadi
-        const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE68F'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3Cfilter id='shadowOpen' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' filter='url(%23shadowOpen)' stroke='%23E5A000' stroke-width='0.5'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23FFC107' stroke-width='2' /%3E%3C/svg%3E`;
+<script>
+    // ==================== INLINE SVG FOLDERI (WINDOWS 11) ====================
+    const foldersData = [
+        { name: "01 Kućne instalacije", desc: "Privatne kuće i porodični objekti", path: "01_Kucne_instalacije" },
+        { name: "01b Vikendice i apartmani", desc: "Odmarališta i vikend objekti", path: "01b_Vikendice" },
+        { name: "02 Stambene zgrade", desc: "Kompletan inženjering i elektro-montaža", path: "02_Stambene_zgrade" },
+        { name: "03 Komercijalni objekti", desc: "Industrijski pogoni, hale i kancelarije", path: "03_Komercijalni_objekti" },
+        { name: "04 Vjerski objekti", desc: "Instalacije projektovane za dugo trajanje", path: "04_Vjerski_objekti" },
+        { name: "05 Ulična rasvjeta", desc: "LED rasvjeta i javna infrastruktura", path: "05_Ulicna_rasvjeta" },
+        { name: "06 Distributivne mreže", desc: "Niskonaponske mreže i trafostanice", path: "06_Elektrodistributivne_mreze" }
+    ];
 
-        // Definicije foldera (ručno, da bi se lakše upravljalo)
-        const foldersData = [
-            { name: "01 Kućne instalacije", desc: "Privatne kuće i porodični objekti", path: "01_Kucne_instalacije" },
-            { name: "01b Vikendice i apartmani", desc: "Odmarališta i vikend objekti", path: "01b_Vikendice" },
-            { name: "02 Stambene zgrade", desc: "Kompletan inženjering i elektro-montaža", path: "02_Stambene_zgrade" },
-            { name: "03 Komercijalni objekti", desc: "Industrijski pogoni, hale i kancelarije", path: "03_Komercijalni_objekti" },
-            { name: "04 Vjerski objekti", desc: "Instalacije projektovane za dugo trajanje", path: "04_Vjerski_objekti" },
-            { name: "05 Ulična rasvjeta", desc: "LED rasvjeta i javna infrastruktura", path: "05_Ulicna_rasvjeta" },
-            { name: "06 Distributivne mreže", desc: "Niskonaponske mreže i trafostanice", path: "06_Elektrodistributivne_mreze" }
-        ];
+    const container = document.getElementById('folders-container');
+    container.innerHTML = '';
 
-        const container = document.getElementById('folders-container');
-        container.innerHTML = '';
-        foldersData.forEach(folder => {
-            const folderBox = document.createElement('div');
-            folderBox.className = 'folder-box';
-            folderBox.setAttribute('data-folder-id', folder.path);
-            // Header dio
-            const headerDiv = document.createElement('div');
-            headerDiv.style.display = 'flex';
-            headerDiv.style.alignItems = 'center';
-            headerDiv.style.justifyContent = 'space-between';
-            headerDiv.onclick = function(e) { toggleFolderWithIcon(folderBox); };
-            
-            const leftDiv = document.createElement('div');
-            leftDiv.style.display = 'flex';
-            leftDiv.style.alignItems = 'center';
-            leftDiv.style.gap = '15px';
-            
-            const img = document.createElement('img');
-            img.className = 'folder-img';
-            img.src = closedFolderSVG;
-            img.setAttribute('data-closed', closedFolderSVG);
-            img.setAttribute('data-open', openFolderSVG);
-            img.alt = 'folder';
-            
-            const textDiv = document.createElement('div');
-            textDiv.innerHTML = `<h3 style="color:#fff; font-size:17px; margin:0;">${folder.name}</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">${folder.desc}</p>`;
-            
-            leftDiv.appendChild(img);
-            leftDiv.appendChild(textDiv);
-            
-            const arrowSpan = document.createElement('span');
-            arrowSpan.className = 'folder-arrow';
-            arrowSpan.textContent = '▶';
-            
-            headerDiv.appendChild(leftDiv);
-            headerDiv.appendChild(arrowSpan);
-            
-            // Content dio
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'folder-content';
-            const innerGrid = document.createElement('div');
-            innerGrid.className = 'inner-grid';
-            // Dodaj 4 slike
-            for (let i = 1; i <= 4; i++) {
-                const imgProj = document.createElement('img');
-                imgProj.className = 'project-img';
-                imgProj.src = `Nasi projekti/${folder.path}/${i}.jpg`;
-                imgProj.onerror = function() { this.style.display = 'none'; };
-                innerGrid.appendChild(imgProj);
-            }
-            contentDiv.appendChild(innerGrid);
-            
-            folderBox.appendChild(headerDiv);
-            folderBox.appendChild(contentDiv);
-            container.appendChild(folderBox);
+    foldersData.forEach(folder => {
+        const folderBox = document.createElement('div');
+        folderBox.className = 'folder-box';
+        folderBox.setAttribute('data-folder-id', folder.path);
+        
+        const headerDiv = document.createElement('div');
+        headerDiv.style.display = 'flex';
+        headerDiv.style.alignItems = 'center';
+        headerDiv.style.justifyContent = 'space-between';
+        
+        const leftDiv = document.createElement('div');
+        leftDiv.style.display = 'flex';
+        leftDiv.style.alignItems = 'center';
+        leftDiv.style.gap = '15px';
+        
+        // SVG kontejner sa dva SVG-a (zatvoren i otvoren)
+        const svgContainer = document.createElement('div');
+        svgContainer.style.position = 'relative';
+        svgContainer.style.display = 'inline-flex';
+        svgContainer.style.alignItems = 'center';
+        
+        // Zatvoren SVG
+        const closedSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        closedSvg.setAttribute("width", "52");
+        closedSvg.setAttribute("height", "44");
+        closedSvg.setAttribute("viewBox", "0 0 48 40");
+        closedSvg.classList.add("folder-svg", "closed-folder");
+        closedSvg.innerHTML = `
+            <defs>
+                <linearGradient id="grad_${folder.path}_closed" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFDD66"/>
+                    <stop offset="100%" stop-color="#FFB300"/>
+                </linearGradient>
+                <filter id="shadow_${folder.path}_closed" x="-10%" y="-10%" width="130%" height="130%">
+                    <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.4"/>
+                </filter>
+            </defs>
+            <path d="M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z" fill="url(#grad_${folder.path}_closed)" filter="url(#shadow_${folder.path}_closed)" stroke="#E5A000" stroke-width="0.5"/>
+        `;
+        
+        // Otvoren SVG
+        const openSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        openSvg.setAttribute("width", "52");
+        openSvg.setAttribute("height", "44");
+        openSvg.setAttribute("viewBox", "0 0 48 40");
+        openSvg.classList.add("folder-svg", "open-folder");
+        openSvg.style.display = "none";
+        openSvg.innerHTML = `
+            <defs>
+                <linearGradient id="grad_${folder.path}_open" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFE68F"/>
+                    <stop offset="100%" stop-color="#FFC107"/>
+                </linearGradient>
+                <filter id="shadow_${folder.path}_open" x="-10%" y="-10%" width="130%" height="130%">
+                    <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.4"/>
+                </filter>
+            </defs>
+            <path d="M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z" fill="url(#grad_${folder.path}_open)" filter="url(#shadow_${folder.path}_open)" stroke="#E5A000" stroke-width="0.5"/>
+            <path d="M4 12 L20 12 L24 18 L44 18" fill="none" stroke="#FFC107" stroke-width="2"/>
+        `;
+        
+        svgContainer.appendChild(closedSvg);
+        svgContainer.appendChild(openSvg);
+        
+        const textDiv = document.createElement('div');
+        textDiv.innerHTML = `<h3 style="color:#fff; font-size:17px; margin:0;">${folder.name}</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">${folder.desc}</p>`;
+        
+        leftDiv.appendChild(svgContainer);
+        leftDiv.appendChild(textDiv);
+        
+        const arrowSpan = document.createElement('span');
+        arrowSpan.className = 'folder-arrow';
+        arrowSpan.textContent = '▶';
+        
+        headerDiv.appendChild(leftDiv);
+        headerDiv.appendChild(arrowSpan);
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'folder-content';
+        const innerGrid = document.createElement('div');
+        innerGrid.className = 'inner-grid';
+        for (let i = 1; i <= 4; i++) {
+            const imgProj = document.createElement('img');
+            imgProj.className = 'project-img';
+            imgProj.src = `Nasi projekti/${folder.path}/${i}.jpg`;
+            imgProj.onerror = function() { this.style.display = 'none'; };
+            innerGrid.appendChild(imgProj);
+        }
+        contentDiv.appendChild(innerGrid);
+        
+        folderBox.appendChild(headerDiv);
+        folderBox.appendChild(contentDiv);
+        
+        // Event listener za klik na cijeli folder (osim na arrow, ali arrow je unutar headerDiv)
+        headerDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFolderWithIcons(folderBox);
         });
-
-        // Funkcija koja toggluje folder i mijenja ikonu
-        function toggleFolderWithIcon(folderElement) {
-            const isOpen = folderElement.classList.contains('open');
-            const folderImg = folderElement.querySelector('.folder-img');
-            if (folderImg) {
+        
+        container.appendChild(folderBox);
+    });
+    
+    // Funkcija koja mijenja ikonu i toggluje klasu
+    function toggleFolderWithIcons(folderElement) {
+        const isOpen = folderElement.classList.contains('open');
+        const svgContainer = folderElement.querySelector('.folder-svg-container');
+        if (!svgContainer) {
+            // Ako nema kontejner (možda je auto folder?) probaj pronaći direkno
+            const closed = folderElement.querySelector('.closed-folder');
+            const open = folderElement.querySelector('.open-folder');
+            if (closed && open) {
                 if (!isOpen) {
-                    folderImg.src = folderImg.getAttribute('data-open');
+                    closed.style.display = 'none';
+                    open.style.display = 'block';
                 } else {
-                    folderImg.src = folderImg.getAttribute('data-closed');
+                    closed.style.display = 'block';
+                    open.style.display = 'none';
                 }
             }
-            // Toggle klasu
-            if (isOpen) {
-                folderElement.classList.remove('open');
-            } else {
-                // Zatvori sve ostale
-                document.querySelectorAll('.folder-box').forEach(box => {
-                    if (box !== folderElement && box.classList.contains('open')) {
-                        box.classList.remove('open');
-                        const otherImg = box.querySelector('.folder-img');
-                        if (otherImg) otherImg.src = otherImg.getAttribute('data-closed');
+        } else {
+            const closedSvg = svgContainer.querySelector('.closed-folder');
+            const openSvg = svgContainer.querySelector('.open-folder');
+            if (closedSvg && openSvg) {
+                if (!isOpen) {
+                    closedSvg.style.display = 'none';
+                    openSvg.style.display = 'block';
+                } else {
+                    closedSvg.style.display = 'block';
+                    openSvg.style.display = 'none';
+                }
+            }
+        }
+        
+        if (isOpen) {
+            folderElement.classList.remove('open');
+        } else {
+            // Zatvori sve ostale foldere
+            document.querySelectorAll('.folder-box').forEach(box => {
+                if (box !== folderElement && box.classList.contains('open')) {
+                    box.classList.remove('open');
+                    // Vrati zatvorenu ikonu za taj folder
+                    const otherContainer = box.querySelector('.folder-svg-container');
+                    if (otherContainer) {
+                        const otherClosed = otherContainer.querySelector('.closed-folder');
+                        const otherOpen = otherContainer.querySelector('.open-folder');
+                        if (otherClosed && otherOpen) {
+                            otherClosed.style.display = 'block';
+                            otherOpen.style.display = 'none';
+                        }
+                    } else {
+                        const closed = box.querySelector('.closed-folder');
+                        const open = box.querySelector('.open-folder');
+                        if (closed && open) {
+                            closed.style.display = 'block';
+                            open.style.display = 'none';
+                        }
                     }
-                });
-                folderElement.classList.add('open');
-            }
+                }
+            });
+            folderElement.classList.add('open');
         }
-
-        // Posebno za automatizaciju folder (dodajemo mu iste atribute)
-        const autoFolderBox = document.querySelector('#auto-folder .folder-box');
-        if (autoFolderBox) {
-            const autoImg = autoFolderBox.querySelector('.folder-img');
-            if (autoImg) {
-                autoImg.setAttribute('data-closed', closedFolderSVG);
-                autoImg.setAttribute('data-open', openFolderSVG);
-                autoImg.src = closedFolderSVG;
-            }
-            // Prilagodi postojeći onclick
-            const autoHeader = autoFolderBox.querySelector('div[onclick]');
-            if (autoHeader) {
-                autoHeader.removeAttribute('onclick');
-                autoHeader.style.cursor = 'pointer';
-                autoHeader.onclick = function(e) { toggleFolderWithIcon(autoFolderBox); };
-            }
-        }
-
-        // ==================== MUZIKA I OSTALE FUNKCIJE ====================
-        const music = document.getElementById('bg-music');
-        const toggle1 = document.getElementById('music-toggle');
-        const toggle2 = document.getElementById('side-music-toggle');
-        const musicIcon = document.getElementById('music-icon');
-        const musicText = document.getElementById('music-text');
-        const sideIcon = document.getElementById('side-music-icon');
-        const backTop = document.getElementById('back-to-top');
-
-        music.volume = 0.25;
-        let musicStarted = false;
-
-        function updateUI(playing) {
-            const icon = playing ? "🔊" : "🔇";
-            musicIcon.textContent = icon;
-            if(sideIcon) sideIcon.textContent = icon;
-            musicText.textContent = playing ? "Muzika: Aktivna" : "Muzika: Isključena";
-        }
-
-        function playMusic() {
-            music.play().then(() => { updateUI(true); musicStarted = true; }).catch(e => console.log);
-        }
-
-        function toggleMusic() {
-            if (music.paused) music.play().then(() => updateUI(true));
-            else { music.pause(); updateUI(false); }
-            musicStarted = true;
-        }
-
-        function initAudio() {
-            if (!musicStarted) playMusic();
-            document.removeEventListener('click', initAudio);
-            document.removeEventListener('touchstart', initAudio);
-        }
-        document.addEventListener('click', initAudio);
-        document.addEventListener('touchstart', initAudio);
-        toggle1.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
-        if(toggle2) toggle2.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
-        backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-        // Lightbox
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const closeLb = document.getElementById('close-btn');
-        function bindLightbox() {
-            document.querySelectorAll('.project-img').forEach(img => {
-                img.removeEventListener('click', lightboxHandler);
-                img.addEventListener('click', lightboxHandler);
+    }
+    
+    // Ručno postavi za automatizaciju folder (jer je napravljen ručno u HTML-u)
+    const autoFolderBox = document.querySelector('#auto-folder .folder-box');
+    if (autoFolderBox) {
+        const autoHeader = autoFolderBox.querySelector('div[style*="display: flex; align-items: center; justify-content: space-between;"]');
+        if (autoHeader) {
+            autoHeader.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleFolderWithIcons(autoFolderBox);
             });
         }
-        function lightboxHandler(e) {
-            e.stopPropagation();
-            lightboxImg.src = this.src;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Dodaj klasu za pretragu
+        const autoClosed = autoFolderBox.querySelector('.closed-folder');
+        const autoOpen = autoFolderBox.querySelector('.open-folder');
+        if (autoClosed && autoOpen) {
+            // Već su tu, ne treba ništa dodatno
         }
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        lightbox.addEventListener('click', closeLightbox);
-        closeLb.addEventListener('click', closeLightbox);
-        bindLightbox();
-        // Observer za nove slike (ako se doda folder, ali ovdje nema dinamičkog dodavanja)
-        
-        // Kontakt forma
-        document.getElementById('clean-contact-form').addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerText = "⏳ Slanje...";
-            btn.disabled = true;
-            fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "Ime": document.getElementById('ins_name').value,
-                    "Telefon": document.getElementById('ins_phone').value,
-                    "Email": document.getElementById('ins_email').value,
-                    "Poruka": document.getElementById('ins_message').value,
-                    "_subject": "Novi upit sa sajta Milosavljević"
-                })
-            }).then(() => {
-                document.getElementById('clean-contact-form').style.display = 'none';
-                document.getElementById('form-title').innerText = "Hvala na upitu";
-                document.getElementById('status-box').style.display = 'block';
-            }).catch(() => { btn.innerText = "❌ Greška"; btn.disabled = false; });
+    }
+    
+    // ==================== MUZIKA I OSTALE FUNKCIJE ====================
+    const music = document.getElementById('bg-music');
+    const toggle1 = document.getElementById('music-toggle');
+    const toggle2 = document.getElementById('side-music-toggle');
+    const musicIcon = document.getElementById('music-icon');
+    const musicText = document.getElementById('music-text');
+    const sideIcon = document.getElementById('side-music-icon');
+    const backTop = document.getElementById('back-to-top');
+    
+    music.volume = 0.25;
+    let musicStarted = false;
+    
+    function updateUI(playing) {
+        const icon = playing ? "🔊" : "🔇";
+        musicIcon.textContent = icon;
+        if(sideIcon) sideIcon.textContent = icon;
+        musicText.textContent = playing ? "Muzika: Aktivna" : "Muzika: Isključena";
+    }
+    
+    function playMusic() {
+        music.play().then(() => { updateUI(true); musicStarted = true; }).catch(e => console.log);
+    }
+    
+    function toggleMusic() {
+        if (music.paused) music.play().then(() => updateUI(true));
+        else { music.pause(); updateUI(false); }
+        musicStarted = true;
+    }
+    
+    function initAudio() {
+        if (!musicStarted) playMusic();
+        document.removeEventListener('click', initAudio);
+        document.removeEventListener('touchstart', initAudio);
+    }
+    document.addEventListener('click', initAudio);
+    document.addEventListener('touchstart', initAudio);
+    toggle1.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
+    if(toggle2) toggle2.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeLb = document.getElementById('close-btn');
+    function bindLightbox() {
+        document.querySelectorAll('.project-img').forEach(img => {
+            img.removeEventListener('click', lightboxHandler);
+            img.addEventListener('click', lightboxHandler);
         });
-    </script>
+    }
+    function lightboxHandler(e) {
+        e.stopPropagation();
+        lightboxImg.src = this.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    closeLb.addEventListener('click', closeLightbox);
+    bindLightbox();
+    
+    // Kontakt forma
+    document.getElementById('clean-contact-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.innerText = "⏳ Slanje...";
+        btn.disabled = true;
+        fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "Ime": document.getElementById('ins_name').value,
+                "Telefon": document.getElementById('ins_phone').value,
+                "Email": document.getElementById('ins_email').value,
+                "Poruka": document.getElementById('ins_message').value,
+                "_subject": "Novi upit sa sajta Milosavljević"
+            })
+        }).then(() => {
+            document.getElementById('clean-contact-form').style.display = 'none';
+            document.getElementById('form-title').innerText = "Hvala na upitu";
+            document.getElementById('status-box').style.display = 'block';
+        }).catch(() => { btn.innerText = "❌ Greška"; btn.disabled = false; });
+    });
+</script>
 </body>
 </html>
