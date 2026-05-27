@@ -6,7 +6,7 @@
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
         /* ==========================================================================
-           1. CORE SETTINGS & GLOBALNI STILOVI
+           1. CORE SETTINGS, APSTRAKTNA POZADINA & GLOBALNI STILOVI
            ========================================================================== */
         * {
             box-sizing: border-box;
@@ -18,17 +18,14 @@
             scroll-behavior: smooth;
         }
         body {
-            /* Telo je sada prozirno kako bi se videla animirana pozadina ispod */
-            background-color: transparent;
+            background-color: transparent; /* Zbog apstraktne pozadine ispod */
             color: #f3f4f6;
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* ==========================================================================
-           1.5 MODERNA APSTRAKTNA POZADINA (CSS Animacija)
-           ========================================================================== */
+        /* MODERNA APSTRAKTNA POZADINA (CSS Animacija umjesto slike) */
         .abstract-bg {
             position: fixed;
             top: 0;
@@ -36,7 +33,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background-color: #04070b; /* Tamna osnova */
+            background-color: #04070b;
             overflow: hidden;
         }
         .glow-orb {
@@ -47,32 +44,10 @@
             animation: floatOrb 20s infinite ease-in-out alternate;
             will-change: transform;
         }
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: #4caf50; /* Zelena */
-            top: -10%;
-            left: -10%;
-            animation-duration: 25s;
-        }
-        .orb-2 {
-            width: 600px;
-            height: 600px;
-            background: #3a86ff; /* Plava */
-            bottom: -20%;
-            right: -10%;
-            animation-duration: 30s;
-            animation-delay: -5s;
-        }
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: #e63946; /* Crvena */
-            top: 40%;
-            left: 50%;
-            animation-duration: 22s;
-            animation-delay: -10s;
-        }
+        .orb-1 { width: 500px; height: 500px; background: #4caf50; top: -10%; left: -10%; animation-duration: 25s; }
+        .orb-2 { width: 600px; height: 600px; background: #3a86ff; bottom: -20%; right: -10%; animation-duration: 30s; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: #e63946; top: 40%; left: 50%; animation-duration: 22s; animation-delay: -10s; }
+        
         @keyframes floatOrb {
             0% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(50px, 80px) scale(1.1); }
@@ -89,14 +64,14 @@
         }
 
         /* ==========================================================================
-           2. PREMIUM REZULTATI STAPANJA SLIKA
+           2. POPRAVLJENE SLIKE (Logo i Moto više ne gube boju)
            ========================================================================== */
         .blended-logo {
             max-width: 280px;
             width: 100%;
             height: auto;
-            mix-blend-mode: screen;
-            filter: brightness(1.1) contrast(1.05);
+            /* Umjesto mix-blend-mode koristimo drop-shadow za bolju vidljivost */
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .blended-logo:hover {
@@ -106,8 +81,7 @@
             width: 100%;
             height: auto;
             display: block;
-            mix-blend-mode: screen;
-            filter: brightness(1.15) drop-shadow(0 0 20px rgba(58, 134, 255, 0.25));
+            filter: drop-shadow(0 0 15px rgba(58, 134, 255, 0.25));
         }
         .om-image-container {
             position: relative;
@@ -125,8 +99,8 @@
             width: 100%;
             height: auto;
             display: block;
-            mix-blend-mode: lighten;
-            filter: contrast(1.2) brightness(1.1);
+            filter: contrast(1.1) brightness(1.05);
+            border-radius: 6px;
         }
 
         /* ==========================================================================
@@ -201,7 +175,6 @@
            4. PRO-UI DJELIĆI (iPhone Stakleni Folderi)
            ========================================================================== */
         .folder-box {
-            /* Osnovni iPhone stakleni izgled */
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 18px;
@@ -212,14 +185,11 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        
-        /* Kad je folder otvoren dobija prelijepu prozirno-zelenu nijansu */
         .folder-box.open {
             background: rgba(76, 175, 80, 0.08); 
             border-color: rgba(76, 175, 80, 0.3);
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-
         .folder-arrow {
             transition: transform 0.3s ease;
             color: #4caf50;
@@ -252,7 +222,6 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.3s ease;
             cursor: pointer;
-            /* Optimizacija za Android touch */
             touch-action: manipulation; 
         }
         .project-img:active, .project-img:hover {
@@ -357,7 +326,7 @@
             align-items: center;
             justify-content: center;
             z-index: 999999 !important;
-            touch-action: none; /* Sprečava skrolovanje ispod na mobilnom */
+            touch-action: none;
         }
         .lightbox-overlay.active {
             display: flex;
@@ -387,7 +356,6 @@
             z-index: 1000000;
         }
 
-        /* Prilagođavanje za ekrane mobilnih telefona */
         @media (max-width: 900px) {
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
@@ -396,42 +364,33 @@
 </head>
 <body>
 
-    <!-- Animrirana Apstraktna Pozadina (Mrežni Neonski Čvorovi) -->
     <div class="abstract-bg">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
         <div class="glow-orb orb-3"></div>
     </div>
 
-    <!-- Audio podsistem -->
     <audio id="bg-music" src="Muzika.mp3" loop></audio>
 
-    <!-- Globalni lightbox -->
     <div id="lightbox" class="lightbox-overlay">
         <span class="lightbox-close" id="close-btn">&times;</span>
         <img id="lightbox-img" class="lightbox-img" src="" alt="Uvećan prikaz">
     </div>
 
-    <!-- ==========================================================================
-        STRUKTURA: PREMIUM CENTRIRANA NAVIGACIJA
-        ========================================================================== -->
     <header style="background-color: rgba(10, 15, 24, 0.6); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 14px 24px; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(0,0,0,0.4);">
         <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns: 1fr auto 1fr; align-items:center;">
             
-            <!-- Leva strana: Istorijski podatak -->
             <div style="justify-self: start;">
                 <p style="margin:0; font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:2px; font-weight:600;" class="hide-mobile">Tradicija od 1998.</p>
             </div>
             
-            <!-- Sredina: Centriran logo i naziv kompanije -->
             <div style="display:flex; align-items:center; gap:14px; justify-self: center;">
-                <img src="logo.jpg" alt="Milosavljević Logo" style="height:38px; width:auto; mix-blend-mode: screen; filter: brightness(1.15);">
+                <img src="logo.jpg" alt="Milosavljević Logo" style="height:38px; width:auto; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));">
                 <h2 style="margin:0; font-size:16px; color:#ffffff; letter-spacing:1.5px; font-weight: 700; text-transform: uppercase;">
                     MILOSAVLJEVIĆ <span style="color:#4caf50;">SMART ENERGY</span>
                 </h2>
             </div>
             
-            <!-- Desna strana: Korisničke kontrole zvuka -->
             <div style="justify-self: end;">
                 <button id="music-toggle" class="music-btn">
                     <span id="music-icon">🔊</span> <span id="music-text" class="hide-mobile">Muzika: Isključena</span>
@@ -440,10 +399,8 @@
         </div>
     </header>
 
-    <!-- GLAVNI ZID SAJTA -->
     <div style="max-width:1200px; margin:0 auto; padding:0 20px;">
 
-        <!-- HERO BRANDING SEKCIJA -->
         <section style="padding:90px 0 70px 0; text-align:center;">
             <div style="margin-bottom:30px; display: inline-block;">
                 <img src="logo.jpg" alt="Milosavljević Smart Energy" class="blended-logo">
@@ -459,9 +416,6 @@
             </a>
         </section>
 
-        <!-- ==========================================================================
-            STRUKTURA: REMEK-DELO RASPORED ČLANAKA (ASIMETRIČNA FILOZOFIJA RADA)
-            ========================================================================== -->
         <section style="padding:40px 0; margin-bottom:50px;">
             <div style="text-align:center; margin-bottom:45px;">
                 <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing: 2px;">Naša Filozofija Rada</span>
@@ -470,7 +424,6 @@
             
             <div class="grid-philosophie">
                 
-                <!-- ČLANAK 1: Široki uvodni format -->
                 <div class="abstract-card card-zelena full-width">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
                         <span style="font-size: 28px; filter: drop-shadow(0 0 10px #4caf50);">👁️‍🗨️</span>
@@ -482,7 +435,6 @@
                     </p>
                 </div>
                 
-                <!-- ČLANAK 2: Kompaktni fokus mod (Leva strana) -->
                 <div class="abstract-card card-plava">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
                         <span style="font-size: 28px; filter: drop-shadow(0 0 10px #3a86ff);">🎛️</span>
@@ -494,7 +446,6 @@
                     </p>
                 </div>
                 
-                <!-- ČLANAK 3: Kompaktni fokus mod (Desna strana) -->
                 <div class="abstract-card card-crvena">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
                         <span style="font-size: 28px; filter: drop-shadow(0 0 10px #e63946);">🛡️</span>
@@ -508,7 +459,6 @@
             </div>
         </section>
 
-        <!-- MOTO KOMPANIJE -->
         <section style="padding:10px 0; margin-bottom:50px;">
             <div style="background: rgba(13, 20, 30, 0.3); border-radius: 20px; padding: 35px; text-align: center; border: 1px solid rgba(255,255,255,0.015);">
                 <p style="margin:0 0 20px 0; font-size:11px; color:#3a86ff; font-weight:bold; text-transform:uppercase; letter-spacing:2px;">Naš Moto i Vodilja</p>
@@ -518,7 +468,6 @@
             </div>
         </section>
 
-        <!-- O NAMA SEKCIJA -->
         <section style="padding:10px 0; margin-bottom:50px;">
             <div style="background: linear-gradient(135deg, rgba(13,19,31,0.5) 0%, rgba(6,9,14,0.5) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.04); border-radius:20px; padding:45px 40px;">
                 <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
@@ -539,7 +488,6 @@
             </div>
         </section>
 
-        <!-- REFERENCE I FOLDERI -->
         <section style="padding:10px 0; margin-bottom:50px;">
             <div style="text-align:center; margin-bottom:45px;">
                 <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">Reference</span>
@@ -547,10 +495,8 @@
                 <p style="color:#9ca3af; font-size:15px; font-weight: 300;">Klikni na folder, pa dodirni sliku za prikaz preko celog ekrana.</p>
             </div>
 
-            <!-- Grid sa folderima -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
                 
-                <!-- FOLDER 1 -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -572,7 +518,6 @@
                     </div>
                 </div>
 
-                <!-- FOLDER 1b -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -594,7 +539,6 @@
                     </div>
                 </div>
 
-                <!-- FOLDER 2 -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -616,7 +560,6 @@
                     </div>
                 </div>
 
-                <!-- FOLDER 3 -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -638,7 +581,6 @@
                     </div>
                 </div>
 
-                <!-- FOLDER 4 -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -660,7 +602,6 @@
                     </div>
                 </div>
 
-                <!-- FOLDER 5 -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -682,7 +623,6 @@
                     </div>
                 </div>
 
-                <!-- FOLDER 6 -->
                 <div class="folder-box">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -706,7 +646,6 @@
 
             </div>
 
-            <!-- INDUSTRIJSKA AKCENTOVANA SEKCIJA -->
             <div style="background: linear-gradient(135deg, rgba(16, 24, 39, 0.6) 0%, rgba(10, 26, 15, 0.4) 100%); border: 1px solid rgba(76, 175, 80, 0.35); border-radius:20px; padding:40px; text-align:center; margin-top:40px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
                 <span style="background-color:rgba(76, 175, 80, 0.08); color:#4caf50; padding:5px 14px; border-radius:50px; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:1px;">Glavna Orijentacija</span>
                 <h3 style="font-size:23px; color:#4caf50; margin:15px 0 10px 0; letter-spacing: -0.3px;">Fokus na polju: Automatizacija i Robotika</h3>
@@ -714,7 +653,6 @@
                     Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema. Klikni na folder ispod za slike automatizacije.
                 </p>
                 
-                <!-- FOLDER 7 -->
                 <div class="folder-box" style="background: rgba(4, 7, 11, 0.6); max-width:500px; margin:0 auto; text-align:left;">
                     <div onclick="toggleFolder(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
                         <div style="display:flex; align-items:center; gap:15px; flex-grow:1;">
@@ -738,18 +676,13 @@
             </div>
         </section>
 
-        <!-- ==========================================================================
-            NAPREDNA KONTAKT SEKCIJA
-            ========================================================================== -->
         <section id="kontakt" style="padding:60px 0; max-width:750px; margin:0 auto; text-align:center;">
             <h2 style="font-size:26px; color:#ffffff; margin-bottom:25px; letter-spacing: -0.5px;">Kontakt</h2>
             <div style="background: linear-gradient(135deg, rgba(14,20,32,0.6) 0%, rgba(5,8,12,0.6) 100%); border: 1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; box-shadow: 0 4px 25px rgba(0,0,0,0.55); backdrop-filter: blur(10px);">
                 <p style="margin:0 0 30px 0; font-weight:600; color:#4caf50; font-size:24px; letter-spacing: 0.5px;">Milosavljević Smart Energy</p>
                 
-                <!-- Grid za Rajka i Marka -->
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 35px;">
                     
-                    <!-- KONTAKT 1: Rajko -->
                     <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px 15px; border-radius: 12px; text-align: center;">
                         <h4 style="color: #ffffff; font-size: 18px; margin-bottom: 15px; font-weight: 600;">Rajko Milosavljević</h4>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -765,7 +698,6 @@
                         </div>
                     </div>
 
-                    <!-- KONTAKT 2: Marko -->
                     <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px 15px; border-radius: 12px; text-align: center;">
                         <h4 style="color: #ffffff; font-size: 18px; margin-bottom: 15px; font-weight: 600;">Marko Milosavljević</h4>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -782,7 +714,6 @@
                     </div>
                 </div>
 
-                <!-- ZVANIČNA E-MAIL ADRESA -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 25px; margin-bottom: 35px;">
                     <p style="color: #9ca3af; font-size: 14px; margin-bottom: 8px;">Zvanična e-mail adresa:</p>
                     <a href="mailto:milosavljevic@outlook.com" style="color: #4caf50; font-size: 18px; font-weight: 600; text-decoration: none; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 8px;">
@@ -790,7 +721,6 @@
                     </a>
                 </div>
 
-                <!-- FORMA SA DINAMIČKIM NASLOVOM -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 30px;">
                     <h3 id="form-title" style="color: #ffffff; font-size: 19px; margin-bottom: 20px; font-weight: 600; text-align: left;">Pošaljite nam upit direktno sa sajta</h3>
                     
@@ -819,7 +749,6 @@
                         <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji poruku</button>
                     </form>
 
-                    <!-- Neonski boks sa potvrdnim tekstom -->
                     <div id="status-box" class="status-box">
                         ✅ <strong>Uspješno poslato!</strong><br><br>
                         Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge.<br>
@@ -832,14 +761,12 @@
         </section>
     </div>
 
-    <!-- AUDIO, LIGHTBOX I NAPREDNI INTEGRISANI JS POGON -->
     <script>
-        // --- 1. LOGIKA ZA FOLDERE (Harmonika) ---
+        // 1. FOLDER LOGIKA
         function toggleFolder(folderElement) {
             if (folderElement.classList.contains('open')) {
                 folderElement.classList.remove('open');
             } else {
-                // Zatvori ostale prije nego što otvoriš novi
                 document.querySelectorAll('.folder-box').forEach(box => {
                     box.classList.remove('open');
                 });
@@ -847,7 +774,7 @@
             }
         }
 
-        // --- 2. LOGIKA ZA ZVUK ---
+        // 2. AUDIO LOGIKA
         const music = document.getElementById('bg-music');
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
@@ -862,7 +789,6 @@
                     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                     if (audioCtx.state === 'suspended') { audioCtx.resume(); }
                 }
-
                 music.play().then(() => {
                     musicStarted = true;
                     musicIcon.textContent = "🔊";
@@ -892,7 +818,7 @@
             }
         });
 
-        // --- 3. OPTIMIZOVAN LIGHTBOX ZA ANDROID/iOS ---
+        // 3. LIGHTBOX LOGIKA (Popravljeno za mobitel)
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.getElementById('close-btn');
@@ -902,10 +828,10 @@
             images.forEach(img => {
                 img.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation(); // Sprečava otvaranje/zatvaranje foldera iza
+                    e.stopPropagation();
                     lightboxImg.src = this.src;
                     lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Sprečava skrol dok je slika otvorena
+                    document.body.style.overflow = 'hidden'; 
                 });
             });
         }
@@ -913,13 +839,13 @@
         function closeLightbox(e) {
             e.preventDefault();
             lightbox.classList.remove('active');
-            document.body.style.overflow = ''; // Vraća skrol
+            document.body.style.overflow = ''; 
         }
 
         lightbox.addEventListener('click', closeLightbox);
         closeBtn.addEventListener('click', closeLightbox);
 
-        // --- 4. FORMA (AJAX) ---
+        // 4. KONTAKT FORMA (AJAX)
         document.getElementById('clean-contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
