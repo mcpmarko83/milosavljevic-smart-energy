@@ -53,6 +53,17 @@
             100% { transform: translate(-50px, -50px) scale(0.9); }
         }
 
+        /* GLOBALNI PARTICLES CANVAS (PREKO CIJELE STRANICE) */
+        #global-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         .neon-text {
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.5), 0 0 30px rgba(76, 175, 80, 0.2);
         }
@@ -430,6 +441,9 @@
         <div class="glow-orb orb-3"></div>
     </div>
 
+    <!-- GLOBALNI PARTICLES CANVAS (PREKO CIJELE STRANICE) -->
+    <canvas id="global-particles"></canvas>
+
     <audio id="bg-music" src="Muzika.mp3" loop></audio>
 
     <div id="lightbox" class="lightbox-overlay">
@@ -458,11 +472,8 @@
         </div>
     </header>
 
-    <!-- ========== PREMIUM HERO START (UGRAĐENA) ========== -->
+    <!-- ========== PREMIUM HERO START (BEZ PARTICLES CANVASA) ========== -->
     <section class="hero" style="padding:110px 20px 80px; text-align:center; position:relative; overflow:hidden;">
-
-        <!-- PARTICLES CANVAS -->
-        <canvas id="particles" style="position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none;"></canvas>
 
         <!-- GRID + SCANLINES LAYER -->
         <div style="
@@ -843,49 +854,56 @@
             }).catch(() => { btn.innerText = "❌ Greška pri slanju"; btn.disabled = false; });
         });
 
-        // PARTICLES JS ZA HERO (dodato)
-        const canvas = document.getElementById("particles");
-        if(canvas){
-            const ctx = canvas.getContext("2d");
+        // GLOBALNI PARTICLES (PREKO CIJELE STRANICE)
+        const globalCanvas = document.getElementById('global-particles');
+        if (globalCanvas) {
+            const ctx = globalCanvas.getContext('2d');
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            
             function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                width = window.innerWidth;
+                height = window.innerHeight;
+                globalCanvas.width = width;
+                globalCanvas.height = height;
+                initParticles();
             }
-            resizeCanvas();
+            
             let particles = [];
-            for(let i=0;i<70;i++){
-                particles.push({
-                    x: Math.random()*canvas.width,
-                    y: Math.random()*canvas.height,
-                    r: Math.random()*2,
-                    d: Math.random()*0.8
-                });
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < 70; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        r: Math.random() * 2,
+                        d: Math.random() * 0.8 + 0.2
+                    });
+                }
             }
-            function draw(){
-                if(!ctx) return;
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                ctx.fillStyle = "rgba(255,255,255,0.5)";
-                particles.forEach(p=>{
+            
+            function drawParticles() {
+                if (!ctx) return;
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                for (let p of particles) {
                     ctx.beginPath();
-                    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                     ctx.fill();
                     p.y -= p.d;
-                    if(p.y < 0){
-                        p.y = canvas.height;
-                        p.x = Math.random()*canvas.width;
+                    if (p.y < 0) {
+                        p.y = height;
+                        p.x = Math.random() * width;
                     }
-                });
-                requestAnimationFrame(draw);
-            }
-            draw();
-            window.addEventListener("resize",()=>{
-                resizeCanvas();
-                // reset particles positions when resizing
-                for(let i=0;i<particles.length;i++){
-                    particles[i].x = Math.random()*canvas.width;
-                    particles[i].y = Math.random()*canvas.height;
                 }
+                requestAnimationFrame(drawParticles);
+            }
+            
+            window.addEventListener('resize', () => {
+                resizeCanvas();
             });
+            resizeCanvas();
+            drawParticles();
         }
     </script>
 </body>
