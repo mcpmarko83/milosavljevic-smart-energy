@@ -661,7 +661,7 @@
         closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
 
-        // ========== KONTAKT FORMA (POTPUNO ISPRAVLJENA) ==========
+        // ========== KONTAKT FORMA SA WEB3FORMS (TVOJ KLJUČ) ==========
         const contactForm = document.getElementById('clean-contact-form');
         const submitBtn = document.getElementById('submit-btn');
 
@@ -672,39 +672,35 @@
             submitBtn.innerText = "⏳ Slanje u toku...";
             submitBtn.disabled = true;
 
-            // Priprema podataka za FormSubmit (application/x-www-form-urlencoded)
-            const formData = new URLSearchParams();
-            formData.append('name', document.getElementById('ins_name').value);
-            formData.append('_replyto', document.getElementById('ins_email').value);
-            formData.append('phone', document.getElementById('ins_phone').value);
-            formData.append('message', document.getElementById('ins_message').value);
-            formData.append('_subject', 'Novi upit sa sajta Milosavljević Smart Energy');
-            formData.append('_captcha', 'false');
-            formData.append('_next', window.location.href);
-
-            fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
+            fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formData.toString()
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    access_key: 'cc0ac5b2-dae0-4051-86be-94a57cca494e',  // Tvoj ključ
+                    name: document.getElementById('ins_name').value,
+                    email: document.getElementById('ins_email').value,
+                    phone: document.getElementById('ins_phone').value,
+                    message: document.getElementById('ins_message').value,
+                    subject: 'Novi upit sa sajta Milosavljević Smart Energy',
+                    _captcha: 'false'
+                })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Server greška: ' + response.status);
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Sakrij formu i prikaži poruku o uspjehu
+                    contactForm.style.display = 'none';
+                    document.getElementById('form-title').innerText = "Informacija pošiljaocu";
+                    document.getElementById('status-box').style.display = 'block';
+                } else {
+                    throw new Error('Greška pri slanju: ' + (data.message || 'nepoznata greška'));
                 }
-                return response.text();
-            })
-            .then(() => {
-                // Uspješno poslato
-                contactForm.style.display = 'none';
-                document.getElementById('form-title').innerText = "Informacija pošiljaocu";
-                document.getElementById('status-box').style.display = 'block';
             })
             .catch(error => {
-                console.error('Greška:', error);
+                console.error('Web3Forms greška:', error);
                 alert("Došlo je do greške prilikom slanja. Provjerite internet vezu ili pokušajte kasnije.");
             })
             .finally(() => {
-                // Vraćamo dugme u prvobitno stanje – OVO JE FALILO
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             });
