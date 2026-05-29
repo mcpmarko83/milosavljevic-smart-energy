@@ -483,6 +483,7 @@
     </div>
 
     <script>
+        // ========== WINDOWS 11 FOLDERI ==========
         const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFDD66'/%3E%3Cstop offset='100%25' stop-color='%23FFB300'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' filter='url(%23shadow)' stroke='%23E5A000' stroke-width='0.5'/%3E%3C/svg%3E`;
         const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE68F'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3Cfilter id='shadowOpen' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' filter='url(%23shadowOpen)' stroke='%23E5A000' stroke-width='0.5'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23FFC107' stroke-width='2' /%3E%3C/svg%3E`;
 
@@ -596,6 +597,7 @@
             }
         }
 
+        // ========== MUZIKA ==========
         const music = document.getElementById('bg-music');
         const toggle1 = document.getElementById('music-toggle');
         const toggle2 = document.getElementById('side-music-toggle');
@@ -635,6 +637,7 @@
         if(toggle2) toggle2.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
         backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+        // ========== LIGHTBOX ==========
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeLb = document.getElementById('close-btn');
@@ -658,58 +661,56 @@
         closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
 
-        // ISPRAVLJENA KONTAKT FORMA – FormSubmit pouzdano radi
-        const form = document.getElementById('clean-contact-form');
-        form.addEventListener('submit', async function(e) {
+        // ========== KONTAKT FORMA (POTPUNO ISPRAVLJENA) ==========
+        const contactForm = document.getElementById('clean-contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const originalText = btn.innerText;
-            btn.innerText = "⏳ Slanje u toku...";
-            btn.disabled = true;
+            
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "⏳ Slanje u toku...";
+            submitBtn.disabled = true;
 
-            const formData = {
-                "Ime i Prezime": document.getElementById('ins_name').value,
-                "Telefon": document.getElementById('ins_phone').value,
-                "Email Kupca": document.getElementById('ins_email').value,
-                "Poruka / Opis posla": document.getElementById('ins_message').value,
-                "_subject": "Novi upit sa sajta Milosavljević Smart Energy!",
-                "_captcha": "false",
-                "_template": "table",
-                "_format": "json"
-            };
+            // Priprema podataka za FormSubmit (application/x-www-form-urlencoded)
+            const formData = new URLSearchParams();
+            formData.append('name', document.getElementById('ins_name').value);
+            formData.append('_replyto', document.getElementById('ins_email').value);
+            formData.append('phone', document.getElementById('ins_phone').value);
+            formData.append('message', document.getElementById('ins_message').value);
+            formData.append('_subject', 'Novi upit sa sajta Milosavljević Smart Energy');
+            formData.append('_captcha', 'false');
+            formData.append('_next', window.location.href);
 
-            try {
-                const response = await fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
+            fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            })
+            .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP greška: ${response.status}`);
+                    throw new Error('Server greška: ' + response.status);
                 }
-
-                const result = await response.json();
-                // FormSubmit uvijek vraća { success: "true" } ili { success: true } kada je sve u redu
-                if (result.success === true || result.success === "true") {
-                    // Sakrij formu i prikaži status box
-                    form.style.display = 'none';
-                    document.getElementById('form-title').innerText = "Informacija pošiljaocu";
-                    document.getElementById('status-box').style.display = 'block';
-                } else {
-                    throw new Error('Server je vratio grešku');
-                }
-            } catch (error) {
-                console.error('FormSubmit greška:', error);
-                btn.innerText = "❌ Greška pri slanju";
-                btn.disabled = false;
+                return response.text();
+            })
+            .then(() => {
+                // Uspješno poslato
+                contactForm.style.display = 'none';
+                document.getElementById('form-title').innerText = "Informacija pošiljaocu";
+                document.getElementById('status-box').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Greška:', error);
                 alert("Došlo je do greške prilikom slanja. Provjerite internet vezu ili pokušajte kasnije.");
-            }
+            })
+            .finally(() => {
+                // Vraćamo dugme u prvobitno stanje – OVO JE FALILO
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            });
         });
 
+        // ========== GLOBALNE ČESTICE ==========
         const globalCanvas = document.getElementById('global-particles');
         if (globalCanvas) {
             const ctx = globalCanvas.getContext('2d');
