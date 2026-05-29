@@ -658,52 +658,56 @@
         closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
 
-        // Kontakt forma sa ispravljenim i dodanim obaveznim API zaglavljima
-        document.getElementById('clean-contact-form').addEventListener('submit', function(e) {
+        // ISPRAVLJENA KONTAKT FORMA – FormSubmit pouzdano radi
+        const form = document.getElementById('clean-contact-form');
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
+            const originalText = btn.innerText;
             btn.innerText = "⏳ Slanje u toku...";
             btn.disabled = true;
 
-            // NAPOMENA: Ako si registrovao milosavljevic@outloo.com (bez K), ispravi URL ispod!
-            fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json' // OBAVEZNO: Bez ovoga puca
-                },
-                body: JSON.stringify({
-                    "Ime i Prezime": document.getElementById('ins_name').value,
-                    "Telefon": document.getElementById('ins_phone').value,
-                    "Email Kupca": document.getElementById('ins_email').value,
-                    "Poruka / Opis posla": document.getElementById('ins_message').value,
-                    "_subject": "Novi upit sa sajta Milosavljević Smart Energy!",
-                    "_captcha": "false" // OBAVEZNO: Isključuje bot verifikaciju u pozadini
-                })
-            })
-            .then(response => {
-                // Provjera mrežnog statusa API-ja
+            const formData = {
+                "Ime i Prezime": document.getElementById('ins_name').value,
+                "Telefon": document.getElementById('ins_phone').value,
+                "Email Kupca": document.getElementById('ins_email').value,
+                "Poruka / Opis posla": document.getElementById('ins_message').value,
+                "_subject": "Novi upit sa sajta Milosavljević Smart Energy!",
+                "_captcha": "false",
+                "_template": "table",
+                "_format": "json"
+            };
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
                 if (!response.ok) {
-                    throw new Error('Mrežna greška ili server odbija zahtjev (Status: ' + response.status + ')');
+                    throw new Error(`HTTP greška: ${response.status}`);
                 }
-                return response.json();
-            })
-            .then(data => {
-                // Ako je JSON odgovor potvrdio uspješno slanje
-                if(data.success === "true" || data.success === true) {
-                    document.getElementById('clean-contact-form').style.display = 'none';
+
+                const result = await response.json();
+                // FormSubmit uvijek vraća { success: "true" } ili { success: true } kada je sve u redu
+                if (result.success === true || result.success === "true") {
+                    // Sakrij formu i prikaži status box
+                    form.style.display = 'none';
                     document.getElementById('form-title').innerText = "Informacija pošiljaocu";
                     document.getElementById('status-box').style.display = 'block';
                 } else {
-                    throw new Error("Server je primio zahtjev, ali je vratio internu grešku.");
+                    throw new Error('Server je vratio grešku');
                 }
-            })
-            .catch(error => {
-                console.error("Detalji greške:", error);
+            } catch (error) {
+                console.error('FormSubmit greška:', error);
                 btn.innerText = "❌ Greška pri slanju";
                 btn.disabled = false;
-                alert("Greška pri komunikaciji sa serverom! Da li pretraživač blokira pristup mreži (CORS) ili postoji problem sa internetom.");
-            });
+                alert("Došlo je do greške prilikom slanja. Provjerite internet vezu ili pokušajte kasnije.");
+            }
         });
 
         const globalCanvas = document.getElementById('global-particles');
