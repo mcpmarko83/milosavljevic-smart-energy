@@ -34,17 +34,14 @@
             z-index: -1;
             background-color: #04070b;
             overflow: hidden;
-            /* Hardversko ubrzanje za fiksnu pozadinu */
             transform: translateZ(0);
         }
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            /* Smanjen blur radi performansi na iOS */
             filter: blur(80px); 
             opacity: 0.4;
             animation: floatOrb 20s infinite ease-in-out alternate;
-            /* Forsiranje renderovanja na GPU */
             will-change: transform;
             transform: translateZ(0);
         }
@@ -135,7 +132,6 @@
             border-radius: 16px;
             padding: 35px;
             position: relative;
-            /* Optimizovan backdrop-filter za Safari */
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             transform: translateZ(0);
@@ -500,7 +496,6 @@
             { name: "06 Distributivne mreže", desc: "Niskonaponske mreže i trafostanice", path: "06_Elektrodistributivne_mreze" }
         ];
 
-        // Optimizacija DOM manipulacije koristeći DocumentFragment
         const container = document.getElementById('folders-container');
         const fragment = document.createDocumentFragment();
         
@@ -548,7 +543,6 @@
             for (let i = 1; i <= 4; i++) {
                 const imgProj = document.createElement('img');
                 imgProj.className = 'project-img';
-                // Optimizacija: lazy loading
                 imgProj.loading = 'lazy'; 
                 imgProj.src = `Nasi projekti/${folder.path}/${i}.jpg`;
                 imgProj.onerror = function() { this.style.display = 'none'; };
@@ -560,7 +554,7 @@
             fragment.appendChild(folderBox);
         });
         
-        container.appendChild(fragment); // Dodajemo sve odjednom
+        container.appendChild(fragment);
 
         function toggleFolderWithIcon(folderElement) {
             const isOpen = folderElement.classList.contains('open');
@@ -602,7 +596,6 @@
             }
         }
 
-        // MUZIKA I KONTROLE
         const music = document.getElementById('bg-music');
         const toggle1 = document.getElementById('music-toggle');
         const toggle2 = document.getElementById('side-music-toggle');
@@ -642,7 +635,6 @@
         if(toggle2) toggle2.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
         backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeLb = document.getElementById('close-btn');
@@ -666,18 +658,19 @@
         closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
 
-        // Kontakt forma (popravljena verzija)
-        document.getElementById('clean-contact-form').addEventListener('submit', e => {
+        // Kontakt forma sa ispravljenim i dodanim obaveznim API zaglavljima
+        document.getElementById('clean-contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.innerText = "⏳ Slanje u toku...";
             btn.disabled = true;
 
+            // NAPOMENA: Ako si registrovao milosavljevic@outloo.com (bez K), ispravi URL ispod!
             fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json' 
+                    'Accept': 'application/json' // OBAVEZNO: Bez ovoga puca
                 },
                 body: JSON.stringify({
                     "Ime i Prezime": document.getElementById('ins_name').value,
@@ -685,29 +678,34 @@
                     "Email Kupca": document.getElementById('ins_email').value,
                     "Poruka / Opis posla": document.getElementById('ins_message').value,
                     "_subject": "Novi upit sa sajta Milosavljević Smart Energy!",
-                    "_captcha": "false" 
+                    "_captcha": "false" // OBAVEZNO: Isključuje bot verifikaciju u pozadini
                 })
             })
             .then(response => {
+                // Provjera mrežnog statusa API-ja
                 if (!response.ok) {
-                    throw new Error('Problem sa serverom ili mrežom');
+                    throw new Error('Mrežna greška ili server odbija zahtjev (Status: ' + response.status + ')');
                 }
                 return response.json();
             })
             .then(data => {
-                document.getElementById('clean-contact-form').style.display = 'none';
-                document.getElementById('form-title').innerText = "Informacija pošiljaocu";
-                document.getElementById('status-box').style.display = 'block';
+                // Ako je JSON odgovor potvrdio uspješno slanje
+                if(data.success === "true" || data.success === true) {
+                    document.getElementById('clean-contact-form').style.display = 'none';
+                    document.getElementById('form-title').innerText = "Informacija pošiljaocu";
+                    document.getElementById('status-box').style.display = 'block';
+                } else {
+                    throw new Error("Server je primio zahtjev, ali je vratio internu grešku.");
+                }
             })
             .catch(error => {
                 console.error("Detalji greške:", error);
                 btn.innerText = "❌ Greška pri slanju";
                 btn.disabled = false;
-                alert("Došlo je do greške pri komunikaciji sa serverom. Molimo pokušajte ponovo.");
+                alert("Greška pri komunikaciji sa serverom! Da li pretraživač blokira pristup mreži (CORS) ili postoji problem sa internetom.");
             });
         });
 
-        // GLOBALNI PARTICLES (Optimizovano za mobilne)
         const globalCanvas = document.getElementById('global-particles');
         if (globalCanvas) {
             const ctx = globalCanvas.getContext('2d');
@@ -725,7 +723,6 @@
             let particles = [];
             function initParticles() {
                 particles = [];
-                // Smanjen broj čestica na manjim ekranima ispod 768px širine
                 const numParticles = width < 768 ? 25 : 70; 
                 for (let i = 0; i < numParticles; i++) {
                     particles.push({
