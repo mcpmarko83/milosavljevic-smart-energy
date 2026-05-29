@@ -40,7 +40,7 @@
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            /* Smanjen blur radi performansi na iOS, vizuelno sličan efekat */
+            /* Smanjen blur radi performansi na iOS */
             filter: blur(80px); 
             opacity: 0.4;
             animation: floatOrb 20s infinite ease-in-out alternate;
@@ -666,27 +666,45 @@
         closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
 
-        // Kontakt forma
+        // Kontakt forma (popravljena verzija)
         document.getElementById('clean-contact-form').addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.innerText = "⏳ Slanje u toku...";
             btn.disabled = true;
+
             fetch('https://formsubmit.co/ajax/milosavljevic@outlook.com', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json' 
+                },
                 body: JSON.stringify({
                     "Ime i Prezime": document.getElementById('ins_name').value,
                     "Telefon": document.getElementById('ins_phone').value,
                     "Email Kupca": document.getElementById('ins_email').value,
                     "Poruka / Opis posla": document.getElementById('ins_message').value,
-                    "_subject": "Novi upit sa sajta Milosavljević Smart Energy!"
+                    "_subject": "Novi upit sa sajta Milosavljević Smart Energy!",
+                    "_captcha": "false" 
                 })
-            }).then(() => {
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Problem sa serverom ili mrežom');
+                }
+                return response.json();
+            })
+            .then(data => {
                 document.getElementById('clean-contact-form').style.display = 'none';
                 document.getElementById('form-title').innerText = "Informacija pošiljaocu";
                 document.getElementById('status-box').style.display = 'block';
-            }).catch(() => { btn.innerText = "❌ Greška pri slanju"; btn.disabled = false; });
+            })
+            .catch(error => {
+                console.error("Detalji greške:", error);
+                btn.innerText = "❌ Greška pri slanju";
+                btn.disabled = false;
+                alert("Došlo je do greške pri komunikaciji sa serverom. Molimo pokušajte ponovo.");
+            });
         });
 
         // GLOBALNI PARTICLES (Optimizovano za mobilne)
