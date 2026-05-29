@@ -2,12 +2,20 @@
 <html lang="sr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
-        /* ==========================================================================
-           1. CORE SETTINGS + APSTRAKTNA POZADINA
-        ========================================================================== */
+        /* ========== PERFORMANCE: reduce animations on low-end / motion preference ========== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ========== CORE RESET ========== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -25,6 +33,7 @@
             overflow-x: hidden;
         }
 
+        /* ========== ABSTRACT BACKGROUND (optimized) ========== */
         .abstract-bg {
             position: fixed;
             top: 0;
@@ -39,20 +48,16 @@
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px); 
-            opacity: 0.4;
-            animation: floatOrb 20s infinite ease-in-out alternate;
+            filter: blur(80px);
+            opacity: 0.3;
             will-change: transform;
-            transform: translateZ(0);
         }
-        .orb-1 { width: 500px; height: 500px; background: #4caf50; top: -10%; left: -10%; animation-duration: 25s; }
-        .orb-2 { width: 600px; height: 600px; background: #3a86ff; bottom: -20%; right: -10%; animation-duration: 30s; animation-delay: -5s; }
-        .orb-3 { width: 400px; height: 400px; background: #e63946; top: 40%; left: 50%; animation-duration: 22s; animation-delay: -10s; }
-        
-        @keyframes floatOrb {
-            0% { transform: translate3d(0, 0, 0) scale(1); }
-            50% { transform: translate3d(50px, 80px, 0) scale(1.1); }
-            100% { transform: translate3d(-50px, -50px, 0) scale(0.9); }
+        .orb-1 { width: 400px; height: 400px; background: #4caf50; top: -10%; left: -10%; }
+        .orb-2 { width: 500px; height: 500px; background: #3a86ff; bottom: -20%; right: -10%; }
+        .orb-3 { width: 300px; height: 300px; background: #e63946; top: 40%; left: 50%; }
+        @media (max-width: 768px) {
+            .glow-orb { filter: blur(60px); opacity: 0.2; }
+            .orb-1, .orb-2, .orb-3 { transform: scale(0.7); }
         }
 
         #global-particles {
@@ -63,28 +68,25 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            transform: translateZ(0);
         }
 
-        .neon-text {
-            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5), 0 0 30px rgba(76, 175, 80, 0.2);
-        }
+        /* ========== UTILITY ========== */
         .hide-mobile {
-            @media (max-width: 768px) { display: none; }
+            display: inline;
+        }
+        @media (max-width: 768px) {
+            .hide-mobile { display: none; }
         }
 
-        /* ==========================================================================
-           2. SLIKE (Logo, Moto, Omov zakon)
-        ========================================================================== */
+        /* ========== IMAGES ========== */
         .blended-logo {
             max-width: 280px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2));
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: transform;
+            transition: transform 0.3s ease;
         }
-        .blended-logo:hover { transform: scale(1.04); }
+        .blended-logo:hover { transform: scale(1.02); }
         .blended-moto {
             width: 100%;
             height: auto;
@@ -102,14 +104,8 @@
             background: radial-gradient(circle at 30% 20%, rgba(76,175,80,0.2), rgba(0,0,0,0.6));
             padding: 6px;
             border: 2px solid rgba(76, 175, 80, 0.6);
-            box-shadow: 0 0 35px rgba(76, 175, 80, 0.3);
-            transition: all 0.3s ease;
-            transform: translateZ(0);
-        }
-        .om-image-container:hover {
-            transform: scale(1.02);
-            border-color: #4caf50;
-            box-shadow: 0 0 45px rgba(76, 175, 80, 0.5);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
+            transition: all 0.2s ease;
         }
         .blended-om {
             width: 100%;
@@ -118,9 +114,7 @@
             border-radius: 50%;
         }
 
-        /* ==========================================================================
-           3. INTERAKTIVNE KARTICE
-        ========================================================================== */
+        /* ========== CARDS ========== */
         .grid-philosophie {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -131,157 +125,289 @@
             border: 1px solid rgba(255, 255, 255, 0.02);
             border-radius: 16px;
             padding: 35px;
-            position: relative;
-            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
-            transform: translateZ(0);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .abstract-card.full-width { grid-column: span 2; }
-        .abstract-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 5px; height: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px 0 0 16px;
-            transition: background 0.4s ease;
-        }
-        .abstract-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); }
+        .abstract-card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6); }
         .abstract-card.card-zelena:hover { border-color: rgba(76, 175, 80, 0.3); }
-        .abstract-card.card-zelena:hover::before { background: #4caf50; }
-        .abstract-card.card-plava:hover { border-color: rgba(58, 134, 255, 0.35); }
-        .abstract-card.card-plava:hover::before { background: #3a86ff; }
-        .abstract-card.card-crvena:hover { border-color: rgba(230, 57, 70, 0.35); }
-        .abstract-card.card-crvena:hover::before { background: #e63946; }
+        .abstract-card.card-plava:hover { border-color: rgba(58, 134, 255, 0.3); }
+        .abstract-card.card-crvena:hover { border-color: rgba(230, 57, 70, 0.3); }
 
-        .pulse-node {
-            width: 9px; height: 9px; border-radius: 50%;
-            display: inline-block; position: relative;
-        }
-        .pulse-node::after {
-            content: ''; position: absolute; width: 100%; height: 100%;
-            top: 0; left: 0; background: inherit; border-radius: 50%;
-            animation: pulseGlow 2.8s infinite ease-in-out;
-        }
-        @keyframes pulseGlow {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(4); opacity: 0; }
-        }
-
-        /* ==========================================================================
-           4. FOLDERI
-        ========================================================================== */
+        /* ========== FOLDERS ========== */
         .folder-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 18px; padding: 24px;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transform: translateZ(0);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 18px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
         }
         .folder-box.open {
             background: rgba(76, 175, 80, 0.08);
             border-color: rgba(76, 175, 80, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
         .folder-arrow {
-            transition: transform 0.3s ease; color: #4caf50; font-size: 20px; font-weight: bold;
+            transition: transform 0.2s ease;
+            color: #4caf50;
+            font-size: 18px;
         }
         .folder-box.open .folder-arrow { transform: rotate(90deg); }
         .folder-content {
-            display: grid; grid-template-rows: 0fr;
-            transition: grid-template-rows 0.4s ease-out, opacity 0.3s ease-out; opacity: 0;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease-out, opacity 0.2s ease-out;
+            opacity: 0;
         }
-        .folder-box.open .folder-content { grid-template-rows: 1fr; opacity: 1; margin-top: 18px; }
+        .folder-box.open .folder-content {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: 18px;
+        }
         .inner-grid {
-            overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); gap: 12px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
         }
-
         .folder-img {
-            width: 52px; height: 44px; object-fit: contain;
-            transition: transform 0.2s ease; flex-shrink: 0;
-            will-change: transform;
+            width: 46px;
+            height: 40px;
+            object-fit: contain;
         }
-        .folder-box:hover .folder-img { transform: scale(1.03); }
-
         .project-img {
-            width: 100%; height: 95px; object-fit: cover; border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: all 0.3s ease; cursor: pointer;
-            will-change: transform;
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s ease;
+            cursor: pointer;
         }
-        .project-img:active, .project-img:hover { border-color: #4caf50; transform: scale(1.02); }
+        .project-img:hover { transform: scale(1.02); border-color: #4caf50; }
 
-        /* ==========================================================================
-           5. OSTALO
-        ========================================================================== */
+        /* ========== CAROUSEL (optimized, larger logos) ========== */
+        .partners-section {
+            background: rgba(13, 20, 30, 0.5);
+            border-radius: 20px;
+            padding: 30px 20px;
+            margin: 50px 0 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .partners-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+        .partners-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #4caf50;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s ease-out;
+            gap: 30px;
+        }
+        .carousel-slide {
+            flex: 0 0 calc(25% - 30px);
+            min-width: calc(25% - 30px);
+            text-align: center;
+            padding: 20px 15px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            transition: transform 0.2s ease;
+        }
+        .carousel-slide:hover { transform: translateY(-5px); background: rgba(0,0,0,0.5); }
+        .logo-wrapper {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 0;
+        }
+        .partner-logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .partner-name {
+            font-weight: 600;
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .carousel-btn:hover { background: #4caf50; }
+        .btn-prev { left: 10px; }
+        .btn-next { right: 10px; }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dot.active {
+            background: #4caf50;
+            width: 25px;
+            border-radius: 5px;
+        }
+        .loading, .error {
+            text-align: center;
+            padding: 40px;
+            color: #ccc;
+        }
+        .error { color: #e63946; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); }
+            .logo-wrapper { width: 140px; height: 140px; }
+        }
+        @media (max-width: 768px) {
+            .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
+            .logo-wrapper { width: 120px; height: 120px; }
+            .partner-name { font-size: 1rem; }
+            .grid-philosophie { grid-template-columns: 1fr; }
+            .abstract-card.full-width { grid-column: auto; }
+        }
+        @media (max-width: 480px) {
+            .carousel-slide { flex: 0 0 100%; min-width: 100%; }
+        }
+
+        /* ========== FORM, BUTTONS, LIGHTBOX ========== */
         .music-btn {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #ffffff; padding: 8px 16px; border-radius: 30px; cursor: pointer;
-            font-size: 13px; display: flex; align-items: center; gap: 8px;
-            -webkit-backdrop-filter: blur(5px);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
             backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
         }
-        .music-btn:hover {
-            background: rgba(76, 175, 80, 0.2); border-color: #4caf50; box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; font-size: 14px; color: #9ca3af; margin-bottom: 8px; font-weight: 500; }
         .form-control {
-            width: 100%; background: rgba(4, 7, 11, 0.6); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px; padding: 12px 16px; color: #ffffff; font-size: 15px; font-family: inherit;
-            transition: all 0.3s ease;
+            width: 100%;
+            background: rgba(4,7,11,0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
         }
-        .form-control:focus { outline: none; border-color: #4caf50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.2); }
-        
+        .form-control:focus { outline: none; border-color: #4caf50; }
         .form-submit-btn {
-            width: 100%; background: linear-gradient(135deg, #2e7d32, #4caf50); color: white;
-            border: none; padding: 14px; border-radius: 30px; font-size: 16px; font-weight: 600;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(76,175,80,0.25); transition: all 0.3s ease;
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
         }
-        .form-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(76,175,80,0.4); }
         .status-box {
-            display: none; background: rgba(76, 175, 80, 0.15); border: 1px solid #4caf50; color: #4caf50;
-            padding: 20px; margin-top: 25px; border-radius: 12px; font-size: 15px; line-height: 1.6;
-            text-align: left; box-shadow: 0 0 20px rgba(76, 175, 80, 0.1);
+            display: none;
+            background: rgba(76,175,80,0.15);
+            border: 1px solid #4caf50;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
         }
-
-        /* Lightbox */
         .lightbox-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: rgba(3, 5, 8, 0.98); display: none; align-items: center; justify-content: center;
-            z-index: 999999 !important; touch-action: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(3,5,8,0.98);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
         }
         .lightbox-overlay.active { display: flex; }
-        .lightbox-img { max-width: 95%; max-height: 85%; object-fit: contain; border-radius: 10px; border: 2px solid #4caf50; box-shadow: 0 20px 60px rgba(0,0,0,0.95); }
-        .lightbox-close {
-            position: absolute; top: 20px; right: 20px; color: #ffffff; font-size: 40px; font-weight: bold;
-            cursor: pointer; width: 50px; height: 50px; text-align: center; line-height: 45px;
-            background-color: rgba(255,255,255,0.1); border-radius: 50%; z-index: 1000000;
+        .lightbox-img {
+            max-width: 95%;
+            max-height: 85%;
+            object-fit: contain;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
         }
-
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            width: 50px;
+            text-align: center;
+        }
         .floating-buttons {
-            position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 99999;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 99999;
         }
         .float-btn {
-            width: 55px; height: 55px; border-radius: 50%; background: rgba(20, 30, 45, 0.8);
-            -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-            border: 1px solid rgba(76, 175, 80, 0.3); color: white; font-size: 26px;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            animation: floatIn 0.5s ease-out; transform: translateZ(0);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(20,30,45,0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(76,175,80,0.3);
+            color: white;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        .float-btn:hover { transform: scale(1.1); background: rgba(76, 175, 80, 0.2); border-color: #4caf50; box-shadow: 0 0 20px rgba(76, 175, 80, 0.6); }
-        @keyframes floatIn {
-            0% { opacity: 0; transform: translate3d(50px, 0, 0); }
-            100% { opacity: 1; transform: translate3d(0, 0, 0); }
-        }
-
+        .float-btn:hover { background: rgba(76,175,80,0.3); transform: scale(1.05); }
         @keyframes gridMove {
             from { transform: translateY(0); }
             to { transform: translateY(60px); }
@@ -290,313 +416,275 @@
             0%,100% { opacity:0.6; transform:scaleX(1); }
             50% { opacity:1; transform:scaleX(1.3); }
         }
-
-        @media (max-width: 768px) {
-            .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
-            .float-btn { width: 48px; height: 48px; font-size: 24px; }
-            .folder-img { width: 44px; height: 38px; }
-        }
-        @media (max-width: 900px) {
-            .grid-philosophie { grid-template-columns: 1fr; }
-            .abstract-card.full-width { grid-column: auto; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="abstract-bg">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
-    </div>
+<div class="abstract-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+</div>
+<canvas id="global-particles"></canvas>
+<audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
 
-    <canvas id="global-particles"></canvas>
+<div id="lightbox" class="lightbox-overlay">
+    <span class="lightbox-close" id="close-btn">&times;</span>
+    <img id="lightbox-img" class="lightbox-img" alt="Uvećani prikaz">
+</div>
 
-    <audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
+<div class="floating-buttons">
+    <div id="side-music-toggle" class="float-btn" title="Muzika"><span id="side-music-icon">🔊</span></div>
+    <div id="back-to-top" class="float-btn" title="Vrh">↑</div>
+</div>
 
-    <div id="lightbox" class="lightbox-overlay">
-        <span class="lightbox-close" id="close-btn">&times;</span>
-        <img id="lightbox-img" class="lightbox-img" src="" alt="Uvećan prikaz">
-    </div>
-
-    <div class="floating-buttons">
-        <div id="side-music-toggle" class="float-btn" title="Muzika">
-            <span id="side-music-icon">🔊</span>
+<header style="background: rgba(10,15,24,0.6); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.05); padding:12px 20px; position:sticky; top:0; z-index:1000;">
+    <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center;">
+        <div><p class="hide-mobile" style="font-size:11px; color:#6b7280;">Tradicija od 1998.</p></div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <img src="logo.jpg" alt="Logo" style="height:36px;">
+            <h2 style="font-size:16px; color:#fff;">MILOSAVLJEVIĆ <span style="color:#4caf50;">SMART ENERGY</span></h2>
         </div>
-        <div id="back-to-top" class="float-btn" title="Vrh">↑</div>
-    </div>
-
-    <header style="background: rgba(10,15,24,0.6); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.05); padding:14px 24px; position:sticky; top:0; z-index:1000; transform: translateZ(0);">
-        <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center;">
-            <div><p class="hide-mobile" style="font-size:11px; color:#6b7280;">Tradicija od 1998.</p></div>
-            <div style="display:flex; align-items:center; gap:14px;">
-                <img src="logo.jpg" alt="Logo" style="height:38px; filter:drop-shadow(0 0 5px rgba(255,255,255,0.2));">
-                <h2 style="font-size:16px; color:#fff;">MILOSAVLJEVIĆ <span style="color:#4caf50;">SMART ENERGY</span></h2>
-            </div>
-            <div style="justify-self:end;">
-                <button id="music-toggle" class="music-btn"><span id="music-icon">🔊</span> <span id="music-text" class="hide-mobile">Muzika: Isključena</span></button>
-            </div>
+        <div style="justify-self:end;">
+            <button id="music-toggle" class="music-btn"><span id="music-icon">🔊</span> <span id="music-text" class="hide-mobile">Muzika: Isključena</span></button>
         </div>
-    </header>
+    </div>
+</header>
 
-    <section class="hero" style="padding:110px 20px 80px; text-align:center; position:relative; overflow:hidden;">
-        <div style="position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size:60px 60px; animation:gridMove 18s linear infinite; opacity:0.35; pointer-events:none; z-index:1; will-change: transform;"></div>
-        <div style="position:absolute; inset:0; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 1px, transparent 4px, transparent 8px); opacity:0.08; mix-blend-mode:overlay; pointer-events:none; z-index:1;"></div>
-        
-        <div style="position:relative; z-index:2;">
-            <img src="logo.jpg" style="max-width:260px; filter:drop-shadow(0 0 12px rgba(255,255,255,0.2));">
-            <h1 style="font-size:42px; margin-top:20px; color:#fff; text-shadow:0 0 20px rgba(76,175,80,0.35);">
-                Inženjerska tradicija za <span style="color:#3a86ff;">pametnu budućnost</span>
-            </h1>
-            <div style="width:140px; height:2px; margin:25px auto; background:linear-gradient(90deg,transparent,#4caf50,#3a86ff,transparent); animation:pulse 2.5s infinite ease-in-out; will-change: transform;"></div>
-            <p style="max-width:650px; margin:0 auto; color:#9ca3af;">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
-            <a href="#kontakt" style="display:inline-block; margin-top:30px; padding:14px 40px; border-radius:30px; background:linear-gradient(135deg,#2e7d32,#4caf50); color:white; text-decoration:none;">Kontakt</a>
+<section class="hero" style="padding:80px 20px 60px; text-align:center; position:relative;">
+    <div style="position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size:60px 60px; animation:gridMove 18s linear infinite; opacity:0.2; pointer-events:none;"></div>
+    <div style="position:relative; z-index:2;">
+        <img src="logo.jpg" style="max-width:240px;" alt="Logo">
+        <h1 style="font-size:36px; margin-top:15px;">Inženjerska tradicija za <span style="color:#3a86ff;">pametnu budućnost</span></h1>
+        <div style="width:120px; height:2px; margin:20px auto; background:linear-gradient(90deg,transparent,#4caf50,#3a86ff,transparent); animation:pulse 2.5s infinite;"></div>
+        <p style="max-width:600px; margin:0 auto; color:#9ca3af;">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
+        <a href="#kontakt" style="display:inline-block; margin-top:25px; padding:12px 35px; border-radius:30px; background:linear-gradient(135deg,#2e7d32,#4caf50); color:white; text-decoration:none;">Kontakt</a>
+    </div>
+</section>
+
+<div style="max-width:1200px; margin:0 auto; padding:0 20px;">
+    <!-- Filozofija -->
+    <section style="padding:40px 0;">
+        <div style="text-align:center; margin-bottom:35px;">
+            <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Naša Filozofija Rada</span>
+            <h2 style="font-size:26px; color:#fff; margin-top:10px;">Principi inženjerske izvrsnosti</h2>
+        </div>
+        <div class="grid-philosophie">
+            <div class="abstract-card card-zelena full-width">
+                <h4 style="font-size:20px;">1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
+                <p style="color:#9ca3af;">Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge procedure. Radimo sa nevidljivom energijom koja ne prašta improvizacije. Zato svaki korak zasnivamo na provjeri, blokadi napona i stopostotnoj sigurnosti.</p>
+            </div>
+            <div class="abstract-card card-plava">
+                <h4 style="font-size:18px;">2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
+                <p style="color:#9ca3af;">Vrhunska estetika unutar ormara nije šminka već pouzdanost. Pedantno složeni provodnici i oznake garantuju stabilnost decenijama.</p>
+            </div>
+            <div class="abstract-card card-crvena">
+                <h4 style="font-size:18px;">3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
+                <p style="color:#9ca3af;">Cilj nam nije stalno popravljati kvarove, već uraditi posao tako da nas nikad više ne pozovete zbog istog problema. Kvalitet se prepoznaje po stabilnosti.</p>
+            </div>
         </div>
     </section>
 
-    <div style="max-width:1200px; margin:0 auto; padding:0 20px;">
-        <section style="padding:40px 0; margin-bottom:50px;">
-            <div style="text-align:center; margin-bottom:45px;">
-                <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:11px; font-weight:bold;">Naša Filozofija Rada</span>
-                <h2 style="font-size:28px; color:#fff; margin-top:12px;">Principi inženjerske izvrsnosti</h2>
-            </div>
-            <div class="grid-philosophie">
-                <div class="abstract-card card-zelena full-width">
-                    <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">👁️‍🗨️</span><div class="pulse-node" style="background:#4caf50;"></div></div>
-                    <h4 style="font-size:20px; margin:15px 0 10px;">1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
-                    <p style="color:#9ca3af;">Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.</p>
-                </div>
-                <div class="abstract-card card-plava">
-                    <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🎛️</span><div class="pulse-node" style="background:#3a86ff;"></div></div>
-                    <h4 style="font-size:19px; margin:15px 0 10px;">2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
-                    <p style="color:#9ca3af;">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu. Takav pristup omogućava da sistem radi stabilno decenijama.</p>
-                </div>
-                <div class="abstract-card card-crvena">
-                    <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🛡️</span><div class="pulse-node" style="background:#e63946;"></div></div>
-                    <h4 style="font-size:19px; margin:15px 0 10px;">3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
-                    <p style="color:#9ca3af;">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote. Kvalitet se prepoznaje po stabilnosti.</p>
-                </div>
-            </div>
-        </section>
+    <!-- Moto -->
+    <section style="margin-bottom:40px;">
+        <div style="background:rgba(13,20,30,0.3); border-radius:20px; padding:25px; text-align:center;">
+            <p style="font-size:11px; color:#3a86ff;">Naš Moto i Vodilja</p>
+            <div style="max-width:600px; margin:0 auto;"><img src="moto.jpg" class="blended-moto" loading="lazy"></div>
+        </div>
+    </section>
 
-        <section style="margin-bottom:50px;">
-            <div style="background:rgba(13,20,30,0.3); border-radius:20px; padding:35px; text-align:center;">
-                <p style="font-size:11px; color:#3a86ff;">Naš Moto i Vodilja</p>
-                <div style="max-width:700px; margin:0 auto;"><img src="moto.jpg" class="blended-moto" loading="lazy"></div>
+    <!-- Istorijat -->
+    <section style="margin-bottom:40px;">
+        <div style="background:linear-gradient(135deg, rgba(13,19,31,0.5), rgba(6,9,14,0.5)); backdrop-filter:blur(10px); border-radius:20px; padding:35px;">
+            <div style="display:flex; flex-wrap:wrap; gap:30px; align-items:center;">
+                <div style="flex:1;">
+                    <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Istorijat</span>
+                    <h2 style="font-size:28px; margin:15px 0;">Elektro kompanija sa čvrstim temeljima</h2>
+                    <p style="color:#9ca3af;"><strong>Milosavljević Smart Energy ponosno posluje od 1998. godine.</strong> Više od dve decenije uspešno projektiramo, gradimo i održavamo sisteme za infrastrukturu, vjerske i komercijalne objekte, danas fokusirani na automatizaciju i robotiku.</p>
+                </div>
+                <div style="flex:1; text-align:center;">
+                    <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy"></div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section style="margin-bottom:50px;">
-            <div style="background:linear-gradient(135deg, rgba(13,19,31,0.5), rgba(6,9,14,0.5)); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border-radius:20px; padding:45px 40px; transform: translateZ(0);">
-                <div style="display:flex; flex-wrap:wrap; gap:40px; align-items:center;">
-                    <div style="flex:1; min-width:280px;">
-                        <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px;">Istorijat</span>
-                        <h2 style="font-size:30px; color:#fff; margin:16px 0;">Elektro kompanija sa čvrstim temeljima</h2>
-                        <p style="color:#9ca3af;"><strong style="color:#ffffff;">Milosavljević Smart Energy ponosno posluje od 1998. godine.</strong> Već više od dve decenije uspešno projektujemo, gradimo i održavamo sisteme koji pokreću infrastrukturu, vjerske i komercijalne objekte, dok smo danas potpuno fokusirani na najsavremenija rešenja u domenu automatizacije i robotike.</p>
+    <!-- Folderi projekata -->
+    <section style="margin-bottom:50px;">
+        <div style="text-align:center; margin-bottom:35px;">
+            <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Reference</span>
+            <h2 style="font-size:26px; color:#fff; margin-top:10px;">Pregled projekata po folderima</h2>
+            <p style="color:#9ca3af;">Klikni na folder – otvara se sadržaj</p>
+        </div>
+        <div id="folders-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;"></div>
+        
+        <div id="auto-folder" style="background:linear-gradient(135deg, rgba(16,24,39,0.6), rgba(10,26,15,0.4)); border:1px solid rgba(76,175,80,0.35); border-radius:20px; padding:30px; text-align:center; margin-top:40px; backdrop-filter:blur(10px);">
+            <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:4px 12px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
+            <h3 style="font-size:22px; color:#4caf50; margin:12px 0;">Fokus: Automatizacija i Robotika</h3>
+            <p style="color:#9ca3af; max-width:700px; margin:0 auto 20px;">Integracija robotskih ćelija, industrijski elektro-ormari, Smart Home sistemi.</p>
+            <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.6); max-width:500px; margin:0 auto; text-align:left;">
+                <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <img class="folder-img" data-closed="" data-open="" src="" alt="folder">
+                        <div><h3 style="color:#fff; font-size:16px;">07 Automatizacija i robotika</h3><p style="font-size:11px; color:#3a86ff;">Industrija 4.0 i pametni sistemi</p></div>
                     </div>
-                    <div style="flex:1; text-align:center;">
-                        <p style="font-size:11px; color:#4caf50;">Inženjerska Preciznost</p>
-                        <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy"></div>
+                    <span class="folder-arrow">▶</span>
+                </div>
+                <div class="folder-content">
+                    <div class="inner-grid">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/1.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/2.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/3.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
+                        <img src="Nasi projekti/07_Automatizacija_i_robotika/4.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section style="margin-bottom:50px;">
-            <div style="text-align:center; margin-bottom:45px;">
-                <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:6px 16px; border-radius:50px; font-size:12px;">Reference</span>
-                <h2 style="font-size:28px; color:#fff; margin-top:12px;">Pregled projekata po folderima</h2>
-                <p style="color:#9ca3af;">Klikni na folder – otvara se sadržaj, a ikona foldera postaje otvorena.</p>
-            </div>
-            <div id="folders-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;"></div>
-            
-            <div id="auto-folder" style="background:linear-gradient(135deg, rgba(16,24,39,0.6), rgba(10,26,15,0.4)); border:1px solid rgba(76,175,80,0.35); border-radius:20px; padding:40px; text-align:center; margin-top:40px; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); transform: translateZ(0);">
-                <span style="background:rgba(76,175,80,0.08); color:#4caf50; padding:5px 14px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
-                <h3 style="font-size:23px; color:#4caf50; margin:15px 0 10px;">Fokus na polju: Automatizacija i Robotika</h3>
-                <p style="color:#9ca3af; max-width:750px; margin:0 auto 25px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
-                <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.6); max-width:500px; margin:0 auto; text-align:left;">
-                    <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
-                        <div style="display:flex; align-items:center; gap:15px;">
-                            <img class="folder-img" data-closed="closedAuto" data-open="openAuto" src="" alt="folder">
-                            <div><h3 style="color:#fff; font-size:17px;">07 Automatizacija i robotika</h3><p style="font-size:12px; color:#3a86ff;">Industrija 4.0 i pametni sistemi</p></div>
-                        </div>
-                        <span class="folder-arrow">▶</span>
+    <!-- Kontakt -->
+    <section id="kontakt" style="padding:50px 0; max-width:750px; margin:0 auto;">
+        <h2 style="font-size:26px; text-align:center; margin-bottom:20px;">Kontakt</h2>
+        <div style="background:linear-gradient(135deg, rgba(14,20,32,0.6), rgba(5,8,12,0.6)); border-radius:20px; padding:30px 25px; backdrop-filter:blur(10px);">
+            <p style="font-weight:600; color:#4caf50; font-size:22px; text-align:center;">Milosavljević Smart Energy</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px; margin:30px 0;">
+                <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:20px; text-align:center;">
+                    <h4 style="color:#fff;">Rajko Milosavljević</h4>
+                    <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+                        <a href="tel:+38765728595" style="background:#2e7d32; color:white; padding:10px; border-radius:30px; text-decoration:none;">📞 Pozovi</a>
+                        <a href="viber://chat?number=%2B38765728595" style="background:#59267c; color:white; padding:10px; border-radius:30px;">💜 Viber</a>
+                        <a href="https://wa.me/38765728595" target="_blank" style="background:#128c7e; color:white; padding:10px; border-radius:30px;">💚 WhatsApp</a>
                     </div>
-                    <div class="folder-content">
-                        <div class="inner-grid" style="grid-template-columns:repeat(4,1fr);">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/1.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/2.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/3.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
-                            <img src="Nasi projekti/07_Automatizacija_i_robotika/4.jpg" class="project-img" loading="lazy" onerror="this.style.display='none';">
-                        </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:20px; text-align:center;">
+                    <h4 style="color:#fff;">Marko Milosavljević</h4>
+                    <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+                        <a href="tel:+38766921100" style="background:#1976d2; color:white; padding:10px; border-radius:30px;">📞 Pozovi</a>
+                        <a href="viber://chat?number=%2B38766921100" style="background:#59267c; color:white; padding:10px; border-radius:30px;">💜 Viber</a>
+                        <a href="https://wa.me/38766921100" target="_blank" style="background:#128c7e; color:white; padding:10px; border-radius:30px;">💚 WhatsApp</a>
                     </div>
                 </div>
             </div>
-        </section>
+            <div style="text-align:center; margin-bottom:20px;">
+                <p>Zvanični e-mail:</p>
+                <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px;">milosavljevic@outlook.com</a>
+            </div>
+            <div>
+                <h3 id="form-title" style="color:#fff; font-size:18px; margin-bottom:15px;">Pošaljite upit</h3>
+                <form id="clean-contact-form">
+                    <input type="text" id="ins_name" class="form-control" placeholder="Ime i prezime" required>
+                    <input type="tel" id="ins_phone" class="form-control" placeholder="Broj telefona" required style="margin-top:12px;">
+                    <input type="email" id="ins_email" class="form-control" placeholder="E-mail" required style="margin-top:12px;">
+                    <textarea id="ins_message" class="form-control" rows="4" placeholder="Opis radova..." required style="margin-top:12px;"></textarea>
+                    <button type="submit" id="submit-btn" class="form-submit-btn" style="margin-top:20px;">🚀 Pošalji poruku</button>
+                </form>
+                <div id="status-box" class="status-box">
+                    ✅ <strong>Uspješno poslato!</strong><br>Odgovorit ćemo u najkraćem roku.
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="kontakt" style="padding:60px 0; max-width:750px; margin:0 auto; text-align:center;">
-            <h2 style="font-size:26px; color:#fff; margin-bottom:25px;">Kontakt</h2>
-            <div style="background:linear-gradient(135deg, rgba(14,20,32,0.6), rgba(5,8,12,0.6)); border:1px solid rgba(255,255,255,0.03); padding:40px 25px; border-radius:16px; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); transform: translateZ(0);">
-                <p style="font-weight:600; color:#4caf50; font-size:24px;">Milosavljević Smart Energy</p>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:25px; margin:35px 0;">
-                    <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:25px;">
-                        <h4 style="color:#fff;">Rajko Milosavljević</h4>
-                        <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                            <a href="tel:+38765728595" style="background:linear-gradient(135deg,#2e7d32,#4caf50); color:white; padding:11px; border-radius:30px; text-decoration:none;">📞 Pozovi telefonom</a>
-                            <a href="viber://chat?number=%2B38765728595" style="background:linear-gradient(135deg,#59267c,#7360f2); color:white; padding:11px; border-radius:30px;">💜 Piši na Viber</a>
-                            <a href="https://wa.me/38765728595" target="_blank" style="background:linear-gradient(135deg,#128c7e,#25d366); color:white; padding:11px; border-radius:30px;">💚 Piši na WhatsApp</a>
-                        </div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:25px;">
-                        <h4 style="color:#fff;">Marko Milosavljević</h4>
-                        <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                            <a href="tel:+38766921100" style="background:linear-gradient(135deg,#1976d2,#2196f3); color:white; padding:11px; border-radius:30px; text-decoration:none;">📞 Pozovi telefonom</a>
-                            <a href="viber://chat?number=%2B38766921100" style="background:linear-gradient(135deg,#59267c,#7360f2); color:white; padding:11px; border-radius:30px;">💜 Piši na Viber</a>
-                            <a href="https://wa.me/38766921100" target="_blank" style="background:linear-gradient(135deg,#128c7e,#25d366); color:white; padding:11px; border-radius:30px;">💚 Piši na WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-                <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:25px; margin-bottom:25px;">
-                    <p style="color:#9ca3af;">Zvanična e-mail adresa:</p>
-                    <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px; font-weight:600; text-decoration:none;">✉️ milosavljevic@outlook.com</a>
-                </div>
-                <div>
-                    <h3 id="form-title" style="color:#fff; font-size:19px; margin-bottom:20px; text-align:left;">Pošaljite nam upit direktno sa sajta</h3>
-                    <form id="clean-contact-form">
-                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:15px;">
-                            <div class="form-group"><label>Ime i prezime</label><input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required></div>
-                            <div class="form-group"><label>Vaš broj telefona</label><input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required></div>
-                        </div>
-                        <div class="form-group"><label>Vaša E-mail adresa</label><input type="email" id="ins_email" class="form-control" placeholder="ime@primer.com" required></div>
-                        <div class="form-group"><label>Poruka / Opis radova</label><textarea id="ins_message" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea></div>
-                        <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji poruku</button>
-                    </form>
-                    <div id="status-box" class="status-box">
-                        ✅ <strong>Uspješno poslato!</strong><br><br>
-                        Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge.<br>
-                        Naš tim će detaljno pregledati opis radova i kontaktiraće Vas u najkraćem mogućem roku direktno na broj telefona koji ste ostavili.<br><br>
-                        <em>Srdačan pozdrav, Milosavljević Smart Energy</em>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- CAROUSEL SURADNICI -->
+    <div class="partners-section">
+        <h2 class="partners-title">Moji suradnici</h2>
+        <div class="carousel-container">
+            <button class="carousel-btn btn-prev">&#10094;</button>
+            <div class="carousel-track" id="carouselTrack"><div class="loading">Učitavam logotipe...</div></div>
+            <button class="carousel-btn btn-next">&#10095;</button>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
     </div>
+</div>
 
-    <script>
-        // ========== WINDOWS 11 FOLDERI ==========
+<script>
+    (function() {
+        // ========== FOLDERI ==========
         const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFDD66'/%3E%3Cstop offset='100%25' stop-color='%23FFB300'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' filter='url(%23shadow)' stroke='%23E5A000' stroke-width='0.5'/%3E%3C/svg%3E`;
         const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE68F'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3Cfilter id='shadowOpen' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' filter='url(%23shadowOpen)' stroke='%23E5A000' stroke-width='0.5'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23FFC107' stroke-width='2' /%3E%3C/svg%3E`;
-
-        const foldersData = [
-            { name: "01 Kućne instalacije", desc: "Privatne kuće i porodični objekti", path: "01_Kucne_instalacije" },
-            { name: "01b Vikendice i apartmani", desc: "Odmarališta i vikend objekti", path: "01b_Vikendice" },
-            { name: "02 Stambene zgrade", desc: "Kompletan inženjering i elektro-montaža", path: "02_Stambene_zgrade" },
-            { name: "03 Komercijalni objekti", desc: "Industrijski pogoni, hale i kancelarije", path: "03_Komercijalni_objekti" },
-            { name: "04 Vjerski objekti", desc: "Instalacije projektovane za dugo trajanje", path: "04_Vjerski_objekti" },
-            { name: "05 Ulična rasvjeta", desc: "LED rasvjeta i javna infrastruktura", path: "05_Ulicna_rasvjeta" },
-            { name: "06 Distributivne mreže", desc: "Niskonaponske mreže i trafostanice", path: "06_Elektrodistributivne_mreze" }
-        ];
-
-        const container = document.getElementById('folders-container');
-        const fragment = document.createDocumentFragment();
         
-        foldersData.forEach(folder => {
-            const folderBox = document.createElement('div');
-            folderBox.className = 'folder-box';
-            folderBox.setAttribute('data-folder-id', folder.path);
-            
-            const headerDiv = document.createElement('div');
-            headerDiv.style.display = 'flex';
-            headerDiv.style.alignItems = 'center';
-            headerDiv.style.justifyContent = 'space-between';
-            headerDiv.onclick = function(e) { toggleFolderWithIcon(folderBox); };
-            
-            const leftDiv = document.createElement('div');
-            leftDiv.style.display = 'flex';
-            leftDiv.style.alignItems = 'center';
-            leftDiv.style.gap = '15px';
-            
-            const img = document.createElement('img');
-            img.className = 'folder-img';
-            img.src = closedFolderSVG;
-            img.setAttribute('data-closed', closedFolderSVG);
-            img.setAttribute('data-open', openFolderSVG);
-            img.alt = 'folder';
-            
-            const textDiv = document.createElement('div');
-            textDiv.innerHTML = `<h3 style="color:#fff; font-size:17px; margin:0;">${folder.name}</h3><p style="margin:2px 0 0 0; font-size:13px; color:#9ca3af;">${folder.desc}</p>`;
-            
-            leftDiv.appendChild(img);
-            leftDiv.appendChild(textDiv);
-            
-            const arrowSpan = document.createElement('span');
-            arrowSpan.className = 'folder-arrow';
-            arrowSpan.textContent = '▶';
-            
-            headerDiv.appendChild(leftDiv);
-            headerDiv.appendChild(arrowSpan);
-            
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'folder-content';
-            const innerGrid = document.createElement('div');
-            innerGrid.className = 'inner-grid';
-            
-            for (let i = 1; i <= 4; i++) {
-                const imgProj = document.createElement('img');
-                imgProj.className = 'project-img';
-                imgProj.loading = 'lazy'; 
-                imgProj.src = `Nasi projekti/${folder.path}/${i}.jpg`;
-                imgProj.onerror = function() { this.style.display = 'none'; };
-                innerGrid.appendChild(imgProj);
-            }
-            contentDiv.appendChild(innerGrid);
-            folderBox.appendChild(headerDiv);
-            folderBox.appendChild(contentDiv);
-            fragment.appendChild(folderBox);
-        });
-        
-        container.appendChild(fragment);
-
-        function toggleFolderWithIcon(folderElement) {
+        window.toggleFolderWithIcon = function(folderElement) {
             const isOpen = folderElement.classList.contains('open');
             const folderImg = folderElement.querySelector('.folder-img');
-            if (folderImg) {
-                if (!isOpen) {
-                    folderImg.src = folderImg.getAttribute('data-open');
-                } else {
-                    folderImg.src = folderImg.getAttribute('data-closed');
-                }
-            }
-            if (isOpen) {
-                folderElement.classList.remove('open');
-            } else {
-                document.querySelectorAll('.folder-box').forEach(box => {
-                    if (box !== folderElement && box.classList.contains('open')) {
-                        box.classList.remove('open');
-                        const otherImg = box.querySelector('.folder-img');
+            if (folderImg) folderImg.src = isOpen ? folderImg.getAttribute('data-closed') : folderImg.getAttribute('data-open');
+            if (isOpen) folderElement.classList.remove('open');
+            else {
+                document.querySelectorAll('.folder-box').forEach(b => {
+                    if (b !== folderElement && b.classList.contains('open')) {
+                        b.classList.remove('open');
+                        const otherImg = b.querySelector('.folder-img');
                         if (otherImg) otherImg.src = otherImg.getAttribute('data-closed');
                     }
                 });
                 folderElement.classList.add('open');
             }
-        }
-
-        const autoFolderBox = document.querySelector('#auto-folder .folder-box');
-        if (autoFolderBox) {
-            const autoImg = autoFolderBox.querySelector('.folder-img');
+        };
+        
+        const foldersData = [
+            { name: "01 Kućne instalacije", desc: "Privatne kuće i porodični objekti", path: "01_Kucne_instalacije" },
+            { name: "01b Vikendice i apartmani", desc: "Odmarališta i vikend objekti", path: "01b_Vikendice" },
+            { name: "02 Stambene zgrade", desc: "Kompletan inženjering", path: "02_Stambene_zgrade" },
+            { name: "03 Komercijalni objekti", desc: "Industrijski pogoni, hale", path: "03_Komercijalni_objekti" },
+            { name: "04 Vjerski objekti", desc: "Instalacije za dugo trajanje", path: "04_Vjerski_objekti" },
+            { name: "05 Ulična rasvjeta", desc: "LED rasvjeta i infrastruktura", path: "05_Ulicna_rasvjeta" },
+            { name: "06 Distributivne mreže", desc: "Niskonaponske mreže", path: "06_Elektrodistributivne_mreze" }
+        ];
+        const container = document.getElementById('folders-container');
+        const frag = document.createDocumentFragment();
+        foldersData.forEach(f => {
+            const box = document.createElement('div');
+            box.className = 'folder-box';
+            box.setAttribute('data-folder-id', f.path);
+            const header = document.createElement('div');
+            header.style.cssText = 'display:flex; justify-content:space-between; align-items:center;';
+            header.onclick = (e) => window.toggleFolderWithIcon(box);
+            const left = document.createElement('div');
+            left.style.cssText = 'display:flex; align-items:center; gap:12px;';
+            const img = document.createElement('img');
+            img.className = 'folder-img';
+            img.src = closedFolderSVG;
+            img.setAttribute('data-closed', closedFolderSVG);
+            img.setAttribute('data-open', openFolderSVG);
+            const textDiv = document.createElement('div');
+            textDiv.innerHTML = `<h3 style="color:#fff; font-size:16px; margin:0;">${f.name}</h3><p style="margin:2px 0 0; font-size:12px; color:#9ca3af;">${f.desc}</p>`;
+            left.appendChild(img);
+            left.appendChild(textDiv);
+            const arrow = document.createElement('span');
+            arrow.className = 'folder-arrow';
+            arrow.textContent = '▶';
+            header.appendChild(left);
+            header.appendChild(arrow);
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'folder-content';
+            const grid = document.createElement('div');
+            grid.className = 'inner-grid';
+            for (let i=1;i<=4;i++) {
+                const projImg = document.createElement('img');
+                projImg.className = 'project-img';
+                projImg.loading = 'lazy';
+                projImg.src = `Nasi projekti/${f.path}/${i}.jpg`;
+                projImg.onerror = function() { this.style.display='none'; };
+                grid.appendChild(projImg);
+            }
+            contentDiv.appendChild(grid);
+            box.appendChild(header);
+            box.appendChild(contentDiv);
+            frag.appendChild(box);
+        });
+        container.appendChild(frag);
+        
+        const autoBox = document.querySelector('#auto-folder .folder-box');
+        if (autoBox) {
+            const autoImg = autoBox.querySelector('.folder-img');
             if (autoImg) {
                 autoImg.setAttribute('data-closed', closedFolderSVG);
                 autoImg.setAttribute('data-open', openFolderSVG);
                 autoImg.src = closedFolderSVG;
             }
-            const autoHeader = autoFolderBox.querySelector('div[onclick]');
-            if (autoHeader) {
-                autoHeader.removeAttribute('onclick');
-                autoHeader.style.cursor = 'pointer';
-                autoHeader.onclick = function(e) { toggleFolderWithIcon(autoFolderBox); };
-            }
+            const autoHeader = autoBox.querySelector('div[onclick]');
+            if (autoHeader) autoHeader.onclick = (e) => window.toggleFolderWithIcon(autoBox);
         }
-
+        
         // ========== MUZIKA ==========
         const music = document.getElementById('bg-music');
         const toggle1 = document.getElementById('music-toggle');
@@ -605,38 +693,26 @@
         const musicText = document.getElementById('music-text');
         const sideIcon = document.getElementById('side-music-icon');
         const backTop = document.getElementById('back-to-top');
-
         music.volume = 0.25;
         let musicStarted = false;
-
         function updateUI(playing) {
             const icon = playing ? "🔊" : "🔇";
-            musicIcon.textContent = icon;
+            if(musicIcon) musicIcon.textContent = icon;
             if(sideIcon) sideIcon.textContent = icon;
-            musicText.textContent = playing ? "Muzika: Aktivna" : "Muzika: Isključena";
+            if(musicText) musicText.textContent = playing ? "Muzika: Aktivna" : "Muzika: Isključena";
         }
-
-        function playMusic() {
-            music.play().then(() => { updateUI(true); musicStarted = true; }).catch(e => console.log);
-        }
-
         function toggleMusic() {
-            if (music.paused) music.play().then(() => updateUI(true));
+            if (music.paused) music.play().then(() => updateUI(true)).catch(e=>console.log);
             else { music.pause(); updateUI(false); }
             musicStarted = true;
         }
-
-        function initAudio() {
-            if (!musicStarted) playMusic();
-            document.removeEventListener('click', initAudio);
-            document.removeEventListener('touchstart', initAudio);
-        }
+        function initAudio() { if (!musicStarted) music.play().then(()=>updateUI(true)).catch(e=>{}); document.removeEventListener('click',initAudio); document.removeEventListener('touchstart',initAudio); }
         document.addEventListener('click', initAudio);
         document.addEventListener('touchstart', initAudio);
-        toggle1.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
+        if(toggle1) toggle1.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
         if(toggle2) toggle2.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
-        backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
+        if(backTop) backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
         // ========== LIGHTBOX ==========
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
@@ -648,116 +724,126 @@
             });
         }
         function lightboxHandler(e) {
-            e.stopPropagation();
             lightboxImg.src = this.src;
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        lightbox.addEventListener('click', closeLightbox);
-        closeLb.addEventListener('click', closeLightbox);
+        function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+        if(lightbox) lightbox.addEventListener('click', closeLightbox);
+        if(closeLb) closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
-
-        // ========== KONTAKT FORMA SA WEB3FORMS (TVOJ KLJUČ) ==========
+        
+        // ========== KONTAKT FORMA ==========
         const contactForm = document.getElementById('clean-contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const originalText = submitBtn.innerText;
-            submitBtn.innerText = "⏳ Slanje u toku...";
-            submitBtn.disabled = true;
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    access_key: 'cc0ac5b2-dae0-4051-86be-94a57cca494e',  // Tvoj ključ
-                    name: document.getElementById('ins_name').value,
-                    email: document.getElementById('ins_email').value,
-                    phone: document.getElementById('ins_phone').value,
-                    message: document.getElementById('ins_message').value,
-                    subject: 'Novi upit sa sajta Milosavljević Smart Energy',
-                    _captcha: 'false'
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = document.getElementById('submit-btn');
+                const original = btn.innerText;
+                btn.innerText = "⏳ Slanje...";
+                btn.disabled = true;
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        access_key: 'cc0ac5b2-dae0-4051-86be-94a57cca494e',
+                        name: document.getElementById('ins_name').value,
+                        email: document.getElementById('ins_email').value,
+                        phone: document.getElementById('ins_phone').value,
+                        message: document.getElementById('ins_message').value,
+                        subject: 'Novi upit sa sajta Milosavljević Smart Energy',
+                        _captcha: 'false'
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Sakrij formu i prikaži poruku o uspjehu
-                    contactForm.style.display = 'none';
-                    document.getElementById('form-title').innerText = "Informacija pošiljaocu";
-                    document.getElementById('status-box').style.display = 'block';
-                } else {
-                    throw new Error('Greška pri slanju: ' + (data.message || 'nepoznata greška'));
-                }
-            })
-            .catch(error => {
-                console.error('Web3Forms greška:', error);
-                alert("Došlo je do greške prilikom slanja. Provjerite internet vezu ili pokušajte kasnije.");
-            })
-            .finally(() => {
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        contactForm.style.display = 'none';
+                        document.getElementById('form-title').innerText = "Hvala na upitu!";
+                        document.getElementById('status-box').style.display = 'block';
+                    } else throw new Error('Greška');
+                })
+                .catch(err => alert("Došlo je do greške. Pokušajte ponovo."))
+                .finally(() => { btn.innerText = original; btn.disabled = false; });
             });
-        });
-
-        // ========== GLOBALNE ČESTICE ==========
-        const globalCanvas = document.getElementById('global-particles');
-        if (globalCanvas) {
-            const ctx = globalCanvas.getContext('2d');
-            let width = window.innerWidth;
-            let height = window.innerHeight;
-            
-            function resizeCanvas() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                globalCanvas.width = width;
-                globalCanvas.height = height;
-                initParticles();
-            }
-            
-            let particles = [];
-            function initParticles() {
-                particles = [];
-                const numParticles = width < 768 ? 25 : 70; 
-                for (let i = 0; i < numParticles; i++) {
-                    particles.push({
-                        x: Math.random() * width,
-                        y: Math.random() * height,
-                        r: Math.random() * 2,
-                        d: Math.random() * 0.8 + 0.2
-                    });
-                }
-            }
-            
-            function drawParticles() {
-                if (!ctx) return;
-                ctx.clearRect(0, 0, width, height);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-                for (let p of particles) {
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fill();
-                    p.y -= p.d;
-                    if (p.y < 0) {
-                        p.y = height;
-                        p.x = Math.random() * width;
-                    }
-                }
-                requestAnimationFrame(drawParticles);
-            }
-            
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-            });
-            resizeCanvas();
-            drawParticles();
         }
-    </script>
+        
+        // ========== ČESTICE (optimized) ==========
+        const canvas = document.getElementById('global-particles');
+        if(canvas) {
+            let ctx = canvas.getContext('2d');
+            let w = window.innerWidth, h = window.innerHeight;
+            let particles = [];
+            function resizeCanvas() { w = window.innerWidth; h = window.innerHeight; canvas.width = w; canvas.height = h; initParticles(); }
+            function initParticles() { particles = []; const count = w < 768 ? 20 : 50; for(let i=0;i<count;i++) particles.push({ x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.5, d:Math.random()*0.5+0.2 }); }
+            function draw() { if(!ctx) return; ctx.clearRect(0,0,w,h); ctx.fillStyle = 'rgba(255,255,255,0.4)'; for(let p of particles) { ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.y -= p.d; if(p.y < 0) { p.y = h; p.x = Math.random()*w; } } requestAnimationFrame(draw); }
+            window.addEventListener('resize', () => { resizeCanvas(); });
+            resizeCanvas();
+            draw();
+        }
+        
+        // ========== CAROUSEL SURADNICI (optimized, larger logos) ==========
+        const GITHUB_USERNAME = 'mcpmarko83';
+        const REPO_NAME = 'milosavljevic-smart-energy';
+        const FOLDER_PATH = 'saradnici';
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('carouselDots');
+        let slides = [], currentIndex = 0, slidesPerView = 4, autoInterval = null;
+        const AUTO_DELAY = 3000;
+        
+        function getCompanyName(fn) { return fn.replace(/\.(jpe?g|png|gif|webp)$/i, '').charAt(0).toUpperCase() + fn.slice(1).toLowerCase(); }
+        function updateSlidesPerView() { if (window.innerWidth <= 480) slidesPerView = 1; else if (window.innerWidth <= 768) slidesPerView = 2; else if (window.innerWidth <= 1024) slidesPerView = 3; else slidesPerView = 4; }
+        function renderCarousel() {
+            if (!slides.length) { track.innerHTML = '<div class="error">⚠️ Nema logotipa u folderu "saradnici".</div>'; return; }
+            track.innerHTML = slides.map(s => `<div class="carousel-slide"><div class="logo-wrapper"><img class="partner-logo" src="${s.url}" alt="${s.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23333%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23aaa%27%3E?%3C/text%3E%3C/svg%3E'"></div><div class="partner-name">${s.name}</div></div>`).join('');
+            updateCarousel(); createDots();
+        }
+        function updateCarousel() {
+            if (!slides.length) return;
+            updateSlidesPerView();
+            const maxIdx = Math.max(0, slides.length - slidesPerView);
+            if (currentIndex > maxIdx) currentIndex = maxIdx;
+            if (currentIndex < 0) currentIndex = 0;
+            const slidesEl = document.querySelectorAll('.carousel-slide');
+            if (!slidesEl.length) return;
+            const w = slidesEl[0].offsetWidth;
+            const gap = 30;
+            track.style.transform = `translateX(${-currentIndex * (w + gap)}px)`;
+            document.querySelectorAll('.dot').forEach((dot,i) => dot.classList.toggle('active', i === currentIndex));
+        }
+        function createDots() {
+            if (!dotsContainer) return;
+            const count = Math.max(1, slides.length - slidesPerView + 1);
+            dotsContainer.innerHTML = '';
+            for (let i=0;i<count;i++) { let d=document.createElement('div'); d.className='dot'; if(i===currentIndex) d.classList.add('active'); d.addEventListener('click',()=>{ currentIndex=i; updateCarousel(); resetAuto(); }); dotsContainer.appendChild(d); }
+            dotsContainer.style.display = count<=1 ? 'none' : 'flex';
+        }
+        function nextSlide() { let max=Math.max(0, slides.length-slidesPerView); if(currentIndex<max) currentIndex++; else if(slides.length>slidesPerView) currentIndex=0; updateCarousel(); }
+        function prevSlide() { let max=Math.max(0, slides.length-slidesPerView); if(currentIndex>0) currentIndex--; else if(slides.length>slidesPerView) currentIndex=max; updateCarousel(); }
+        function startAuto() { if(autoInterval) clearInterval(autoInterval); if(slides.length>slidesPerView) autoInterval = setInterval(()=>nextSlide(), AUTO_DELAY); }
+        function resetAuto() { if(autoInterval) { clearInterval(autoInterval); startAuto(); } }
+        
+        async function fetchLogos() {
+            track.innerHTML = '<div class="loading">Učitavam logotipe...</div>';
+            try {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FOLDER_PATH}`, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+                if (!res.ok) throw new Error('HTTP '+res.status);
+                const files = await res.json();
+                const imgs = files.filter(f => /\.(jpe?g|png|gif|webp)$/i.test(f.name));
+                if (!imgs.length) throw new Error('Nema slika');
+                slides = imgs.map(f => ({ name: getCompanyName(f.name), url: f.download_url }));
+                renderCarousel();
+                const prevBtn = document.querySelector('.btn-prev'), nextBtn = document.querySelector('.btn-next');
+                if(prevBtn) { prevBtn.onclick = () => { prevSlide(); resetAuto(); }; }
+                if(nextBtn) { nextBtn.onclick = () => { nextSlide(); resetAuto(); }; }
+                const container = document.querySelector('.carousel-container');
+                if(container) { container.onmouseenter = () => clearInterval(autoInterval); container.onmouseleave = startAuto; }
+                window.addEventListener('resize', () => { updateCarousel(); createDots(); resetAuto(); });
+                startAuto();
+            } catch(e) { track.innerHTML = `<div class="error">Greška: ${e.message}. Provjeri folder "saradnici".</div>`; }
+        }
+        fetchLogos();
+    })();
+</script>
 </body>
 </html>
