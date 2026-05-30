@@ -15,25 +15,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ========== PERFORMANCE & CROSS-PLATFORM ========== */
+        /* ========== CORE & PERFORMANCE ========== */
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
         }
-
-        /* ========== CORE RESET ========== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
         body {
             background-color: #0a0c10;
             color: #f3f4f6;
@@ -43,7 +30,7 @@
             padding-bottom: 120px;
         }
 
-        /* ========== ENHANCED ABSTRACT BACKGROUND ========== */
+        /* ========== ABSTRACT BACKGROUND ========== */
         .abstract-bg {
             position: fixed;
             top: 0;
@@ -66,77 +53,42 @@
         .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -4s; }
         .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -8s; opacity: 0.3; }
         .orb-4 { width: 40vw; height: 40vw; background: #e63946; bottom: 10%; left: -10%; animation-delay: -12s; opacity: 0.25; }
+        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(10%,15%) scale(1.15); } }
+        @media (max-width:768px) { .glow-orb { filter: blur(80px); opacity: 0.5; animation-duration: 12s; } .orb-1,.orb-2,.orb-3,.orb-4 { opacity: 0.6; } }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(10%, 15%) scale(1.15); }
-        }
-
-        @media (max-width: 768px) {
-            .glow-orb {
-                filter: blur(80px);
-                opacity: 0.5;
-                animation-duration: 12s;
-            }
-            .orb-1, .orb-2, .orb-3, .orb-4 { opacity: 0.6; }
-        }
-
-        /* ========== UTILITY & LAYOUT ========== */
+        /* ========== UTILITY ========== */
         .hide-mobile { display: inline; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .text-white { color: #ffffff; }
+        .text-white { color: #fff; }
         .text-center { text-align: center; }
-        
         .badge-primary {
-            background: rgba(76, 175, 80, 0.15);
+            background: rgba(76,175,80,0.15);
             color: #4caf50;
             padding: 6px 18px;
             border-radius: 50px;
             font-size: 13px;
             font-weight: 500;
             display: inline-block;
-            border: 1px solid rgba(76, 175, 80, 0.3);
+            border: 1px solid rgba(76,175,80,0.3);
             backdrop-filter: blur(4px);
         }
-        .section-title {
-            font-size: 32px;
-            color: #fff;
-            margin-top: 12px;
-            margin-bottom: 35px;
-            font-weight: 600;
-        }
-        .section-title-left {
-            font-size: 32px;
-            margin: 15px 0;
-            color: #fff;
-            font-weight: 600;
-        }
+        .section-title { font-size: 32px; color: #fff; margin-top: 12px; margin-bottom: 35px; font-weight: 600; }
+        .section-title-left { font-size: 32px; margin: 15px 0; color: #fff; font-weight: 600; }
         .section-text { color: #cbd5e6; font-size: 17px; }
 
         /* ========== HEADER ========== */
         .header-main {
-            background: rgba(10, 12, 16, 0.7);
+            background: rgba(10,12,16,0.7);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-        .header-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-        }
+        .header-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
         .header-tradition { font-size: 12px; color: #9ca3af; font-weight: 500; letter-spacing: 0.5px; }
-        .header-logo-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-logo-group { display: flex; align-items: center; gap: 12px; }
         .header-logo-img { height: 36px; border-radius: 8px; }
         .header-brand-name { font-size: 18px; color: #fff; font-weight: 600; }
         .header-brand-name span { color: #4caf50; }
@@ -151,202 +103,108 @@
         .hero-logo { max-width: 240px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); margin-bottom: 20px; }
         .hero-title { font-size: 44px; margin-top: 15px; font-weight: 600; letter-spacing: -0.5px; }
         .hero-title span { color: #3a86ff; }
-        .hero-line {
-            width: 80px;
-            height: 3px;
-            margin: 30px auto;
-            border-radius: 3px;
-            background: linear-gradient(90deg, #4caf50, #3a86ff, #9b59b6);
-        }
+        .hero-line { width: 80px; height: 3px; margin: 30px auto; border-radius: 3px; background: linear-gradient(90deg, #4caf50, #3a86ff, #9b59b6); }
         .hero-subtitle { max-width: 650px; margin: 0 auto; color: #cbd5e6; font-size: 19px; }
-        
         .btn-primary {
             display: inline-block;
             margin-top: 35px;
             padding: 14px 40px;
             border-radius: 50px;
-            background: rgba(76, 175, 80, 0.1);
+            background: rgba(76,175,80,0.1);
             color: #4caf50;
-            border: 1px solid rgba(76, 175, 80, 0.3);
+            border: 1px solid rgba(76,175,80,0.3);
             text-decoration: none;
             font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1);
         }
-        .btn-primary:hover {
-            background: #4caf50;
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
-        }
+        .btn-primary:hover { background: #4caf50; color: #fff; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(76,175,80,0.3); }
 
-        /* Video circle button - sada u dijelu gdje je bio Omov zakon */
+        /* Video krug (premješten ispod dugmeta) */
         .video-circle {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 30px auto;
+            margin-top: 40px;
+            cursor: pointer;
         }
-        .circle-video-btn {
+        .video-thumb {
             position: relative;
-            width: 160px;
-            height: 160px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 0 0 4px rgba(76,175,80,0.3), 0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid rgba(76,175,80,0.6);
+            box-shadow: 0 0 25px rgba(76,175,80,0.4);
             transition: all 0.3s ease;
-            background: #000;
-            margin-bottom: 15px;
+            background: #1a1f2a;
         }
-        .circle-video-btn video {
+        .video-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            pointer-events: none;
+            display: block;
         }
-        .circle-video-btn .play-overlay {
+        .glass-play {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(3px);
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
             transition: all 0.3s ease;
         }
-        .circle-video-btn .play-overlay svg {
-            width: 50px;
-            height: 50px;
+        .glass-play svg {
+            width: 45px;
+            height: 45px;
             fill: white;
-            filter: drop-shadow(0 0 8px #4caf50);
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
+            transition: transform 0.2s;
         }
-        .circle-video-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 0 6px rgba(76,175,80,0.5), 0 15px 35px rgba(0,0,0,0.4);
+        .video-circle:hover .video-thumb {
+            transform: scale(1.03);
+            border-color: #4caf50;
+            box-shadow: 0 0 35px rgba(76,175,80,0.6);
+        }
+        .video-circle:hover .glass-play {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(6px);
+        }
+        .video-circle:hover .glass-play svg {
+            transform: scale(1.1);
         }
         .video-label {
+            margin-top: 15px;
             font-size: 14px;
             font-weight: 500;
             color: #cbd5e6;
             background: rgba(0,0,0,0.3);
-            padding: 6px 16px;
+            padding: 6px 18px;
             border-radius: 40px;
             backdrop-filter: blur(4px);
         }
-        @media (max-width: 768px) {
-            .circle-video-btn { width: 120px; height: 120px; }
-            .circle-video-btn .play-overlay svg { width: 36px; height: 36px; }
+        @media (max-width:768px) {
+            .video-thumb { width: 90px; height: 90px; }
+            .glass-play svg { width: 35px; height: 35px; }
             .video-label { font-size: 12px; }
         }
 
-        /* Omov zakon krug - sada na mjestu starog video kruga (ispod Zatraži ponudu) */
-        .om-circle {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 40px;
-        }
-        .circle-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid rgba(76,175,80,0.6);
-            box-shadow: 0 0 20px rgba(76,175,80,0.3);
-            transition: all 0.3s ease;
-            margin-bottom: 15px;
-            background: rgba(0,0,0,0.2);
-        }
-        .circle-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .circle-img:hover {
-            transform: scale(1.03);
-            border-color: #4caf50;
-            box-shadow: 0 0 30px rgba(76,175,80,0.6);
-        }
-        .om-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #cbd5e6;
-            background: rgba(0,0,0,0.3);
-            padding: 6px 16px;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-        }
-        @media (max-width: 768px) {
-            .circle-img { width: 80px; height: 80px; }
-            .om-label { font-size: 12px; }
-        }
-
-        /* Video Lightbox (fullscreen overlay) */
-        .video-lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px);
-            z-index: 999999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .video-lightbox.active {
-            display: flex;
-        }
-        .video-lightbox video {
-            max-width: 90%;
-            max-height: 85%;
-            border-radius: 24px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
-            border: 2px solid rgba(76,175,80,0.5);
-        }
-        .video-lightbox .close-video {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            font-size: 48px;
-            cursor: pointer;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: white;
-        }
-        .video-lightbox .close-video:hover {
-            background: rgba(76,175,80,0.2);
-            color: #4caf50;
-            transform: scale(1.1);
-        }
-        @media (max-width: 768px) {
-            .video-lightbox .close-video { top: 20px; right: 20px; width: 44px; height: 44px; font-size: 36px; }
-        }
-
-        /* ========== ENHANCED CARDS WITH BORDERS & GLOW ========== */
+        /* ========== ENHANCED CARDS ========== */
         .grid-philosophie {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 30px;
         }
         .abstract-card {
-            background: rgba(16, 20, 26, 0.7);
+            background: rgba(16,20,26,0.7);
             backdrop-filter: blur(16px);
             border-radius: 32px;
             padding: 35px;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
@@ -372,10 +230,7 @@
         .abstract-card.card-crvena::before { background: linear-gradient(135deg, #e63946, #b91c2c, #e63946); }
         .abstract-card.full-width { grid-column: span 2; }
         .abstract-card.full-width::before { background: linear-gradient(135deg, #4caf50, #3a86ff, #9b59b6); }
-        .abstract-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        }
+        .abstract-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
         .abstract-card h4 { font-size: 22px; font-weight: 500; margin: 20px 0 12px; }
         .card-icon { font-size: 36px; display: inline-block; filter: drop-shadow(0 0 8px currentColor); }
         .pulse-node { width: 10px; height: 10px; border-radius: 50%; display: inline-block; position: relative; margin-left: 10px; }
@@ -383,9 +238,9 @@
         @keyframes pulseGlow { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
         
         .history-card, .moto-card, .contact-card {
-            background: rgba(16, 20, 26, 0.6);
+            background: rgba(16,20,26,0.6);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 32px;
             padding: 40px;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -396,26 +251,32 @@
         .moto-img-wrapper { max-width: 600px; margin: 0 auto; }
 
         /* ========== IMAGES ========== */
-        .blended-moto {
+        .blended-moto { width: 100%; height: auto; display: block; mix-blend-mode: screen; opacity: 0.9; filter: drop-shadow(0 0 20px rgba(58,134,255,0.2)); }
+        .om-image-container {
+            position: relative;
+            display: inline-block;
+            max-width: 280px;
             width: 100%;
-            height: auto;
-            display: block;
-            mix-blend-mode: screen;
-            opacity: 0.9;
-            filter: drop-shadow(0 0 20px rgba(58, 134, 255, 0.2));
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(255,255,255,0.02);
+            padding: 8px;
+            border: 1px solid rgba(76,175,80,0.3);
+            box-shadow: 0 0 30px rgba(76,175,80,0.1);
         }
+        .blended-om { width: 100%; height: auto; display: block; border-radius: 50%; }
 
         /* ========== FOLDERS ========== */
         .folder-section { margin-bottom: 50px; }
         .folder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
         .folder-box {
-            background: rgba(22, 27, 34, 0.5);
+            background: rgba(22,27,34,0.5);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.05);
             border-radius: 24px;
             padding: 24px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1);
+            transition: all 0.3s ease;
         }
         .folder-box:hover { background: rgba(30,36,45,0.7); border-color: rgba(76,175,80,0.3); transform: translateY(-3px); }
         .folder-box.open { background: rgba(30,36,45,0.9); border-color: rgba(76,175,80,0.4); }
@@ -429,9 +290,9 @@
         .project-img:hover { transform: scale(1.05); border-color: rgba(76,175,80,0.5); box-shadow: 0 8px 20px rgba(76,175,80,0.2); }
         .auto-folder-card { background: rgba(22,27,34,0.6); backdrop-filter: blur(16px); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 40px; text-align: center; margin-top: 50px; }
 
-        /* ========== CAROUSEL - PULSATING LINES (NO ARROWS) ========== */
+        /* ========== CAROUSEL - PULSATING LINES ========== */
         .partners-section {
-            background: rgba(13, 17, 23, 0.6);
+            background: rgba(13,17,23,0.6);
             backdrop-filter: blur(20px);
             border-radius: 32px;
             padding: 50px 20px;
@@ -440,29 +301,14 @@
             position: relative;
         }
         .partners-title { text-align: center; margin-bottom: 40px; font-size: 32px; font-weight: 500; color: #fff; }
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            padding: 15px 0 20px;
-        }
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            gap: 30px;
-            cursor: grab;
-        }
+        .carousel-container { position: relative; overflow: hidden; padding: 15px 0 20px; }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); gap: 30px; cursor: grab; }
         .carousel-track:active { cursor: grabbing; }
         .carousel-slide {
-            flex: 0 0 calc(25% - 23px);
-            min-width: calc(25% - 23px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: rgba(255,255,255,0.02);
-            border-radius: 24px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
+            flex: 0 0 calc(25% - 23px); min-width: calc(25% - 23px);
+            display: flex; flex-direction: column; justify-content: space-between;
+            background: rgba(255,255,255,0.02); border-radius: 24px; transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05); overflow: hidden;
         }
         .carousel-slide:hover { transform: translateY(-6px); background: rgba(255,255,255,0.05); border-color: rgba(76,175,80,0.3); }
         .logo-container { padding: 30px 20px 20px; display: flex; align-items: center; justify-content: center; min-height: 180px; }
@@ -471,78 +317,30 @@
         .partner-name { font-weight: 500; font-size: 15px; text-align: center; color: #fff; background: rgba(0,0,0,0.2); padding: 16px 12px; margin: 0; transition: all 0.3s ease; }
         .carousel-slide:hover .partner-name { background: rgba(76,175,80,0.2); }
         
-        /* Pulsirajuće linije (umjesto strelica) */
         .pulse-line {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 60px;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 15;
-            transition: all 0.3s ease;
+            position: absolute; top: 0; bottom: 0; width: 60px;
+            background: transparent; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 15; transition: all 0.3s ease;
         }
         .pulse-line-left { left: 0; }
         .pulse-line-right { right: 0; }
         .pulse-line .line {
-            width: 4px;
-            height: 50px;
+            width: 4px; height: 50px;
             background: linear-gradient(180deg, #4caf50, #3a86ff, #9b59b6);
             border-radius: 4px;
             animation: pulseLine 1.8s ease-in-out infinite;
             box-shadow: 0 0 8px rgba(76,175,80,0.5);
         }
-        @keyframes pulseLine {
-            0% { height: 40px; opacity: 0.6; transform: scaleY(0.8); }
-            50% { height: 80px; opacity: 1; transform: scaleY(1.1); }
-            100% { height: 40px; opacity: 0.6; transform: scaleY(0.8); }
-        }
-        .pulse-line:hover .line {
-            width: 6px;
-            animation: pulseLineHover 0.8s ease-in-out infinite;
-            box-shadow: 0 0 15px rgba(76,175,80,0.8);
-        }
-        @keyframes pulseLineHover {
-            0% { height: 50px; opacity: 0.8; }
-            50% { height: 90px; opacity: 1; }
-            100% { height: 50px; opacity: 0.8; }
-        }
-        @media (max-width: 768px) {
-            .pulse-line { width: 40px; }
-            .pulse-line .line { width: 3px; height: 40px; }
-            .pulse-line:hover .line { width: 4px; }
-            .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
-        }
-        @media (max-width: 1024px) {
-            .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); }
-        }
-        @media (max-width: 480px) {
-            .carousel-slide { flex: 0 0 100%; min-width: 100%; }
-            .pulse-line { width: 30px; }
-        }
+        @keyframes pulseLine { 0% { height: 40px; opacity: 0.6; transform: scaleY(0.8); } 50% { height: 80px; opacity: 1; transform: scaleY(1.1); } 100% { height: 40px; opacity: 0.6; transform: scaleY(0.8); } }
+        .pulse-line:hover .line { width: 6px; animation: pulseLineHover 0.8s ease-in-out infinite; box-shadow: 0 0 15px rgba(76,175,80,0.8); }
+        @keyframes pulseLineHover { 0% { height: 50px; opacity: 0.8; } 50% { height: 90px; opacity: 1; } 100% { height: 50px; opacity: 0.8; } }
+        @media (max-width:768px) { .pulse-line { width: 40px; } .pulse-line .line { width: 3px; height: 40px; } .pulse-line:hover .line { width: 4px; } .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); } }
+        @media (max-width:1024px) { .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); } }
+        @media (max-width:480px) { .carousel-slide { flex: 0 0 100%; min-width: 100%; } .pulse-line { width: 30px; } }
         
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 30px;
-        }
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .dot.active {
-            background: #4caf50;
-            width: 24px;
-            border-radius: 8px;
-        }
+        .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; }
+        .dot.active { background: #4caf50; width: 24px; border-radius: 8px; }
 
         /* ========== FLOATING BUTTONS ========== */
         .floating-buttons {
@@ -550,19 +348,19 @@
             display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99999;
         }
         .premium-action-btn {
-            background: rgba(22, 27, 34, 0.8);
+            background: rgba(22,27,34,0.8);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.3s ease;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .premium-action-btn:hover { background: rgba(76, 175, 80, 0.2); border-color: rgba(76, 175, 80, 0.5); transform: translateY(-3px); }
+        .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.5); transform: translateY(-3px); }
         .btn-circle { width: 56px; height: 56px; border-radius: 50%; font-size: 24px; }
-        .btn-percent { border-radius: 40px; padding: 0 20px; height: 48px; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: #4caf50; background: rgba(22, 27, 34, 0.9); }
+        .btn-percent { border-radius: 40px; padding: 0 20px; height: 48px; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: #4caf50; background: rgba(22,27,34,0.9); }
 
         /* ========== KONTAKT ========== */
         .contact-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
@@ -591,8 +389,52 @@
         .lightbox-close { position: absolute; top: 30px; right: 40px; font-size: 40px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .lightbox-close:hover { background: rgba(76,175,80,0.2); color: #4caf50; transform: scale(1.1); }
 
+        /* Video Lightbox (fullscreen) */
+        .video-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px);
+            z-index: 999999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .video-lightbox.active { display: flex; }
+        .video-lightbox video {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 24px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            border: 2px solid rgba(76,175,80,0.5);
+        }
+        .video-lightbox .close-video {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 48px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .video-lightbox .close-video:hover { background: rgba(76,175,80,0.2); color: #4caf50; transform: scale(1.1); }
+        @media (max-width:768px) {
+            .video-lightbox .close-video { top: 20px; right: 20px; width: 44px; height: 44px; font-size: 36px; }
+        }
+
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
+        @media (max-width:768px) {
             .hide-mobile { display: none; }
             .hero-title { font-size: 34px; }
             .grid-philosophie { grid-template-columns: 1fr; }
@@ -601,9 +443,7 @@
             .btn-circle { width: 50px; height: 50px; font-size: 20px; }
             .btn-percent { height: 44px; padding: 0 16px; font-size: 12px; }
         }
-        @media (max-width: 480px) {
-            .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
-        }
+        @media (max-width:480px) { .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } }
     </style>
 </head>
 <body>
@@ -620,6 +460,15 @@
 <div id="lightbox" class="lightbox-overlay">
     <span class="lightbox-close" id="close-btn">&times;</span>
     <img id="lightbox-img" class="lightbox-img" alt="Uvećani prikaz">
+</div>
+
+<!-- Video lightbox overlay -->
+<div id="video-lightbox" class="video-lightbox">
+    <div class="close-video" id="close-video-btn">&times;</div>
+    <video id="intro-video" controls>
+        <source src="Uvodni%20Video.MP4" type="video/mp4">
+        Vaš preglednik ne podržava video tag.
+    </video>
 </div>
 
 <div class="floating-buttons">
@@ -647,12 +496,19 @@
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
         <a href="#kontakt" class="btn-primary">Zatraži Ponudu</a>
         
-        <!-- Omov zakon krug - sada ispod dugmeta -->
-        <div class="om-circle">
-            <div class="circle-img">
-                <img src="omov_zakon.jpg" alt="Ohmov zakon" loading="lazy" onerror="this.style.display='none';">
+        <!-- Video krug (premješten ovdje) -->
+        <div id="video-trigger" class="video-circle">
+            <div class="video-thumb">
+                <!-- OVDJE POSTAVITE SVOJU STATIČNU SLIKU (prvi kadar videa) -->
+                <!-- Zamijenite "video-preview.jpg" sa stvarnom putanjom vaše slike -->
+                <img src="video-preview.jpg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
+                <div class="glass-play">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                </div>
             </div>
-            <div class="om-label">⚡ Ohmov zakon</div>
+            <div class="video-label">🎬 Naša prezentacija i uvod</div>
         </div>
     </div>
 </section>
@@ -707,20 +563,8 @@
                     <p class="section-text"><strong class="text-white">Milosavljević Smart Energy posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na dugogodišnje specijalizovano iskustvo, naš primarni fokus leži u najsavremenijim rješenjima za <strong>industrijsku automatizaciju i robotiku</strong>.</p>
                 </div>
                 <div style="flex:1; text-align:center; min-width: 300px;">
-                    <!-- Video krug - sada ovdje umjesto Omovog zakona -->
-                    <div class="video-circle">
-                        <div id="video-trigger" class="circle-video-btn">
-                            <video id="preview-video" muted loop preload="metadata">
-                                <source src="Uvodni%20Video.MP4" type="video/mp4">
-                            </video>
-                            <div class="play-overlay">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5v14l11-7z" fill="currentColor"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="video-label">🎬 Naša prezentacija i uvod</div>
-                    </div>
+                    <p style="font-size:12px; color:#4caf50; margin-bottom:10px; font-weight:500;">Ohmov Zakon</p>
+                    <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy" onerror="this.style.display='none';"></div>
                 </div>
             </div>
         </div>
@@ -818,15 +662,6 @@
         </div>
         <div class="carousel-dots" id="carouselDots"></div>
     </div>
-</div>
-
-<!-- Video lightbox overlay -->
-<div id="video-lightbox" class="video-lightbox">
-    <div class="close-video" id="close-video-btn">&times;</div>
-    <video id="full-video" controls>
-        <source src="Uvodni%20Video.MP4" type="video/mp4">
-        Vaš preglednik ne podržava video tag.
-    </video>
 </div>
 
 <script>
@@ -956,22 +791,16 @@
             }
             musicStarted = true;
         }
-        if (musicToggleBtn) {
-            musicToggleBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                toggleMusic();
-            });
-        }
+        if (musicToggleBtn) musicToggleBtn.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
         
-        // ========== VIDEO LIGHTBOX (samo klikom na play) ==========
+        // ========== VIDEO LIGHTBOX ==========
         const videoTrigger = document.getElementById('video-trigger');
         const videoLightbox = document.getElementById('video-lightbox');
-        const fullVideo = document.getElementById('full-video');
+        const videoElement = document.getElementById('intro-video');
         const closeVideoBtn = document.getElementById('close-video-btn');
         let wasMusicPlaying = false;
         
         function openVideo() {
-            // Pauziraj muziku ako je svirala
             if (music && !music.paused) {
                 wasMusicPlaying = true;
                 music.pause();
@@ -979,18 +808,14 @@
             } else {
                 wasMusicPlaying = false;
             }
-            // Prikaži lightbox
             videoLightbox.classList.add('active');
-            // Resetuj i pusti video (ne autoplay na stranici, nego na zahtjev)
-            fullVideo.currentTime = 0;
-            fullVideo.play().catch(e => console.log("Video play error:", e));
+            videoElement.currentTime = 0;
+            videoElement.play().catch(e => console.log("Video play error:", e));
         }
         
         function closeVideo() {
             videoLightbox.classList.remove('active');
-            fullVideo.pause();
-            fullVideo.currentTime = 0;
-            // Vrati muziku ako je prije bila upaljena
+            videoElement.pause();
             if (wasMusicPlaying && music) {
                 music.play().then(() => {
                     if (musicIconSpan) musicIconSpan.textContent = '🔊';
@@ -998,27 +823,10 @@
             }
         }
         
-        if (videoTrigger) {
-            videoTrigger.addEventListener('click', openVideo);
-        }
-        if (closeVideoBtn) {
-            closeVideoBtn.addEventListener('click', closeVideo);
-        }
-        if (videoLightbox) {
-            videoLightbox.addEventListener('click', function(e) {
-                if (e.target === videoLightbox) closeVideo();
-            });
-        }
-        if (fullVideo) {
-            fullVideo.addEventListener('ended', closeVideo);
-        }
-        
-        // ========== PRECUT (preview video u krugu) neka se vrti u tišini ==========
-        const previewVideo = document.getElementById('preview-video');
-        if (previewVideo) {
-            previewVideo.muted = true;
-            previewVideo.play().catch(e => console.log("Preview video autoplay muted failed:", e));
-        }
+        if (videoTrigger) videoTrigger.addEventListener('click', openVideo);
+        if (closeVideoBtn) closeVideoBtn.addEventListener('click', closeVideo);
+        if (videoLightbox) videoLightbox.addEventListener('click', e => { if (e.target === videoLightbox) closeVideo(); });
+        if (videoElement) videoElement.addEventListener('ended', closeVideo);
         
         // ========== BACK TO TOP & SCROLL PERCENT ==========
         const backTopBtn = document.getElementById('back-to-top');
@@ -1031,7 +839,7 @@
         function updatePercent() { percentSpan.textContent = `+${getScrollPercent().toFixed(2)}%`; }
         window.addEventListener('scroll', updatePercent); updatePercent();
         
-        // ========== LIGHTBOX ZA SLIKE ==========
+        // ========== LIGHTBOX (ZA SLIKE) ==========
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeLb = document.getElementById('close-btn');
@@ -1069,7 +877,7 @@
             });
         }
         
-        // ========== CAROUSEL SURADNICI ==========
+        // ========== CAROUSEL ==========
         const GITHUB_USERNAME = 'mcpmarko83';
         const REPO_NAME = 'milosavljevic-smart-energy';
         const FOLDER_PATH = 'saradnici';
