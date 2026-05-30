@@ -143,7 +143,7 @@
 
         /* ========== HERO SECTION ========== */
         .hero-section {
-            padding: 100px 20px 80px;
+            padding: 80px 20px 60px;
             text-align: center;
             position: relative;
         }
@@ -178,6 +178,106 @@
             color: #fff;
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Video circle button */
+        .video-circle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .circle-btn {
+            width: 100px;
+            height: 100px;
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 2px solid rgba(76, 175, 80, 0.6);
+            box-shadow: 0 0 20px rgba(76,175,80,0.3);
+            margin-bottom: 15px;
+        }
+        .circle-btn:hover {
+            transform: scale(1.05);
+            border-color: #4caf50;
+            box-shadow: 0 0 30px rgba(76,175,80,0.6);
+            background: rgba(76, 175, 80, 0.2);
+        }
+        .circle-btn svg {
+            width: 48px;
+            height: 48px;
+            fill: white;
+            filter: drop-shadow(0 0 6px rgba(76,175,80,0.5));
+        }
+        .video-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #cbd5e6;
+            letter-spacing: 0.5px;
+            background: rgba(0,0,0,0.3);
+            padding: 6px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+        @media (max-width: 768px) {
+            .circle-btn { width: 80px; height: 80px; }
+            .circle-btn svg { width: 38px; height: 38px; }
+            .video-label { font-size: 12px; }
+        }
+
+        /* Video Lightbox (fullscreen overlay) */
+        .video-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px);
+            z-index: 999999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .video-lightbox.active {
+            display: flex;
+        }
+        .video-lightbox video {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 24px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            border: 2px solid rgba(76,175,80,0.5);
+        }
+        .video-lightbox .close-video {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 48px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        .video-lightbox .close-video:hover {
+            background: rgba(76,175,80,0.2);
+            color: #4caf50;
+            transform: scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .video-lightbox .close-video { top: 20px; right: 20px; width: 44px; height: 44px; font-size: 36px; }
         }
 
         /* ========== ENHANCED CARDS WITH BORDERS & GLOW ========== */
@@ -506,6 +606,16 @@
         <div class="hero-line"></div>
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
         <a href="#kontakt" class="btn-primary">Zatraži Ponudu</a>
+        
+        <!-- Video krug ispod dugmeta -->
+        <div class="video-circle">
+            <div id="video-trigger" class="circle-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 5v14l11-7z" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="video-label">🎬 Naša prezentacija i uvod</div>
+        </div>
     </div>
 </section>
 
@@ -661,6 +771,15 @@
     </div>
 </div>
 
+<!-- Video lightbox overlay -->
+<div id="video-lightbox" class="video-lightbox">
+    <div class="close-video" id="close-video-btn">&times;</div>
+    <video id="intro-video" controls autoplay>
+        <source src="Uvodni%20Video.MP4" type="video/mp4">
+        Vaš preglednik ne podržava video tag.
+    </video>
+</div>
+
 <script>
     (function() {
         // ========== FOLDERI ==========
@@ -765,19 +884,16 @@
             } else {
                 musicStarted = true;
             }
-            // Nakon prvog pokretanja, uklanjamo sve listenere
             ['click', 'touchstart', 'scroll'].forEach(ev => {
                 window.removeEventListener(ev, actuallyPlayMusic);
                 document.removeEventListener(ev, actuallyPlayMusic);
             });
         }
         
-        // Dodajemo listenere za prvi korisnički input (dodir, klik, skrol)
         window.addEventListener('click', actuallyPlayMusic);
         window.addEventListener('touchstart', actuallyPlayMusic);
         window.addEventListener('scroll', actuallyPlayMusic);
         
-        // Toggle dugme za muziku (ručno upravljanje) - takođe pokreće ako nije startovano
         function toggleMusic() {
             if (!music) return;
             if (music.paused) {
@@ -798,6 +914,57 @@
             });
         }
         
+        // ========== VIDEO LIGHTBOX ==========
+        const videoTrigger = document.getElementById('video-trigger');
+        const videoLightbox = document.getElementById('video-lightbox');
+        const videoElement = document.getElementById('intro-video');
+        const closeVideoBtn = document.getElementById('close-video-btn');
+        let wasMusicPlaying = false;
+        
+        function openVideo() {
+            // Pauziraj muziku ako je svirala
+            if (music && !music.paused) {
+                wasMusicPlaying = true;
+                music.pause();
+                if (musicIconSpan) musicIconSpan.textContent = '🔇';
+            } else {
+                wasMusicPlaying = false;
+            }
+            // Prikaži lightbox
+            videoLightbox.classList.add('active');
+            // Pokušaj pokrenuti video (autoplay će raditi nakon korisničke akcije)
+            videoElement.play().catch(e => console.log("Video autoplay error:", e));
+        }
+        
+        function closeVideo() {
+            videoLightbox.classList.remove('active');
+            videoElement.pause();
+            videoElement.currentTime = 0;
+            // Vrati muziku ako je prije bila upaljena
+            if (wasMusicPlaying && music) {
+                music.play().then(() => {
+                    if (musicIconSpan) musicIconSpan.textContent = '🔊';
+                }).catch(e => console.log("Music resume error:", e));
+            }
+        }
+        
+        if (videoTrigger) {
+            videoTrigger.addEventListener('click', openVideo);
+        }
+        if (closeVideoBtn) {
+            closeVideoBtn.addEventListener('click', closeVideo);
+        }
+        // Zatvaranje i klikom na pozadinu
+        if (videoLightbox) {
+            videoLightbox.addEventListener('click', function(e) {
+                if (e.target === videoLightbox) closeVideo();
+            });
+        }
+        // Kada video završi, zatvori lightbox i vrati muziku
+        if (videoElement) {
+            videoElement.addEventListener('ended', closeVideo);
+        }
+        
         // ========== BACK TO TOP & SCROLL PERCENT ==========
         const backTopBtn = document.getElementById('back-to-top');
         const percentWidget = document.getElementById('scroll-percent-widget');
@@ -809,7 +976,7 @@
         function updatePercent() { percentSpan.textContent = `+${getScrollPercent().toFixed(2)}%`; }
         window.addEventListener('scroll', updatePercent); updatePercent();
         
-        // ========== LIGHTBOX ==========
+        // ========== LIGHTBOX (ZA SLIKE) ==========
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeLb = document.getElementById('close-btn');
@@ -929,7 +1096,6 @@
             } 
         }
         
-        // Pulsirajuće linije – klik
         const prevLine = document.getElementById('carousel-prev-line');
         const nextLine = document.getElementById('carousel-next-line');
         if (prevLine) prevLine.addEventListener('click', () => { prevSlide(); resetAutoScroll(); });
