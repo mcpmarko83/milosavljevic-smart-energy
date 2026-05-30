@@ -749,27 +749,35 @@
             if (autoHeader) autoHeader.onclick = (e) => window.toggleFolderWithIcon(autoBox);
         }
         
-        // ========== MUZIKA - POKRETAČ NA PRVI DODIR/KLIK BILO GDJE ==========
+        // ========== MUZIKA - POKRETAČ NA PRVI DODIR, SKROL ILI KLIK ==========
         const music = document.getElementById('bg-music');
         const musicToggleBtn = document.getElementById('music-toggle');
         const musicIconSpan = document.getElementById('music-icon');
         let musicStarted = false;
         
-        function startMusicOnFirstInteraction() {
+        function actuallyPlayMusic() {
             if (musicStarted) return;
-            if (music) {
+            if (music && music.paused) {
                 music.play().then(() => {
                     musicStarted = true;
                     if (musicIconSpan) musicIconSpan.textContent = '🔊';
-                }).catch(e => console.log("Autoplay blocked, waiting for explicit click"));
+                }).catch(e => console.log("Audio play failed:", e));
+            } else {
+                musicStarted = true;
             }
-            document.removeEventListener('click', startMusicOnFirstInteraction);
-            document.removeEventListener('touchstart', startMusicOnFirstInteraction);
+            // Nakon prvog pokretanja, uklanjamo sve listenere
+            ['click', 'touchstart', 'scroll'].forEach(ev => {
+                window.removeEventListener(ev, actuallyPlayMusic);
+                document.removeEventListener(ev, actuallyPlayMusic);
+            });
         }
         
-        document.addEventListener('click', startMusicOnFirstInteraction);
-        document.addEventListener('touchstart', startMusicOnFirstInteraction);
+        // Dodajemo listenere za prvi korisnički input (dodir, klik, skrol)
+        window.addEventListener('click', actuallyPlayMusic);
+        window.addEventListener('touchstart', actuallyPlayMusic);
+        window.addEventListener('scroll', actuallyPlayMusic);
         
+        // Toggle dugme za muziku (ručno upravljanje) - takođe pokreće ako nije startovano
         function toggleMusic() {
             if (!music) return;
             if (music.paused) {
