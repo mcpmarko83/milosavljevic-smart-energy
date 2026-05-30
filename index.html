@@ -10,6 +10,10 @@
     <meta property="og:description" content="Inženjerska tradicija za pametnu budućnost. Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.">
     <meta property="og:type" content="website">
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         /* ========== PERFORMANCE & CROSS-PLATFORM ========== */
         @media (prefers-reduced-motion: reduce) {
@@ -31,15 +35,15 @@
             scroll-behavior: smooth;
         }
         body {
-            background-color: #05080f;
+            background-color: #0d1117;
             color: #f3f4f6;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Poppins', Arial, sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
             padding-bottom: 120px;
         }
 
-        /* ========== ABSTRACT BACKGROUND ========== */
+        /* ========== MATERIAL YOU ABSTRACT BACKGROUND ========== */
         .abstract-bg {
             position: fixed;
             top: 0;
@@ -47,27 +51,24 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background: radial-gradient(circle at 20% 30%, #0a1220, #03060b);
+            background: #0d1117;
+            overflow: hidden;
         }
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
+            filter: blur(140px);
+            opacity: 0.2;
+            animation: float 20s infinite ease-in-out alternate;
             will-change: transform;
         }
-        .orb-1 { width: 400px; height: 400px; background: #4caf50; top: -10%; left: -10%; }
-        .orb-2 { width: 500px; height: 500px; background: #3a86ff; bottom: -20%; right: -10%; }
-        .orb-3 { width: 300px; height: 300px; background: #e63946; top: 40%; left: 50%; }
-        
-        #global-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
+        .orb-1 { width: 60vw; height: 60vw; background: #4caf50; top: -10%; left: -20%; }
+        .orb-2 { width: 50vw; height: 50vw; background: #3a86ff; bottom: -20%; right: -10%; animation-delay: -5s; }
+        .orb-3 { width: 40vw; height: 40vw; background: #e63946; top: 30%; left: 40%; animation-delay: -10s; opacity: 0.15; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(8%, 12%) scale(1.1); }
         }
 
         /* ========== UTILITY & LAYOUT ========== */
@@ -79,29 +80,35 @@
         .badge-primary {
             background: rgba(76, 175, 80, 0.15);
             color: #4caf50;
-            padding: 4px 14px;
+            padding: 6px 18px;
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
             display: inline-block;
+            border: 1px solid rgba(76, 175, 80, 0.2);
         }
         .section-title {
-            font-size: 28px;
+            font-size: 32px;
             color: #fff;
             margin-top: 12px;
             margin-bottom: 35px;
+            font-weight: 600;
         }
         .section-title-left {
-            font-size: 28px;
+            font-size: 32px;
             margin: 15px 0;
             color: #fff;
+            font-weight: 600;
         }
-        .section-text { color: #9ca3af; }
+        .section-text { color: #9ca3af; font-size: 17px; }
 
         /* ========== HEADER ========== */
         .header-main {
-            background: #0a111a;
-            border-bottom: 1px solid #2a3645;
-            padding: 12px 20px;
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -113,59 +120,84 @@
             grid-template-columns: 1fr auto 1fr;
             align-items: center;
         }
-        .header-tradition { font-size: 11px; color: #9ca3af; }
+        .header-tradition { font-size: 12px; color: #9ca3af; font-weight: 500; letter-spacing: 0.5px; }
         .header-logo-group {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .header-logo-img { height: 36px; filter: drop-shadow(0 0 6px rgba(0,0,0,0.3)); }
-        .header-brand-name { font-size: 16px; color: #fff; }
+        .header-logo-img { height: 36px; border-radius: 8px; }
+        .header-brand-name { font-size: 18px; color: #fff; font-weight: 600; }
         .header-brand-name span { color: #4caf50; }
-        .header-controls { justify-self: end; }
 
         /* ========== HERO SECTION ========== */
         .hero-section {
-            padding: 80px 20px 60px;
+            padding: 100px 20px 80px;
             text-align: center;
             position: relative;
         }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridMove 18s linear infinite;
-            opacity: 0.2;
-            pointer-events: none;
-        }
         .hero-content { position: relative; z-index: 2; }
-        .hero-logo { max-width: 240px; }
-        .hero-title { font-size: 36px; margin-top: 15px; }
+        .hero-logo { max-width: 240px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); margin-bottom: 20px; }
+        .hero-title { font-size: 44px; margin-top: 15px; font-weight: 600; letter-spacing: -0.5px; }
         .hero-title span { color: #3a86ff; }
         .hero-line {
-            width: 120px;
-            height: 2px;
-            margin: 20px auto;
-            background: linear-gradient(90deg, transparent, #4caf50, #3a86ff, transparent);
-            animation: pulse 2.5s infinite;
+            width: 80px;
+            height: 3px;
+            margin: 30px auto;
+            border-radius: 3px;
+            background: rgba(76, 175, 80, 0.5);
         }
-        .hero-subtitle { max-width: 600px; margin: 0 auto; color: #9ca3af; }
+        .hero-subtitle { max-width: 650px; margin: 0 auto; color: #9ca3af; font-size: 19px; }
+        
         .btn-primary {
             display: inline-block;
-            margin-top: 25px;
-            padding: 12px 35px;
-            border-radius: 40px;
-            background: linear-gradient(135deg, #2e7d32, #4caf50);
-            color: white;
+            margin-top: 35px;
+            padding: 14px 40px;
+            border-radius: 50px;
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
             text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            background: #4caf50;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
         }
+
+        /* ========== GLASSMORPHISM CARDS ========== */
+        .grid-philosophie {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .abstract-card, .history-card, .moto-card, .contact-card {
+            background: rgba(22, 27, 34, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
+            padding: 40px;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+        }
+        .abstract-card.full-width { grid-column: span 2; }
+        .abstract-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            background: rgba(30, 36, 45, 0.7);
+            border-color: rgba(76, 175, 80, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        .abstract-card h4 { font-size: 22px; font-weight: 500; margin: 20px 0 12px; }
+        
+        .history-card, .moto-card { margin-bottom: 40px; }
+        .history-grid { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; }
+        
+        .moto-title { font-size: 14px; color: #3a86ff; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 25px; }
+        .moto-img-wrapper { max-width: 600px; margin: 0 auto; }
 
         /* ========== IMAGES & CONTAINERS ========== */
         .blended-moto {
@@ -173,7 +205,8 @@
             height: auto;
             display: block;
             mix-blend-mode: screen;
-            filter: drop-shadow(0 0 15px rgba(58, 134, 255, 0.3));
+            opacity: 0.9;
+            filter: drop-shadow(0 0 20px rgba(58, 134, 255, 0.2));
         }
         .om-image-container {
             position: relative;
@@ -182,11 +215,10 @@
             width: 100%;
             border-radius: 50%;
             overflow: hidden;
-            background: radial-gradient(circle at 30% 20%, rgba(76,175,80,0.2), rgba(0,0,0,0.6));
-            padding: 6px;
-            border: 2px solid rgba(76, 175, 80, 0.6);
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
-            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.02);
+            padding: 8px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 0 30px rgba(76, 175, 80, 0.1);
         }
         .blended-om {
             width: 100%;
@@ -195,275 +227,209 @@
             border-radius: 50%;
         }
 
-        /* ========== CARDS ========== */
-        .grid-philosophie {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-        .abstract-card {
-            background: rgba(8, 14, 22, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .abstract-card.full-width { grid-column: span 2; }
-        .abstract-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            border-color: rgba(76, 175, 80, 0.3);
-        }
-        .abstract-card h4 { font-size: 19px; margin: 15px 0 10px; }
-        .abstract-card.full-width h4 { font-size: 20px; }
-        
-        .history-card {
-            background: #0a111a;
-            border-radius: 28px;
-            padding: 35px;
-            border: 1px solid #2a3645;
-            margin-bottom: 40px;
-        }
-        .history-grid { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; }
-        
-        .moto-card {
-            background: #0a111a;
-            border-radius: 24px;
-            padding: 25px;
-            text-align: center;
-            border: 1px solid #2a3645;
-            margin-bottom: 40px;
-        }
-        .moto-title { font-size: 12px; color: #3a86ff; text-transform: uppercase; margin-bottom: 15px; }
-        .moto-img-wrapper { max-width: 600px; margin: 0 auto; }
-
-        .pulse-node {
-            width: 9px; height: 9px; border-radius: 50%;
-            display: inline-block; position: relative;
-        }
-        .pulse-node::after {
-            content: ''; position: absolute; width: 100%; height: 100%;
-            top: 0; left: 0; background: inherit; border-radius: 50%;
-            animation: pulseGlow 2.8s infinite ease-in-out;
-        }
-        @keyframes pulseGlow {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(4); opacity: 0; }
-        }
-
         /* ========== FOLDERS ========== */
         .folder-section { margin-bottom: 50px; }
         .folder-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
         .folder-box {
-            background: #111a26;
-            border: 1px solid #2a3645;
-            border-radius: 16px;
-            padding: 20px;
+            background: rgba(22, 27, 34, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 24px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .folder-box:hover {
-            background: #16202e;
-            border-color: #4caf50;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: rgba(30, 36, 45, 0.7);
+            border-color: rgba(76, 175, 80, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .folder-box.open { background: #1a2535; border-color: #4caf50; }
-        .folder-arrow { transition: transform 0.2s ease; color: #4caf50; font-size: 18px; font-weight: bold; }
+        .folder-box.open { background: rgba(30, 36, 45, 0.9); border-color: rgba(76, 175, 80, 0.4); }
+        .folder-arrow { transition: transform 0.3s ease; color: #4caf50; font-size: 16px; }
         .folder-box.open .folder-arrow { transform: rotate(90deg); }
         .folder-content {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.3s ease-out, opacity 0.2s ease-out;
+            transition: grid-template-rows 0.4s ease-out, opacity 0.3s ease-out;
             opacity: 0;
         }
         .folder-box.open .folder-content {
             grid-template-rows: 1fr;
             opacity: 1;
-            margin-top: 18px;
+            margin-top: 20px;
         }
         .inner-grid {
             overflow: hidden;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 15px;
         }
         .folder-img {
-            width: 46px; height: 40px; object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            width: 48px; height: 42px; object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
         }
         .project-img {
-            width: 100%; height: 90px; object-fit: cover;
-            border-radius: 12px; border: 1px solid #2a3a4a;
-            transition: all 0.2s; cursor: pointer;
+            width: 100%; height: 100px; object-fit: cover;
+            border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease; cursor: pointer;
         }
         .project-img:hover {
-            transform: scale(1.03); border-color: #4caf50;
-            box-shadow: 0 4px 12px rgba(76,175,80,0.3);
+            transform: scale(1.05); border-color: rgba(76, 175, 80, 0.5);
+            box-shadow: 0 8px 20px rgba(76,175,80,0.2);
         }
 
         .auto-folder-card {
-            background: #0a111a; border: 1px solid #2e7d32;
-            border-radius: 28px; padding: 30px; text-align: center; margin-top: 40px;
+            background: rgba(22, 27, 34, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 32px; padding: 40px; text-align: center; margin-top: 50px;
         }
 
         /* ========== CAROUSEL ========== */
         .partners-section {
-            background: rgba(8, 14, 22, 0.9);
-            border-radius: 28px;
-            padding: 40px 20px;
-            margin: 60px 0 40px;
+            background: rgba(13, 17, 23, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 50px 20px;
+            margin: 80px 0 40px;
             border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         .partners-title {
             text-align: center;
             margin-bottom: 40px;
-            font-size: 2rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #fff, #a0c0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .partners-title:after {
-            content: ''; display: block; width: 70px; height: 3px;
-            background: linear-gradient(90deg, #4caf50, #3a86ff, #e63946);
-            margin: 12px auto 0; border-radius: 3px;
+            font-size: 32px;
+            font-weight: 500;
+            color: #fff;
         }
         .carousel-container { position: relative; overflow: hidden; padding: 15px 0 20px; }
-        .carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1); gap: 30px; }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); gap: 30px; }
         .carousel-slide {
             flex: 0 0 calc(25% - 23px); min-width: calc(25% - 23px);
             display: flex; flex-direction: column; justify-content: space-between;
-            background: #0f1722; border-radius: 24px; transition: all 0.3s ease;
-            border: 1px solid #2a3645; overflow: hidden;
+            background: rgba(255, 255, 255, 0.02); border-radius: 24px; transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden;
         }
         .carousel-slide:hover {
-            transform: translateY(-6px); background: #141f2c;
-            border-color: #4caf50; box-shadow: 0 20px 30px rgba(0,0,0,0.4);
+            transform: translateY(-6px); background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(76, 175, 80, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
-        .logo-container { padding: 25px 20px 15px; display: flex; align-items: center; justify-content: center; min-height: 180px; }
-        .partner-logo { max-width: 100%; max-height: 130px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transition: transform 0.2s; }
-        .carousel-slide:hover .partner-logo { transform: scale(1.03); }
+        .logo-container { padding: 30px 20px 20px; display: flex; align-items: center; justify-content: center; min-height: 180px; }
+        .partner-logo { max-width: 100%; max-height: 110px; object-fit: contain; transition: transform 0.3s ease; }
+        .carousel-slide:hover .partner-logo { transform: scale(1.05); }
         .partner-name {
-            font-family: 'Poppins', 'Segoe UI', sans-serif; font-weight: 600; font-size: 1rem;
-            text-align: center; letter-spacing: 0.3px; color: #ffffff; background: #0a111a;
-            padding: 14px 12px; margin: 0; border-top: 1px solid #2a3645; transition: all 0.2s;
+            font-weight: 500; font-size: 15px;
+            text-align: center; color: #fff; background: rgba(0, 0, 0, 0.2);
+            padding: 16px 12px; margin: 0; transition: all 0.3s ease;
         }
-        .carousel-slide:hover .partner-name { background: #2e7d32; border-top-color: #fff; }
+        .carousel-slide:hover .partner-name { background: rgba(76, 175, 80, 0.2); }
+        
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(17, 26, 38, 0.9); backdrop-filter: blur(4px);
-            color: white; border: 1px solid rgba(76, 175, 80, 0.5);
-            width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
-            font-size: 28px; font-weight: 300; display: flex; align-items: center; justify-content: center;
-            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1); z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(8px);
+            color: white; border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+            font-size: 22px; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; z-index: 10;
         }
-        .carousel-btn:hover { background: #2e7d32; border-color: #fff; transform: translateY(-50%) scale(1.08); box-shadow: 0 0 15px rgba(46, 125, 50, 0.6); }
-        .btn-prev { left: 8px; } .btn-next { right: 8px; }
-        .carousel-dots { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
-        .dot { width: 9px; height: 9px; border-radius: 50%; background: #4a5568; cursor: pointer; transition: all 0.2s; }
-        .dot.active { background: #4caf50; width: 26px; border-radius: 5px; }
+        .carousel-btn:hover { background: rgba(76, 175, 80, 0.2); border-color: rgba(76, 175, 80, 0.5); transform: translateY(-50%) scale(1.05); }
+        .btn-prev { left: 10px; } .btn-next { right: 10px; }
+        
+        .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); cursor: pointer; transition: all 0.3s ease; }
+        .dot.active { background: #4caf50; width: 24px; border-radius: 8px; }
 
         /* ========== PREMIUM BUTTONS (FLOATING) ========== */
         .floating-buttons {
             position: fixed; bottom: 30px; right: 30px;
             display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99999;
         }
-        .premium-btn-base {
-            background: rgba(17, 26, 38, 0.85); backdrop-filter: blur(8px);
-            border: 1px solid rgba(76, 175, 80, 0.4); color: white;
+        .premium-back-btn {
+            background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); color: white;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border-radius: 50%; width: 56px; height: 56px; font-size: 24px;
         }
-        .premium-btn-base:hover {
-            background: #2e7d32; border-color: #fff; transform: scale(1.08);
-            box-shadow: 0 0 18px rgba(46, 125, 50, 0.6);
-        }
-        .premium-music-btn { border-radius: 50%; width: 48px; height: 48px; font-size: 24px; }
-        .premium-back-btn { border-radius: 50%; width: 52px; height: 52px; font-size: 28px; font-weight: 300; }
-        .premium-percent-btn {
-            border-radius: 20px; padding: 0 18px; height: 52px;
-            font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+        .premium-back-btn:hover {
+            background: rgba(76, 175, 80, 0.2); border-color: rgba(76, 175, 80, 0.5); 
+            transform: translateY(-3px);
         }
 
         /* ========== KONTAKT ========== */
-        .contact-section { padding: 50px 0; max-width: 750px; margin: 0 auto; }
-        .contact-card {
-            background: #0a111a; border-radius: 32px; padding: 35px 30px; border: 1px solid #2a3645;
+        .contact-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
+        .contact-brand { font-weight: 600; color: #4caf50; font-size: 26px; text-align: center; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 30px; margin: 40px 0; }
+        .contact-info-box { 
+            background: rgba(255, 255, 255, 0.02); border-radius: 24px; padding: 30px; 
+            text-align: center; border: 1px solid rgba(255, 255, 255, 0.05); 
         }
-        .contact-brand { font-weight: 600; color: #4caf50; font-size: 24px; text-align: center; }
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 25px; margin: 35px 0; }
-        .contact-info-box { background: #111a26; border-radius: 20px; padding: 22px; text-align: center; border: 1px solid #2a3645; }
-        .contact-links { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .contact-link-btn { padding: 10px; border-radius: 40px; color: white; text-decoration: none; font-size: 14px; }
-        .bg-phone { background: #1976d2; }
-        .bg-viber { background: #59267c; }
-        .bg-whatsapp { background: #128c7e; }
-        .bg-phone-alt { background: #2e7d32; }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .contact-link-btn { 
+            padding: 12px; border-radius: 50px; color: white; text-decoration: none; 
+            font-size: 15px; font-weight: 500; transition: transform 0.2s;
+        }
+        .contact-link-btn:hover { transform: scale(1.02); }
+        .bg-phone { background: rgba(25, 118, 210, 0.8); border: 1px solid #1976d2; }
+        .bg-viber { background: rgba(89, 38, 124, 0.8); border: 1px solid #59267c; }
+        .bg-whatsapp { background: rgba(18, 140, 126, 0.8); border: 1px solid #128c7e; }
+        .bg-phone-alt { background: rgba(46, 125, 50, 0.8); border: 1px solid #2e7d32; }
         
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; font-size: 14px; color: #9ca3af; margin-bottom: 8px; font-weight: 500; }
+        .form-group { margin-bottom: 24px; text-align: left; }
+        .form-group label { display: block; font-size: 15px; color: #9ca3af; margin-bottom: 10px; font-weight: 500; }
         .form-control {
-            width: 100%; background: #0f1722; border: 1px solid #2a3645; border-radius: 12px;
-            padding: 14px 18px; color: #fff; font-size: 1rem; transition: all 0.2s;
+            width: 100%; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 16px; padding: 16px 20px; color: #fff; font-size: 16px; 
+            font-family: inherit; transition: all 0.3s ease;
         }
-        .form-control:focus { outline: none; border-color: #4caf50; box-shadow: 0 0 0 2px rgba(76,175,80,0.3); }
+        .form-control:focus { outline: none; border-color: #4caf50; background: rgba(0,0,0,0.4); box-shadow: 0 0 0 4px rgba(76,175,80,0.1); }
         .form-submit-btn {
-            background: linear-gradient(135deg, #2e7d32, #4caf50); color: white; border: none;
-            padding: 14px 24px; border-radius: 40px; font-weight: 600; font-size: 1rem;
-            cursor: pointer; transition: transform 0.1s; width: 100%;
+            background: #4caf50; color: white; border: none;
+            padding: 16px 30px; border-radius: 50px; font-weight: 500; font-size: 17px;
+            cursor: pointer; transition: all 0.3s ease; width: 100%; font-family: inherit;
         }
-        .form-submit-btn:hover { transform: scale(0.98); }
-        .status-box { display: none; background: rgba(76,175,80,0.15); border: 1px solid #4caf50; padding: 24px; border-radius: 20px; margin-top: 25px; }
+        .form-submit-btn:hover { background: #43a047; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(76,175,80,0.3); }
+        .status-box { display: none; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.3); padding: 30px; border-radius: 24px; margin-top: 30px; }
 
         /* ========== LIGHTBOX ========== */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(3,5,8,0.98); display: none; align-items: center; justify-content: center; z-index: 999999;
+            background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center; z-index: 999999;
         }
         .lightbox-overlay.active { display: flex; }
-        .lightbox-img { max-width: 95%; max-height: 85%; object-fit: contain; border: 3px solid #4caf50; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); }
+        .lightbox-img { max-width: 90%; max-height: 85%; object-fit: contain; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
         .lightbox-close {
-            position: absolute; top: 25px; right: 35px; font-size: 48px; cursor: pointer;
-            background: #0f1722; border-radius: 50%; width: 60px; text-align: center; line-height: 60px; transition: 0.2s;
+            position: absolute; top: 30px; right: 40px; font-size: 40px; cursor: pointer;
+            background: rgba(255,255,255,0.1); border-radius: 50%; width: 56px; height: 56px; 
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
         }
-        .lightbox-close:hover { background: #4caf50; transform: scale(1.05); }
+        .lightbox-close:hover { background: rgba(76,175,80,0.2); color: #4caf50; transform: scale(1.1); }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 1024px) {
             .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); }
-            .partner-logo { max-height: 110px; }
         }
         @media (max-width: 768px) {
             .hide-mobile { display: none; }
-            .glow-orb { filter: blur(60px); opacity: 0.2; }
-            .orb-1, .orb-2, .orb-3 { transform: scale(0.7); }
+            .hero-title { font-size: 34px; }
             .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
-            .partner-name { font-size: 0.85rem; padding: 10px 8px; }
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
-            .logo-container { min-height: 140px; padding: 18px 15px 10px; }
-            .partner-logo { max-height: 90px; }
-            .premium-music-btn { width: 42px; height: 42px; font-size: 20px; }
-            .premium-back-btn { width: 46px; height: 46px; font-size: 24px; }
-            .premium-percent-btn { height: 46px; padding: 0 14px; font-size: 12px; }
+            .abstract-card, .history-card, .moto-card, .contact-card { padding: 30px; }
+            .premium-back-btn { width: 50px; height: 50px; font-size: 20px; }
         }
         @media (max-width: 480px) {
             .carousel-slide { flex: 0 0 100%; min-width: 100%; }
-            .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
-            .premium-percent-btn { padding: 0 12px; height: 42px; font-size: 11px; }
+            .floating-buttons { bottom: 20px; right: 20px; }
         }
-        
-        @keyframes gridMove { from { transform: translateY(0); } to { transform: translateY(60px); } }
-        @keyframes pulse { 0%,100% { opacity:0.6; transform:scaleX(1); } 50% { opacity:1; transform:scaleX(1.3); } }
     </style>
 </head>
 <body>
@@ -473,8 +439,6 @@
     <div class="glow-orb orb-2"></div>
     <div class="glow-orb orb-3"></div>
 </div>
-<canvas id="global-particles"></canvas>
-<audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
 
 <div id="lightbox" class="lightbox-overlay">
     <span class="lightbox-close" id="close-btn">&times;</span>
@@ -482,38 +446,27 @@
 </div>
 
 <div class="floating-buttons">
-    <div id="side-music-toggle" class="premium-btn-base premium-music-btn" title="Muzika">
-        <span id="side-music-icon">🔊</span>
-    </div>
-    <div id="back-to-top" class="premium-btn-base premium-back-btn" title="Vrh">↑</div>
-    <div id="scroll-percent-widget" class="premium-btn-base premium-percent-btn" title="Procenat skrola">
-        <span id="scroll-percent">+0.00%</span>
-    </div>
+    <div id="back-to-top" class="premium-back-btn" title="Vrh">↑</div>
 </div>
 
 <header class="header-main">
     <div class="header-grid">
         <div><p class="hide-mobile header-tradition">Tradicija od 1998.</p></div>
         <div class="header-logo-group">
-            <img src="logo.jpg" alt="Logo" class="header-logo-img">
+            <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
             <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
         </div>
-        <div class="header-controls">
-            <button id="music-toggle" class="premium-btn-base premium-music-btn" title="Muzika">
-                <span id="music-icon">🔊</span>
-            </button>
-        </div>
+        <div></div>
     </div>
 </header>
 
 <section class="hero-section">
-    <div class="hero-bg"></div>
     <div class="hero-content">
-        <img src="logo.jpg" class="hero-logo" alt="Logo">
-        <h1 class="hero-title">Inženjerska tradicija za <span>pametnu budućnost</span></h1>
+        <img src="logo.jpg" class="hero-logo" alt="Logo" onerror="this.style.display='none';">
+        <h1 class="hero-title">Inženjerska tradicija za <br><span>pametnu budućnost</span></h1>
         <div class="hero-line"></div>
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
-        <a href="#kontakt" class="btn-primary">Kontakt</a>
+        <a href="#kontakt" class="btn-primary">Zatraži Ponudu</a>
     </div>
 </section>
 
@@ -525,19 +478,19 @@
         </div>
         <div class="grid-philosophie">
             <div class="abstract-card full-width">
-                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">👁️‍🗨️</span><div class="pulse-node" style="background:#4caf50;"></div></div>
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:32px;">👁️‍🗨️</span></div>
                 <h4>1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
                 <p class="section-text">Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.</p>
             </div>
             <div class="abstract-card">
-                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🎛️</span><div class="pulse-node" style="background:#3a86ff;"></div></div>
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:32px;">🎛️</span></div>
                 <h4>2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
-                <p class="section-text">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu. Takav pristup omogućava da sistem radi stabilno decenijama.</p>
+                <p class="section-text">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu.</p>
             </div>
             <div class="abstract-card">
-                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🛡️</span><div class="pulse-node" style="background:#e63946;"></div></div>
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:32px;">🛡️</span></div>
                 <h4>3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
-                <p class="section-text">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote. Kvalitet se prepoznaje po stabilnosti.</p>
+                <p class="section-text">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu.</p>
             </div>
         </div>
     </section>
@@ -545,43 +498,43 @@
     <section>
         <div class="moto-card">
             <p class="moto-title">Naš Moto i Vodilja</p>
-            <div class="moto-img-wrapper"><img src="moto.jpg" class="blended-moto" loading="lazy"></div>
+            <div class="moto-img-wrapper"><img src="moto.jpg" class="blended-moto" loading="lazy" onerror="this.style.display='none';"></div>
         </div>
     </section>
 
     <section>
         <div class="history-card">
             <div class="history-grid">
-                <div style="flex:1;">
+                <div style="flex:1; min-width: 300px;">
                     <span class="badge-primary">Istorijat i Evolucija</span>
                     <h2 class="section-title-left">Inženjerska preciznost i iskustvo</h2>
-                    <p class="section-text"><strong class="text-white">Milosavljević Smart Energy posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na 15 godina specijalizovanog iskustva, naš primarni fokus leži u najsavremenijim rješenjima za <strong>industrijsku automatizaciju i robotiku</strong>.</p>
+                    <p class="section-text"><strong class="text-white">Milosavljević Smart Energy posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na dugogodišnje specijalizovano iskustvo, naš primarni fokus leži u najsavremenijim rješenjima za <strong>industrijsku automatizaciju i robotiku</strong>.</p>
                 </div>
-                <div style="flex:1; text-align:center;">
-                    <p style="font-size:11px; color:#4caf50;">Ohmov Zakon</p>
-                    <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy"></div>
+                <div style="flex:1; text-align:center; min-width: 300px;">
+                    <p style="font-size:12px; color:#4caf50; margin-bottom:10px; font-weight:500;">Ohmov Zakon</p>
+                    <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy" onerror="this.style.display='none';"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="folder-section">
-        <div class="text-center" style="margin-bottom:35px;">
+        <div class="text-center" style="margin-bottom:45px;">
             <span class="badge-primary">Reference</span>
             <h2 class="section-title" style="margin-bottom: 10px;">Pregled projekata po folderima</h2>
-            <p class="section-text">Klikni na folder – otvara se sadržaj</p>
+            <p class="section-text">Klikni na folder za prikaz sadržaja</p>
         </div>
         <div id="folders-container" class="folder-grid"></div>
         
         <div id="auto-folder" class="auto-folder-card">
             <span class="badge-primary">Glavna Orijentacija</span>
-            <h3 style="font-size:24px; color:#4caf50; margin:12px 0;">Fokus na polju: Automatizacija i Robotika</h3>
-            <p class="section-text" style="max-width:700px; margin:0 auto 20px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
-            <div class="folder-box" data-folder-id="auto" style="background:#111a26; max-width:500px; margin:0 auto; text-align:left;">
+            <h3 style="font-size:28px; color:#fff; margin:16px 0; font-weight: 500;">Fokus na polju: Automatizacija i Robotika</h3>
+            <p class="section-text" style="max-width:700px; margin:0 auto 30px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
+            <div class="folder-box" data-folder-id="auto" style="background: rgba(0,0,0,0.2); max-width:600px; margin:0 auto; text-align:left;">
                 <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
-                    <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="display:flex; align-items:center; gap:16px;">
                         <img class="folder-img" data-closed="" data-open="" src="" alt="folder">
-                        <div><h3 style="color:#fff; font-size:16px;">07 Automatizacija i robotika</h3><p style="font-size:11px; color:#3a86ff;">Industrija 4.0 i pametni sistemi</p></div>
+                        <div><h3 style="color:#fff; font-size:18px; font-weight:500;">07 Automatizacija i robotika</h3><p style="font-size:13px; color:#9ca3af;">Industrija 4.0 i pametni sistemi</p></div>
                     </div>
                     <span class="folder-arrow">▶</span>
                 </div>
@@ -603,7 +556,7 @@
             <p class="contact-brand">Milosavljević Smart Energy</p>
             <div class="contact-grid">
                 <div class="contact-info-box">
-                    <h4 class="text-white">Rajko Milosavljević</h4>
+                    <h4 class="text-white" style="font-size: 18px; font-weight: 500;">Rajko Milosavljević</h4>
                     <div class="contact-links">
                         <a href="tel:+38765728595" class="contact-link-btn bg-phone-alt">📞 Pozovi telefonom</a>
                         <a href="viber://chat?number=%2B38765728595" class="contact-link-btn bg-viber">💜 Piši na Viber</a>
@@ -611,7 +564,7 @@
                     </div>
                 </div>
                 <div class="contact-info-box">
-                    <h4 class="text-white">Marko Milosavljević</h4>
+                    <h4 class="text-white" style="font-size: 18px; font-weight: 500;">Marko Milosavljević</h4>
                     <div class="contact-links">
                         <a href="tel:+38766921100" class="contact-link-btn bg-phone">📞 Pozovi telefonom</a>
                         <a href="viber://chat?number=%2B38766921100" class="contact-link-btn bg-viber">💜 Piši na Viber</a>
@@ -619,14 +572,14 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="margin-bottom:25px;">
-                <p class="section-text">Zvanična e-mail adresa:</p>
+            <div class="text-center" style="margin-bottom:40px;">
+                <p class="section-text" style="margin-bottom: 8px;">Zvanična e-mail adresa:</p>
                 <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px; font-weight:500; text-decoration:none;">✉️ milosavljevic@outlook.com</a>
             </div>
-            <div>
-                <h3 id="form-title" style="color:#fff; font-size:20px; margin-bottom:18px;">Pošaljite nam upit direktno sa sajta</h3>
+            <div style="background: rgba(0,0,0,0.1); padding: 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.03);">
+                <h3 id="form-title" style="color:#fff; font-size:22px; margin-bottom:24px; font-weight: 500;">Pošaljite nam upit direktno sa sajta</h3>
                 <form id="clean-contact-form">
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:15px;">
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:20px;">
                         <div class="form-group"><label>Ime i prezime</label><input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required></div>
                         <div class="form-group"><label>Vaš broj telefona</label><input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required></div>
                     </div>
@@ -635,10 +588,10 @@
                     <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji poruku</button>
                 </form>
                 <div id="status-box" class="status-box">
-                    ✅ <strong>Uspješno poslato!</strong><br><br>
+                    <span style="font-size: 20px;">✅</span> <strong style="color: #4caf50; font-size: 18px;">Uspješno poslato!</strong><br><br>
                     Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge.<br>
                     Naš tim će detaljno pregledati opis radova i kontaktiraće Vas u najkraćem mogućem roku direktno na broj telefona koji ste ostavili.<br><br>
-                    <em>Srdačan pozdrav, Milosavljević Smart Energy</em>
+                    <em style="color: #9ca3af;">Srdačan pozdrav, Milosavljević Smart Energy</em>
                 </div>
             </div>
         </div>
@@ -658,8 +611,9 @@
 <script>
     (function() {
         // ========== FOLDERI ==========
-        const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFDD66'/%3E%3Cstop offset='100%25' stop-color='%23FFB300'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' filter='url(%23shadow)' stroke='%23E5A000' stroke-width='0.5'/%3E%3C/svg%3E`;
-        const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE68F'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3Cfilter id='shadowOpen' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' filter='url(%23shadowOpen)' stroke='%23E5A000' stroke-width='0.5'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23FFC107' stroke-width='2' /%3E%3C/svg%3E`;
+        // Ažuriran SVG da se vizuelno uklopi sa Material dizajn paletom
+        const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E`;
+        const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2390CAF9'/%3E%3Cstop offset='100%25' stop-color='%2342A5F5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23BBDEFB' stroke-width='2' /%3E%3C/svg%3E`;
         
         window.toggleFolderWithIcon = function(folderElement) {
             const isOpen = folderElement.classList.contains('open');
@@ -697,14 +651,14 @@
             header.style.cssText = 'display:flex; justify-content:space-between; align-items:center;';
             header.onclick = (e) => window.toggleFolderWithIcon(box);
             const left = document.createElement('div');
-            left.style.cssText = 'display:flex; align-items:center; gap:12px;';
+            left.style.cssText = 'display:flex; align-items:center; gap:16px;';
             const img = document.createElement('img');
             img.className = 'folder-img';
             img.src = closedFolderSVG;
             img.setAttribute('data-closed', closedFolderSVG);
             img.setAttribute('data-open', openFolderSVG);
             const textDiv = document.createElement('div');
-            textDiv.innerHTML = `<h3 style="color:#fff; font-size:16px; margin:0;">${f.name}</h3><p style="margin:2px 0 0; font-size:12px; color:#9ca3af;">${f.desc}</p>`;
+            textDiv.innerHTML = `<h3 style="color:#fff; font-size:18px; margin:0; font-weight:500;">${f.name}</h3><p style="margin:4px 0 0; font-size:13px; color:#9ca3af;">${f.desc}</p>`;
             left.appendChild(img);
             left.appendChild(textDiv);
             const arrow = document.createElement('span');
@@ -743,51 +697,10 @@
             if (autoHeader) autoHeader.onclick = (e) => window.toggleFolderWithIcon(autoBox);
         }
         
-        // ========== MUZIKA ==========
-        const music = document.getElementById('bg-music');
-        const toggle1 = document.getElementById('music-toggle');
-        const toggle2 = document.getElementById('side-music-toggle');
-        const musicIcon = document.getElementById('music-icon');
-        const sideIcon = document.getElementById('side-music-icon');
-        if (music) music.volume = 0.25;
-        let musicStarted = false;
-        function updateUI(playing) {
-            const icon = playing ? "🔊" : "🔇";
-            if(musicIcon) musicIcon.textContent = icon;
-            if(sideIcon) sideIcon.textContent = icon;
-        }
-        function toggleMusic() {
-            if (!music) return;
-            if (music.paused) music.play().then(() => updateUI(true)).catch(e=>console.log);
-            else { music.pause(); updateUI(false); }
-            musicStarted = true;
-        }
-        function initAudio() { if (!musicStarted && music) music.play().then(()=>updateUI(true)).catch(e=>{}); document.removeEventListener('click',initAudio); document.removeEventListener('touchstart',initAudio); }
-        document.addEventListener('click', initAudio);
-        document.addEventListener('touchstart', initAudio);
-        if(toggle1) toggle1.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
-        if(toggle2) toggle2.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
-        
-        // ========== BACK TO TOP i PERCENT WIDGET ==========
+        // ========== BACK TO TOP ==========
         const backTopBtn = document.getElementById('back-to-top');
-        const percentWidget = document.getElementById('scroll-percent-widget');
-        const percentSpan = document.getElementById('scroll-percent');
-        
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
         if (backTopBtn) backTopBtn.addEventListener('click', scrollToTop);
-        if (percentWidget) percentWidget.addEventListener('click', scrollToTop);
-        
-        function getScrollPercentage() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            if (docHeight <= 0) return 0;
-            let percent = (scrollTop / docHeight) * 100;
-            return Math.min(100, Math.max(0, percent));
-        }
-        function formatPercent(value) { return `+${value.toFixed(2)}%`; }
-        function updatePercent() { if (percentSpan) percentSpan.textContent = formatPercent(getScrollPercentage()); }
-        window.addEventListener('scroll', updatePercent);
-        updatePercent();
         
         // ========== LIGHTBOX ==========
         const lightbox = document.getElementById('lightbox');
@@ -805,7 +718,7 @@
             document.body.style.overflow = 'hidden';
         }
         function closeLightbox() { if (lightbox) lightbox.classList.remove('active'); document.body.style.overflow = ''; }
-        if(lightbox) lightbox.addEventListener('click', closeLightbox);
+        if(lightbox) lightbox.addEventListener('click', function(e) { if(e.target === lightbox) closeLightbox(); });
         if(closeLb) closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
         
@@ -842,20 +755,6 @@
                 .catch(err => alert("Došlo je do greške prilikom slanja. Provjerite internet vezu ili pokušajte kasnije."))
                 .finally(() => { btn.innerText = original; btn.disabled = false; });
             });
-        }
-        
-        // ========== ČESTICE ==========
-        const canvas = document.getElementById('global-particles');
-        if(canvas) {
-            let ctx = canvas.getContext('2d');
-            let w = window.innerWidth, h = window.innerHeight;
-            let particles = [];
-            function resizeCanvas() { w = window.innerWidth; h = window.innerHeight; canvas.width = w; canvas.height = h; initParticles(); }
-            function initParticles() { particles = []; const count = w < 768 ? 20 : 45; for(let i=0;i<count;i++) particles.push({ x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.5, d:Math.random()*0.5+0.2 }); }
-            function draw() { if(!ctx) return; ctx.clearRect(0,0,w,h); ctx.fillStyle = 'rgba(255,255,255,0.3)'; for(let p of particles) { ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.y -= p.d; if(p.y < 0) { p.y = h; p.x = Math.random()*w; } } requestAnimationFrame(draw); }
-            window.addEventListener('resize', () => { resizeCanvas(); });
-            resizeCanvas();
-            draw();
         }
         
         // ========== CAROUSEL SURADNICI (GITHUB FETCH) ==========
@@ -998,7 +897,6 @@
             }
         }
         
-        // Pokretanje procesa povlačenja slika
         fetchLogos();
 
     })();
