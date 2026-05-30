@@ -112,7 +112,7 @@
             border-radius: 50%;
         }
 
-        /* ========== CARDS ========== */
+        /* ========== CARDS - ORIGINAL TEXT ========== */
         .grid-philosophie {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -132,30 +132,53 @@
         .abstract-card.card-plava:hover { border-color: rgba(58, 134, 255, 0.3); }
         .abstract-card.card-crvena:hover { border-color: rgba(230, 57, 70, 0.3); }
 
-        /* ========== FOLDERS ========== */
+        .pulse-node {
+            width: 9px; height: 9px; border-radius: 50%;
+            display: inline-block; position: relative;
+        }
+        .pulse-node::after {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            top: 0; left: 0; background: inherit; border-radius: 50%;
+            animation: pulseGlow 2.8s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+
+        /* ========== FOLDERS - IMPROVED, MODERN, NO CHEAP LOOK ========== */
         .folder-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 18px;
+            background: rgba(18, 25, 40, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
             padding: 20px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .folder-box:hover {
+            background: rgba(28, 40, 55, 0.6);
+            border-color: rgba(76, 175, 80, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .folder-box.open {
-            background: rgba(76, 175, 80, 0.08);
-            border-color: rgba(76, 175, 80, 0.3);
+            background: rgba(32, 45, 65, 0.6);
+            border-color: rgba(76, 175, 80, 0.5);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
         .folder-arrow {
-            transition: transform 0.2s ease;
+            transition: transform 0.25s ease;
             color: #4caf50;
             font-size: 18px;
+            font-weight: bold;
         }
         .folder-box.open .folder-arrow { transform: rotate(90deg); }
         .folder-content {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.3s ease-out, opacity 0.2s ease-out;
+            transition: grid-template-rows 0.35s ease-out, opacity 0.25s ease-out;
             opacity: 0;
         }
         .folder-box.open .folder-content {
@@ -170,29 +193,38 @@
             gap: 12px;
         }
         .folder-img {
-            width: 46px;
-            height: 40px;
+            width: 44px;
+            height: 38px;
             object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            transition: transform 0.2s;
+        }
+        .folder-box:hover .folder-img {
+            transform: scale(1.05);
         }
         .project-img {
             width: 100%;
             height: 90px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.2s ease;
+            transition: all 0.2s;
             cursor: pointer;
         }
-        .project-img:hover { transform: scale(1.02); border-color: #4caf50; }
+        .project-img:hover {
+            transform: scale(1.03);
+            border-color: #4caf50;
+            box-shadow: 0 4px 12px rgba(76,175,80,0.3);
+        }
 
-        /* ========== CAROUSEL - CLEAN & MODERN (NO STARS, NO CUBES) ========== */
+        /* ========== CAROUSEL - MODERN, NAMES AT BOTTOM ========== */
         .partners-section {
-            background: rgba(13, 20, 30, 0.5);
+            background: rgba(13, 20, 30, 0.55);
             border-radius: 32px;
             padding: 40px 20px;
             margin: 60px 0 40px;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.06);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         .partners-title {
@@ -217,86 +249,81 @@
         .carousel-container {
             position: relative;
             overflow: hidden;
-            padding: 20px 0 30px;
+            padding: 15px 0 20px;
         }
         .carousel-track {
             display: flex;
             transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            gap: 35px;
+            gap: 30px;
         }
         .carousel-slide {
-            flex: 0 0 calc(25% - 27px);
-            min-width: calc(25% - 27px);
-            text-align: center;
-            padding: 20px 15px 25px;
-            background: rgba(20, 30, 45, 0.4);
+            flex: 0 0 calc(25% - 23px);
+            min-width: calc(25% - 23px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(20, 30, 45, 0.45);
             border-radius: 24px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
         }
         .carousel-slide:hover {
-            transform: translateY(-8px);
-            background: rgba(30, 45, 65, 0.7);
-            border-color: rgba(76,175,80,0.5);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            transform: translateY(-6px);
+            background: rgba(32, 48, 68, 0.65);
+            border-color: rgba(76,175,80,0.4);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.4);
         }
         .logo-container {
-            padding: 15px;
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-        .carousel-slide:hover .logo-container {
-            background: rgba(0,0,0,0.3);
+            padding: 25px 20px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
         }
         .partner-logo {
-            width: 100%;
-            max-height: 140px;
+            max-width: 100%;
+            max-height: 130px;
             object-fit: contain;
-            display: block;
-            margin: 0 auto;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
             transition: transform 0.2s;
         }
         .carousel-slide:hover .partner-logo {
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
         .partner-name {
             font-family: 'Poppins', 'Segoe UI', sans-serif;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 1rem;
+            text-align: center;
             letter-spacing: 0.3px;
-            color: #eef2ff;
-            background: rgba(0, 0, 0, 0.5);
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.2);
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(20,30,45,0.9));
+            padding: 14px 12px;
+            margin: 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
             transition: all 0.2s;
         }
         .carousel-slide:hover .partner-name {
-            background: #4caf50;
-            color: #0a0f1a;
-            border-color: #fff;
-            transform: scale(1.02);
-            box-shadow: 0 0 12px rgba(76,175,80,0.5);
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: #fff;
+            border-top-color: #fff;
         }
         .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.55);
             backdrop-filter: blur(8px);
             color: white;
             border: 1px solid rgba(255,255,255,0.2);
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 28px;
+            font-size: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -308,17 +335,17 @@
             transform: translateY(-50%) scale(1.05);
             border-color: white;
         }
-        .btn-prev { left: 10px; }
-        .btn-next { right: 10px; }
+        .btn-prev { left: 8px; }
+        .btn-next { right: 8px; }
         .carousel-dots {
             display: flex;
             justify-content: center;
-            gap: 14px;
-            margin-top: 25px;
+            gap: 12px;
+            margin-top: 20px;
         }
         .dot {
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: #6b7280;
             cursor: pointer;
@@ -326,8 +353,8 @@
         }
         .dot.active {
             background: linear-gradient(135deg, #4caf50, #3a86ff);
-            width: 28px;
-            border-radius: 6px;
+            width: 26px;
+            border-radius: 5px;
         }
         .loading, .error {
             text-align: center;
@@ -339,37 +366,33 @@
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 1024px) {
-            .carousel-slide { flex: 0 0 calc(33.333% - 24px); min-width: calc(33.333% - 24px); }
-            .partner-logo { max-height: 120px; }
+            .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); }
+            .partner-logo { max-height: 110px; }
         }
         @media (max-width: 768px) {
-            .carousel-slide { flex: 0 0 calc(50% - 20px); min-width: calc(50% - 20px); }
-            .partner-name { font-size: 0.85rem; padding: 5px 14px; }
+            .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
+            .partner-name { font-size: 0.85rem; padding: 10px 8px; }
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
+            .logo-container { min-height: 140px; padding: 18px 15px 10px; }
+            .partner-logo { max-height: 90px; }
         }
         @media (max-width: 480px) {
             .carousel-slide { flex: 0 0 100%; min-width: 100%; }
         }
 
         /* ========== FORM, BUTTONS, LIGHTBOX ========== */
-        .music-btn {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-        }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 14px; color: #9ca3af; margin-bottom: 8px; font-weight: 500; }
         .form-control {
             width: 100%;
             background: rgba(4,7,11,0.7);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 12px;
             padding: 14px 18px;
             color: #fff;
             font-size: 1rem;
+            transition: all 0.2s;
         }
         .form-control:focus { outline: none; border-color: #4caf50; box-shadow: 0 0 0 2px rgba(76,175,80,0.3); }
         .form-submit-btn {
@@ -382,6 +405,7 @@
             font-size: 1rem;
             cursor: pointer;
             transition: transform 0.1s;
+            width: 100%;
         }
         .form-submit-btn:hover { transform: scale(0.98); }
         .status-box {
@@ -391,6 +415,15 @@
             padding: 24px;
             border-radius: 20px;
             margin-top: 25px;
+        }
+        .music-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
         }
         .lightbox-overlay {
             position: fixed;
@@ -515,16 +548,19 @@
         </div>
         <div class="grid-philosophie">
             <div class="abstract-card card-zelena full-width">
-                <h4>1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
-                <p>Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge procedure. Radimo sa nevidljivom energijom koja ne prašta improvizacije. Zato svaki korak zasnivamo na provjeri, blokadi napona i stopostotnoj sigurnosti.</p>
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">👁️‍🗨️</span><div class="pulse-node" style="background:#4caf50;"></div></div>
+                <h4 style="font-size:20px; margin:15px 0 10px;">1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
+                <p style="color:#9ca3af;">Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.</p>
             </div>
             <div class="abstract-card card-plava">
-                <h4>2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
-                <p>Vrhunska estetika unutar ormara nije šminka već pouzdanost. Pedantno složeni provodnici i oznake garantuju stabilnost decenijama.</p>
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🎛️</span><div class="pulse-node" style="background:#3a86ff;"></div></div>
+                <h4 style="font-size:19px; margin:15px 0 10px;">2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
+                <p style="color:#9ca3af;">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu. Takav pristup omogućava da sistem radi stabilno decenijama.</p>
             </div>
             <div class="abstract-card card-crvena">
-                <h4>3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
-                <p>Cilj nam nije stalno popravljati kvarove, već uraditi posao tako da nas nikad više ne pozovete zbog istog problema. Kvalitet se prepoznaje po stabilnosti.</p>
+                <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🛡️</span><div class="pulse-node" style="background:#e63946;"></div></div>
+                <h4 style="font-size:19px; margin:15px 0 10px;">3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
+                <p style="color:#9ca3af;">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote. Kvalitet se prepoznaje po stabilnosti.</p>
             </div>
         </div>
     </section>
@@ -532,7 +568,7 @@
     <!-- Moto -->
     <section style="margin-bottom:40px;">
         <div style="background:rgba(13,20,30,0.4); border-radius:24px; padding:25px; text-align:center;">
-            <p style="font-size:12px; color:#3a86ff;">Naš Moto i Vodilja</p>
+            <p style="font-size:12px; color:#3a86ff; text-transform:uppercase;">Naš Moto i Vodilja</p>
             <div style="max-width:600px; margin:0 auto;"><img src="moto.jpg" class="blended-moto" loading="lazy"></div>
         </div>
     </section>
@@ -544,9 +580,10 @@
                 <div style="flex:1;">
                     <span style="background:rgba(76,175,80,0.12); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Istorijat</span>
                     <h2 style="font-size:28px; margin:15px 0;">Elektro kompanija sa čvrstim temeljima</h2>
-                    <p><strong>Milosavljević Smart Energy ponosno posluje od 1998. godine.</strong> Više od dve decenije uspešno projektiramo, gradimo i održavamo sisteme za infrastrukturu, vjerske i komercijalne objekte, danas fokusirani na automatizaciju i robotiku.</p>
+                    <p style="color:#9ca3af;"><strong style="color:#ffffff;">Milosavljević Smart Energy ponosno posluje od 1998. godine.</strong> Već više od dve decenije uspešno projektujemo, gradimo i održavamo sisteme koji pokreću infrastrukturu, vjerske i komercijalne objekte, dok smo danas potpuno fokusirani na najsavremenija rešenja u domenu automatizacije i robotike.</p>
                 </div>
                 <div style="flex:1; text-align:center;">
+                    <p style="font-size:11px; color:#4caf50;">Inženjerska Preciznost</p>
                     <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy"></div>
                 </div>
             </div>
@@ -564,9 +601,9 @@
         
         <div id="auto-folder" style="background:linear-gradient(135deg, rgba(16,24,39,0.6), rgba(10,26,15,0.4)); border:1px solid rgba(76,175,80,0.35); border-radius:28px; padding:30px; text-align:center; margin-top:40px; backdrop-filter:blur(12px);">
             <span style="background:rgba(76,175,80,0.12); color:#4caf50; padding:4px 12px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
-            <h3 style="font-size:24px; color:#4caf50; margin:12px 0;">Fokus: Automatizacija i Robotika</h3>
-            <p style="color:#d1d5db; max-width:700px; margin:0 auto 20px;">Integracija robotskih ćelija, industrijski elektro-ormari, Smart Home sistemi.</p>
-            <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.7); max-width:500px; margin:0 auto; text-align:left;">
+            <h3 style="font-size:24px; color:#4caf50; margin:12px 0;">Fokus na polju: Automatizacija i Robotika</h3>
+            <p style="color:#9ca3af; max-width:700px; margin:0 auto 20px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
+            <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.6); max-width:500px; margin:0 auto; text-align:left;">
                 <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
                     <div style="display:flex; align-items:center; gap:12px;">
                         <img class="folder-img" data-closed="" data-open="" src="" alt="folder">
@@ -595,41 +632,46 @@
                 <div style="background:rgba(255,255,255,0.04); border-radius:20px; padding:22px; text-align:center;">
                     <h4 style="color:#fff;">Rajko Milosavljević</h4>
                     <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                        <a href="tel:+38765728595" style="background:#2e7d32; color:white; padding:10px; border-radius:40px; text-decoration:none;">📞 Pozovi</a>
-                        <a href="viber://chat?number=%2B38765728595" style="background:#59267c; color:white; padding:10px; border-radius:40px;">💜 Viber</a>
-                        <a href="https://wa.me/38765728595" target="_blank" style="background:#128c7e; color:white; padding:10px; border-radius:40px;">💚 WhatsApp</a>
+                        <a href="tel:+38765728595" style="background:#2e7d32; color:white; padding:10px; border-radius:40px; text-decoration:none;">📞 Pozovi telefonom</a>
+                        <a href="viber://chat?number=%2B38765728595" style="background:#59267c; color:white; padding:10px; border-radius:40px;">💜 Piši na Viber</a>
+                        <a href="https://wa.me/38765728595" target="_blank" style="background:#128c7e; color:white; padding:10px; border-radius:40px;">💚 Piši na WhatsApp</a>
                     </div>
                 </div>
                 <div style="background:rgba(255,255,255,0.04); border-radius:20px; padding:22px; text-align:center;">
                     <h4 style="color:#fff;">Marko Milosavljević</h4>
                     <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
-                        <a href="tel:+38766921100" style="background:#1976d2; color:white; padding:10px; border-radius:40px;">📞 Pozovi</a>
-                        <a href="viber://chat?number=%2B38766921100" style="background:#59267c; color:white; padding:10px; border-radius:40px;">💜 Viber</a>
-                        <a href="https://wa.me/38766921100" target="_blank" style="background:#128c7e; color:white; padding:10px; border-radius:40px;">💚 WhatsApp</a>
+                        <a href="tel:+38766921100" style="background:#1976d2; color:white; padding:10px; border-radius:40px;">📞 Pozovi telefonom</a>
+                        <a href="viber://chat?number=%2B38766921100" style="background:#59267c; color:white; padding:10px; border-radius:40px;">💜 Piši na Viber</a>
+                        <a href="https://wa.me/38766921100" target="_blank" style="background:#128c7e; color:white; padding:10px; border-radius:40px;">💚 Piši na WhatsApp</a>
                     </div>
                 </div>
             </div>
             <div style="text-align:center; margin-bottom:25px;">
-                <p style="color:#9ca3af;">Zvanični e-mail:</p>
-                <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px; font-weight:500;">milosavljevic@outlook.com</a>
+                <p style="color:#9ca3af;">Zvanična e-mail adresa:</p>
+                <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px; font-weight:500;">✉️ milosavljevic@outlook.com</a>
             </div>
             <div>
-                <h3 id="form-title" style="color:#fff; font-size:20px; margin-bottom:18px;">Pošaljite upit</h3>
+                <h3 id="form-title" style="color:#fff; font-size:20px; margin-bottom:18px;">Pošaljite nam upit direktno sa sajta</h3>
                 <form id="clean-contact-form">
-                    <input type="text" id="ins_name" class="form-control" placeholder="Ime i prezime" required>
-                    <input type="tel" id="ins_phone" class="form-control" placeholder="Broj telefona" required style="margin-top:15px;">
-                    <input type="email" id="ins_email" class="form-control" placeholder="E-mail" required style="margin-top:15px;">
-                    <textarea id="ins_message" class="form-control" rows="4" placeholder="Opis radova..." required style="margin-top:15px;"></textarea>
-                    <button type="submit" id="submit-btn" class="form-submit-btn" style="margin-top:25px; width:100%;">🚀 Pošalji poruku</button>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:15px;">
+                        <div class="form-group"><label>Ime i prezime</label><input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required></div>
+                        <div class="form-group"><label>Vaš broj telefona</label><input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required></div>
+                    </div>
+                    <div class="form-group"><label>Vaša E-mail adresa</label><input type="email" id="ins_email" class="form-control" placeholder="ime@primer.com" required></div>
+                    <div class="form-group"><label>Poruka / Opis radova</label><textarea id="ins_message" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea></div>
+                    <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji poruku</button>
                 </form>
                 <div id="status-box" class="status-box">
-                    ✅ <strong>Uspješno poslato!</strong><br>Odgovorit ćemo u najkraćem roku.
+                    ✅ <strong>Uspješno poslato!</strong><br><br>
+                    Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge.<br>
+                    Naš tim će detaljno pregledati opis radova i kontaktiraće Vas u najkraćem mogućem roku direktno na broj telefona koji ste ostavili.<br><br>
+                    <em>Srdačan pozdrav, Milosavljević Smart Energy</em>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CAROUSEL SURADNICI - JEDNOSTAVNO I MODERNO -->
+    <!-- CAROUSEL SURADNICI -->
     <div class="partners-section">
         <h2 class="partners-title">🤝 Moji suradnici</h2>
         <div class="carousel-container">
@@ -643,7 +685,7 @@
 
 <script>
     (function() {
-        // ========== FOLDERI ==========
+        // ========== FOLDERI - IMPROVED ==========
         const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFDD66'/%3E%3Cstop offset='100%25' stop-color='%23FFB300'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' filter='url(%23shadow)' stroke='%23E5A000' stroke-width='0.5'/%3E%3C/svg%3E`;
         const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE68F'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3Cfilter id='shadowOpen' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' filter='url(%23shadowOpen)' stroke='%23E5A000' stroke-width='0.5'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23FFC107' stroke-width='2' /%3E%3C/svg%3E`;
         
@@ -667,11 +709,11 @@
         const foldersData = [
             { name: "01 Kućne instalacije", desc: "Privatne kuće i porodični objekti", path: "01_Kucne_instalacije" },
             { name: "01b Vikendice i apartmani", desc: "Odmarališta i vikend objekti", path: "01b_Vikendice" },
-            { name: "02 Stambene zgrade", desc: "Kompletan inženjering", path: "02_Stambene_zgrade" },
-            { name: "03 Komercijalni objekti", desc: "Industrijski pogoni, hale", path: "03_Komercijalni_objekti" },
-            { name: "04 Vjerski objekti", desc: "Instalacije za dugo trajanje", path: "04_Vjerski_objekti" },
-            { name: "05 Ulična rasvjeta", desc: "LED rasvjeta i infrastruktura", path: "05_Ulicna_rasvjeta" },
-            { name: "06 Distributivne mreže", desc: "Niskonaponske mreže", path: "06_Elektrodistributivne_mreze" }
+            { name: "02 Stambene zgrade", desc: "Kompletan inženjering i elektro-montaža", path: "02_Stambene_zgrade" },
+            { name: "03 Komercijalni objekti", desc: "Industrijski pogoni, hale i kancelarije", path: "03_Komercijalni_objekti" },
+            { name: "04 Vjerski objekti", desc: "Instalacije projektovane za dugo trajanje", path: "04_Vjerski_objekti" },
+            { name: "05 Ulična rasvjeta", desc: "LED rasvjeta i javna infrastruktura", path: "05_Ulicna_rasvjeta" },
+            { name: "06 Distributivne mreže", desc: "Niskonaponske mreže i trafostanice", path: "06_Elektrodistributivne_mreze" }
         ];
         const container = document.getElementById('folders-container');
         const frag = document.createDocumentFragment();
@@ -785,7 +827,7 @@
                 e.preventDefault();
                 const btn = document.getElementById('submit-btn');
                 const original = btn.innerText;
-                btn.innerText = "⏳ Slanje...";
+                btn.innerText = "⏳ Slanje u toku...";
                 btn.disabled = true;
                 fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
@@ -804,11 +846,11 @@
                 .then(data => {
                     if(data.success) {
                         contactForm.style.display = 'none';
-                        document.getElementById('form-title').innerText = "Hvala na upitu!";
+                        document.getElementById('form-title').innerText = "Informacija pošiljaocu";
                         document.getElementById('status-box').style.display = 'block';
                     } else throw new Error('Greška');
                 })
-                .catch(err => alert("Došlo je do greške. Pokušajte ponovo."))
+                .catch(err => alert("Došlo je do greške prilikom slanja. Provjerite internet vezu ili pokušajte kasnije."))
                 .finally(() => { btn.innerText = original; btn.disabled = false; });
             });
         }
@@ -827,7 +869,7 @@
             draw();
         }
         
-        // ========== CAROUSEL (JEDNOSTAVNO, BEZ NEPRAVILNIH OBLIKA) ==========
+        // ========== CAROUSEL ==========
         const GITHUB_USERNAME = 'mcpmarko83';
         const REPO_NAME = 'milosavljevic-smart-energy';
         const FOLDER_PATH = 'saradnici';
@@ -874,7 +916,7 @@
             const slidesEl = document.querySelectorAll('.carousel-slide');
             if (!slidesEl.length) return;
             const slideW = slidesEl[0].offsetWidth;
-            const gap = 35;
+            const gap = 30;
             trackEl.style.transform = `translateX(${-currentIndex * (slideW + gap)}px)`;
             const dots = document.querySelectorAll('.dot');
             dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
