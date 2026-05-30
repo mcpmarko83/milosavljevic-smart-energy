@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Milosavljević Smart Energy | Elektroinstalacije i Automatizacija</title>
     <style>
-        /* ========== PERFORMANCE ========== */
+        /* ========== PERFORMANCE & CROSS-PLATFORM ========== */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -25,7 +25,7 @@
             scroll-behavior: smooth;
         }
         body {
-            background-color: transparent;
+            background-color: #05080f;
             color: #f3f4f6;
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Poppins', Arial, sans-serif;
             line-height: 1.6;
@@ -40,8 +40,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background-color: #04070b;
-            overflow: hidden;
+            background: radial-gradient(circle at 20% 30%, #0a1220, #03060b);
         }
         .glow-orb {
             position: absolute;
@@ -112,26 +111,25 @@
             border-radius: 50%;
         }
 
-        /* ========== CARDS - ORIGINAL TEXT ========== */
+        /* ========== CARDS ========== */
         .grid-philosophie {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
         }
         .abstract-card {
-            background: linear-gradient(135deg, rgba(13, 20, 30, 0.7) 0%, rgba(7, 10, 15, 0.9) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            padding: 35px;
-            backdrop-filter: blur(10px);
+            background: rgba(8, 14, 22, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .abstract-card.full-width { grid-column: span 2; }
-        .abstract-card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6); }
-        .abstract-card.card-zelena:hover { border-color: rgba(76, 175, 80, 0.3); }
-        .abstract-card.card-plava:hover { border-color: rgba(58, 134, 255, 0.3); }
-        .abstract-card.card-crvena:hover { border-color: rgba(230, 57, 70, 0.3); }
-
+        .abstract-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
         .pulse-node {
             width: 9px; height: 9px; border-radius: 50%;
             display: inline-block; position: relative;
@@ -146,30 +144,28 @@
             100% { transform: scale(4); opacity: 0; }
         }
 
-        /* ========== FOLDERS - IMPROVED, MODERN, NO CHEAP LOOK ========== */
+        /* ========== FOLDERS - REDESIGNED FOR WINDOWS & CROSS-PLATFORM ========== */
         .folder-box {
-            background: rgba(18, 25, 40, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 20px;
+            background: #111a26;
+            border: 1px solid #2a3645;
+            border-radius: 16px;
             padding: 20px;
-            backdrop-filter: blur(12px);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.25s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .folder-box:hover {
-            background: rgba(28, 40, 55, 0.6);
-            border-color: rgba(76, 175, 80, 0.4);
+            background: #16202e;
+            border-color: #4caf50;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .folder-box.open {
-            background: rgba(32, 45, 65, 0.6);
-            border-color: rgba(76, 175, 80, 0.5);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            background: #1a2535;
+            border-color: #4caf50;
         }
         .folder-arrow {
-            transition: transform 0.25s ease;
+            transition: transform 0.2s ease;
             color: #4caf50;
             font-size: 18px;
             font-weight: bold;
@@ -178,7 +174,7 @@
         .folder-content {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.35s ease-out, opacity 0.25s ease-out;
+            transition: grid-template-rows 0.3s ease-out, opacity 0.2s ease-out;
             opacity: 0;
         }
         .folder-box.open .folder-content {
@@ -193,21 +189,17 @@
             gap: 12px;
         }
         .folder-img {
-            width: 44px;
-            height: 38px;
+            width: 46px;
+            height: 40px;
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-            transition: transform 0.2s;
-        }
-        .folder-box:hover .folder-img {
-            transform: scale(1.05);
         }
         .project-img {
             width: 100%;
             height: 90px;
             object-fit: cover;
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid #2a3a4a;
             transition: all 0.2s;
             cursor: pointer;
         }
@@ -217,14 +209,13 @@
             box-shadow: 0 4px 12px rgba(76,175,80,0.3);
         }
 
-        /* ========== CAROUSEL - MODERN, NAMES AT BOTTOM ========== */
+        /* ========== CAROUSEL - CROSS-PLATFORM OPTIMIZED ========== */
         .partners-section {
-            background: rgba(13, 20, 30, 0.55);
-            border-radius: 32px;
+            background: rgba(8, 14, 22, 0.9);
+            border-radius: 28px;
             padding: 40px 20px;
             margin: 60px 0 40px;
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         .partners-title {
@@ -262,17 +253,16 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: rgba(20, 30, 45, 0.45);
+            background: #0f1722;
             border-radius: 24px;
-            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid #2a3645;
             overflow: hidden;
         }
         .carousel-slide:hover {
             transform: translateY(-6px);
-            background: rgba(32, 48, 68, 0.65);
-            border-color: rgba(76,175,80,0.4);
+            background: #141f2c;
+            border-color: #4caf50;
             box-shadow: 0 20px 30px rgba(0,0,0,0.4);
         }
         .logo-container {
@@ -299,26 +289,23 @@
             text-align: center;
             letter-spacing: 0.3px;
             color: #ffffff;
-            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(20,30,45,0.9));
+            background: #0a111a;
             padding: 14px 12px;
             margin: 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(8px);
+            border-top: 1px solid #2a3645;
             transition: all 0.2s;
         }
         .carousel-slide:hover .partner-name {
-            background: linear-gradient(135deg, #2e7d32, #4caf50);
-            color: #fff;
+            background: #2e7d32;
             border-top-color: #fff;
         }
         .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.55);
-            backdrop-filter: blur(8px);
+            background: #111a26;
             color: white;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid #3a4a5a;
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -331,9 +318,9 @@
             z-index: 10;
         }
         .carousel-btn:hover {
-            background: linear-gradient(135deg, #4caf50, #3a86ff);
+            background: #2e7d32;
+            border-color: #fff;
             transform: translateY(-50%) scale(1.05);
-            border-color: white;
         }
         .btn-prev { left: 8px; }
         .btn-next { right: 8px; }
@@ -347,12 +334,12 @@
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            background: #6b7280;
+            background: #4a5568;
             cursor: pointer;
             transition: all 0.2s;
         }
         .dot.active {
-            background: linear-gradient(135deg, #4caf50, #3a86ff);
+            background: #4caf50;
             width: 26px;
             border-radius: 5px;
         }
@@ -386,8 +373,8 @@
         .form-group label { display: block; font-size: 14px; color: #9ca3af; margin-bottom: 8px; font-weight: 500; }
         .form-control {
             width: 100%;
-            background: rgba(4,7,11,0.7);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: #0f1722;
+            border: 1px solid #2a3645;
             border-radius: 12px;
             padding: 14px 18px;
             color: #fff;
@@ -417,13 +404,17 @@
             margin-top: 25px;
         }
         .music-btn {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: #0f1722;
+            border: 1px solid #2a3645;
             color: #fff;
             padding: 8px 16px;
             border-radius: 30px;
             cursor: pointer;
-            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+        .music-btn:hover {
+            background: #2e7d32;
+            border-color: #fff;
         }
         .lightbox-overlay {
             position: fixed;
@@ -452,7 +443,7 @@
             right: 35px;
             font-size: 48px;
             cursor: pointer;
-            background: rgba(0,0,0,0.5);
+            background: #0f1722;
             border-radius: 50%;
             width: 60px;
             text-align: center;
@@ -473,9 +464,8 @@
             width: 55px;
             height: 55px;
             border-radius: 50%;
-            background: rgba(20,30,45,0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(76,175,80,0.4);
+            background: #0f1722;
+            border: 1px solid #3a4a5a;
             color: white;
             font-size: 26px;
             display: flex;
@@ -484,7 +474,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .float-btn:hover { background: #4caf50; transform: scale(1.08); border-color: white; }
+        .float-btn:hover { background: #2e7d32; transform: scale(1.08); border-color: white; }
         @keyframes gridMove {
             from { transform: translateY(0); }
             to { transform: translateY(60px); }
@@ -515,7 +505,7 @@
     <div id="back-to-top" class="float-btn" title="Vrh">↑</div>
 </div>
 
-<header style="background: rgba(10,15,24,0.7); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.08); padding:12px 20px; position:sticky; top:0; z-index:1000;">
+<header style="background: #0a111a; border-bottom:1px solid #2a3645; padding:12px 20px; position:sticky; top:0; z-index:1000;">
     <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center;">
         <div><p class="hide-mobile" style="font-size:11px; color:#9ca3af;">Tradicija od 1998.</p></div>
         <div style="display:flex; align-items:center; gap:12px;">
@@ -543,21 +533,21 @@
     <!-- Filozofija -->
     <section style="padding:40px 0;">
         <div style="text-align:center; margin-bottom:35px;">
-            <span style="background:rgba(76,175,80,0.12); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:12px;">Naša Filozofija Rada</span>
+            <span style="background:rgba(76,175,80,0.15); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:12px;">Naša Filozofija Rada</span>
             <h2 style="font-size:28px; color:#fff; margin-top:12px;">Principi inženjerske izvrsnosti</h2>
         </div>
         <div class="grid-philosophie">
-            <div class="abstract-card card-zelena full-width">
+            <div class="abstract-card full-width">
                 <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">👁️‍🗨️</span><div class="pulse-node" style="background:#4caf50;"></div></div>
                 <h4 style="font-size:20px; margin:15px 0 10px;">1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
                 <p style="color:#9ca3af;">Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.</p>
             </div>
-            <div class="abstract-card card-plava">
+            <div class="abstract-card">
                 <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🎛️</span><div class="pulse-node" style="background:#3a86ff;"></div></div>
                 <h4 style="font-size:19px; margin:15px 0 10px;">2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
                 <p style="color:#9ca3af;">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu. Takav pristup omogućava da sistem radi stabilno decenijama.</p>
             </div>
-            <div class="abstract-card card-crvena">
+            <div class="abstract-card">
                 <div style="display:flex; justify-content:space-between;"><span style="font-size:28px;">🛡️</span><div class="pulse-node" style="background:#e63946;"></div></div>
                 <h4 style="font-size:19px; margin:15px 0 10px;">3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
                 <p style="color:#9ca3af;">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote. Kvalitet se prepoznaje po stabilnosti.</p>
@@ -567,7 +557,7 @@
 
     <!-- Moto -->
     <section style="margin-bottom:40px;">
-        <div style="background:rgba(13,20,30,0.4); border-radius:24px; padding:25px; text-align:center;">
+        <div style="background:#0a111a; border-radius:24px; padding:25px; text-align:center; border:1px solid #2a3645;">
             <p style="font-size:12px; color:#3a86ff; text-transform:uppercase;">Naš Moto i Vodilja</p>
             <div style="max-width:600px; margin:0 auto;"><img src="moto.jpg" class="blended-moto" loading="lazy"></div>
         </div>
@@ -575,10 +565,10 @@
 
     <!-- Istorijat -->
     <section style="margin-bottom:40px;">
-        <div style="background:linear-gradient(135deg, rgba(13,19,31,0.6), rgba(6,9,14,0.6)); backdrop-filter:blur(12px); border-radius:28px; padding:35px;">
+        <div style="background:#0a111a; border-radius:28px; padding:35px; border:1px solid #2a3645;">
             <div style="display:flex; flex-wrap:wrap; gap:30px; align-items:center;">
                 <div style="flex:1;">
-                    <span style="background:rgba(76,175,80,0.12); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Istorijat</span>
+                    <span style="background:rgba(76,175,80,0.15); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Istorijat</span>
                     <h2 style="font-size:28px; margin:15px 0;">Elektro kompanija sa čvrstim temeljima</h2>
                     <p style="color:#9ca3af;"><strong style="color:#ffffff;">Milosavljević Smart Energy ponosno posluje od 1998. godine.</strong> Već više od dve decenije uspešno projektujemo, gradimo i održavamo sisteme koji pokreću infrastrukturu, vjerske i komercijalne objekte, dok smo danas potpuno fokusirani na najsavremenija rešenja u domenu automatizacije i robotike.</p>
                 </div>
@@ -593,17 +583,17 @@
     <!-- Folderi projekata -->
     <section style="margin-bottom:50px;">
         <div style="text-align:center; margin-bottom:35px;">
-            <span style="background:rgba(76,175,80,0.12); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Reference</span>
+            <span style="background:rgba(76,175,80,0.15); color:#4caf50; padding:4px 14px; border-radius:50px; font-size:11px;">Reference</span>
             <h2 style="font-size:28px; color:#fff; margin-top:10px;">Pregled projekata po folderima</h2>
             <p style="color:#9ca3af;">Klikni na folder – otvara se sadržaj</p>
         </div>
         <div id="folders-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;"></div>
         
-        <div id="auto-folder" style="background:linear-gradient(135deg, rgba(16,24,39,0.6), rgba(10,26,15,0.4)); border:1px solid rgba(76,175,80,0.35); border-radius:28px; padding:30px; text-align:center; margin-top:40px; backdrop-filter:blur(12px);">
-            <span style="background:rgba(76,175,80,0.12); color:#4caf50; padding:4px 12px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
+        <div id="auto-folder" style="background:#0a111a; border:1px solid #2e7d32; border-radius:28px; padding:30px; text-align:center; margin-top:40px;">
+            <span style="background:rgba(76,175,80,0.15); color:#4caf50; padding:4px 12px; border-radius:50px; font-size:11px;">Glavna Orijentacija</span>
             <h3 style="font-size:24px; color:#4caf50; margin:12px 0;">Fokus na polju: Automatizacija i Robotika</h3>
             <p style="color:#9ca3af; max-width:700px; margin:0 auto 20px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
-            <div class="folder-box" data-folder-id="auto" style="background:rgba(4,7,11,0.6); max-width:500px; margin:0 auto; text-align:left;">
+            <div class="folder-box" data-folder-id="auto" style="background:#111a26; max-width:500px; margin:0 auto; text-align:left;">
                 <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
                     <div style="display:flex; align-items:center; gap:12px;">
                         <img class="folder-img" data-closed="" data-open="" src="" alt="folder">
@@ -626,10 +616,10 @@
     <!-- Kontakt -->
     <section id="kontakt" style="padding:50px 0; max-width:750px; margin:0 auto;">
         <h2 style="font-size:28px; text-align:center; margin-bottom:20px;">Kontakt</h2>
-        <div style="background:linear-gradient(135deg, rgba(14,20,32,0.7), rgba(5,8,12,0.7)); border-radius:32px; padding:35px 30px; backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.05);">
+        <div style="background:#0a111a; border-radius:32px; padding:35px 30px; border:1px solid #2a3645;">
             <p style="font-weight:600; color:#4caf50; font-size:24px; text-align:center;">Milosavljević Smart Energy</p>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:25px; margin:35px 0;">
-                <div style="background:rgba(255,255,255,0.04); border-radius:20px; padding:22px; text-align:center;">
+                <div style="background:#111a26; border-radius:20px; padding:22px; text-align:center; border:1px solid #2a3645;">
                     <h4 style="color:#fff;">Rajko Milosavljević</h4>
                     <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
                         <a href="tel:+38765728595" style="background:#2e7d32; color:white; padding:10px; border-radius:40px; text-decoration:none;">📞 Pozovi telefonom</a>
@@ -637,7 +627,7 @@
                         <a href="https://wa.me/38765728595" target="_blank" style="background:#128c7e; color:white; padding:10px; border-radius:40px;">💚 Piši na WhatsApp</a>
                     </div>
                 </div>
-                <div style="background:rgba(255,255,255,0.04); border-radius:20px; padding:22px; text-align:center;">
+                <div style="background:#111a26; border-radius:20px; padding:22px; text-align:center; border:1px solid #2a3645;">
                     <h4 style="color:#fff;">Marko Milosavljević</h4>
                     <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
                         <a href="tel:+38766921100" style="background:#1976d2; color:white; padding:10px; border-radius:40px;">📞 Pozovi telefonom</a>
@@ -685,7 +675,7 @@
 
 <script>
     (function() {
-        // ========== FOLDERI - IMPROVED ==========
+        // ========== FOLDERI - REDESIGNED ==========
         const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFDD66'/%3E%3Cstop offset='100%25' stop-color='%23FFB300'/%3E%3C/linearGradient%3E%3Cfilter id='shadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' filter='url(%23shadow)' stroke='%23E5A000' stroke-width='0.5'/%3E%3C/svg%3E`;
         const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFE68F'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3Cfilter id='shadowOpen' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='1' dy='2' stdDeviation='2' flood-opacity='0.4'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' filter='url(%23shadowOpen)' stroke='%23E5A000' stroke-width='0.5'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23FFC107' stroke-width='2' /%3E%3C/svg%3E`;
         
@@ -863,7 +853,7 @@
             let particles = [];
             function resizeCanvas() { w = window.innerWidth; h = window.innerHeight; canvas.width = w; canvas.height = h; initParticles(); }
             function initParticles() { particles = []; const count = w < 768 ? 20 : 45; for(let i=0;i<count;i++) particles.push({ x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.5, d:Math.random()*0.5+0.2 }); }
-            function draw() { if(!ctx) return; ctx.clearRect(0,0,w,h); ctx.fillStyle = 'rgba(255,255,255,0.4)'; for(let p of particles) { ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.y -= p.d; if(p.y < 0) { p.y = h; p.x = Math.random()*w; } } requestAnimationFrame(draw); }
+            function draw() { if(!ctx) return; ctx.clearRect(0,0,w,h); ctx.fillStyle = 'rgba(255,255,255,0.3)'; for(let p of particles) { ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); p.y -= p.d; if(p.y < 0) { p.y = h; p.x = Math.random()*w; } } requestAnimationFrame(draw); }
             window.addEventListener('resize', () => { resizeCanvas(); });
             resizeCanvas();
             draw();
