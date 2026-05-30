@@ -180,54 +180,109 @@
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
         }
 
-        /* Video circle button */
+        /* Video circle button - sada u dijelu gdje je bio Omov zakon */
         .video-circle {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 40px;
+            margin: 30px auto;
         }
-        .circle-btn {
-            width: 100px;
-            height: 100px;
-            background: rgba(22, 27, 34, 0.8);
-            backdrop-filter: blur(12px);
+        .circle-video-btn {
+            position: relative;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 0 0 4px rgba(76,175,80,0.3), 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            background: #000;
+            margin-bottom: 15px;
+        }
+        .circle-video-btn video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .circle-video-btn .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(3px);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 2px solid rgba(76, 175, 80, 0.6);
-            box-shadow: 0 0 20px rgba(76,175,80,0.3);
-            margin-bottom: 15px;
+            transition: all 0.3s ease;
         }
-        .circle-btn:hover {
-            transform: scale(1.05);
-            border-color: #4caf50;
-            box-shadow: 0 0 30px rgba(76,175,80,0.6);
-            background: rgba(76, 175, 80, 0.2);
-        }
-        .circle-btn svg {
-            width: 48px;
-            height: 48px;
+        .circle-video-btn .play-overlay svg {
+            width: 50px;
+            height: 50px;
             fill: white;
-            filter: drop-shadow(0 0 6px rgba(76,175,80,0.5));
+            filter: drop-shadow(0 0 8px #4caf50);
+        }
+        .circle-video-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 6px rgba(76,175,80,0.5), 0 15px 35px rgba(0,0,0,0.4);
         }
         .video-label {
             font-size: 14px;
             font-weight: 500;
             color: #cbd5e6;
-            letter-spacing: 0.5px;
             background: rgba(0,0,0,0.3);
             padding: 6px 16px;
             border-radius: 40px;
             backdrop-filter: blur(4px);
         }
         @media (max-width: 768px) {
-            .circle-btn { width: 80px; height: 80px; }
-            .circle-btn svg { width: 38px; height: 38px; }
+            .circle-video-btn { width: 120px; height: 120px; }
+            .circle-video-btn .play-overlay svg { width: 36px; height: 36px; }
             .video-label { font-size: 12px; }
+        }
+
+        /* Omov zakon krug - sada na mjestu starog video kruga (ispod Zatraži ponudu) */
+        .om-circle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .circle-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(76,175,80,0.6);
+            box-shadow: 0 0 20px rgba(76,175,80,0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.2);
+        }
+        .circle-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .circle-img:hover {
+            transform: scale(1.03);
+            border-color: #4caf50;
+            box-shadow: 0 0 30px rgba(76,175,80,0.6);
+        }
+        .om-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #cbd5e6;
+            background: rgba(0,0,0,0.3);
+            padding: 6px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+        @media (max-width: 768px) {
+            .circle-img { width: 80px; height: 80px; }
+            .om-label { font-size: 12px; }
         }
 
         /* Video Lightbox (fullscreen overlay) */
@@ -349,19 +404,6 @@
             opacity: 0.9;
             filter: drop-shadow(0 0 20px rgba(58, 134, 255, 0.2));
         }
-        .om-image-container {
-            position: relative;
-            display: inline-block;
-            max-width: 280px;
-            width: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            background: rgba(255,255,255,0.02);
-            padding: 8px;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            box-shadow: 0 0 30px rgba(76, 175, 80, 0.1);
-        }
-        .blended-om { width: 100%; height: auto; display: block; border-radius: 50%; }
 
         /* ========== FOLDERS ========== */
         .folder-section { margin-bottom: 50px; }
@@ -458,7 +500,6 @@
             50% { height: 80px; opacity: 1; transform: scaleY(1.1); }
             100% { height: 40px; opacity: 0.6; transform: scaleY(0.8); }
         }
-        /* Hover efekat */
         .pulse-line:hover .line {
             width: 6px;
             animation: pulseLineHover 0.8s ease-in-out infinite;
@@ -469,7 +510,6 @@
             50% { height: 90px; opacity: 1; }
             100% { height: 50px; opacity: 0.8; }
         }
-        /* Na mobilnim ekranima smanjiti širinu linije */
         @media (max-width: 768px) {
             .pulse-line { width: 40px; }
             .pulse-line .line { width: 3px; height: 40px; }
@@ -544,7 +584,7 @@
         .form-submit-btn:hover { background: #43a047; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(76,175,80,0.3); }
         .status-box { display: none; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.3); padding: 30px; border-radius: 24px; margin-top: 30px; }
 
-        /* ========== LIGHTBOX ========== */
+        /* ========== LIGHTBOX (ZA SLIKE) ========== */
         .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,12,16,0.95); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999999; }
         .lightbox-overlay.active { display: flex; }
         .lightbox-img { max-width: 90%; max-height: 85%; object-fit: contain; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
@@ -607,14 +647,12 @@
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
         <a href="#kontakt" class="btn-primary">Zatraži Ponudu</a>
         
-        <!-- Video krug ispod dugmeta -->
-        <div class="video-circle">
-            <div id="video-trigger" class="circle-btn">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 5v14l11-7z" fill="currentColor"/>
-                </svg>
+        <!-- Omov zakon krug - sada ispod dugmeta -->
+        <div class="om-circle">
+            <div class="circle-img">
+                <img src="omov_zakon.jpg" alt="Ohmov zakon" loading="lazy" onerror="this.style.display='none';">
             </div>
-            <div class="video-label">🎬 Naša prezentacija i uvod</div>
+            <div class="om-label">⚡ Ohmov zakon</div>
         </div>
     </div>
 </section>
@@ -669,8 +707,20 @@
                     <p class="section-text"><strong class="text-white">Milosavljević Smart Energy posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na dugogodišnje specijalizovano iskustvo, naš primarni fokus leži u najsavremenijim rješenjima za <strong>industrijsku automatizaciju i robotiku</strong>.</p>
                 </div>
                 <div style="flex:1; text-align:center; min-width: 300px;">
-                    <p style="font-size:12px; color:#4caf50; margin-bottom:10px; font-weight:500;">Ohmov Zakon</p>
-                    <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy" onerror="this.style.display='none';"></div>
+                    <!-- Video krug - sada ovdje umjesto Omovog zakona -->
+                    <div class="video-circle">
+                        <div id="video-trigger" class="circle-video-btn">
+                            <video id="preview-video" muted loop preload="metadata">
+                                <source src="Uvodni%20Video.MP4" type="video/mp4">
+                            </video>
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5v14l11-7z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="video-label">🎬 Naša prezentacija i uvod</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -758,7 +808,6 @@
     <div class="partners-section">
         <h2 class="partners-title">🤝 Naši saradnici</h2>
         <div class="carousel-container">
-            <!-- Pulsirajuće linije umjesto strelica -->
             <div class="pulse-line pulse-line-left" id="carousel-prev-line">
                 <div class="line"></div>
             </div>
@@ -774,7 +823,7 @@
 <!-- Video lightbox overlay -->
 <div id="video-lightbox" class="video-lightbox">
     <div class="close-video" id="close-video-btn">&times;</div>
-    <video id="intro-video" controls autoplay>
+    <video id="full-video" controls>
         <source src="Uvodni%20Video.MP4" type="video/mp4">
         Vaš preglednik ne podržava video tag.
     </video>
@@ -868,7 +917,7 @@
             if (autoHeader) autoHeader.onclick = (e) => window.toggleFolderWithIcon(autoBox);
         }
         
-        // ========== MUZIKA - POKRETAČ NA PRVI DODIR, SKROL ILI KLIK ==========
+        // ========== MUZIKA ==========
         const music = document.getElementById('bg-music');
         const musicToggleBtn = document.getElementById('music-toggle');
         const musicIconSpan = document.getElementById('music-icon');
@@ -914,10 +963,10 @@
             });
         }
         
-        // ========== VIDEO LIGHTBOX ==========
+        // ========== VIDEO LIGHTBOX (samo klikom na play) ==========
         const videoTrigger = document.getElementById('video-trigger');
         const videoLightbox = document.getElementById('video-lightbox');
-        const videoElement = document.getElementById('intro-video');
+        const fullVideo = document.getElementById('full-video');
         const closeVideoBtn = document.getElementById('close-video-btn');
         let wasMusicPlaying = false;
         
@@ -932,14 +981,15 @@
             }
             // Prikaži lightbox
             videoLightbox.classList.add('active');
-            // Pokušaj pokrenuti video (autoplay će raditi nakon korisničke akcije)
-            videoElement.play().catch(e => console.log("Video autoplay error:", e));
+            // Resetuj i pusti video (ne autoplay na stranici, nego na zahtjev)
+            fullVideo.currentTime = 0;
+            fullVideo.play().catch(e => console.log("Video play error:", e));
         }
         
         function closeVideo() {
             videoLightbox.classList.remove('active');
-            videoElement.pause();
-            videoElement.currentTime = 0;
+            fullVideo.pause();
+            fullVideo.currentTime = 0;
             // Vrati muziku ako je prije bila upaljena
             if (wasMusicPlaying && music) {
                 music.play().then(() => {
@@ -954,15 +1004,20 @@
         if (closeVideoBtn) {
             closeVideoBtn.addEventListener('click', closeVideo);
         }
-        // Zatvaranje i klikom na pozadinu
         if (videoLightbox) {
             videoLightbox.addEventListener('click', function(e) {
                 if (e.target === videoLightbox) closeVideo();
             });
         }
-        // Kada video završi, zatvori lightbox i vrati muziku
-        if (videoElement) {
-            videoElement.addEventListener('ended', closeVideo);
+        if (fullVideo) {
+            fullVideo.addEventListener('ended', closeVideo);
+        }
+        
+        // ========== PRECUT (preview video u krugu) neka se vrti u tišini ==========
+        const previewVideo = document.getElementById('preview-video');
+        if (previewVideo) {
+            previewVideo.muted = true;
+            previewVideo.play().catch(e => console.log("Preview video autoplay muted failed:", e));
         }
         
         // ========== BACK TO TOP & SCROLL PERCENT ==========
@@ -976,7 +1031,7 @@
         function updatePercent() { percentSpan.textContent = `+${getScrollPercent().toFixed(2)}%`; }
         window.addEventListener('scroll', updatePercent); updatePercent();
         
-        // ========== LIGHTBOX (ZA SLIKE) ==========
+        // ========== LIGHTBOX ZA SLIKE ==========
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeLb = document.getElementById('close-btn');
@@ -1014,7 +1069,7 @@
             });
         }
         
-        // ========== CAROUSEL SURADNICI SA PULSIRAJUĆIM LINIJAMA ==========
+        // ========== CAROUSEL SURADNICI ==========
         const GITHUB_USERNAME = 'mcpmarko83';
         const REPO_NAME = 'milosavljevic-smart-energy';
         const FOLDER_PATH = 'saradnici';
