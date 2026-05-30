@@ -35,7 +35,7 @@
             scroll-behavior: smooth;
         }
         body {
-            background-color: #0d1117;
+            background-color: #0a0c10;
             color: #f3f4f6;
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
@@ -43,7 +43,7 @@
             padding-bottom: 120px;
         }
 
-        /* ========== MATERIAL YOU ABSTRACT BACKGROUND ========== */
+        /* ========== ENHANCED ABSTRACT BACKGROUND (MORE VIBRANT ON MOBILE) ========== */
         .abstract-bg {
             position: fixed;
             top: 0;
@@ -51,24 +51,39 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background: #0d1117;
+            background: #0a0c10;
             overflow: hidden;
         }
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(140px);
-            opacity: 0.2;
-            animation: float 20s infinite ease-in-out alternate;
+            filter: blur(100px);
+            opacity: 0.35;
+            animation: float 18s infinite ease-in-out alternate;
             will-change: transform;
         }
-        .orb-1 { width: 60vw; height: 60vw; background: #4caf50; top: -10%; left: -20%; }
-        .orb-2 { width: 50vw; height: 50vw; background: #3a86ff; bottom: -20%; right: -10%; animation-delay: -5s; }
-        .orb-3 { width: 40vw; height: 40vw; background: #e63946; top: 30%; left: 40%; animation-delay: -10s; opacity: 0.15; }
+        /* Veći i jači na desktopu, na mobitelu još veći opacity */
+        .orb-1 { width: 70vw; height: 70vw; background: #4caf50; top: -15%; left: -25%; }
+        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -4s; }
+        .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -8s; opacity: 0.3; }
+        .orb-4 { width: 40vw; height: 40vw; background: #e63946; bottom: 10%; left: -10%; animation-delay: -12s; opacity: 0.25; }
 
         @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(8%, 12%) scale(1.1); }
+            100% { transform: translate(10%, 15%) scale(1.15); }
+        }
+
+        /* Na mobilnom: pojačaj opacity i ubrzaj animaciju za življi izgled */
+        @media (max-width: 768px) {
+            .glow-orb {
+                filter: blur(80px);
+                opacity: 0.5;
+                animation-duration: 12s;
+            }
+            .orb-1 { width: 90vw; height: 90vw; opacity: 0.6; }
+            .orb-2 { width: 80vw; height: 80vw; opacity: 0.5; }
+            .orb-3 { width: 70vw; height: 70vw; opacity: 0.45; }
+            .orb-4 { width: 60vw; height: 60vw; opacity: 0.4; }
         }
 
         /* ========== UTILITY & LAYOUT ========== */
@@ -85,7 +100,8 @@
             font-size: 13px;
             font-weight: 500;
             display: inline-block;
-            border: 1px solid rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            backdrop-filter: blur(4px);
         }
         .section-title {
             font-size: 32px;
@@ -100,11 +116,11 @@
             color: #fff;
             font-weight: 600;
         }
-        .section-text { color: #9ca3af; font-size: 17px; }
+        .section-text { color: #cbd5e6; font-size: 17px; }
 
         /* ========== HEADER ========== */
         .header-main {
-            background: rgba(13, 17, 23, 0.7);
+            background: rgba(10, 12, 16, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -145,9 +161,9 @@
             height: 3px;
             margin: 30px auto;
             border-radius: 3px;
-            background: rgba(76, 175, 80, 0.5);
+            background: linear-gradient(90deg, #4caf50, #3a86ff, #9b59b6);
         }
-        .hero-subtitle { max-width: 650px; margin: 0 auto; color: #9ca3af; font-size: 19px; }
+        .hero-subtitle { max-width: 650px; margin: 0 auto; color: #cbd5e6; font-size: 19px; }
         
         .btn-primary {
             display: inline-block;
@@ -169,37 +185,97 @@
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
         }
 
-        /* ========== GLASSMORPHISM CARDS ========== */
+        /* ========== ENHANCED CARDS WITH BORDERS & GLOW ========== */
         .grid-philosophie {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 30px;
         }
-        .abstract-card, .history-card, .moto-card, .contact-card {
-            background: rgba(22, 27, 34, 0.6);
+        .abstract-card {
+            background: rgba(16, 20, 26, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 32px;
+            padding: 35px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        /* Svaka kartica dobija svoj gradijent border i glow */
+        .abstract-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 32px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(76,175,80,0.4), rgba(58,134,255,0.2), rgba(155,89,182,0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .abstract-card.card-zelena::before {
+            background: linear-gradient(135deg, #4caf50, #2e7d32, #4caf50);
+        }
+        .abstract-card.card-plava::before {
+            background: linear-gradient(135deg, #3a86ff, #1e5bc0, #3a86ff);
+        }
+        .abstract-card.card-crvena::before {
+            background: linear-gradient(135deg, #e63946, #b91c2c, #e63946);
+        }
+        .abstract-card.full-width { grid-column: span 2; }
+        .abstract-card.full-width::before {
+            background: linear-gradient(135deg, #4caf50, #3a86ff, #9b59b6);
+        }
+        .abstract-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        .abstract-card h4 { font-size: 22px; font-weight: 500; margin: 20px 0 12px; }
+        .card-icon {
+            font-size: 36px;
+            display: inline-block;
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+        .pulse-node {
+            width: 10px; height: 10px; border-radius: 50%;
+            display: inline-block; position: relative;
+            margin-left: 10px;
+        }
+        .pulse-node::after {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            top: 0; left: 0; background: inherit; border-radius: 50%;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        
+        .history-card, .moto-card, .contact-card {
+            background: rgba(16, 20, 26, 0.6);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 32px;
             padding: 40px;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        .abstract-card.full-width { grid-column: span 2; }
-        .abstract-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            background: rgba(30, 36, 45, 0.7);
-            border-color: rgba(76, 175, 80, 0.2);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        .history-card:hover, .moto-card:hover, .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
-        .abstract-card h4 { font-size: 22px; font-weight: 500; margin: 20px 0 12px; }
         
-        .history-card, .moto-card { margin-bottom: 40px; }
         .history-grid { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; }
-        
         .moto-title { font-size: 14px; color: #3a86ff; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 25px; }
         .moto-img-wrapper { max-width: 600px; margin: 0 auto; }
 
-        /* ========== IMAGES & CONTAINERS ========== */
+        /* ========== IMAGES ========== */
         .blended-moto {
             width: 100%;
             height: auto;
@@ -227,134 +303,64 @@
             border-radius: 50%;
         }
 
-        /* ========== FOLDERS ========== */
+        /* ========== FOLDERS (isti) ========== */
         .folder-section { margin-bottom: 50px; }
-        .folder-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
+        .folder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
         .folder-box {
             background: rgba(22, 27, 34, 0.5);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 24px;
             padding: 24px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1);
         }
-        .folder-box:hover {
-            background: rgba(30, 36, 45, 0.7);
-            border-color: rgba(76, 175, 80, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .folder-box.open { background: rgba(30, 36, 45, 0.9); border-color: rgba(76, 175, 80, 0.4); }
+        .folder-box:hover { background: rgba(30,36,45,0.7); border-color: rgba(76,175,80,0.3); transform: translateY(-3px); }
+        .folder-box.open { background: rgba(30,36,45,0.9); border-color: rgba(76,175,80,0.4); }
         .folder-arrow { transition: transform 0.3s ease; color: #4caf50; font-size: 16px; }
         .folder-box.open .folder-arrow { transform: rotate(90deg); }
-        .folder-content {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.4s ease-out, opacity 0.3s ease-out;
-            opacity: 0;
-        }
-        .folder-box.open .folder-content {
-            grid-template-rows: 1fr;
-            opacity: 1;
-            margin-top: 20px;
-        }
-        .inner-grid {
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 15px;
-        }
-        .folder-img {
-            width: 48px; height: 42px; object-fit: contain;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
-        }
-        .project-img {
-            width: 100%; height: 100px; object-fit: cover;
-            border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease; cursor: pointer;
-        }
-        .project-img:hover {
-            transform: scale(1.05); border-color: rgba(76, 175, 80, 0.5);
-            box-shadow: 0 8px 20px rgba(76,175,80,0.2);
-        }
-
-        .auto-folder-card {
-            background: rgba(22, 27, 34, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            border-radius: 32px; padding: 40px; text-align: center; margin-top: 50px;
-        }
+        .folder-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease-out, opacity 0.3s ease-out; opacity: 0; }
+        .folder-box.open .folder-content { grid-template-rows: 1fr; opacity: 1; margin-top: 20px; }
+        .inner-grid { overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, minmax(110px,1fr)); gap: 15px; }
+        .folder-img { width: 48px; height: 42px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
+        .project-img { width: 100%; height: 100px; object-fit: cover; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; cursor: pointer; }
+        .project-img:hover { transform: scale(1.05); border-color: rgba(76,175,80,0.5); box-shadow: 0 8px 20px rgba(76,175,80,0.2); }
+        .auto-folder-card { background: rgba(22,27,34,0.6); backdrop-filter: blur(16px); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 40px; text-align: center; margin-top: 50px; }
 
         /* ========== CAROUSEL ========== */
         .partners-section {
             background: rgba(13, 17, 23, 0.6);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-radius: 32px;
             padding: 50px 20px;
             margin: 80px 0 40px;
             border: 1px solid rgba(255,255,255,0.05);
         }
-        .partners-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 32px;
-            font-weight: 500;
-            color: #fff;
-        }
+        .partners-title { text-align: center; margin-bottom: 40px; font-size: 32px; font-weight: 500; color: #fff; }
         .carousel-container { position: relative; overflow: hidden; padding: 15px 0 20px; }
-        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); gap: 30px; }
-        .carousel-slide {
-            flex: 0 0 calc(25% - 23px); min-width: calc(25% - 23px);
-            display: flex; flex-direction: column; justify-content: space-between;
-            background: rgba(255, 255, 255, 0.02); border-radius: 24px; transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden;
-        }
-        .carousel-slide:hover {
-            transform: translateY(-6px); background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(76, 175, 80, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); gap: 30px; }
+        .carousel-slide { flex: 0 0 calc(25% - 23px); min-width: calc(25% - 23px); display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,0.02); border-radius: 24px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
+        .carousel-slide:hover { transform: translateY(-6px); background: rgba(255,255,255,0.05); border-color: rgba(76,175,80,0.3); }
         .logo-container { padding: 30px 20px 20px; display: flex; align-items: center; justify-content: center; min-height: 180px; }
         .partner-logo { max-width: 100%; max-height: 110px; object-fit: contain; transition: transform 0.3s ease; }
         .carousel-slide:hover .partner-logo { transform: scale(1.05); }
-        .partner-name {
-            font-weight: 500; font-size: 15px;
-            text-align: center; color: #fff; background: rgba(0, 0, 0, 0.2);
-            padding: 16px 12px; margin: 0; transition: all 0.3s ease;
-        }
-        .carousel-slide:hover .partner-name { background: rgba(76, 175, 80, 0.2); }
-        
-        .carousel-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(8px);
-            color: white; border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
-            font-size: 22px; display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease; z-index: 10;
-        }
-        .carousel-btn:hover { background: rgba(76, 175, 80, 0.2); border-color: rgba(76, 175, 80, 0.5); transform: translateY(-50%) scale(1.05); }
+        .partner-name { font-weight: 500; font-size: 15px; text-align: center; color: #fff; background: rgba(0,0,0,0.2); padding: 16px 12px; margin: 0; transition: all 0.3s ease; }
+        .carousel-slide:hover .partner-name { background: rgba(76,175,80,0.2); }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(22,27,34,0.8); backdrop-filter: blur(8px); color: white; border: 1px solid rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 22px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 10; }
+        .carousel-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.5); transform: translateY(-50%) scale(1.05); }
         .btn-prev { left: 10px; } .btn-next { right: 10px; }
-        
         .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); cursor: pointer; transition: all 0.3s ease; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; }
         .dot.active { background: #4caf50; width: 24px; border-radius: 8px; }
 
-        /* ========== PREMIUM BUTTONS (FLOATING) ========== */
+        /* ========== FLOATING BUTTONS ========== */
         .floating-buttons {
             position: fixed; bottom: 30px; right: 30px;
             display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99999;
         }
-        /* Zajednički stil za sva tri floating dugmeta */
         .premium-action-btn {
             background: rgba(22, 27, 34, 0.8);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -363,96 +369,50 @@
             align-items: center;
             justify-content: center;
         }
-        .premium-action-btn:hover {
-            background: rgba(76, 175, 80, 0.2);
-            border-color: rgba(76, 175, 80, 0.5);
-            transform: translateY(-3px);
-        }
-        .btn-circle {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            font-size: 24px;
-        }
-        .btn-percent {
-            border-radius: 40px;
-            padding: 0 20px;
-            height: 48px;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            color: #4caf50;
-            background: rgba(22, 27, 34, 0.9);
-        }
+        .premium-action-btn:hover { background: rgba(76, 175, 80, 0.2); border-color: rgba(76, 175, 80, 0.5); transform: translateY(-3px); }
+        .btn-circle { width: 56px; height: 56px; border-radius: 50%; font-size: 24px; }
+        .btn-percent { border-radius: 40px; padding: 0 20px; height: 48px; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: #4caf50; background: rgba(22, 27, 34, 0.9); }
 
         /* ========== KONTAKT ========== */
         .contact-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
         .contact-brand { font-weight: 600; color: #4caf50; font-size: 26px; text-align: center; }
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 30px; margin: 40px 0; }
-        .contact-info-box { 
-            background: rgba(255, 255, 255, 0.02); border-radius: 24px; padding: 30px; 
-            text-align: center; border: 1px solid rgba(255, 255, 255, 0.05); 
-        }
+        .contact-info-box { background: rgba(255,255,255,0.02); border-radius: 24px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
         .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-        .contact-link-btn { 
-            padding: 12px; border-radius: 50px; color: white; text-decoration: none; 
-            font-size: 15px; font-weight: 500; transition: transform 0.2s;
-        }
+        .contact-link-btn { padding: 12px; border-radius: 50px; color: white; text-decoration: none; font-size: 15px; font-weight: 500; transition: transform 0.2s; }
         .contact-link-btn:hover { transform: scale(1.02); }
-        .bg-phone { background: rgba(25, 118, 210, 0.8); border: 1px solid #1976d2; }
-        .bg-viber { background: rgba(89, 38, 124, 0.8); border: 1px solid #59267c; }
-        .bg-whatsapp { background: rgba(18, 140, 126, 0.8); border: 1px solid #128c7e; }
-        .bg-phone-alt { background: rgba(46, 125, 50, 0.8); border: 1px solid #2e7d32; }
-        
+        .bg-phone { background: rgba(25,118,210,0.8); border: 1px solid #1976d2; }
+        .bg-viber { background: rgba(89,38,124,0.8); border: 1px solid #59267c; }
+        .bg-whatsapp { background: rgba(18,140,126,0.8); border: 1px solid #128c7e; }
+        .bg-phone-alt { background: rgba(46,125,50,0.8); border: 1px solid #2e7d32; }
         .form-group { margin-bottom: 24px; text-align: left; }
         .form-group label { display: block; font-size: 15px; color: #9ca3af; margin-bottom: 10px; font-weight: 500; }
-        .form-control {
-            width: 100%; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 16px; padding: 16px 20px; color: #fff; font-size: 16px; 
-            font-family: inherit; transition: all 0.3s ease;
-        }
+        .form-control { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px 20px; color: #fff; font-size: 16px; font-family: inherit; transition: all 0.3s ease; }
         .form-control:focus { outline: none; border-color: #4caf50; background: rgba(0,0,0,0.4); box-shadow: 0 0 0 4px rgba(76,175,80,0.1); }
-        .form-submit-btn {
-            background: #4caf50; color: white; border: none;
-            padding: 16px 30px; border-radius: 50px; font-weight: 500; font-size: 17px;
-            cursor: pointer; transition: all 0.3s ease; width: 100%; font-family: inherit;
-        }
+        .form-submit-btn { background: #4caf50; color: white; border: none; padding: 16px 30px; border-radius: 50px; font-weight: 500; font-size: 17px; cursor: pointer; transition: all 0.3s ease; width: 100%; }
         .form-submit-btn:hover { background: #43a047; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(76,175,80,0.3); }
         .status-box { display: none; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.3); padding: 30px; border-radius: 24px; margin-top: 30px; }
 
         /* ========== LIGHTBOX ========== */
-        .lightbox-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(10px);
-            display: none; align-items: center; justify-content: center; z-index: 999999;
-        }
+        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,12,16,0.95); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999999; }
         .lightbox-overlay.active { display: flex; }
         .lightbox-img { max-width: 90%; max-height: 85%; object-fit: contain; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
-        .lightbox-close {
-            position: absolute; top: 30px; right: 40px; font-size: 40px; cursor: pointer;
-            background: rgba(255,255,255,0.1); border-radius: 50%; width: 56px; height: 56px; 
-            display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
-        }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; font-size: 40px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .lightbox-close:hover { background: rgba(76,175,80,0.2); color: #4caf50; transform: scale(1.1); }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 1024px) {
-            .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); }
-        }
+        @media (max-width: 1024px) { .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); } }
         @media (max-width: 768px) {
             .hide-mobile { display: none; }
             .hero-title { font-size: 34px; }
             .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
-            .abstract-card, .history-card, .moto-card, .contact-card { padding: 30px; }
+            .abstract-card, .history-card, .moto-card, .contact-card { padding: 25px; }
             .btn-circle { width: 50px; height: 50px; font-size: 20px; }
             .btn-percent { height: 44px; padding: 0 16px; font-size: 12px; }
         }
-        @media (max-width: 480px) {
-            .carousel-slide { flex: 0 0 100%; min-width: 100%; }
-            .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
-        }
+        @media (max-width: 480px) { .carousel-slide { flex: 0 0 100%; min-width: 100%; } .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } }
     </style>
 </head>
 <body>
@@ -461,6 +421,7 @@
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
     <div class="glow-orb orb-3"></div>
+    <div class="glow-orb orb-4"></div>
 </div>
 
 <audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
@@ -471,16 +432,9 @@
 </div>
 
 <div class="floating-buttons">
-    <!-- DUGME ZA MUZIKU -->
-    <div id="music-toggle" class="premium-action-btn btn-circle" title="Muzika">
-        <span id="music-icon">🔊</span>
-    </div>
-    <!-- DUGME ZA POVRATAK NA VRH (STRELLICA) -->
+    <div id="music-toggle" class="premium-action-btn btn-circle" title="Muzika"><span id="music-icon">🔊</span></div>
     <div id="back-to-top" class="premium-action-btn btn-circle" title="Vrh">↑</div>
-    <!-- INDIKATOR PROCENTA SKROLA (ispod strelice) -->
-    <div id="scroll-percent-widget" class="premium-action-btn btn-percent" title="Procenat skrola - klik za vrh">
-        <span id="scroll-percent">+0.00%</span>
-    </div>
+    <div id="scroll-percent-widget" class="premium-action-btn btn-percent" title="Procenat skrola - klik za vrh"><span id="scroll-percent">+0.00%</span></div>
 </div>
 
 <header class="header-main">
@@ -511,20 +465,29 @@
             <h2 class="section-title">Principi inženjerske izvrsnosti</h2>
         </div>
         <div class="grid-philosophie">
-            <div class="abstract-card full-width">
-                <div style="display:flex; justify-content:space-between;"><span style="font-size:32px;">👁️‍🗨️</span></div>
+            <div class="abstract-card full-width card-zelena">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="card-icon">👁️‍🗨️</span>
+                    <div class="pulse-node" style="background:#4caf50;"></div>
+                </div>
                 <h4>1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
                 <p class="section-text">Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.</p>
             </div>
-            <div class="abstract-card">
-                <div style="display:flex; justify-content:space-between;"><span style="font-size:32px;">🎛️</span></div>
+            <div class="abstract-card card-plava">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="card-icon">🎛️</span>
+                    <div class="pulse-node" style="background:#3a86ff;"></div>
+                </div>
                 <h4>2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
-                <p class="section-text">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu.</p>
+                <p class="section-text">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu. Takav pristup omogućava da sistem radi stabilno decenijama.</p>
             </div>
-            <div class="abstract-card">
-                <div style="display:flex; justify-content:space-between;"><span style="font-size:32px;">🛡️</span></div>
+            <div class="abstract-card card-crvena">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="card-icon">🛡️</span>
+                    <div class="pulse-node" style="background:#e63946;"></div>
+                </div>
                 <h4>3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
-                <p class="section-text">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu.</p>
+                <p class="section-text">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote. Kvalitet se prepoznaje po stabilnosti.</p>
             </div>
         </div>
     </section>
@@ -735,74 +698,34 @@
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
         let musicStarted = false;
-        
         function toggleMusic() {
             if (!music) return;
             if (music.paused) {
-                music.play().then(() => {
-                    musicIcon.textContent = '🔊';
-                    musicStarted = true;
-                }).catch(e => console.log("Autoplay blocked, user interaction needed"));
-            } else {
-                music.pause();
-                musicIcon.textContent = '🔇';
-            }
+                music.play().then(() => { musicIcon.textContent = '🔊'; musicStarted = true; }).catch(e => console.log);
+            } else { music.pause(); musicIcon.textContent = '🔇'; }
             musicStarted = true;
         }
+        if (musicToggle) musicToggle.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
         
-        // Prvi klik na dugme pokreće muziku (ili pauzira)
-        if (musicToggle) {
-            musicToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                toggleMusic();
-            });
-        }
-        
-        // ========== BACK TO TOP ==========
+        // ========== BACK TO TOP & SCROLL PERCENT ==========
         const backTopBtn = document.getElementById('back-to-top');
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        if (backTopBtn) backTopBtn.addEventListener('click', scrollToTop);
-        
-        // ========== SCROLL PERCENTAGE WIDGET ==========
         const percentWidget = document.getElementById('scroll-percent-widget');
         const percentSpan = document.getElementById('scroll-percent');
-        
-        function getScrollPercent() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            if (docHeight <= 0) return 0;
-            let percent = (scrollTop / docHeight) * 100;
-            return Math.min(100, Math.max(0, percent));
-        }
-        
-        function updatePercent() {
-            const p = getScrollPercent();
-            percentSpan.textContent = `+${p.toFixed(2)}%`;
-        }
-        
-        if (percentWidget) {
-            percentWidget.addEventListener('click', scrollToTop);
-        }
-        window.addEventListener('scroll', updatePercent);
-        updatePercent();
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        if (backTopBtn) backTopBtn.addEventListener('click', scrollToTop);
+        if (percentWidget) percentWidget.addEventListener('click', scrollToTop);
+        function getScrollPercent() { const st = window.pageYOffset || document.documentElement.scrollTop; const dh = document.documentElement.scrollHeight - window.innerHeight; if (dh <= 0) return 0; return Math.min(100, Math.max(0, (st / dh) * 100)); }
+        function updatePercent() { percentSpan.textContent = `+${getScrollPercent().toFixed(2)}%`; }
+        window.addEventListener('scroll', updatePercent); updatePercent();
         
         // ========== LIGHTBOX ==========
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeLb = document.getElementById('close-btn');
-        function bindLightbox() {
-            document.querySelectorAll('.project-img').forEach(img => {
-                img.removeEventListener('click', lightboxHandler);
-                img.addEventListener('click', lightboxHandler);
-            });
-        }
-        function lightboxHandler(e) {
-            if (lightboxImg) lightboxImg.src = this.src;
-            if (lightbox) lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() { if (lightbox) lightbox.classList.remove('active'); document.body.style.overflow = ''; }
-        if(lightbox) lightbox.addEventListener('click', function(e) { if(e.target === lightbox) closeLightbox(); });
+        function bindLightbox() { document.querySelectorAll('.project-img').forEach(img => { img.removeEventListener('click', lightboxHandler); img.addEventListener('click', lightboxHandler); }); }
+        function lightboxHandler(e) { lightboxImg.src = this.src; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+        if(lightbox) lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLightbox(); });
         if(closeLb) closeLb.addEventListener('click', closeLightbox);
         bindLightbox();
         
@@ -813,11 +736,9 @@
                 e.preventDefault();
                 const btn = document.getElementById('submit-btn');
                 const original = btn.innerText;
-                btn.innerText = "⏳ Slanje u toku...";
-                btn.disabled = true;
+                btn.innerText = "⏳ Slanje u toku..."; btn.disabled = true;
                 fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         access_key: 'cc0ac5b2-dae0-4051-86be-94a57cca494e',
                         name: document.getElementById('ins_name').value,
@@ -829,14 +750,8 @@
                     })
                 })
                 .then(res => res.json())
-                .then(data => {
-                    if(data.success) {
-                        contactForm.style.display = 'none';
-                        document.getElementById('form-title').innerText = "Informacija pošiljaocu";
-                        document.getElementById('status-box').style.display = 'block';
-                    } else throw new Error('Greška');
-                })
-                .catch(err => alert("Došlo je do greške prilikom slanja. Provjerite internet vezu ili pokušajte kasnije."))
+                .then(data => { if(data.success) { contactForm.style.display = 'none'; document.getElementById('form-title').innerText = "Informacija pošiljaocu"; document.getElementById('status-box').style.display = 'block'; } else throw new Error('Greška'); })
+                .catch(err => alert("Došlo je do greške prilikom slanja."))
                 .finally(() => { btn.innerText = original; btn.disabled = false; });
             });
         }
@@ -849,138 +764,21 @@
         const dotsContainer = document.getElementById('carouselDots');
         let slides = [], currentIndex = 0, slidesPerView = 4, autoInterval = null;
         const AUTO_DELAY = 3500;
-        
-        function getCleanCompanyName(filename) {
-            let name = filename.replace(/\.(jpe?g|png|gif|webp)$/i, '');
-            return name.charAt(0).toUpperCase() + name.slice(1);
-        }
-
-        function updateSlidesPerView() {
-            if (window.innerWidth <= 480) slidesPerView = 1;
-            else if (window.innerWidth <= 768) slidesPerView = 2;
-            else if (window.innerWidth <= 1024) slidesPerView = 3;
-            else slidesPerView = 4;
-        }
-        
+        function getCleanCompanyName(filename) { return filename.replace(/\.(jpe?g|png|gif|webp)$/i, '').charAt(0).toUpperCase() + filename.slice(1); }
+        function updateSlidesPerView() { if (window.innerWidth <= 480) slidesPerView = 1; else if (window.innerWidth <= 768) slidesPerView = 2; else if (window.innerWidth <= 1024) slidesPerView = 3; else slidesPerView = 4; }
         function renderCarousel() {
-            if (!slides.length) {
-                trackEl.innerHTML = '<div class="error" style="color:#f87171; padding:40px; text-align:center;">⚠️ Nema logotipa u folderu "saradnici".</div>';
-                return;
-            }
-            trackEl.innerHTML = slides.map(s => `
-                <div class="carousel-slide">
-                    <div class="logo-container">
-                        <img class="partner-logo" src="${s.url}" alt="${s.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23333%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23aaa%27%3ELogo%3C/text%3E%3C/svg%3E'">
-                    </div>
-                    <div class="partner-name">${s.name}</div>
-                </div>
-            `).join('');
-            updateCarouselPosition();
-            createDots();
+            if (!slides.length) { trackEl.innerHTML = '<div class="error" style="color:#f87171; padding:40px; text-align:center;">⚠️ Nema logotipa u folderu "saradnici".</div>'; return; }
+            trackEl.innerHTML = slides.map(s => `<div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="${s.url}" alt="${s.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23333%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23aaa%27%3ELogo%3C/text%3E%3C/svg%3E'"></div><div class="partner-name">${s.name}</div></div>`).join('');
+            updateCarouselPosition(); createDots();
         }
-        
-        function updateCarouselPosition() {
-            if (!slides.length) return;
-            updateSlidesPerView();
-            const maxIdx = Math.max(0, slides.length - slidesPerView);
-            if (currentIndex > maxIdx) currentIndex = maxIdx;
-            if (currentIndex < 0) currentIndex = 0;
-            const slidesEl = document.querySelectorAll('.carousel-slide');
-            if (!slidesEl.length) return;
-            const slideW = slidesEl[0].offsetWidth;
-            const gap = 30;
-            trackEl.style.transform = `translateX(${-currentIndex * (slideW + gap)}px)`;
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
-        }
-        
-        function createDots() {
-            if (!dotsContainer) return;
-            const dotCount = Math.max(1, slides.length - slidesPerView + 1);
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < dotCount; i++) {
-                const d = document.createElement('div');
-                d.className = 'dot';
-                if (i === currentIndex) d.classList.add('active');
-                d.addEventListener('click', () => {
-                    currentIndex = i;
-                    updateCarouselPosition();
-                    resetAutoScroll();
-                });
-                dotsContainer.appendChild(d);
-            }
-            dotsContainer.style.display = dotCount <= 1 ? 'none' : 'flex';
-        }
-        
-        function nextSlide() {
-            const maxIdx = Math.max(0, slides.length - slidesPerView);
-            if (currentIndex < maxIdx) currentIndex++;
-            else if (slides.length > slidesPerView) currentIndex = 0;
-            updateCarouselPosition();
-        }
-        
-        function prevSlide() {
-            const maxIdx = Math.max(0, slides.length - slidesPerView);
-            if (currentIndex > 0) currentIndex--;
-            else if (slides.length > slidesPerView) currentIndex = maxIdx;
-            updateCarouselPosition();
-        }
-        
-        function startAutoScroll() {
-            if (autoInterval) clearInterval(autoInterval);
-            if (slides.length > slidesPerView) {
-                autoInterval = setInterval(() => nextSlide(), AUTO_DELAY);
-            }
-        }
-        
-        function resetAutoScroll() {
-            if (autoInterval) {
-                clearInterval(autoInterval);
-                startAutoScroll();
-            }
-        }
-
-        async function fetchLogos() {
-            trackEl.innerHTML = '<div class="error" style="color:#9ca3af; padding:40px; text-align:center;">Učitavam logotipe...</div>';
-            try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FOLDER_PATH}`, {
-                    headers: { 'Accept': 'application/vnd.github.v3+json' }
-                });
-                if (!response.ok) throw new Error(`HTTP greška ${response.status}`);
-                const files = await response.json();
-                const imageFiles = files.filter(f => /\.(jpe?g|png|gif|webp)$/i.test(f.name));
-                if (imageFiles.length === 0) throw new Error('Nema slika u folderu');
-                slides = imageFiles.map(f => ({
-                    name: getCleanCompanyName(f.name),
-                    url: f.download_url
-                }));
-                
-                renderCarousel();
-                
-                const prevBtn = document.querySelector('.btn-prev');
-                const nextBtn = document.querySelector('.btn-next');
-                if (prevBtn) prevBtn.onclick = () => { prevSlide(); resetAutoScroll(); };
-                if (nextBtn) nextBtn.onclick = () => { nextSlide(); resetAutoScroll(); };
-                const containerEl = document.querySelector('.carousel-container');
-                if (containerEl) {
-                    containerEl.onmouseenter = () => clearInterval(autoInterval);
-                    containerEl.onmouseleave = startAutoScroll;
-                }
-                window.addEventListener('resize', () => {
-                    updateCarouselPosition();
-                    createDots();
-                    resetAutoScroll();
-                });
-                startAutoScroll();
-
-            } catch (err) {
-                console.error(err);
-                trackEl.innerHTML = `<div class="error" style="color:#f87171; padding:40px; text-align:center;">⚠️ Greška pri učitavanju: ${err.message}</div>`;
-            }
-        }
-        
+        function updateCarouselPosition() { if (!slides.length) return; updateSlidesPerView(); const maxIdx = Math.max(0, slides.length - slidesPerView); if (currentIndex > maxIdx) currentIndex = maxIdx; if (currentIndex < 0) currentIndex = 0; const els = document.querySelectorAll('.carousel-slide'); if (!els.length) return; const w = els[0].offsetWidth; const gap = 30; trackEl.style.transform = `translateX(${-currentIndex * (w + gap)}px)`; document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===currentIndex)); }
+        function createDots() { if (!dotsContainer) return; const cnt = Math.max(1, slides.length - slidesPerView + 1); dotsContainer.innerHTML = ''; for(let i=0;i<cnt;i++){ let d=document.createElement('div'); d.className='dot'; if(i===currentIndex) d.classList.add('active'); d.addEventListener('click',()=>{ currentIndex=i; updateCarouselPosition(); resetAutoScroll(); }); dotsContainer.appendChild(d); } dotsContainer.style.display = cnt<=1 ? 'none' : 'flex'; }
+        function nextSlide() { const maxIdx = Math.max(0, slides.length - slidesPerView); if(currentIndex < maxIdx) currentIndex++; else if(slides.length > slidesPerView) currentIndex = 0; updateCarouselPosition(); }
+        function prevSlide() { const maxIdx = Math.max(0, slides.length - slidesPerView); if(currentIndex > 0) currentIndex--; else if(slides.length > slidesPerView) currentIndex = maxIdx; updateCarouselPosition(); }
+        function startAutoScroll() { if(autoInterval) clearInterval(autoInterval); if(slides.length > slidesPerView) autoInterval = setInterval(()=>nextSlide(), AUTO_DELAY); }
+        function resetAutoScroll() { if(autoInterval) { clearInterval(autoInterval); startAutoScroll(); } }
+        async function fetchLogos() { trackEl.innerHTML = '<div style="color:#9ca3af; padding:40px; text-align:center;">Učitavam logotipe...</div>'; try { const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FOLDER_PATH}`, { headers: { 'Accept': 'application/vnd.github.v3+json' } }); if(!res.ok) throw new Error(`HTTP ${res.status}`); const files = await res.json(); const imgs = files.filter(f => /\.(jpe?g|png|gif|webp)$/i.test(f.name)); if(!imgs.length) throw new Error('Nema slika'); slides = imgs.map(f => ({ name: getCleanCompanyName(f.name), url: f.download_url })); renderCarousel(); const prevBtn = document.querySelector('.btn-prev'); const nextBtn = document.querySelector('.btn-next'); if(prevBtn) prevBtn.onclick = () => { prevSlide(); resetAutoScroll(); }; if(nextBtn) nextBtn.onclick = () => { nextSlide(); resetAutoScroll(); }; const containerEl = document.querySelector('.carousel-container'); if(containerEl){ containerEl.onmouseenter = () => clearInterval(autoInterval); containerEl.onmouseleave = startAutoScroll; } window.addEventListener('resize', () => { updateCarouselPosition(); createDots(); resetAutoScroll(); }); startAutoScroll(); } catch(err) { trackEl.innerHTML = `<div class="error" style="color:#f87171; padding:40px; text-align:center;">⚠️ Greška pri učitavanju: ${err.message}</div>`; } }
         fetchLogos();
-
     })();
 </script>
 </body>
