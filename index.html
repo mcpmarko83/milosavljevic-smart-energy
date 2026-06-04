@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="sr">
 <head>
     <meta charset="UTF-8">
@@ -76,7 +76,7 @@
         .section-title-left { font-size: 32px; margin: 15px 0; color: #fff; font-weight: 600; }
         .section-text { color: #cbd5e6; font-size: 17px; }
 
-        /* ========== HEADER ========== */
+        /* ========== HEADER & PROGRESS BAR ========== */
         .header-main {
             background: rgba(10,12,16,0.7);
             backdrop-filter: blur(20px);
@@ -88,10 +88,48 @@
         }
         .header-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
         .header-tradition { font-size: 12px; color: #9ca3af; font-weight: 500; letter-spacing: 0.5px; }
+        
+        .header-logo-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
         .header-logo-group { display: flex; align-items: center; gap: 12px; }
         .header-logo-img { height: 36px; border-radius: 8px; }
         .header-brand-name { font-size: 18px; color: #fff; font-weight: 600; }
         .header-brand-name span { color: #4caf50; }
+
+        /* Novi Progress Bar stilovi */
+        .header-progress-container {
+            width: 100%;
+            min-width: 250px;
+            height: 18px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(76,175,80,0.3);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .header-progress-container:hover {
+            border-color: rgba(76,175,80,0.8);
+        }
+        .header-progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4caf50, #3a86ff, #9b59b6);
+            border-radius: 20px;
+            transition: width 0.1s linear;
+        }
+        .header-progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            letter-spacing: 0.5px;
+        }
 
         /* ========== HERO SECTION ========== */
         .hero-section {
@@ -360,7 +398,6 @@
         }
         .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.5); transform: translateY(-3px); }
         .btn-circle { width: 56px; height: 56px; border-radius: 50%; font-size: 24px; }
-        .btn-percent { border-radius: 40px; padding: 0 20px; height: 48px; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: #4caf50; background: rgba(22,27,34,0.9); }
 
         /* ========== KONTAKT ========== */
         .contact-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
@@ -441,7 +478,6 @@
             .abstract-card.full-width { grid-column: auto; }
             .abstract-card, .history-card, .moto-card, .contact-card { padding: 25px; }
             .btn-circle { width: 50px; height: 50px; font-size: 20px; }
-            .btn-percent { height: 44px; padding: 0 16px; font-size: 12px; }
         }
         @media (max-width:480px) { .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } }
     </style>
@@ -462,7 +498,6 @@
     <img id="lightbox-img" class="lightbox-img" alt="Uvećani prikaz">
 </div>
 
-<!-- Video lightbox overlay -->
 <div id="video-lightbox" class="video-lightbox">
     <div class="close-video" id="close-video-btn">&times;</div>
     <video id="intro-video" controls>
@@ -474,15 +509,20 @@
 <div class="floating-buttons">
     <div id="music-toggle" class="premium-action-btn btn-circle" title="Muzika"><span id="music-icon">🔊</span></div>
     <div id="back-to-top" class="premium-action-btn btn-circle" title="Vrh">↑</div>
-    <div id="scroll-percent-widget" class="premium-action-btn btn-percent" title="Procenat skrola - klik za vrh"><span id="scroll-percent">+0.00%</span></div>
 </div>
 
 <header class="header-main">
     <div class="header-grid">
         <div><p class="hide-mobile header-tradition">Tradicija od 1998.</p></div>
-        <div class="header-logo-group">
-            <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
-            <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
+        <div class="header-logo-wrapper">
+            <div class="header-logo-group">
+                <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+                <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
+            </div>
+            <div class="header-progress-container" id="header-progress-widget" title="Procenat skrola - klik za vrh">
+                <div class="header-progress-bar-fill" id="header-progress-bar"></div>
+                <span class="header-progress-text" id="scroll-percent">0.00%</span>
+            </div>
         </div>
         <div></div>
     </div>
@@ -496,12 +536,9 @@
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
         <a href="#kontakt" class="btn-primary">Zatraži Ponudu</a>
         
-        <!-- Video krug (premješten ovdje) -->
-        <div id="video-trigger" class="video-circle">
+                <div id="video-trigger" class="video-circle">
             <div class="video-thumb">
-                <!-- OVDJE POSTAVITE SVOJU STATIČNU SLIKU (prvi kadar videa) -->
-                <!-- Zamijenite "video-preview.jpg" sa stvarnom putanjom vaše slike -->
-                <img src="video-preview.jpg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
+                                                <img src="video-preview.jpg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
                 <div class="glass-play">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 5v14l11-7z" fill="currentColor"/>
@@ -830,14 +867,28 @@
         
         // ========== BACK TO TOP & SCROLL PERCENT ==========
         const backTopBtn = document.getElementById('back-to-top');
-        const percentWidget = document.getElementById('scroll-percent-widget');
+        const headerProgressWidget = document.getElementById('header-progress-widget');
+        const headerProgressBar = document.getElementById('header-progress-bar');
         const percentSpan = document.getElementById('scroll-percent');
+        
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
         if (backTopBtn) backTopBtn.addEventListener('click', scrollToTop);
-        if (percentWidget) percentWidget.addEventListener('click', scrollToTop);
-        function getScrollPercent() { const st = window.pageYOffset || document.documentElement.scrollTop; const dh = document.documentElement.scrollHeight - window.innerHeight; if (dh <= 0) return 0; return Math.min(100, Math.max(0, (st / dh) * 100)); }
-        function updatePercent() { percentSpan.textContent = `+${getScrollPercent().toFixed(2)}%`; }
-        window.addEventListener('scroll', updatePercent); updatePercent();
+        if (headerProgressWidget) headerProgressWidget.addEventListener('click', scrollToTop);
+        
+        function getScrollPercent() { 
+            const st = window.pageYOffset || document.documentElement.scrollTop; 
+            const dh = document.documentElement.scrollHeight - window.innerHeight; 
+            if (dh <= 0) return 0; 
+            return Math.min(100, Math.max(0, (st / dh) * 100)); 
+        }
+        
+        function updatePercent() { 
+            const percent = getScrollPercent();
+            if (percentSpan) percentSpan.textContent = `${percent.toFixed(2)}%`; 
+            if (headerProgressBar) headerProgressBar.style.width = `${percent}%`;
+        }
+        window.addEventListener('scroll', updatePercent); 
+        updatePercent();
         
         // ========== LIGHTBOX (ZA SLIKE) ==========
         const lightbox = document.getElementById('lightbox');
