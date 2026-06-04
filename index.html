@@ -12,7 +12,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* ========== CORE & PERFORMANCE ========== */
@@ -22,7 +22,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
         body {
-            background-color: #0a0c10;
+            background-color: #05070a;
             color: #f3f4f6;
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
@@ -30,456 +30,386 @@
             padding-bottom: 120px;
         }
 
-        /* ========== ABSTRACT BACKGROUND ========== */
+        /* ========== PREMIUM SCROLL REVEAL (Apple/Android Vibe) ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+
+        /* ========== ABSTRACT BACKGROUND (Glassmorphism Deep) ========== */
         .abstract-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            background: #0a0c10;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; background: #05070a; overflow: hidden;
         }
         .glow-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.35;
-            animation: float 18s infinite ease-in-out alternate;
+            position: absolute; border-radius: 50%;
+            filter: blur(120px); opacity: 0.25;
+            mix-blend-mode: screen;
+            animation: float 20s infinite ease-in-out alternate;
             will-change: transform;
         }
         .orb-1 { width: 70vw; height: 70vw; background: #4caf50; top: -15%; left: -25%; }
-        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -4s; }
-        .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -8s; opacity: 0.3; }
-        .orb-4 { width: 40vw; height: 40vw; background: #e63946; bottom: 10%; left: -10%; animation-delay: -12s; opacity: 0.25; }
-        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(10%,15%) scale(1.15); } }
-        @media (max-width:768px) { .glow-orb { filter: blur(80px); opacity: 0.5; animation-duration: 12s; } .orb-1,.orb-2,.orb-3,.orb-4 { opacity: 0.6; } }
+        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -5s; }
+        .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -10s; opacity: 0.2; }
+        
+        @keyframes float { 
+            0% { transform: translate(0,0) scale(1); } 
+            100% { transform: translate(8%,12%) scale(1.1); } 
+        }
 
         /* ========== UTILITY ========== */
         .hide-mobile { display: inline; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-white { color: #fff; }
         .text-center { text-align: center; }
+        
         .badge-primary {
-            background: rgba(76,175,80,0.15);
+            background: rgba(76,175,80,0.1);
             color: #4caf50;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 50px;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             display: inline-block;
-            border: 1px solid rgba(76,175,80,0.3);
-            backdrop-filter: blur(4px);
+            border: 1px solid rgba(76,175,80,0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            text-transform: uppercase;
         }
-        .section-title { font-size: 32px; color: #fff; margin-top: 12px; margin-bottom: 35px; font-weight: 600; }
-        .section-title-left { font-size: 32px; margin: 15px 0; color: #fff; font-weight: 600; }
-        .section-text { color: #cbd5e6; font-size: 17px; }
+        .section-title { font-size: 36px; color: #fff; margin-top: 16px; margin-bottom: 35px; font-weight: 600; letter-spacing: -0.5px; line-height: 1.2; }
+        .section-title-left { font-size: 32px; margin: 15px 0; color: #fff; font-weight: 600; line-height: 1.2; }
+        .section-text { color: #a1aabf; font-size: 17px; font-weight: 300; }
 
-        /* ========== HEADER & PROGRESS BAR ========== */
+        /* ========== HEADER & THIN PROGRESS BAR ========== */
         .header-main {
-            background: rgba(10,12,16,0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(5, 7, 10, 0.75);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
             padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
-        .header-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-        .header-tradition { font-size: 12px; color: #9ca3af; font-weight: 500; letter-spacing: 0.5px; }
+        .header-grid { 
+            max-width: 1400px; margin: 0 auto; display: flex; 
+            justify-content: space-between; align-items: center; 
+        }
+        .header-tradition { font-size: 12px; color: #6b7280; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+        .header-logo-group { display: flex; align-items: center; gap: 12px; cursor: pointer; transition: opacity 0.3s ease; }
+        .header-logo-group:hover { opacity: 0.8; }
+        .header-logo-img { height: 38px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .header-brand-name { font-size: 19px; color: #fff; font-weight: 600; letter-spacing: -0.3px; }
+        .header-brand-name span { color: #4caf50; font-weight: 400; }
         
-        .header-logo-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
-        .header-logo-group { display: flex; align-items: center; gap: 12px; }
-        .header-logo-img { height: 36px; border-radius: 8px; }
-        .header-brand-name { font-size: 18px; color: #fff; font-weight: 600; }
-        .header-brand-name span { color: #4caf50; }
+        /* Brojčanik procenta (Tabular nums za lepši prikaz) */
+        .header-percent-text {
+            font-size: 14px; font-weight: 600; color: #4caf50;
+            font-variant-numeric: tabular-nums;
+            background: rgba(76,175,80,0.1);
+            padding: 4px 12px; border-radius: 20px;
+            border: 1px solid rgba(76,175,80,0.2);
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .header-percent-text:hover { background: #4caf50; color: #fff; }
 
-        /* Novi Progress Bar stilovi */
-        .header-progress-container {
-            width: 100%;
-            min-width: 250px;
-            height: 18px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(76,175,80,0.3);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: border-color 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .header-progress-container:hover {
-            border-color: rgba(76,175,80,0.8);
-        }
-        .header-progress-bar-fill {
-            height: 100%;
+        /* Tanka linija napretka */
+        .header-progress-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
             width: 0%;
             background: linear-gradient(90deg, #4caf50, #3a86ff, #9b59b6);
-            border-radius: 20px;
+            box-shadow: 0 -1px 8px rgba(76,175,80,0.5);
             transition: width 0.1s linear;
-        }
-        .header-progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 11px;
-            font-weight: 600;
-            color: #fff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
-            letter-spacing: 0.5px;
+            z-index: 1001;
         }
 
         /* ========== HERO SECTION ========== */
         .hero-section {
-            padding: 80px 20px 60px;
+            padding: 100px 20px 80px;
             text-align: center;
             position: relative;
         }
         .hero-content { position: relative; z-index: 2; }
-        .hero-logo { max-width: 240px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); margin-bottom: 20px; }
-        .hero-title { font-size: 44px; margin-top: 15px; font-weight: 600; letter-spacing: -0.5px; }
-        .hero-title span { color: #3a86ff; }
-        .hero-line { width: 80px; height: 3px; margin: 30px auto; border-radius: 3px; background: linear-gradient(90deg, #4caf50, #3a86ff, #9b59b6); }
-        .hero-subtitle { max-width: 650px; margin: 0 auto; color: #cbd5e6; font-size: 19px; }
+        .hero-logo { 
+            max-width: 220px; border-radius: 32px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05); 
+            margin-bottom: 25px; transition: transform 0.5s ease;
+        }
+        .hero-logo:hover { transform: translateY(-5px); }
+        .hero-title { font-size: 52px; margin-top: 15px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .hero-title span { background: linear-gradient(90deg, #3a86ff, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-line { width: 60px; height: 4px; margin: 35px auto; border-radius: 4px; background: linear-gradient(90deg, #4caf50, #3a86ff); box-shadow: 0 4px 15px rgba(58,134,255,0.3); }
+        .hero-subtitle { max-width: 600px; margin: 0 auto; color: #a1aabf; font-size: 20px; font-weight: 300; }
+        
         .btn-primary {
-            display: inline-block;
-            margin-top: 35px;
-            padding: 14px 40px;
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-top: 40px; padding: 16px 45px;
             border-radius: 50px;
-            background: rgba(76,175,80,0.1);
-            color: #4caf50;
+            background: rgba(76,175,80,0.1); color: #4caf50;
             border: 1px solid rgba(76,175,80,0.3);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1);
+            text-decoration: none; font-weight: 600; font-size: 16px;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1);
         }
-        .btn-primary:hover { background: #4caf50; color: #fff; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(76,175,80,0.3); }
+        .btn-primary:hover { background: #4caf50; color: #fff; transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(76,175,80,0.3); }
 
-        /* Video krug (premješten ispod dugmeta) */
-        .video-circle {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 40px;
-            cursor: pointer;
-        }
+        /* Video krug */
+        .video-circle { display: flex; flex-direction: column; align-items: center; margin-top: 50px; cursor: pointer; }
         .video-thumb {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid rgba(76,175,80,0.6);
-            box-shadow: 0 0 25px rgba(76,175,80,0.4);
-            transition: all 0.3s ease;
+            position: relative; width: 130px; height: 130px; border-radius: 50%; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 0 4px rgba(76,175,80,0.3);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             background: #1a1f2a;
         }
-        .video-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
         .glass-play {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        .glass-play svg {
-            width: 45px;
-            height: 45px;
-            fill: white;
-            filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
-            transition: transform 0.2s;
-        }
-        .video-circle:hover .video-thumb {
-            transform: scale(1.03);
-            border-color: #4caf50;
-            box-shadow: 0 0 35px rgba(76,175,80,0.6);
-        }
-        .video-circle:hover .glass-play {
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(6px);
-        }
-        .video-circle:hover .glass-play svg {
-            transform: scale(1.1);
-        }
-        .video-label {
-            margin-top: 15px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #cbd5e6;
-            background: rgba(0,0,0,0.3);
-            padding: 6px 18px;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-        }
-        @media (max-width:768px) {
-            .video-thumb { width: 90px; height: 90px; }
-            .glass-play svg { width: 35px; height: 35px; }
-            .video-label { font-size: 12px; }
-        }
-
-        /* ========== ENHANCED CARDS ========== */
-        .grid-philosophie {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-        .abstract-card {
-            background: rgba(16,20,26,0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 32px;
-            padding: 35px;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
             transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-        .abstract-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 32px;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(76,175,80,0.4), rgba(58,134,255,0.2), rgba(155,89,182,0.1));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        .abstract-card.card-zelena::before { background: linear-gradient(135deg, #4caf50, #2e7d32, #4caf50); }
-        .abstract-card.card-plava::before { background: linear-gradient(135deg, #3a86ff, #1e5bc0, #3a86ff); }
-        .abstract-card.card-crvena::before { background: linear-gradient(135deg, #e63946, #b91c2c, #e63946); }
-        .abstract-card.full-width { grid-column: span 2; }
-        .abstract-card.full-width::before { background: linear-gradient(135deg, #4caf50, #3a86ff, #9b59b6); }
-        .abstract-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
-        .abstract-card h4 { font-size: 22px; font-weight: 500; margin: 20px 0 12px; }
-        .card-icon { font-size: 36px; display: inline-block; filter: drop-shadow(0 0 8px currentColor); }
-        .pulse-node { width: 10px; height: 10px; border-radius: 50%; display: inline-block; position: relative; margin-left: 10px; }
-        .pulse-node::after { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: inherit; border-radius: 50%; animation: pulseGlow 2s infinite ease-in-out; }
-        @keyframes pulseGlow { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
-        
-        .history-card, .moto-card, .contact-card {
-            background: rgba(16,20,26,0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.05);
+        .glass-play svg { width: 40px; height: 40px; fill: white; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .video-circle:hover .video-thumb { transform: translateY(-5px) scale(1.02); box-shadow: 0 25px 50px rgba(76,175,80,0.3), inset 0 0 0 4px #4caf50; }
+        .video-circle:hover img { transform: scale(1.1); }
+        .video-circle:hover .glass-play { background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); }
+        .video-circle:hover .glass-play svg { transform: scale(1.15); }
+        .video-label { margin-top: 20px; font-size: 13px; font-weight: 600; color: #a1aabf; letter-spacing: 0.5px; text-transform: uppercase; }
+
+        /* ========== ENHANCED CARDS (Professional & Abstract) ========== */
+        .grid-philosophie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .abstract-card {
+            background: rgba(20, 24, 32, 0.4);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 32px;
             padding: 40px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .history-card:hover, .moto-card:hover, .contact-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
-        .history-grid { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; }
-        .moto-title { font-size: 14px; color: #3a86ff; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 25px; }
-        .moto-img-wrapper { max-width: 600px; margin: 0 auto; }
+        /* Top gradient glow edge */
+        .abstract-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            opacity: 0.5; transition: opacity 0.3s ease;
+        }
+        .abstract-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.1); }
+        .abstract-card:hover::before { opacity: 1; }
+        
+        .card-zelena:hover { border-color: rgba(76,175,80,0.3); box-shadow: 0 20px 40px rgba(76,175,80,0.15); }
+        .card-plava:hover { border-color: rgba(58,134,255,0.3); box-shadow: 0 20px 40px rgba(58,134,255,0.15); }
+        .card-crvena:hover { border-color: rgba(230,57,70,0.3); box-shadow: 0 20px 40px rgba(230,57,70,0.15); }
+        
+        .abstract-card.full-width { grid-column: span 2; }
+        .abstract-card h4 { font-size: 24px; font-weight: 500; margin: 25px 0 15px; color: #fff; letter-spacing: -0.5px; }
+        
+        /* SVG Icons Styling */
+        .svg-icon { width: 44px; height: 44px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .icon-zelena { color: #4caf50; filter: drop-shadow(0 0 12px rgba(76,175,80,0.4)); }
+        .icon-plava { color: #3a86ff; filter: drop-shadow(0 0 12px rgba(58,134,255,0.4)); }
+        .icon-crvena { color: #e63946; filter: drop-shadow(0 0 12px rgba(230,57,70,0.4)); }
 
-        /* ========== IMAGES ========== */
-        .blended-moto { width: 100%; height: auto; display: block; mix-blend-mode: screen; opacity: 0.9; filter: drop-shadow(0 0 20px rgba(58,134,255,0.2)); }
-        .om-image-container {
-            position: relative;
-            display: inline-block;
-            max-width: 280px;
-            width: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            background: rgba(255,255,255,0.02);
-            padding: 8px;
-            border: 1px solid rgba(76,175,80,0.3);
-            box-shadow: 0 0 30px rgba(76,175,80,0.1);
+        .pulse-node { width: 10px; height: 10px; border-radius: 50%; display: inline-block; position: relative; }
+        .pulse-node::after { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: inherit; border-radius: 50%; animation: pulseGlow 2.5s infinite ease-in-out; }
+        @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(3.5); opacity: 0; } }
+
+        /* MOTO & ISTORIJA CARDS */
+        .history-card, .moto-card, .contact-card {
+            background: rgba(20, 24, 32, 0.4);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 32px; padding: 50px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
-        .blended-om { width: 100%; height: auto; display: block; border-radius: 50%; }
+        .history-card:hover, .moto-card:hover, .contact-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.1); }
+        .history-grid { display: flex; flex-wrap: wrap; gap: 50px; align-items: center; }
+        .moto-title { font-size: 14px; color: #3a86ff; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; margin-bottom: 30px; text-align: center; }
+        .moto-img-wrapper { max-width: 600px; margin: 0 auto; }
+        .blended-moto { width: 100%; height: auto; display: block; mix-blend-mode: screen; opacity: 0.9; filter: drop-shadow(0 0 20px rgba(58,134,255,0.2)); transition: filter 0.4s; }
+        .blended-moto:hover { filter: drop-shadow(0 0 30px rgba(58,134,255,0.4)); }
+
+        .om-image-container {
+            position: relative; display: inline-block; max-width: 280px; width: 100%; border-radius: 50%;
+            overflow: hidden; background: rgba(255,255,255,0.02); padding: 10px;
+            border: 1px solid rgba(76,175,80,0.2); box-shadow: 0 0 40px rgba(76,175,80,0.1);
+        }
+        .blended-om { width: 100%; height: auto; display: block; border-radius: 50%; transition: transform 0.5s ease; }
+        .om-image-container:hover .blended-om { transform: scale(1.05) rotate(2deg); }
 
         /* ========== FOLDERS ========== */
-        .folder-section { margin-bottom: 50px; }
-        .folder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .folder-section { margin-bottom: 60px; }
+        .folder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
         .folder-box {
-            background: rgba(22,27,34,0.5);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 24px;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: rgba(30, 36, 45, 0.4); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.03); border-radius: 24px; padding: 24px;
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .folder-box:hover { background: rgba(30,36,45,0.7); border-color: rgba(76,175,80,0.3); transform: translateY(-3px); }
-        .folder-box.open { background: rgba(30,36,45,0.9); border-color: rgba(76,175,80,0.4); }
-        .folder-arrow { transition: transform 0.3s ease; color: #4caf50; font-size: 16px; }
+        .folder-box:hover { background: rgba(40, 48, 60, 0.6); border-color: rgba(76,175,80,0.3); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .folder-box.open { background: rgba(40, 48, 60, 0.8); border-color: rgba(76,175,80,0.5); }
+        .folder-arrow { transition: transform 0.4s ease; color: #4caf50; font-size: 14px; }
         .folder-box.open .folder-arrow { transform: rotate(90deg); }
-        .folder-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease-out, opacity 0.3s ease-out; opacity: 0; }
+        .folder-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease; opacity: 0; }
         .folder-box.open .folder-content { grid-template-rows: 1fr; opacity: 1; margin-top: 20px; }
         .inner-grid { overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, minmax(110px,1fr)); gap: 15px; }
-        .folder-img { width: 48px; height: 42px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
-        .project-img { width: 100%; height: 100px; object-fit: cover; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; cursor: pointer; }
-        .project-img:hover { transform: scale(1.05); border-color: rgba(76,175,80,0.5); box-shadow: 0 8px 20px rgba(76,175,80,0.2); }
-        .auto-folder-card { background: rgba(22,27,34,0.6); backdrop-filter: blur(16px); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 40px; text-align: center; margin-top: 50px; }
+        
+        .folder-img { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transition: transform 0.3s; }
+        .folder-box:hover .folder-img { transform: scale(1.05); }
+        .project-img { width: 100%; height: 110px; object-fit: cover; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; cursor: pointer; }
+        .project-img:hover { transform: scale(1.05); border-color: rgba(76,175,80,0.5); box-shadow: 0 10px 25px rgba(76,175,80,0.25); z-index: 2; position: relative; }
+        
+        .auto-folder-card { background: rgba(30, 36, 45, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 50px 30px; text-align: center; margin-top: 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
 
-        /* ========== CAROUSEL - PULSATING LINES ========== */
+        /* ========== CAROUSEL (Faded Edges) ========== */
         .partners-section {
-            background: rgba(13,17,23,0.6);
-            backdrop-filter: blur(20px);
-            border-radius: 32px;
-            padding: 50px 20px;
-            margin: 80px 0 40px;
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
+            background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px);
+            border-radius: 32px; padding: 60px 20px; margin: 80px 0 60px;
+            border: 1px solid rgba(255,255,255,0.05); position: relative;
         }
-        .partners-title { text-align: center; margin-bottom: 40px; font-size: 32px; font-weight: 500; color: #fff; }
-        .carousel-container { position: relative; overflow: hidden; padding: 15px 0 20px; }
-        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); gap: 30px; cursor: grab; }
+        .partners-title { text-align: center; margin-bottom: 50px; font-size: 32px; font-weight: 600; color: #fff; letter-spacing: -0.5px; }
+        .carousel-container { 
+            position: relative; overflow: hidden; padding: 10px 0 20px; 
+            /* Apple-like mask for smooth fading on edges */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .carousel-track { display: flex; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); gap: 30px; cursor: grab; }
         .carousel-track:active { cursor: grabbing; }
         .carousel-slide {
             flex: 0 0 calc(25% - 23px); min-width: calc(25% - 23px);
             display: flex; flex-direction: column; justify-content: space-between;
-            background: rgba(255,255,255,0.02); border-radius: 24px; transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.05); overflow: hidden;
+            background: rgba(255,255,255,0.01); border-radius: 24px; transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.03); overflow: hidden;
         }
-        .carousel-slide:hover { transform: translateY(-6px); background: rgba(255,255,255,0.05); border-color: rgba(76,175,80,0.3); }
-        .logo-container { padding: 30px 20px 20px; display: flex; align-items: center; justify-content: center; min-height: 180px; }
-        .partner-logo { max-width: 100%; max-height: 110px; object-fit: contain; transition: transform 0.3s ease; }
-        .carousel-slide:hover .partner-logo { transform: scale(1.05); }
-        .partner-name { font-weight: 500; font-size: 15px; text-align: center; color: #fff; background: rgba(0,0,0,0.2); padding: 16px 12px; margin: 0; transition: all 0.3s ease; }
-        .carousel-slide:hover .partner-name { background: rgba(76,175,80,0.2); }
+        .carousel-slide:hover { transform: translateY(-8px); background: rgba(255,255,255,0.03); border-color: rgba(76,175,80,0.3); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .logo-container { padding: 40px 20px 20px; display: flex; align-items: center; justify-content: center; min-height: 180px; }
+        .partner-logo { max-width: 100%; max-height: 90px; object-fit: contain; transition: transform 0.4s ease; filter: grayscale(100%) opacity(0.6); }
+        .carousel-slide:hover .partner-logo { transform: scale(1.1); filter: grayscale(0%) opacity(1); }
+        .partner-name { font-weight: 500; font-size: 14px; text-align: center; color: #a1aabf; background: rgba(0,0,0,0.2); padding: 16px 12px; margin: 0; transition: all 0.4s ease; }
+        .carousel-slide:hover .partner-name { background: rgba(76,175,80,0.15); color: #fff; }
         
-        .pulse-line {
-            position: absolute; top: 0; bottom: 0; width: 60px;
-            background: transparent; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 15; transition: all 0.3s ease;
-        }
-        .pulse-line-left { left: 0; }
-        .pulse-line-right { right: 0; }
-        .pulse-line .line {
-            width: 4px; height: 50px;
-            background: linear-gradient(180deg, #4caf50, #3a86ff, #9b59b6);
-            border-radius: 4px;
-            animation: pulseLine 1.8s ease-in-out infinite;
-            box-shadow: 0 0 8px rgba(76,175,80,0.5);
-        }
-        @keyframes pulseLine { 0% { height: 40px; opacity: 0.6; transform: scaleY(0.8); } 50% { height: 80px; opacity: 1; transform: scaleY(1.1); } 100% { height: 40px; opacity: 0.6; transform: scaleY(0.8); } }
-        .pulse-line:hover .line { width: 6px; animation: pulseLineHover 0.8s ease-in-out infinite; box-shadow: 0 0 15px rgba(76,175,80,0.8); }
-        @keyframes pulseLineHover { 0% { height: 50px; opacity: 0.8; } 50% { height: 90px; opacity: 1; } 100% { height: 50px; opacity: 0.8; } }
-        @media (max-width:768px) { .pulse-line { width: 40px; } .pulse-line .line { width: 3px; height: 40px; } .pulse-line:hover .line { width: 4px; } .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); } }
-        @media (max-width:1024px) { .carousel-slide { flex: 0 0 calc(33.333% - 20px); min-width: calc(33.333% - 20px); } }
-        @media (max-width:480px) { .carousel-slide { flex: 0 0 100%; min-width: 100%; } .pulse-line { width: 30px; } }
+        /* Navigacione crte */
+        .pulse-line { position: absolute; top: 0; bottom: 0; width: 60px; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 15; }
+        .pulse-line-left { left: 0; } .pulse-line-right { right: 0; }
+        .pulse-line .line { width: 3px; height: 50px; background: linear-gradient(180deg, #4caf50, #3a86ff); border-radius: 4px; animation: pulseLine 2s ease-in-out infinite; box-shadow: 0 0 12px rgba(76,175,80,0.4); transition: all 0.3s; }
+        @keyframes pulseLine { 0% { height: 40px; opacity: 0.5; } 50% { height: 80px; opacity: 1; } 100% { height: 40px; opacity: 0.5; } }
+        .pulse-line:hover .line { width: 5px; height: 90px; animation: none; box-shadow: 0 0 20px rgba(76,175,80,0.8); }
         
-        .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; }
-        .dot.active { background: #4caf50; width: 24px; border-radius: 8px; }
+        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 30px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .dot.active { background: #4caf50; width: 32px; border-radius: 8px; box-shadow: 0 0 10px rgba(76,175,80,0.5); }
 
-        /* ========== FLOATING BUTTONS ========== */
+        /* ========== FLOATING BUTTONS (Glass Toggles) ========== */
         .floating-buttons {
             position: fixed; bottom: 30px; right: 30px;
             display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99999;
         }
         .premium-action-btn {
-            background: rgba(22,27,34,0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 52px; height: 52px; border-radius: 50%;
+            background: rgba(30, 36, 45, 0.6);
+            backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            color: #fff;
         }
-        .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.5); transform: translateY(-3px); }
-        .btn-circle { width: 56px; height: 56px; border-radius: 50%; font-size: 24px; }
+        .premium-action-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s; }
+        .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
+        .premium-action-btn:hover svg { transform: scale(1.15); }
 
         /* ========== KONTAKT ========== */
-        .contact-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
-        .contact-brand { font-weight: 600; color: #4caf50; font-size: 26px; text-align: center; }
+        .contact-section { padding: 80px 0; max-width: 850px; margin: 0 auto; }
+        .contact-brand { font-weight: 600; color: #4caf50; font-size: 28px; text-align: center; letter-spacing: -0.5px; }
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 30px; margin: 40px 0; }
-        .contact-info-box { background: rgba(255,255,255,0.02); border-radius: 24px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-        .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-        .contact-link-btn { padding: 12px; border-radius: 50px; color: white; text-decoration: none; font-size: 15px; font-weight: 500; transition: transform 0.2s; }
-        .contact-link-btn:hover { transform: scale(1.02); }
-        .bg-phone { background: rgba(25,118,210,0.8); border: 1px solid #1976d2; }
-        .bg-viber { background: rgba(89,38,124,0.8); border: 1px solid #59267c; }
-        .bg-whatsapp { background: rgba(18,140,126,0.8); border: 1px solid #128c7e; }
-        .bg-phone-alt { background: rgba(46,125,50,0.8); border: 1px solid #2e7d32; }
+        .contact-info-box { background: rgba(255,255,255,0.015); border-radius: 32px; padding: 40px 30px; text-align: center; border: 1px solid rgba(255,255,255,0.04); transition: transform 0.4s ease; }
+        .contact-info-box:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+        
+        .contact-link-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px; border-radius: 16px; color: white; text-decoration: none; 
+            font-size: 15px; font-weight: 500; transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .contact-link-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .contact-link-btn:hover { transform: scale(1.03); filter: brightness(1.1); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        
+        .bg-phone { background: rgba(25,118,210,0.6); border: 1px solid rgba(25,118,210,0.8); }
+        .bg-viber { background: rgba(89,38,124,0.6); border: 1px solid rgba(89,38,124,0.8); }
+        .bg-whatsapp { background: rgba(18,140,126,0.6); border: 1px solid rgba(18,140,126,0.8); }
+        .bg-phone-alt { background: rgba(46,125,50,0.6); border: 1px solid rgba(46,125,50,0.8); }
+        
         .form-group { margin-bottom: 24px; text-align: left; }
-        .form-group label { display: block; font-size: 15px; color: #9ca3af; margin-bottom: 10px; font-weight: 500; }
-        .form-control { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px 20px; color: #fff; font-size: 16px; font-family: inherit; transition: all 0.3s ease; }
-        .form-control:focus { outline: none; border-color: #4caf50; background: rgba(0,0,0,0.4); box-shadow: 0 0 0 4px rgba(76,175,80,0.1); }
-        .form-submit-btn { background: #4caf50; color: white; border: none; padding: 16px 30px; border-radius: 50px; font-weight: 500; font-size: 17px; cursor: pointer; transition: all 0.3s ease; width: 100%; }
-        .form-submit-btn:hover { background: #43a047; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(76,175,80,0.3); }
-        .status-box { display: none; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.3); padding: 30px; border-radius: 24px; margin-top: 30px; }
+        .form-group label { display: block; font-size: 14px; color: #a1aabf; margin-bottom: 10px; font-weight: 500; padding-left: 5px; }
+        .form-control { 
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); 
+            border-radius: 20px; padding: 18px 22px; color: #fff; font-size: 16px; font-family: inherit; 
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+        }
+        .form-control:focus { outline: none; border-color: #4caf50; background: rgba(0,0,0,0.5); box-shadow: 0 0 0 4px rgba(76,175,80,0.15); transform: translateY(-2px); }
+        .form-submit-btn { 
+            background: #4caf50; color: white; border: none; padding: 18px 30px; 
+            border-radius: 50px; font-weight: 600; font-size: 17px; cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); width: 100%; 
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .form-submit-btn:hover { background: #43a047; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(76,175,80,0.4); }
 
-        /* ========== LIGHTBOX (ZA SLIKE) ========== */
-        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,12,16,0.95); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 999999; }
-        .lightbox-overlay.active { display: flex; }
-        .lightbox-img { max-width: 90%; max-height: 85%; object-fit: contain; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
-        .lightbox-close { position: absolute; top: 30px; right: 40px; font-size: 40px; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
-        .lightbox-close:hover { background: rgba(76,175,80,0.2); color: #4caf50; transform: scale(1.1); }
-
-        /* Video Lightbox (fullscreen) */
-        .video-lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px);
-            z-index: 999999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+        /* ========== LIGHTBOX (Slike & Video) ========== */
+        .lightbox-overlay, .video-lightbox {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(5,7,10,0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 999999;
+            opacity: 0; transition: opacity 0.4s ease;
         }
-        .video-lightbox.active { display: flex; }
-        .video-lightbox video {
-            max-width: 90%;
-            max-height: 85%;
-            border-radius: 24px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
-            border: 2px solid rgba(76,175,80,0.5);
+        .lightbox-overlay.active, .video-lightbox.active { display: flex; opacity: 1; }
+        .lightbox-img, .video-lightbox video { 
+            max-width: 90%; max-height: 85%; border-radius: 24px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05);
+            transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .video-lightbox .close-video {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            font-size: 48px;
-            cursor: pointer;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: white;
+        .lightbox-overlay.active .lightbox-img, .video-lightbox.active video { transform: scale(1); }
+        
+        .lightbox-close, .close-video {
+            position: absolute; top: 30px; right: 40px;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.3s ease; color: #fff;
         }
-        .video-lightbox .close-video:hover { background: rgba(76,175,80,0.2); color: #4caf50; transform: scale(1.1); }
-        @media (max-width:768px) {
-            .video-lightbox .close-video { top: 20px; right: 20px; width: 44px; height: 44px; font-size: 36px; }
-        }
+        .lightbox-close svg, .close-video svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .lightbox-close:hover, .close-video:hover { background: rgba(230,57,70,0.2); color: #e63946; border-color: rgba(230,57,70,0.4); transform: scale(1.1) rotate(90deg); }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width:768px) {
             .hide-mobile { display: none; }
-            .hero-title { font-size: 34px; }
+            .hero-title { font-size: 38px; }
             .grid-philosophie { grid-template-columns: 1fr; }
             .abstract-card.full-width { grid-column: auto; }
-            .abstract-card, .history-card, .moto-card, .contact-card { padding: 25px; }
-            .btn-circle { width: 50px; height: 50px; font-size: 20px; }
+            .abstract-card, .history-card, .moto-card, .contact-card { padding: 30px 25px; }
+            .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
+            .pulse-line { width: 40px; }
+            .lightbox-close, .close-video { top: 20px; right: 20px; width: 40px; height: 40px; }
         }
-        @media (max-width:480px) { .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } }
+        @media (max-width:480px) { 
+            .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } 
+            .carousel-slide { flex: 0 0 100%; min-width: 100%; }
+            .hero-title { font-size: 32px; }
+        }
     </style>
 </head>
 <body>
@@ -488,61 +418,62 @@
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
     <div class="glow-orb orb-3"></div>
-    <div class="glow-orb orb-4"></div>
 </div>
 
 <audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
 
 <div id="lightbox" class="lightbox-overlay">
-    <span class="lightbox-close" id="close-btn">&times;</span>
+    <div class="lightbox-close" id="close-btn"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div>
     <img id="lightbox-img" class="lightbox-img" alt="Uvećani prikaz">
 </div>
 
 <div id="video-lightbox" class="video-lightbox">
-    <div class="close-video" id="close-video-btn">&times;</div>
+    <div class="close-video" id="close-video-btn"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div>
     <video id="intro-video" controls>
         <source src="Uvodni%20Video.MP4" type="video/mp4">
         Vaš preglednik ne podržava video tag.
     </video>
 </div>
 
-<div class="floating-buttons">
-    <div id="music-toggle" class="premium-action-btn btn-circle" title="Muzika"><span id="music-icon">🔊</span></div>
-    <div id="back-to-top" class="premium-action-btn btn-circle" title="Vrh">↑</div>
+<div class="floating-buttons reveal delay-2">
+    <div id="music-toggle" class="premium-action-btn" title="Muzika">
+        <svg id="music-icon" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path id="music-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+    </div>
+    <div id="back-to-top" class="premium-action-btn" title="Vrh">
+        <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+    </div>
 </div>
 
 <header class="header-main">
     <div class="header-grid">
         <div><p class="hide-mobile header-tradition">Tradicija od 1998.</p></div>
-        <div class="header-logo-wrapper">
-            <div class="header-logo-group">
-                <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
-                <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
-            </div>
-            <div class="header-progress-container" id="header-progress-widget" title="Procenat skrola - klik za vrh">
-                <div class="header-progress-bar-fill" id="header-progress-bar"></div>
-                <span class="header-progress-text" id="scroll-percent">0.00%</span>
-            </div>
+        <div class="header-logo-group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+            <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
         </div>
-        <div></div>
+        <div>
+            <div id="header-percent-btn" class="header-percent-text" title="Procenat skrola">0%</div>
+        </div>
     </div>
+    <div class="header-progress-line" id="header-progress-bar"></div>
 </header>
 
-<section class="hero-section">
+<section class="hero-section reveal">
     <div class="hero-content">
         <img src="logo.jpg" class="hero-logo" alt="Logo" onerror="this.style.display='none';">
         <h1 class="hero-title">Inženjerska tradicija za <br><span>pametnu budućnost</span></h1>
         <div class="hero-line"></div>
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
-        <a href="#kontakt" class="btn-primary">Zatraži Ponudu</a>
+        <a href="#kontakt" class="btn-primary">
+            Zatraži Ponudu 
+            <svg style="width:18px;height:18px;margin-left:8px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
         
-                <div id="video-trigger" class="video-circle">
+        <div id="video-trigger" class="video-circle reveal delay-1">
             <div class="video-thumb">
-                                                <img src="video-preview.jpg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
+                <img src="video-preview.jpg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
                 <div class="glass-play">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 5v14l11-7z" fill="currentColor"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </div>
             </div>
             <div class="video-label">🎬 Naša prezentacija i uvod</div>
@@ -551,79 +482,79 @@
 </section>
 
 <div class="container">
-    <section style="padding:40px 0;">
+    <section style="padding:60px 0;" class="reveal">
         <div class="text-center">
             <span class="badge-primary">Naša Filozofija Rada</span>
             <h2 class="section-title">Principi inženjerske izvrsnosti</h2>
         </div>
         <div class="grid-philosophie">
-            <div class="abstract-card full-width card-zelena">
+            <div class="abstract-card full-width card-zelena reveal delay-1">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span class="card-icon">👁️‍🗨️</span>
+                    <svg class="svg-icon icon-zelena" viewBox="0 0 24 24"><path d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <div class="pulse-node" style="background:#4caf50;"></div>
                 </div>
                 <h4>1. Struju ne vidiš i ne čuješ dok ne napraviš grešku</h4>
                 <p class="section-text">Amateri se struje plaše, a iskusni profesionalci je poštuju kroz stroge i bezbjedne procedure rada. Za razliku od drugih zanata gdje se kvar odmah vidi, ovdje radimo sa nevidljivom energijom koja ne prašta improvizacije i rad napamet. Zato se svaki naš korak zasniva na provjeri, blokadi napona i stopostotnoj sigurnosti prije nego što uopšte dodirnemo žicu.</p>
             </div>
-            <div class="abstract-card card-plava">
+            <div class="abstract-card card-plava reveal">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span class="card-icon">🎛️</span>
+                    <svg class="svg-icon icon-plava" viewBox="0 0 24 24"><path d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"></path></svg>
                     <div class="pulse-node" style="background:#3a86ff;"></div>
                 </div>
                 <h4>2. Kako ormar izgleda unutra, tako sistem radi u praksi</h4>
-                <p class="section-text">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja i lažnih kontakata svedena je na nulu. Takav pristup omogućava da sistem radi stabilno decenijama.</p>
+                <p class="section-text">Vrhunska estetika unutar razvodnog ormara nije stvar šminke, već suštinske pouzdanosti i bezbjednosti čitavog objekta. Kada su svi provodnici idealno dimenzionisani, pedantno složeni i precizno označeni, mogućnost pregrevanja je svedena na nulu.</p>
             </div>
-            <div class="abstract-card card-crvena">
+            <div class="abstract-card card-crvena reveal delay-1">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span class="card-icon">🛡️</span>
+                    <svg class="svg-icon icon-crvena" viewBox="0 0 24 24"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"></path></svg>
                     <div class="pulse-node" style="background:#e63946;"></div>
                 </div>
                 <h4>3. Najbolji je onaj sistem na koji zaboraviš da postoji</h4>
-                <p class="section-text">Naš krajnji cilj nije da stalno dolazimo i popravljamo kvarove, već da uradimo posao tako da nas više nikada ne pozovete zbog istog problema. Iskusan električar ne rješava samo trenutni simptom, već pronalazi stvarni uzrok i ugrađuje zaštitu koja preventivno čuva opremu i ljudske živote. Kvalitet se prepoznaje po stabilnosti.</p>
+                <p class="section-text">Naš krajnji cilj nije da stalno popravljamo kvarove, već da uradimo posao tako da nas više ne pozovete zbog istog problema. Iskusan električar pronalazi stvarni uzrok i ugrađuje prevenciju.</p>
             </div>
         </div>
     </section>
 
-    <section>
+    <section class="reveal">
         <div class="moto-card">
             <p class="moto-title">Naš Moto i Vodilja</p>
             <div class="moto-img-wrapper"><img src="moto.jpg" class="blended-moto" loading="lazy" onerror="this.style.display='none';"></div>
         </div>
     </section>
 
-    <section>
+    <section class="reveal" style="margin-top: 50px;">
         <div class="history-card">
             <div class="history-grid">
                 <div style="flex:1; min-width: 300px;">
                     <span class="badge-primary">Istorijat i Evolucija</span>
                     <h2 class="section-title-left">Inženjerska preciznost i iskustvo</h2>
-                    <p class="section-text"><strong class="text-white">Milosavljević Smart Energy posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na dugogodišnje specijalizovano iskustvo, naš primarni fokus leži u najsavremenijim rješenjima za <strong>industrijsku automatizaciju i robotiku</strong>.</p>
+                    <p class="section-text"><strong class="text-white">Milosavljević Smart Energy posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na dugogodišnje specijalizovano iskustvo, naš primarni fokus leži u najsavremenijim rješenjima za <strong class="text-white">industrijsku automatizaciju i robotiku</strong>.</p>
                 </div>
                 <div style="flex:1; text-align:center; min-width: 300px;">
-                    <p style="font-size:12px; color:#4caf50; margin-bottom:10px; font-weight:500;">Ohmov Zakon</p>
+                    <p style="font-size:12px; color:#4caf50; margin-bottom:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase;">Ohmov Zakon</p>
                     <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy" onerror="this.style.display='none';"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="folder-section">
-        <div class="text-center" style="margin-bottom:45px;">
+    <section class="folder-section reveal" style="margin-top: 80px;">
+        <div class="text-center" style="margin-bottom:50px;">
             <span class="badge-primary">Reference</span>
             <h2 class="section-title" style="margin-bottom: 10px;">Pregled projekata po folderima</h2>
             <p class="section-text">Klikni na folder za prikaz sadržaja</p>
         </div>
         <div id="folders-container" class="folder-grid"></div>
         
-        <div id="auto-folder" class="auto-folder-card">
+        <div id="auto-folder" class="auto-folder-card reveal delay-1">
             <span class="badge-primary">Glavna Orijentacija</span>
-            <h3 style="font-size:28px; color:#fff; margin:16px 0; font-weight: 500;">Fokus na polju: Automatizacija i Robotika</h3>
-            <p class="section-text" style="max-width:700px; margin:0 auto 30px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
-            <div class="folder-box" data-folder-id="auto" style="background: rgba(0,0,0,0.2); max-width:600px; margin:0 auto; text-align:left;">
+            <h3 style="font-size:32px; color:#fff; margin:20px 0 16px; font-weight: 600; letter-spacing:-0.5px;">Fokus na polju: Automatizacija i Robotika</h3>
+            <p class="section-text" style="max-width:700px; margin:0 auto 35px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
+            <div class="folder-box" data-folder-id="auto" style="background: rgba(0,0,0,0.3); max-width:650px; margin:0 auto; text-align:left;">
                 <div onclick="toggleFolderWithIcon(this.parentNode)" style="display:flex; align-items:center; justify-content:space-between;">
-                    <div style="display:flex; align-items:center; gap:16px;">
+                    <div style="display:flex; align-items:center; gap:18px;">
                         <img class="folder-img" data-closed="" data-open="" src="" alt="folder">
-                        <div><h3 style="color:#fff; font-size:18px; font-weight:500;">07 Automatizacija i robotika</h3><p style="font-size:13px; color:#9ca3af;">Industrija 4.0 i pametni sistemi</p></div>
+                        <div><h3 style="color:#fff; font-size:19px; font-weight:600;">07 Automatizacija i robotika</h3><p style="font-size:14px; color:#a1aabf; margin-top:2px;">Industrija 4.0 i pametni sistemi</p></div>
                     </div>
                     <span class="folder-arrow">▶</span>
                 </div>
@@ -639,63 +570,87 @@
         </div>
     </section>
 
-    <section id="kontakt" class="contact-section">
-        <h2 class="section-title text-center" style="margin-bottom:20px;">Kontakt</h2>
+    <section id="kontakt" class="contact-section reveal">
+        <div class="text-center">
+            <span class="badge-primary">Povežimo se</span>
+            <h2 class="section-title">Kontakt</h2>
+        </div>
         <div class="contact-card">
             <p class="contact-brand">Milosavljević Smart Energy</p>
             <div class="contact-grid">
                 <div class="contact-info-box">
-                    <h4 class="text-white" style="font-size: 18px; font-weight: 500;">Rajko Milosavljević</h4>
+                    <h4 class="text-white" style="font-size: 19px; font-weight: 600;">Rajko Milosavljević</h4>
                     <div class="contact-links">
-                        <a href="tel:+38765728595" class="contact-link-btn bg-phone-alt">📞 Pozovi telefonom</a>
-                        <a href="viber://chat?number=%2B38765728595" class="contact-link-btn bg-viber">💜 Piši na Viber</a>
-                        <a href="https://wa.me/38765728595" target="_blank" class="contact-link-btn bg-whatsapp">💚 Piši na WhatsApp</a>
+                        <a href="tel:+38765728595" class="contact-link-btn bg-phone-alt">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg>
+                            Pozovi telefonom
+                        </a>
+                        <a href="viber://chat?number=%2B38765728595" class="contact-link-btn bg-viber">
+                            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            Piši na Viber
+                        </a>
+                        <a href="https://wa.me/38765728595" target="_blank" class="contact-link-btn bg-whatsapp">
+                            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            Piši na WhatsApp
+                        </a>
                     </div>
                 </div>
                 <div class="contact-info-box">
-                    <h4 class="text-white" style="font-size: 18px; font-weight: 500;">Marko Milosavljević</h4>
+                    <h4 class="text-white" style="font-size: 19px; font-weight: 600;">Marko Milosavljević</h4>
                     <div class="contact-links">
-                        <a href="tel:+38766921100" class="contact-link-btn bg-phone">📞 Pozovi telefonom</a>
-                        <a href="viber://chat?number=%2B38766921100" class="contact-link-btn bg-viber">💜 Piši na Viber</a>
-                        <a href="https://wa.me/38766921100" target="_blank" class="contact-link-btn bg-whatsapp">💚 Piši na WhatsApp</a>
+                        <a href="tel:+38766921100" class="contact-link-btn bg-phone">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg>
+                            Pozovi telefonom
+                        </a>
+                        <a href="viber://chat?number=%2B38766921100" class="contact-link-btn bg-viber">
+                            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            Piši na Viber
+                        </a>
+                        <a href="https://wa.me/38766921100" target="_blank" class="contact-link-btn bg-whatsapp">
+                            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            Piši na WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="margin-bottom:40px;">
-                <p class="section-text" style="margin-bottom: 8px;">Zvanična e-mail adresa:</p>
-                <a href="mailto:milosavljevic@outlook.com" style="color:#4caf50; font-size:18px; font-weight:500; text-decoration:none;">✉️ milosavljevic@outlook.com</a>
+            
+            <div class="text-center" style="margin-bottom:50px;">
+                <p class="section-text" style="margin-bottom: 10px;">Zvanična e-mail adresa:</p>
+                <a href="mailto:milosavljevic@outlook.com" style="display:inline-flex; align-items:center; gap:8px; color:#4caf50; font-size:19px; font-weight:600; text-decoration:none; background: rgba(76,175,80,0.1); padding: 10px 24px; border-radius: 30px;">
+                    <svg style="width:22px;height:22px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    milosavljevic@outlook.com
+                </a>
             </div>
-            <div style="background: rgba(0,0,0,0.1); padding: 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.03);">
-                <h3 id="form-title" style="color:#fff; font-size:22px; margin-bottom:24px; font-weight: 500;">Pošaljite nam upit direktno sa sajta</h3>
+            
+            <div style="background: rgba(0,0,0,0.25); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);">
+                <h3 id="form-title" style="color:#fff; font-size:22px; margin-bottom:28px; font-weight: 600;">Pošaljite nam upit direktno sa sajta</h3>
                 <form id="clean-contact-form">
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:20px;">
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:24px;">
                         <div class="form-group"><label>Ime i prezime</label><input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required></div>
                         <div class="form-group"><label>Vaš broj telefona</label><input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required></div>
                     </div>
                     <div class="form-group"><label>Vaša E-mail adresa</label><input type="email" id="ins_email" class="form-control" placeholder="ime@primer.com" required></div>
                     <div class="form-group"><label>Poruka / Opis radova</label><textarea id="ins_message" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea></div>
-                    <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Pošalji poruku</button>
+                    <button type="submit" id="submit-btn" class="form-submit-btn">
+                        <svg style="width:20px; height:20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        Pošalji poruku
+                    </button>
                 </form>
                 <div id="status-box" class="status-box">
-                    <span style="font-size: 20px;">✅</span> <strong style="color: #4caf50; font-size: 18px;">Uspješno poslato!</strong><br><br>
-                    Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge.<br>
-                    Naš tim će detaljno pregledati opis radova i kontaktiraće Vas u najkraćem mogućem roku direktno na broj telefona koji ste ostavili.<br><br>
-                    <em style="color: #9ca3af;">Srdačan pozdrav, Milosavljević Smart Energy</em>
+                    <span style="font-size: 24px;">✅</span> <strong style="color: #4caf50; font-size: 19px;">Uspješno poslato!</strong><br><br>
+                    <span style="color:#cbd5e6;">Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge. Naš tim će detaljno pregledati opis radova i kontaktiraće Vas u najkraćem mogućem roku direktno na broj telefona koji ste ostavili.</span><br><br>
+                    <em style="color: #6b7280; font-style: normal;">Srdačan pozdrav, Milosavljević Smart Energy</em>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="partners-section">
+    <div class="partners-section reveal">
         <h2 class="partners-title">🤝 Naši saradnici</h2>
         <div class="carousel-container">
-            <div class="pulse-line pulse-line-left" id="carousel-prev-line">
-                <div class="line"></div>
-            </div>
-            <div class="pulse-line pulse-line-right" id="carousel-next-line">
-                <div class="line"></div>
-            </div>
-            <div class="carousel-track" id="carouselTrack"><div class="error" style="color:#9ca3af; padding:40px; text-align:center;">Učitavam logotipe...</div></div>
+            <div class="pulse-line pulse-line-left" id="carousel-prev-line"><div class="line"></div></div>
+            <div class="pulse-line pulse-line-right" id="carousel-next-line"><div class="line"></div></div>
+            <div class="carousel-track" id="carouselTrack"><div class="error" style="color:#6b7280; padding:40px; text-align:center;">Učitavam logotipe...</div></div>
         </div>
         <div class="carousel-dots" id="carouselDots"></div>
     </div>
@@ -703,7 +658,19 @@
 
 <script>
     (function() {
-        // ========== FOLDERI ==========
+        // ========== SCROLL REVEAL (Intersection Observer) ==========
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const revealObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                    observer.unobserve(entry.target); // Animira samo jednom
+                }
+            });
+        }, revealOptions);
+        document.querySelectorAll('.reveal').forEach(el => { revealObserver.observe(el); });
+
+        // ========== FOLDERI (SVG) ==========
         const closedFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E`;
         const openFolderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='gradOpen' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2390CAF9'/%3E%3Cstop offset='100%25' stop-color='%2342A5F5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M6 8 L42 8 C43.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 L4 11 C4 9.5 4.5 8 6 8 Z' fill='url(%23gradOpen)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Cpath d='M4 12 L20 12 L24 18 L44 18' fill='none' stroke='%23BBDEFB' stroke-width='2' /%3E%3C/svg%3E`;
         
@@ -737,7 +704,7 @@
         const frag = document.createDocumentFragment();
         foldersData.forEach(f => {
             const box = document.createElement('div');
-            box.className = 'folder-box';
+            box.className = 'folder-box reveal';
             box.setAttribute('data-folder-id', f.path);
             const header = document.createElement('div');
             header.style.cssText = 'display:flex; justify-content:space-between; align-items:center;';
@@ -750,29 +717,23 @@
             img.setAttribute('data-closed', closedFolderSVG);
             img.setAttribute('data-open', openFolderSVG);
             const textDiv = document.createElement('div');
-            textDiv.innerHTML = `<h3 style="color:#fff; font-size:18px; margin:0; font-weight:500;">${f.name}</h3><p style="margin:4px 0 0; font-size:13px; color:#9ca3af;">${f.desc}</p>`;
-            left.appendChild(img);
-            left.appendChild(textDiv);
+            textDiv.innerHTML = `<h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">${f.name}</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">${f.desc}</p>`;
+            left.appendChild(img); left.appendChild(textDiv);
             const arrow = document.createElement('span');
-            arrow.className = 'folder-arrow';
-            arrow.textContent = '▶';
-            header.appendChild(left);
-            header.appendChild(arrow);
+            arrow.className = 'folder-arrow'; arrow.textContent = '▶';
+            header.appendChild(left); header.appendChild(arrow);
             const contentDiv = document.createElement('div');
             contentDiv.className = 'folder-content';
             const grid = document.createElement('div');
             grid.className = 'inner-grid';
             for (let i=1;i<=4;i++) {
                 const projImg = document.createElement('img');
-                projImg.className = 'project-img';
-                projImg.loading = 'lazy';
+                projImg.className = 'project-img'; projImg.loading = 'lazy';
                 projImg.src = `Nasi projekti/${f.path}/${i}.jpg`;
                 projImg.onerror = function() { this.style.display='none'; };
                 grid.appendChild(projImg);
             }
-            contentDiv.appendChild(grid);
-            box.appendChild(header);
-            box.appendChild(contentDiv);
+            contentDiv.appendChild(grid); box.appendChild(header); box.appendChild(contentDiv);
             frag.appendChild(box);
         });
         container.appendChild(frag);
@@ -780,11 +741,7 @@
         const autoBox = document.querySelector('#auto-folder .folder-box');
         if (autoBox) {
             const autoImg = autoBox.querySelector('.folder-img');
-            if (autoImg) {
-                autoImg.setAttribute('data-closed', closedFolderSVG);
-                autoImg.setAttribute('data-open', openFolderSVG);
-                autoImg.src = closedFolderSVG;
-            }
+            if (autoImg) { autoImg.setAttribute('data-closed', closedFolderSVG); autoImg.setAttribute('data-open', openFolderSVG); autoImg.src = closedFolderSVG; }
             const autoHeader = autoBox.querySelector('div[onclick]');
             if (autoHeader) autoHeader.onclick = (e) => window.toggleFolderWithIcon(autoBox);
         }
@@ -792,7 +749,7 @@
         // ========== MUZIKA ==========
         const music = document.getElementById('bg-music');
         const musicToggleBtn = document.getElementById('music-toggle');
-        const musicIconSpan = document.getElementById('music-icon');
+        const musicWaves = document.getElementById('music-waves');
         let musicStarted = false;
         
         function actuallyPlayMusic() {
@@ -800,31 +757,25 @@
             if (music && music.paused) {
                 music.play().then(() => {
                     musicStarted = true;
-                    if (musicIconSpan) musicIconSpan.textContent = '🔊';
+                    if(musicWaves) musicWaves.style.display = 'block';
                 }).catch(e => console.log("Audio play failed:", e));
-            } else {
-                musicStarted = true;
-            }
+            } else { musicStarted = true; }
             ['click', 'touchstart', 'scroll'].forEach(ev => {
-                window.removeEventListener(ev, actuallyPlayMusic);
-                document.removeEventListener(ev, actuallyPlayMusic);
+                window.removeEventListener(ev, actuallyPlayMusic); document.removeEventListener(ev, actuallyPlayMusic);
             });
         }
-        
-        window.addEventListener('click', actuallyPlayMusic);
-        window.addEventListener('touchstart', actuallyPlayMusic);
-        window.addEventListener('scroll', actuallyPlayMusic);
+        window.addEventListener('click', actuallyPlayMusic); window.addEventListener('touchstart', actuallyPlayMusic); window.addEventListener('scroll', actuallyPlayMusic);
         
         function toggleMusic() {
             if (!music) return;
             if (music.paused) {
                 music.play().then(() => {
                     musicStarted = true;
-                    if (musicIconSpan) musicIconSpan.textContent = '🔊';
+                    if(musicWaves) musicWaves.style.display = 'block';
                 }).catch(e => console.log);
             } else {
                 music.pause();
-                if (musicIconSpan) musicIconSpan.textContent = '🔇';
+                if(musicWaves) musicWaves.style.display = 'none';
             }
             musicStarted = true;
         }
@@ -839,12 +790,9 @@
         
         function openVideo() {
             if (music && !music.paused) {
-                wasMusicPlaying = true;
-                music.pause();
-                if (musicIconSpan) musicIconSpan.textContent = '🔇';
-            } else {
-                wasMusicPlaying = false;
-            }
+                wasMusicPlaying = true; music.pause();
+                if(musicWaves) musicWaves.style.display = 'none';
+            } else { wasMusicPlaying = false; }
             videoLightbox.classList.add('active');
             videoElement.currentTime = 0;
             videoElement.play().catch(e => console.log("Video play error:", e));
@@ -855,7 +803,7 @@
             videoElement.pause();
             if (wasMusicPlaying && music) {
                 music.play().then(() => {
-                    if (musicIconSpan) musicIconSpan.textContent = '🔊';
+                    if(musicWaves) musicWaves.style.display = 'block';
                 }).catch(e => console.log("Music resume error:", e));
             }
         }
@@ -865,15 +813,14 @@
         if (videoLightbox) videoLightbox.addEventListener('click', e => { if (e.target === videoLightbox) closeVideo(); });
         if (videoElement) videoElement.addEventListener('ended', closeVideo);
         
-        // ========== BACK TO TOP & SCROLL PERCENT ==========
+        // ========== HEADER PROGRESS BAR & BACK TO TOP ==========
         const backTopBtn = document.getElementById('back-to-top');
-        const headerProgressWidget = document.getElementById('header-progress-widget');
+        const headerPercentBtn = document.getElementById('header-percent-btn');
         const headerProgressBar = document.getElementById('header-progress-bar');
-        const percentSpan = document.getElementById('scroll-percent');
         
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
         if (backTopBtn) backTopBtn.addEventListener('click', scrollToTop);
-        if (headerProgressWidget) headerProgressWidget.addEventListener('click', scrollToTop);
+        if (headerPercentBtn) headerPercentBtn.addEventListener('click', scrollToTop);
         
         function getScrollPercent() { 
             const st = window.pageYOffset || document.documentElement.scrollTop; 
@@ -884,10 +831,10 @@
         
         function updatePercent() { 
             const percent = getScrollPercent();
-            if (percentSpan) percentSpan.textContent = `${percent.toFixed(2)}%`; 
+            if (headerPercentBtn) headerPercentBtn.textContent = `${Math.round(percent)}%`; 
             if (headerProgressBar) headerProgressBar.style.width = `${percent}%`;
         }
-        window.addEventListener('scroll', updatePercent); 
+        window.addEventListener('scroll', updatePercent, {passive: true}); 
         updatePercent();
         
         // ========== LIGHTBOX (ZA SLIKE) ==========
@@ -899,6 +846,11 @@
         function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
         if(lightbox) lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLightbox(); });
         if(closeLb) closeLb.addEventListener('click', closeLightbox);
+        
+        // Re-bind slike kad se folder otvori
+        document.querySelectorAll('.folder-box').forEach(b => {
+            b.addEventListener('click', () => { setTimeout(bindLightbox, 300); });
+        });
         bindLightbox();
         
         // ========== KONTAKT FORMA ==========
@@ -907,8 +859,8 @@
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const btn = document.getElementById('submit-btn');
-                const original = btn.innerText;
-                btn.innerText = "⏳ Slanje u toku..."; btn.disabled = true;
+                const original = btn.innerHTML;
+                btn.innerHTML = "⏳ Slanje u toku..."; btn.disabled = true;
                 fetch('https://api.web3forms.com/submit', {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -924,7 +876,7 @@
                 .then(res => res.json())
                 .then(data => { if(data.success) { contactForm.style.display = 'none'; document.getElementById('form-title').innerText = "Informacija pošiljaocu"; document.getElementById('status-box').style.display = 'block'; } else throw new Error('Greška'); })
                 .catch(err => alert("Došlo je do greške prilikom slanja."))
-                .finally(() => { btn.innerText = original; btn.disabled = false; });
+                .finally(() => { btn.innerHTML = original; btn.disabled = false; });
             });
         }
         
@@ -949,10 +901,10 @@
         }
         function renderCarousel() {
             if (!slides.length) { 
-                trackEl.innerHTML = '<div class="error" style="color:#f87171; padding:40px; text-align:center;">⚠️ Nema logotipa u folderu "saradnici".</div>'; 
+                trackEl.innerHTML = '<div class="error" style="color:#ef4444; padding:40px; text-align:center;">⚠️ Nema logotipa u folderu "saradnici".</div>'; 
                 return; 
             }
-            trackEl.innerHTML = slides.map(s => `<div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="${s.url}" alt="${s.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23333%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23aaa%27%3ELogo%3C/text%3E%3C/svg%3E'"></div><div class="partner-name">${s.name}</div></div>`).join('');
+            trackEl.innerHTML = slides.map(s => `<div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="${s.url}" alt="${s.name}" loading="lazy"></div><div class="partner-name">${s.name}</div></div>`).join('');
             updateCarouselPosition(); 
             createDots();
         }
@@ -1016,7 +968,7 @@
         if (nextLine) nextLine.addEventListener('click', () => { nextSlide(); resetAutoScroll(); });
         
         async function fetchLogos() { 
-            trackEl.innerHTML = '<div style="color:#9ca3af; padding:40px; text-align:center;">Učitavam logotipe...</div>'; 
+            trackEl.innerHTML = '<div style="color:#6b7280; padding:40px; text-align:center;">Učitavam logotipe...</div>'; 
             try { 
                 const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FOLDER_PATH}`, { headers: { 'Accept': 'application/vnd.github.v3+json' } }); 
                 if(!res.ok) throw new Error(`HTTP ${res.status}`); 
@@ -1033,7 +985,7 @@
                 window.addEventListener('resize', () => { updateCarouselPosition(); createDots(); resetAutoScroll(); }); 
                 startAutoScroll(); 
             } catch(err) { 
-                trackEl.innerHTML = `<div class="error" style="color:#f87171; padding:40px; text-align:center;">⚠️ Greška pri učitavanju: ${err.message}</div>`; 
+                trackEl.innerHTML = `<div class="error" style="color:#ef4444; padding:40px; text-align:center;">⚠️ Greška pri učitavanju: ${err.message}</div>`; 
             } 
         }
         fetchLogos();
