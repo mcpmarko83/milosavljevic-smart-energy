@@ -374,6 +374,45 @@
         .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
         .premium-action-btn:hover svg { transform: scale(1.15); }
 
+        /* ========== AI CHATBOT WIDGET ========== */
+        .chat-widget {
+            position: fixed; bottom: 100px; right: 30px; z-index: 100000;
+            width: 360px; max-width: calc(100vw - 40px);
+            background: rgba(10, 15, 25, 0.95);
+            backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(58, 134, 255, 0.3);
+            border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            display: none; flex-direction: column; overflow: hidden;
+            transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .chat-widget.active { display: flex; transform: translateY(0); opacity: 1; }
+        .chatbot-header {
+            background: rgba(58, 134, 255, 0.15); padding: 18px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .chatbot-title { color: #fff; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+        .chatbot-title::before { content: '🤖'; font-size: 20px; }
+        .chatbot-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; transition: color 0.3s; }
+        .chatbot-close:hover { color: #e63946; }
+        .chatbot-body { height: 350px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .chatbot-msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 14.5px; line-height: 1.5; word-wrap: break-word; }
+        .msg-ai { background: rgba(58, 134, 255, 0.1); color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid rgba(58,134,255,0.2); }
+        .msg-user { background: #3a86ff; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(58,134,255,0.3); }
+        .chatbot-input-area {
+            display: flex; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); gap: 10px; background: rgba(0,0,0,0.2);
+        }
+        .chatbot-input {
+            flex: 1; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px; padding: 12px 18px; color: #fff; font-family: inherit; font-size: 15px; transition: border-color 0.3s;
+        }
+        .chatbot-input:focus { outline: none; border-color: #3a86ff; }
+        .chatbot-send {
+            background: #3a86ff; border: none; border-radius: 50%; width: 45px; height: 45px;
+            display: flex; justify-content: center; align-items: center; cursor: pointer; color: #fff; transition: transform 0.3s, background 0.3s;
+        }
+        .chatbot-send:hover { background: #2563eb; transform: scale(1.05); }
+
         .lightbox-overlay, .video-lightbox {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(5,7,10,0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -400,11 +439,13 @@
             .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
             .pulse-line { width: 40px; } .lightbox-close, .close-video { top: 20px; right: 20px; width: 40px; height: 40px; }
             .project-img { height: 120px; }
+            .chat-widget { bottom: 85px; right: 20px; }
         }
         @media (max-width:480px) { 
             .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } 
             .carousel-slide { flex: 0 0 100%; min-width: 100%; } .hero-title { font-size: 32px; }
             .modal-content-grid { grid-template-columns: repeat(2, 1fr); }
+            .chat-widget { bottom: 80px; right: 10px; width: calc(100vw - 20px); }
         }
     </style>
 </head>
@@ -439,11 +480,31 @@
 </div>
 
 <div class="floating-buttons reveal delay-2">
+    <div id="ai-chat-toggle" class="premium-action-btn" title="AI Asistent" style="background: rgba(58,134,255,0.25); border-color: rgba(58,134,255,0.4); box-shadow: 0 0 20px rgba(58,134,255,0.3);">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+    </div>
+    
     <div id="music-toggle" class="premium-action-btn" title="Muzika">
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path id="music-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" style="display:none;"></path></svg>
     </div>
     <div id="back-to-top" class="premium-action-btn" title="Vrh">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+    </div>
+</div>
+
+<div id="ai-chatbot" class="chat-widget">
+    <div class="chatbot-header">
+        <div class="chatbot-title">MSE Stručni Asistent</div>
+        <button class="chatbot-close" id="ai-chat-close">&times;</button>
+    </div>
+    <div class="chatbot-body" id="ai-chat-body">
+        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam Vaš AI asistent. Kako Vam mogu pomoći oko elektroinstalacija, Smart Home sistema ili industrijske opreme?</div>
+    </div>
+    <div class="chatbot-input-area">
+        <input type="text" id="ai-input" class="chatbot-input" placeholder="Postavi pitanje...">
+        <button id="ai-send" class="chatbot-send">
+            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"></path></svg>
+        </button>
     </div>
 </div>
 
@@ -710,9 +771,8 @@
 
         window.openFolderModal = function(folderName, folderPath) {
             modalTitle.innerText = folderName;
-            modalGrid.innerHTML = ''; // Očisti prethodne slike
+            modalGrid.innerHTML = ''; 
             
-            // Ubacujemo 4 slike za test (kao i ranije)
             for (let i = 1; i <= 4; i++) {
                 const img = document.createElement('img');
                 img.src = `Nasi projekti/${folderPath}/${i}.jpg`;
@@ -720,7 +780,6 @@
                 img.loading = 'lazy';
                 img.onerror = function() { this.style.display = 'none'; };
                 
-                // Omogućavamo otvaranje slike u lightboxu iz modala
                 img.onclick = function() {
                     document.getElementById('lightbox-img').src = this.src;
                     document.getElementById('lightbox').classList.add('active');
@@ -730,7 +789,7 @@
             }
             
             folderModal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Zabrani skrolovanje pozadine
+            document.body.style.overflow = 'hidden'; 
         };
 
         closeModalBtn.onclick = function() {
@@ -825,7 +884,6 @@
         const contactForm = document.getElementById('clean-contact-form');
         const messagesContainer = document.getElementById('real-messages-container');
         
-        // Funkcija za učitavanje lokalnih poruka
         function loadLocalMessages() {
             const saved = localStorage.getItem('mse_messages');
             if (saved) {
@@ -845,8 +903,6 @@
                 });
             }
         }
-        
-        // Učitaj pri startu
         loadLocalMessages();
 
         if(contactForm) {
@@ -872,31 +928,22 @@
                     })
                 }).then(res => res.json()).then(data => { 
                     if(data.success) { 
-                        // 1. Sakrij formu i prikaži uspjeh
                         contactForm.style.display = 'none'; 
                         document.getElementById('form-title').innerText = "Informacija pošiljaocu"; 
                         document.getElementById('status-box').style.display = 'block'; 
                         
-                        // 2. Dodaj novu poruku u lokalnu memoriju (Zadrži samo zadnje 3)
                         let savedMsgs = JSON.parse(localStorage.getItem('mse_messages') || '[]');
-                        
-                        // Formatiranje vremena (npr. 14:35)
                         const now = new Date();
                         const timeString = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
                         
-                        // Maskiramo ime (npr. Marko -> M***) zbog privatnosti ako želiš, ili ostavljamo puno.
-                        // Ostavljam puno ime jer je ovo vidljivo samo njemu lokalno.
                         savedMsgs.unshift({
                             name: nameInput,
-                            text: msgInput.substring(0, 100) + (msgInput.length > 100 ? '...' : ''), // Skrati preduge poruke
+                            text: msgInput.substring(0, 100) + (msgInput.length > 100 ? '...' : ''),
                             time: 'Danas u ' + timeString
                         });
                         
-                        if (savedMsgs.length > 3) savedMsgs.pop(); // Zadrži max 3
-                        
+                        if (savedMsgs.length > 3) savedMsgs.pop(); 
                         localStorage.setItem('mse_messages', JSON.stringify(savedMsgs));
-                        
-                        // 3. Osvježi prikaz poruka
                         loadLocalMessages();
                         
                     } else throw new Error('Greška'); 
@@ -904,7 +951,111 @@
             });
         }
 
-        // ========== CAROUSEL (BOJE KAD DOĐE RED) ==========
+        // ========== AI CHATBOT LOGIKA (GEMINI INTEGRATION) ==========
+        const aiToggleBtn = document.getElementById('ai-chat-toggle');
+        const aiChatWidget = document.getElementById('ai-chatbot');
+        const aiChatClose = document.getElementById('ai-chat-close');
+        const aiInput = document.getElementById('ai-input');
+        const aiSend = document.getElementById('ai-send');
+        const aiChatBody = document.getElementById('ai-chat-body');
+
+        let aiChatHistory = [];
+        // Ubaci ovdje svoj ispravan API ključ
+        const GEMINI_API_KEY = "AQ.Ab8RN6I9zZ9-mqP-j_RFSKZ8iaz27uYN2RmVbVAX5cuQ9KHpTw";
+
+        // Sistemski prompt (pravila po tvojim instrukcijama)
+        const systemPromptText = `Ti si stručni AI asistent za inženjersku kompaniju 'Milosavljević Smart Energy' (MSE) iz Prijedora.
+Pravila komunikacije:
+1. Drži se tema elektroinstalacija, rasvjete, pametnih domova i vrhunske opreme za crkve (posebno istakni kvalitetne reflektore za crkve).
+2. Materijal: Prvo preporuči materijale sa stranice Elnos (elnos.ba), zatim od drugih provjerenih dobavljača iz BiH ili pretragu na olx.ba.
+3. Pametni domovi (Smart Home): Za pristupačnije sisteme predloži Tuya senzore, dok za potpunu, premium instalaciju uvijek predloži napredni KNX sistem.
+4. Automatizacija i Robotika: Manje forsiraj ovu temu u samom čatu, ali ako te klijent pita, naglasi rad sa Siemens (PLC) opremom, TIA Portalom, EPLAN-om i KUKA robotima. OBAVEZNO im napomeni da su to kompleksni projekti i predloži im direktan kontakt sa inženjerima (Markom ili Rajkom) putem kontakt forme na dnu sajta ili telefona.
+5. Budi profesionalan, izuzetno ljubazan, sažet i koristi se bosanskim/srpskim jezikom. Nemoj izmišljati cijene.`;
+
+        aiToggleBtn.addEventListener('click', () => {
+            aiChatWidget.classList.add('active');
+            aiInput.focus();
+        });
+
+        aiChatClose.addEventListener('click', () => {
+            aiChatWidget.classList.remove('active');
+        });
+
+        function appendMessage(text, isUser) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chatbot-msg ${isUser ? 'msg-user' : 'msg-ai'}`;
+            // Jednostavno parsiranje markdown zvjezdica u podebljan tekst
+            msgDiv.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            aiChatBody.appendChild(msgDiv);
+            aiChatBody.scrollTop = aiChatBody.scrollHeight;
+        }
+
+        async function fetchGeminiResponse(userText) {
+            appendMessage(userText, true);
+            aiInput.value = '';
+            aiSend.disabled = true;
+
+            const typingId = 'typing-' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chatbot-msg msg-ai';
+            typingDiv.id = typingId;
+            typingDiv.textContent = 'MSE Asistent kuca...';
+            aiChatBody.appendChild(typingDiv);
+            aiChatBody.scrollTop = aiChatBody.scrollHeight;
+
+            aiChatHistory.push({ role: "user", parts: [{ text: userText }] });
+
+            try {
+                const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_API_KEY, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        systemInstruction: {
+                            parts: [{ text: systemPromptText }]
+                        },
+                        contents: aiChatHistory
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById(typingId).remove();
+
+                if (data.error) {
+                    console.error("Gemini Error:", data.error);
+                    let errStr = "Došlo je do greške u povezivanju.";
+                    if(data.error.message.includes("API key")) {
+                        errStr = "API ključ nije validan. Potrebno je postaviti pravilan Google Gemini ključ (AIzaSy...).";
+                    }
+                    appendMessage(errStr, false);
+                    aiChatHistory.pop(); 
+                } else if (data.candidates && data.candidates[0].content) {
+                    const aiReply = data.candidates[0].content.parts[0].text;
+                    appendMessage(aiReply, false);
+                    aiChatHistory.push({ role: "model", parts: [{ text: aiReply }] });
+                }
+            } catch (error) {
+                document.getElementById(typingId).remove();
+                appendMessage("Mrežna greška. Molim Vas pokušajte ponovo.", false);
+                aiChatHistory.pop();
+            } finally {
+                aiSend.disabled = false;
+                aiInput.focus();
+            }
+        }
+
+        aiSend.addEventListener('click', () => {
+            const text = aiInput.value.trim();
+            if (text) fetchGeminiResponse(text);
+        });
+
+        aiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const text = aiInput.value.trim();
+                if (text) fetchGeminiResponse(text);
+            }
+        });
+
+        // ========== CAROUSEL LOGIKA ==========
         const GITHUB_USERNAME = 'mcpmarko83';
         const REPO_NAME = 'milosavljevic-smart-energy';
         const FOLDER_PATH = 'saradnici';
