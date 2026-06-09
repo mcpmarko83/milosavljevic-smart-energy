@@ -951,7 +951,9 @@
             });
         }
 
-        // ========== AI CHATBOT LOGIKA (NOVI BEZBEDNI PRISTUP) ==========
+        // ========== AI CHATBOT LOGIKA (SIGURNA PREKO CLOUDFLARE WORKER-A) ==========
+        const CLOUDFLARE_WORKER_URL = 'https://gemini-api.mcpmarko83.workers.dev/chat';  // <--- tvoj Worker URL
+        
         const aiToggleBtn = document.getElementById('ai-chat-toggle');
         const aiChatWidget = document.getElementById('ai-chatbot');
         const aiChatClose = document.getElementById('ai-chat-close');
@@ -994,25 +996,25 @@
             aiChatHistory.push({ role: "user", parts: [{ text: userText }] });
 
             try {
-                // Pozivamo TVOJ server, a ne direktno Google!
-                const response = await fetch('/api/chat', {
+                const response = await fetch(CLOUDFLARE_WORKER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        history: aiChatHistory
-                    })
+                    body: JSON.stringify({ history: aiChatHistory })
                 });
 
                 const data = await response.json();
                 document.getElementById(typingId).remove();
 
                 if (data.error) {
-                    appendMessage("Greška na serveru.", false);
-                    aiChatHistory.pop(); 
+                    appendMessage("Greška na serveru. Pokušajte ponovo.", false);
+                    aiChatHistory.pop();
                 } else if (data.candidates && data.candidates[0].content) {
                     const aiReply = data.candidates[0].content.parts[0].text;
                     appendMessage(aiReply, false);
                     aiChatHistory.push({ role: "model", parts: [{ text: aiReply }] });
+                } else {
+                    appendMessage("Nisam mogao da procesuiram odgovor.", false);
+                    aiChatHistory.pop();
                 }
             } catch (error) {
                 document.getElementById(typingId).remove();
