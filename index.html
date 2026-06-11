@@ -208,30 +208,13 @@
         .msg-body { color: #a1aabf; font-size: 15px; line-height: 1.5; font-style: italic; }
         @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ========== FLOATING BUTTONS ========== */
+        /* ========== FLOATING BUTTONS (music & top) ========== */
         .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99999; }
         .premium-action-btn { width: 52px; height: 52px; border-radius: 50%; background: rgba(30, 36, 45, 0.6); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff; }
         .premium-action-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s; }
         .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
         .premium-action-btn:hover svg { transform: scale(1.15); }
-
-        /* ========== AI CHATBOT WIDGET ========== */
-        .chat-widget { position: fixed; bottom: 100px; right: 30px; z-index: 100000; width: 360px; max-width: calc(100vw - 40px); background: rgba(10, 15, 25, 0.95); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(58, 134, 255, 0.3); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .chat-widget.active { display: flex; transform: translateY(0); opacity: 1; }
-        .chatbot-header { background: rgba(58, 134, 255, 0.15); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .chatbot-title { color: #fff; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; }
-        .chatbot-title::before { content: '🤖'; font-size: 20px; }
-        .chatbot-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; transition: color 0.3s; }
-        .chatbot-close:hover { color: #e63946; }
-        .chatbot-body { height: 350px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-        .chatbot-msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 14.5px; line-height: 1.5; word-wrap: break-word; }
-        .msg-ai { background: rgba(58, 134, 255, 0.1); color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid rgba(58,134,255,0.2); }
-        .msg-user { background: #3a86ff; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(58,134,255,0.3); }
-        .chatbot-input-area { display: flex; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); gap: 10px; background: rgba(0,0,0,0.2); }
-        .chatbot-input { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; padding: 12px 18px; color: #fff; font-family: inherit; font-size: 15px; transition: border-color 0.3s; }
-        .chatbot-input:focus { outline: none; border-color: #3a86ff; }
-        .chatbot-send { background: #3a86ff; border: none; border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; color: #fff; transition: transform 0.3s, background 0.3s; }
-        .chatbot-send:hover { background: #2563eb; transform: scale(1.05); }
+        
         .lightbox-overlay, .video-lightbox { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5,7,10,0.95); backdrop-filter: blur(15px); display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 1000000; opacity: 0; transition: opacity 0.4s ease; }
         .lightbox-overlay.active, .video-lightbox.active { display: flex; opacity: 1; }
         .lightbox-img, .video-lightbox video { max-width: 90%; max-height: 85%; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -246,13 +229,12 @@
             .abstract-card, .history-card, .moto-card, .contact-card { padding: 30px 25px; }
             .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
             .pulse-line { width: 40px; } .lightbox-close, .close-video { top: 20px; right: 20px; width: 40px; height: 40px; }
-            .project-img { height: 120px; } .chat-widget { bottom: 85px; right: 20px; }
+            .project-img { height: 120px; }
         }
         @media (max-width:480px) { 
             .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } 
             .carousel-slide { flex: 0 0 100%; min-width: 100%; } .hero-title { font-size: 32px; }
             .modal-content-grid { grid-template-columns: repeat(2, 1fr); }
-            .chat-widget { bottom: 80px; right: 10px; width: calc(100vw - 20px); }
         }
     </style>
 </head>
@@ -274,30 +256,11 @@
 </div>
 
 <div class="floating-buttons reveal delay-2">
-    <div id="ai-chat-toggle" class="premium-action-btn" title="AI Asistent" style="background: rgba(58,134,255,0.25); border-color: rgba(58,134,255,0.4); box-shadow: 0 0 20px rgba(58,134,255,0.3);">
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-    </div>
     <div id="music-toggle" class="premium-action-btn" title="Muzika">
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path id="music-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" style="display:none;"></path></svg>
     </div>
     <div id="back-to-top" class="premium-action-btn" title="Vrh">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
-    </div>
-</div>
-
-<div id="ai-chatbot" class="chat-widget">
-    <div class="chatbot-header">
-        <div class="chatbot-title">MSE Stručni Asistent</div>
-        <button class="chatbot-close" id="ai-chat-close">&times;</button>
-    </div>
-    <div class="chatbot-body" id="ai-chat-body">
-        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam MSE Pametni Asistent. Tu sam da Vam brzo pomognem oko cijena materijala, pametnih kuća, ili Vam dam naše kontakt informacije. Pitajte me šta Vas zanima!</div>
-    </div>
-    <div class="chatbot-input-area">
-        <input type="text" id="ai-input" class="chatbot-input" placeholder="Postavi pitanje (cijene, kontakt, smart home)...">
-        <button id="ai-send" class="chatbot-send">
-            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"></path></svg>
-        </button>
     </div>
 </div>
 
@@ -397,39 +360,19 @@
             <p class="section-text">Klikni na folder za prikaz sadržaja</p>
         </div>
         <div id="folders-container" class="folder-grid">
-            <div class="folder-box reveal" onclick="openFolderModal('01 Kućne instalacije', '01_Kucne_instalacije')">
-                <div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01 Kućne instalacije</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Privatne kuće i porodični objekti</p></div></div><span class="folder-arrow">▶</span>
-            </div>
-            <div class="folder-box reveal" onclick="openFolderModal('01b Vikendice i apartmani', '01b_Vikendice')">
-                <div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01b Vikendice i apartmani</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Odmarališta i vikend objekti</p></div></div><span class="folder-arrow">▶</span>
-            </div>
-            <div class="folder-box reveal" onclick="openFolderModal('02 Stambene zgrade', '02_Stambene_zgrade')">
-                <div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">02 Stambene zgrade</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Kompletan inženjering i elektro-montaža</p></div></div><span class="folder-arrow">▶</span>
-            </div>
-            <div class="folder-box reveal" onclick="openFolderModal('03 Komercijalni objekti', '03_Komercijalni_objekti')">
-                <div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">03 Komercijalni objekti</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Industrijski pogoni, hale i kancelarije</p></div></div><span class="folder-arrow">▶</span>
-            </div>
-            <div class="folder-box reveal" onclick="openFolderModal('04 Vjerski objekti', '04_Vjerski_objekti')">
-                <div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">04 Vjerski objekti</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Instalacije projektovane za dugo trajanje</p></div></div><span class="folder-arrow">▶</span>
-            </div>
-            <div class="folder-box reveal" onclick="openFolderModal('05 Ulična rasvjeta', '05_Ulicna_rasvjeta')">
-                <div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">05 Ulična rasvjeta</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">LED rasvjeta i javna infrastruktura</p></div></div><span class="folder-arrow">▶</span>
-            </div>
-            <div class="folder-box reveal" onclick="openFolderModal('06 Distributivne mreže', '06_Elektrodistributivne_mreze')">
-                <div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">06 Distributivne mreže</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Niskonaponske mreže i trafostanice</p></div></div><span class="folder-arrow">▶</span>
-            </div>
+            <div class="folder-box reveal" onclick="openFolderModal('01 Kućne instalacije', '01_Kucne_instalacije')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01 Kućne instalacije</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Privatne kuće i porodični objekti</p></div></div><span class="folder-arrow">▶</span></div>
+            <div class="folder-box reveal" onclick="openFolderModal('01b Vikendice i apartmani', '01b_Vikendice')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01b Vikendice i apartmani</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Odmarališta i vikend objekti</p></div></div><span class="folder-arrow">▶</span></div>
+            <div class="folder-box reveal" onclick="openFolderModal('02 Stambene zgrade', '02_Stambene_zgrade')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">02 Stambene zgrade</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Kompletan inženjering i elektro-montaža</p></div></div><span class="folder-arrow">▶</span></div>
+            <div class="folder-box reveal" onclick="openFolderModal('03 Komercijalni objekti', '03_Komercijalni_objekti')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">03 Komercijalni objekti</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Industrijski pogoni, hale i kancelarije</p></div></div><span class="folder-arrow">▶</span></div>
+            <div class="folder-box reveal" onclick="openFolderModal('04 Vjerski objekti', '04_Vjerski_objekti')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">04 Vjerski objekti</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Instalacije projektovane za dugo trajanje</p></div></div><span class="folder-arrow">▶</span></div>
+            <div class="folder-box reveal" onclick="openFolderModal('05 Ulična rasvjeta', '05_Ulicna_rasvjeta')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">05 Ulična rasvjeta</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">LED rasvjeta i javna infrastruktura</p></div></div><span class="folder-arrow">▶</span></div>
+            <div class="folder-box reveal" onclick="openFolderModal('06 Distributivne mreže', '06_Elektrodistributivne_mreze')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">06 Distributivne mreže</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Niskonaponske mreže i trafostanice</p></div></div><span class="folder-arrow">▶</span></div>
         </div>
         <div id="auto-folder" class="auto-folder-card reveal delay-1">
             <span class="badge-primary">Glavna Orijentacija</span>
             <h3 style="font-size:32px; color:#fff; margin:20px 0 16px; font-weight: 600; letter-spacing:-0.5px;">Fokus na polju: Automatizacija i Robotika</h3>
             <p class="section-text" style="max-width:700px; margin:0 auto 35px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
-            <div class="folder-box" style="background: rgba(0,0,0,0.3); max-width:650px; margin:0 auto; text-align:left;" onclick="openFolderModal('07 Automatizacija i robotika', '07_Automatizacija_i_robotika')">
-                <div style="display:flex; align-items:center; gap:18px;">
-                    <img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder">
-                    <div><h3 style="color:#fff; font-size:19px; font-weight:600;">07 Automatizacija i robotika</h3><p style="font-size:14px; color:#a1aabf; margin-top:2px;">Industrija 4.0 i pametni sistemi</p></div>
-                </div>
-                <span class="folder-arrow">▶</span>
-            </div>
+            <div class="folder-box" style="background: rgba(0,0,0,0.3); max-width:650px; margin:0 auto; text-align:left;" onclick="openFolderModal('07 Automatizacija i robotika', '07_Automatizacija_i_robotika')"><div style="display:flex; align-items:center; gap:18px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:19px; font-weight:600;">07 Automatizacija i robotika</h3><p style="font-size:14px; color:#a1aabf; margin-top:2px;">Industrija 4.0 i pametni sistemi</p></div></div><span class="folder-arrow">▶</span></div>
         </div>
     </section>
 
@@ -438,61 +381,37 @@
         <div class="contact-card">
             <p class="contact-brand">Milosavljević Smart Energy</p>
             <div class="contact-grid">
-                <div class="contact-info-box">
-                    <h4 class="text-white" style="font-size: 19px; font-weight: 600;">Rajko Milosavljević</h4>
-                    <div class="contact-links">
-                        <a href="tel:+38765728595" class="contact-link-btn bg-phone-alt"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> Pozovi telefonom</a>
-                        <a href="viber://chat?number=%2B38765728595" class="contact-link-btn bg-viber"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na Viber</a>
-                        <a href="https://wa.me/38765728595" target="_blank" class="contact-link-btn bg-whatsapp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na WhatsApp</a>
-                    </div>
-                </div>
-                <div class="contact-info-box">
-                    <h4 class="text-white" style="font-size: 19px; font-weight: 600;">Marko Milosavljević</h4>
-                    <div class="contact-links">
-                        <a href="tel:+38766921100" class="contact-link-btn bg-phone"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> Pozovi telefonom</a>
-                        <a href="viber://chat?number=%2B38766921100" class="contact-link-btn bg-viber"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na Viber</a>
-                        <a href="https://wa.me/38766921100" target="_blank" class="contact-link-btn bg-whatsapp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na WhatsApp</a>
-                    </div>
-                </div>
+                <div class="contact-info-box"><h4 class="text-white" style="font-size: 19px; font-weight: 600;">Rajko Milosavljević</h4><div class="contact-links"><a href="tel:+38765728595" class="contact-link-btn bg-phone-alt"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> Pozovi telefonom</a><a href="viber://chat?number=%2B38765728595" class="contact-link-btn bg-viber"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na Viber</a><a href="https://wa.me/38765728595" target="_blank" class="contact-link-btn bg-whatsapp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na WhatsApp</a></div></div>
+                <div class="contact-info-box"><h4 class="text-white" style="font-size: 19px; font-weight: 600;">Marko Milosavljević</h4><div class="contact-links"><a href="tel:+38766921100" class="contact-link-btn bg-phone"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> Pozovi telefonom</a><a href="viber://chat?number=%2B38766921100" class="contact-link-btn bg-viber"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na Viber</a><a href="https://wa.me/38766921100" target="_blank" class="contact-link-btn bg-whatsapp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na WhatsApp</a></div></div>
             </div>
-            <div class="text-center" style="margin-bottom:50px;">
-                <p class="section-text" style="margin-bottom: 10px;">Zvanična e-mail adresa:</p>
-                <a href="mailto:milosavljevic@outlook.com" style="display:inline-flex; align-items:center; gap:8px; color:#4caf50; font-size:19px; font-weight:600; text-decoration:none; background: rgba(76,175,80,0.1); padding: 10px 24px; border-radius: 30px;">
-                    <svg style="width:22px;height:22px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    milosavljevic@outlook.com
-                </a>
-            </div>
-            <div style="background: rgba(0,0,0,0.25); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);">
-                <h3 id="form-title" style="color:#fff; font-size:22px; margin-bottom:28px; font-weight: 600;">Pošaljite nam upit direktno sa sajta</h3>
-                <form id="clean-contact-form">
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:24px;">
-                        <div class="form-group"><label>Ime i prezime</label><input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required></div>
-                        <div class="form-group"><label>Vaš broj telefona</label><input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required></div>
-                    </div>
-                    <div class="form-group"><label>Vaša E-mail adresa</label><input type="email" id="ins_email" class="form-control" placeholder="ime@primer.com" required></div>
-                    <div class="form-group"><label>Poruka / Opis radova</label><textarea id="ins_message" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea></div>
-                    <button type="submit" id="submit-btn" class="form-submit-btn"><svg style="width:20px; height:20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg> Pošalji poruku</button>
-                </form>
-                <div id="status-box" class="status-box" style="display:none; padding: 20px;">
-                    <span style="font-size: 24px;">✅</span> <strong style="color: #4caf50; font-size: 19px;">Uspješno poslato!</strong><br><br>
-                    <span style="color:#cbd5e6;">Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge. Naš tim će detaljno pregledati opis radova i kontaktiraće Vas u najkraćem mogućem roku direktno na broj telefona koji ste ostavili.</span><br><br>
-                    <em style="color: #6b7280; font-style: normal;">Srdačan pozdrav, Milosavljević Smart Energy</em>
-                </div>
-            </div>
-            <div id="real-messages-container" class="real-messages-container"></div>
+            <div class="text-center" style="margin-bottom:50px;"><p class="section-text" style="margin-bottom: 10px;">Zvanična e-mail adresa:</p><a href="mailto:milosavljevic@outlook.com" style="display:inline-flex; align-items:center; gap:8px; color:#4caf50; font-size:19px; font-weight:600; text-decoration:none; background: rgba(76,175,80,0.1); padding: 10px 24px; border-radius: 30px;"><svg style="width:22px;height:22px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> milosavljevic@outlook.com</a></div>
+            <div style="background: rgba(0,0,0,0.25); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);"><h3 id="form-title" style="color:#fff; font-size:22px; margin-bottom:28px; font-weight: 600;">Pošaljite nam upit direktno sa sajta</h3><form id="clean-contact-form"><div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:24px;"><div class="form-group"><label>Ime i prezime</label><input type="text" id="ins_name" class="form-control" placeholder="Vaše ime" required></div><div class="form-group"><label>Vaš broj telefona</label><input type="tel" id="ins_phone" class="form-control" placeholder="Npr. +387 65 123 456" required></div></div><div class="form-group"><label>Vaša E-mail adresa</label><input type="email" id="ins_email" class="form-control" placeholder="ime@primer.com" required></div><div class="form-group"><label>Poruka / Opis radova</label><textarea id="ins_message" class="form-control" rows="5" placeholder="Opišite šta vam je potrebno od elektro-radova..." required></textarea></div><button type="submit" id="submit-btn" class="form-submit-btn"><svg style="width:20px; height:20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg> Pošalji poruku</button></form><div id="status-box" class="status-box" style="display:none; padding: 20px;"><span style="font-size: 24px;">✅</span> <strong style="color: #4caf50; font-size: 19px;">Uspješno poslato!</strong><br><br><span style="color:#cbd5e6;">Poštovani, primili smo Vaš upit. Zahvaljujemo Vam se na javljanju i interesovanju za naše usluge. Naš tim će detaljno pregledati opis radova i kontaktiraće Vas u najkraćem mogućem roku direktno na broj telefona koji ste ostavili.</span><br><br><em style="color: #6b7280; font-style: normal;">Srdačan pozdrav, Milosavljević Smart Energy</em></div></div><div id="real-messages-container" class="real-messages-container"></div>
         </div>
     </section>
 
     <div class="partners-section reveal">
         <h2 class="partners-title">🤝 Naši saradnici</h2>
-        <div class="carousel-container">
-            <div class="pulse-line pulse-line-left" id="carousel-prev-line"><div class="line"></div></div>
-            <div class="pulse-line pulse-line-right" id="carousel-next-line"><div class="line"></div></div>
-            <div class="carousel-track" id="carouselTrack"><div class="error" style="color:#6b7280; padding:40px; text-align:center;">Učitavam logotipe...</div></div>
-        </div>
-        <div class="carousel-dots" id="carouselDots"></div>
+        <div class="carousel-container"><div class="pulse-line pulse-line-left" id="carousel-prev-line"><div class="line"></div></div><div class="pulse-line pulse-line-right" id="carousel-next-line"><div class="line"></div></div><div class="carousel-track" id="carouselTrack"><div class="error" style="color:#6b7280; padding:40px; text-align:center;">Učitavam logotipe...</div></div></div><div class="carousel-dots" id="carouselDots"></div>
     </div>
 </div>
+
+<!-- Tawk.to Chat Widget Integration -->
+<!-- Zamijenite YOUR_PROPERTY_ID i YOUR_WIDGET_ID sa vašim stvarnim Tawk.to podacima -->
+<script>
+    var Tawk_API = Tawk_API || {};
+    var Tawk_LoadStart = new Date();
+    (function(){
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID';  // ZAMIJENITE SA STVARNIM ID-EVIMA
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+    // Opcionalno: Dodatna konfiguracija za prikazivanje widgeta po želji (npr. predefinisani pozdrav)
+    Tawk_API = Tawk_API || {};
+    // Tawk_API.onLoad = function() { Tawk_API.setAttributes({ 'ime_stranice': 'Milosavljevic Smart Energy' }); };
+</script>
 
 <script>
 (function() {
@@ -632,82 +551,9 @@
         });
     }
 
-    // ========== SIMULIRANI AI CHATBOT (BEZ API GREŠAKA) ==========
-    const aiToggleBtn = document.getElementById('ai-chat-toggle');
-    const aiChatWidget = document.getElementById('ai-chatbot');
-    const aiChatClose = document.getElementById('ai-chat-close');
-    const aiInput = document.getElementById('ai-input');
-    const aiSend = document.getElementById('ai-send');
-    const aiChatBody = document.getElementById('ai-chat-body');
-
-    aiToggleBtn.addEventListener('click', () => { aiChatWidget.classList.add('active'); aiInput.focus(); });
-    aiChatClose.addEventListener('click', () => { aiChatWidget.classList.remove('active'); });
-
-    function appendMessage(text, isUser) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `chatbot-msg ${isUser ? 'msg-user' : 'msg-ai'}`;
-        msgDiv.innerHTML = text.replace(/\n/g, '<br>');
-        aiChatBody.appendChild(msgDiv);
-        aiChatBody.scrollTop = aiChatBody.scrollHeight;
-    }
-
-    function showTyping() {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'chatbot-msg msg-ai';
-        typingDiv.id = 'typing-indicator';
-        typingDiv.textContent = 'Asistent razmišlja... ⏳';
-        aiChatBody.appendChild(typingDiv);
-        aiChatBody.scrollTop = aiChatBody.scrollHeight;
-        return typingDiv;
-    }
-
-    // Pametna "Simulirana" Inteligencija za demonstraciju
-    function getSimulatedResponse(text) {
-        const lowerText = text.toLowerCase();
-        
-        if (lowerText.includes('cijen') || lowerText.includes('cen') || lowerText.includes('kabl')) {
-            return "Naše aktuelne cijene kablova su:\n• NYY-J 3x1.5mm² → 1.20 €/m\n• NYY-J 3x2.5mm² → 1.80 €/m\n• NYY-J 5x2.5mm² → 2.90 €/m\n• Instalacioni kabl 3x1.5mm² → 0.85 €/m\nOvo su informativne cijene. Da li Vam treba ponuda za konkretan projekat?";
-        } else if (lowerText.includes('kontakt') || lowerText.includes('broj') || lowerText.includes('zva') || lowerText.includes('telefon')) {
-            return "Možete nas kontaktirati na sljedeće brojeve:\n📞 Rajko: +387 65 728 595\n📞 Marko: +387 66 921 100\n📧 Email: milosavljevic@outlook.com";
-        } else if (lowerText.includes('pamet') || lowerText.includes('smart') || lowerText.includes('kuc')) {
-            return "Radimo kompletne Smart Home sisteme! Integrišemo rasvjetu, grijanje, roletne, garažna vrata i sigurnosne sisteme. Sve možete kontrolisati preko aplikacije na telefonu. Želite li detalje o nekom specifičnom sistemu?";
-        } else if (lowerText.includes('plc') || lowerText.includes('automa') || lowerText.includes('robot') || lowerText.includes('industr')) {
-            return "Naš primarni inženjerski fokus je industrijska automatizacija. Radimo programiranje PLC uređaja, izradu elektro-ormara i integraciju robota. Kako Vam možemo pomoći u vašem pogonu?";
-        } else if (lowerText.includes('zdravo') || lowerText.includes('dobar dan') || lowerText.includes('pozdrav')) {
-            return "Pozdrav! Kako Vam MSE tim danas može pomoći?";
-        } else {
-            return "Hvala na pitanju! Trenutno odgovaram samo na pitanja vezana za *cijene*, *pametne kuće*, *automatizaciju* i *kontakt informacije*.\nZa sve tehničke detalje, budite slobodni da nas kontaktirate preko kontakt forme ispod ili direktno pozovete Marka na +387 66 921 100.";
-        }
-    }
-
-    function processChatRequest(userText) {
-        appendMessage(userText, true);
-        aiInput.value = '';
-        aiSend.disabled = true;
-
-        const typingDiv = showTyping();
-
-        // Simuliramo pauzu od sekunde da djeluje prirodno i kao pravi AI
-        setTimeout(() => {
-            typingDiv.remove();
-            const response = getSimulatedResponse(userText);
-            appendMessage(response, false);
-            
-            aiSend.disabled = false;
-            aiInput.focus();
-        }, 1200);
-    }
-
-    aiSend.addEventListener('click', () => {
-        const text = aiInput.value.trim();
-        if (text) processChatRequest(text);
-    });
-    aiInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const text = aiInput.value.trim();
-            if (text) processChatRequest(text);
-        }
-    });
+    // ========== BACK TO TOP ==========
+    const backBtn = document.getElementById('back-to-top');
+    if(backBtn) backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
     // ========== CAROUSEL (PARTNERI) ==========
     const GITHUB_USERNAME = 'mcpmarko83';
