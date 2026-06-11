@@ -395,7 +395,7 @@
         .chatbot-title::before { content: '🤖'; font-size: 20px; }
         .chatbot-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; transition: color 0.3s; }
         .chatbot-close:hover { color: #e63946; }
-        .chatbot-body { height: 350px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .chatbot-body { height: 350px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
         .chatbot-msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 14.5px; line-height: 1.5; word-wrap: break-word; }
         .msg-ai { background: rgba(58, 134, 255, 0.1); color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid rgba(58,134,255,0.2); }
         .msg-user { background: #3a86ff; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(58,134,255,0.3); }
@@ -951,8 +951,7 @@
             });
         }
 
-        // ========== AI CHATBOT LOGIKA (SIGURNA PREKO CLOUDFLARE WORKER-A) ==========
-        const CLOUDFLARE_WORKER_URL = 'https://gemini-api.mcpmarko83.workers.dev/chat';  // <--- tvoj Worker URL
+        // ========== AI CHATBOT LOGIKA (DIREKTNO U HTML-u SA OSNOVNOM KAMUFLAŽOM) ==========
         
         const aiToggleBtn = document.getElementById('ai-chat-toggle');
         const aiChatWidget = document.getElementById('ai-chatbot');
@@ -960,6 +959,11 @@
         const aiInput = document.getElementById('ai-input');
         const aiSend = document.getElementById('ai-send');
         const aiChatBody = document.getElementById('ai-chat-body');
+
+        // UPOZORENJE: Ključ je "zakamufliran" u Base64 format, ali NIJE zaštićen od naprednijih korisnika!
+        const _0x1a = 'QVEuQWI4Uk42SU9SVjlJV1E2QXdwM0o0a3VnX05mVGZ2d3dWVTlHb3ptYmRBREx3UWxGRGcu';
+        const dekodiraniKljuc = atob(_0x1a);
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${dekodiraniKljuc}`;
 
         let aiChatHistory = [];
 
@@ -995,18 +999,26 @@
 
             aiChatHistory.push({ role: "user", parts: [{ text: userText }] });
 
+            const payload = {
+                system_instruction: {
+                    parts: { text: "Ti si MSE Stručni Asistent, AI asistent za kompaniju 'Milosavljević Smart Energy'. Tvoj zadatak je da budeš stručan, ljubazan i da profesionalno odgovaraš korisnicima na pitanja vezana za elektroinstalacije, pametne kuće, industrijsku automatizaciju i robotiku." }
+                },
+                contents: aiChatHistory
+            };
+
             try {
-                const response = await fetch(CLOUDFLARE_WORKER_URL, {
+                const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ history: aiChatHistory })
+                    body: JSON.stringify(payload)
                 });
 
                 const data = await response.json();
                 document.getElementById(typingId).remove();
 
                 if (data.error) {
-                    appendMessage("Greška na serveru. Pokušajte ponovo.", false);
+                    console.error("API Greška:", data.error);
+                    appendMessage("Žao mi je, došlo je do greške na serveru. (Proverite API ključ).", false);
                     aiChatHistory.pop();
                 } else if (data.candidates && data.candidates[0].content) {
                     const aiReply = data.candidates[0].content.parts[0].text;
