@@ -395,22 +395,17 @@
     </div>
 </div>
 
-<!-- Tawk.to Chat Widget Integration -->
-<!-- Zamijenite YOUR_PROPERTY_ID i YOUR_WIDGET_ID sa vašim stvarnim Tawk.to podacima -->
-<script>
-    var Tawk_API = Tawk_API || {};
-    var Tawk_LoadStart = new Date();
-    (function(){
-        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = 'https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID';  // ZAMIJENITE SA STVARNIM ID-EVIMA
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin', '*');
-        s0.parentNode.insertBefore(s1, s0);
-    })();
-    // Opcionalno: Dodatna konfiguracija za prikazivanje widgeta po želji (npr. predefinisani pozdrav)
-    Tawk_API = Tawk_API || {};
-    // Tawk_API.onLoad = function() { Tawk_API.setAttributes({ 'ime_stranice': 'Milosavljevic Smart Energy' }); };
+<!-- Tawk.to Script Integration (zamijenjeno umjesto starog AI chata) -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a2b249ff0b5881c2ac3e992/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
 </script>
 
 <script>
