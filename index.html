@@ -486,11 +486,11 @@
 
 <div id="ai-chatbot" class="chat-widget">
     <div class="chatbot-header">
-        <div class="chatbot-title">MSE Stručni Asistent (Grok AI)</div>
+        <div class="chatbot-title">MSE Stručni Asistent (AI)</div>
         <button class="chatbot-close" id="ai-chat-close">&times;</button>
     </div>
     <div class="chatbot-body" id="ai-chat-body">
-        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam Vaš MSE Stručni Asistent (Grok AI). Kako Vam mogu pomoći u vezi sa elektroinstalacijama, pametnim kućama, cijenama kablova, PLC-om ili industrijskom automatizacijom?</div>
+        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam Vaš MSE Stručni Asistent. Kako Vam mogu pomoći u vezi sa elektroinstalacijama, pametnim kućama, cijenama kablova, PLC-om ili industrijskom automatizacijom?</div>
     </div>
     <div class="chatbot-input-area">
         <input type="text" id="ai-input" class="chatbot-input" placeholder="Postavi pitanje...">
@@ -831,7 +831,7 @@
         });
     }
 
-    // ========== AI CHATBOT - GROK API (xAI) ==========
+    // ========== AI CHATBOT - OPENROUTER API ==========
     const aiToggleBtn = document.getElementById('ai-chat-toggle');
     const aiChatWidget = document.getElementById('ai-chatbot');
     const aiChatClose = document.getElementById('ai-chat-close');
@@ -839,10 +839,12 @@
     const aiSend = document.getElementById('ai-send');
     const aiChatBody = document.getElementById('ai-chat-body');
 
-    // VAŠ GROK API KLJUČ
-    const GROK_API_KEY = 'sk-XoS5DhSKn8ZLLFdt19g8xN6fYuMNuHfToQF2KEJDgT61i99D';
-    const API_URL = 'https://api.x.ai/v1/chat/completions';
-    const MODEL = 'grok-2-1212';  // ili 'grok-beta', 'grok-2-latest'
+    // TVOJ OPENROUTER API KLJUČ (SAMO ZA LOKALNO TESTIRANJE!)
+    const OPENROUTER_API_KEY = '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';
+    const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+    
+    // Model koji želiš da koristiš preko OpenRouter-a
+    const MODEL = 'meta-llama/llama-3.3-70b-instruct'; 
 
     let chatHistory = [];
 
@@ -890,7 +892,7 @@ Ako korisnik postavi pitanje koje NIJE iz ovih oblasti, ljubazno mu odgovori da 
 
 Odgovaraj profesionalno, ljubazno, i korisno, ali striktno se drži zadatog domena.`;
 
-    async function sendToGrok(userText) {
+    async function sendToOpenRouter(userText) {
         appendMessage(userText, true);
         aiInput.value = '';
         aiSend.disabled = true;
@@ -909,7 +911,9 @@ Odgovaraj profesionalno, ljubazno, i korisno, ali striktno se drži zadatog dome
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${GROK_API_KEY}`
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'HTTP-Referer': window.location.href, // Preporučeno od strane OpenRouter-a
+                    'X-Title': 'Milosavljevic Smart Energy' // Preporučeno od strane OpenRouter-a
                 },
                 body: JSON.stringify({
                     model: MODEL,
@@ -933,7 +937,7 @@ Odgovaraj profesionalno, ljubazno, i korisno, ali striktno se drži zadatog dome
             chatHistory.push({ role: "assistant", content: aiReply });
 
         } catch (error) {
-            console.error("Greška pri komunikaciji sa Grok API:", error);
+            console.error("Greška pri komunikaciji sa OpenRouter API:", error);
             typingDiv.remove();
             appendMessage("Došlo je do tehničke greške. Molimo Vas pokušajte ponovo ili nas kontaktirajte putem kontakt forme.", false);
         } finally {
@@ -944,12 +948,12 @@ Odgovaraj profesionalno, ljubazno, i korisno, ali striktno se drži zadatog dome
 
     aiSend.addEventListener('click', () => {
         const text = aiInput.value.trim();
-        if (text) sendToGrok(text);
+        if (text) sendToOpenRouter(text);
     });
     aiInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const text = aiInput.value.trim();
-            if (text) sendToGrok(text);
+            if (text) sendToOpenRouter(text);
         }
     });
 
