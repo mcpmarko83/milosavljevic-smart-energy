@@ -82,7 +82,6 @@
             display: inline-block;
             border: 1px solid rgba(76,175,80,0.25);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             text-transform: uppercase;
         }
         .section-title { font-size: 36px; color: #fff; margin-top: 16px; margin-bottom: 35px; font-weight: 600; letter-spacing: -0.5px; line-height: 1.2; }
@@ -93,7 +92,6 @@
         .header-main {
             background: rgba(5, 7, 10, 0.75);
             backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
             padding: 16px 20px;
             position: sticky;
             top: 0;
@@ -146,7 +144,7 @@
             display: inline-flex; align-items: center; justify-content: center; margin-top: 40px; padding: 16px 45px;
             border-radius: 50px; background: rgba(76,175,80,0.1); color: #4caf50;
             border: 1px solid rgba(76,175,80,0.3); text-decoration: none; font-weight: 600; font-size: 16px;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1);
+            backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1);
         }
         .btn-primary:hover { background: #4caf50; color: #fff; transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(76,175,80,0.3); }
 
@@ -157,7 +155,7 @@
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); background: #1a1f2a;
         }
         .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
-        .glass-play { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; }
+        .glass-play { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; }
         .glass-play svg { width: 40px; height: 40px; fill: white; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .video-circle:hover .video-thumb { transform: translateY(-5px) scale(1.02); box-shadow: 0 25px 50px rgba(76,175,80,0.3), inset 0 0 0 4px #4caf50; }
         .video-circle:hover img { transform: scale(1.1); }
@@ -168,7 +166,7 @@
         /* ========== CARDS & GRIDS ========== */
         .grid-philosophie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .abstract-card {
-            background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 32px; padding: 40px; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
@@ -193,7 +191,7 @@
         @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(3.5); opacity: 0; } }
 
         .history-card, .moto-card, .contact-card {
-            background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px);
             border: 1px solid rgba(255,255,255,0.05); border-radius: 32px; padding: 50px;
             transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
@@ -242,7 +240,7 @@
             transform: translateY(0);
         }
         .modal-header {
-            position: sticky; top: 0; background: rgba(5,7,10,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; background: rgba(5,7,10,0.9); backdrop-filter: blur(20px);
             padding: 20px; display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 10;
         }
@@ -359,10 +357,11 @@
 
         @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ========== FLOATING BUTTONS ========== */
         .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99999; }
         .premium-action-btn {
             width: 52px; height: 52px; border-radius: 50%; background: rgba(30, 36, 45, 0.6);
-            backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff;
         }
@@ -370,11 +369,12 @@
         .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
         .premium-action-btn:hover svg { transform: scale(1.15); }
 
+        /* ========== AI CHATBOT WIDGET ========== */
         .chat-widget {
             position: fixed; bottom: 100px; right: 30px; z-index: 100000;
             width: 360px; max-width: calc(100vw - 40px);
             background: rgba(10, 15, 25, 0.95);
-            backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(24px) saturate(180%);
             border: 1px solid rgba(58, 134, 255, 0.3);
             border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             display: none; flex-direction: column; overflow: hidden;
@@ -410,7 +410,7 @@
 
         .lightbox-overlay, .video-lightbox {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(5,7,10,0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            background: rgba(5,7,10,0.95); backdrop-filter: blur(15px);
             display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 1000000;
             opacity: 0; transition: opacity 0.4s ease;
         }
@@ -486,11 +486,11 @@
 
 <div id="ai-chatbot" class="chat-widget">
     <div class="chatbot-header">
-        <div class="chatbot-title">MSE Stručni Asistent (DeepSeek)</div>
+        <div class="chatbot-title">MSE Stručni Asistent (Grok AI)</div>
         <button class="chatbot-close" id="ai-chat-close">&times;</button>
     </div>
     <div class="chatbot-body" id="ai-chat-body">
-        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam Vaš MSE Stručni Asistent. Kako Vam mogu pomoći u vezi sa elektroinstalacijama, pametnim kućama, industrijskom automatizacijom ili robotikom?</div>
+        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam Vaš MSE Stručni Asistent (Grok AI). Kako Vam mogu pomoći u vezi sa elektroinstalacijama, pametnim kućama, cijenama kablova, PLC-om ili industrijskom automatizacijom?</div>
     </div>
     <div class="chatbot-input-area">
         <input type="text" id="ai-input" class="chatbot-input" placeholder="Postavi pitanje...">
@@ -831,7 +831,7 @@
         });
     }
 
-    // ========== AI CHATBOT - DEEPSEEK PREKO CLOUDFLARE WORKER PROXY ==========
+    // ========== AI CHATBOT - GROK API (xAI) ==========
     const aiToggleBtn = document.getElementById('ai-chat-toggle');
     const aiChatWidget = document.getElementById('ai-chatbot');
     const aiChatClose = document.getElementById('ai-chat-close');
@@ -839,8 +839,10 @@
     const aiSend = document.getElementById('ai-send');
     const aiChatBody = document.getElementById('ai-chat-body');
 
-    // VAŠ WORKER URL (zamijenjen sa vašim)
-    const WORKER_URL = 'https://mse-deepseek-proxy.mcpmarko83.workers.dev';
+    // VAŠ GROK API KLJUČ
+    const GROK_API_KEY = 'sk-XoS5DhSKn8ZLLFdt19g8xN6fYuMNuHfToQF2KEJDgT61i99D';
+    const API_URL = 'https://api.x.ai/v1/chat/completions';
+    const MODEL = 'grok-2-1212';  // ili 'grok-beta', 'grok-2-latest'
 
     let chatHistory = [];
 
@@ -850,12 +852,21 @@
     function appendMessage(text, isUser) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `chatbot-msg ${isUser ? 'msg-user' : 'msg-ai'}`;
-        msgDiv.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        msgDiv.innerHTML = text.replace(/\n/g, '<br>');
         aiChatBody.appendChild(msgDiv);
         aiChatBody.scrollTop = aiChatBody.scrollHeight;
     }
 
-    // System prompt koji ograničava asistenta samo na poslovnu domenu
+    function showTyping() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chatbot-msg msg-ai';
+        typingDiv.id = 'typing-indicator';
+        typingDiv.textContent = 'MSE Asistent razmišlja...';
+        aiChatBody.appendChild(typingDiv);
+        aiChatBody.scrollTop = aiChatBody.scrollHeight;
+        return typingDiv;
+    }
+
     const systemPrompt = `Ti si MSE Stručni Asistent za kompaniju "Milosavljević Smart Energy" (od 1998).
 Tvoja uloga je da odgovaraš isključivo na pitanja o sljedećim temama:
 - Elektroinstalacije
@@ -864,59 +875,67 @@ Tvoja uloga je da odgovaraš isključivo na pitanja o sljedećim temama:
 - Cijene i specifikacije elektro materijala (kablovi, osigurači, itd.)
 - Usluge koje kompanija nudi
 
-Ako korisnik postavi pitanje koje NIJE iz ovih oblasti (npr. politika, rat, istorija, vijesti, opšte činjenice), ljubazno mu odgovori da nisi obučen za tu temu i predloži da postavi pitanje vezano za elektro-struku ili automatizaciju.
+**VAŽNE INFORMACIJE O KOMPANIJI:**
+- Kontakt: +387 65 728 595 (Rajko) ili +387 66 921 100 (Marko), email: milosavljevic@outlook.com.
+- **Aktuelne cijene kablova:**
+  • NYY-J 3x1.5mm² → 1.20 €/m
+  • NYY-J 3x2.5mm² → 1.80 €/m
+  • NYY-J 5x2.5mm² → 2.90 €/m
+  • NYY-J 5x4mm² → 4.20 €/m
+  • PP-Y 2x2x0.8 → 0.95 €/m
+  • Instalacioni kabl 3x1.5mm² → 0.85 €/m
+  (Ove cijene su informativnog karaktera i mogu se mijenjati.)
+
+Ako korisnik postavi pitanje koje NIJE iz ovih oblasti, ljubazno mu odgovori da nisi obučen za tu temu i predloži da postavi pitanje vezano za elektro-struku ili automatizaciju.
 
 Odgovaraj profesionalno, ljubazno, i korisno, ali striktno se drži zadatog domena.`;
 
-    async function sendToDeepSeek(userText) {
+    async function sendToGrok(userText) {
         appendMessage(userText, true);
         aiInput.value = '';
         aiSend.disabled = true;
 
-        const typingId = 'typing-' + Date.now();
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'chatbot-msg msg-ai';
-        typingDiv.id = typingId;
-        typingDiv.textContent = 'MSE Asistent razmišlja...';
-        aiChatBody.appendChild(typingDiv);
-        aiChatBody.scrollTop = aiChatBody.scrollHeight;
+        const typingDiv = showTyping();
 
         chatHistory.push({ role: "user", content: userText });
 
-        const requestBody = {
-            model: "deepseek-chat",
-            messages: [
-                { role: "system", content: systemPrompt },
-                ...chatHistory
-            ],
-            stream: false
-        };
+        const messages = [
+            { role: "system", content: systemPrompt },
+            ...chatHistory
+        ];
 
         try {
-            const response = await fetch(WORKER_URL, {
+            const response = await fetch(API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody)
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GROK_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: MODEL,
+                    messages: messages,
+                    temperature: 0.7,
+                    max_tokens: 800
+                })
             });
 
-            document.getElementById(typingId)?.remove();
+            typingDiv.remove();
 
             if (!response.ok) {
+                const errorData = await response.json();
+                console.error("API Greška:", errorData);
                 throw new Error(`HTTP ${response.status}`);
             }
 
             const data = await response.json();
-            if (data.choices && data.choices[0] && data.choices[0].message) {
-                const aiReply = data.choices[0].message.content;
-                appendMessage(aiReply, false);
-                chatHistory.push({ role: "assistant", content: aiReply });
-            } else {
-                throw new Error("Nepoznat odgovor");
-            }
+            const aiReply = data.choices[0].message.content;
+            appendMessage(aiReply, false);
+            chatHistory.push({ role: "assistant", content: aiReply });
+
         } catch (error) {
-            console.error("Greška pri komunikaciji sa DeepSeek-om:", error);
-            document.getElementById(typingId)?.remove();
-            appendMessage("Došlo je do tehničke greške. Molimo Vas pokušajte ponovo kasnije.", false);
+            console.error("Greška pri komunikaciji sa Grok API:", error);
+            typingDiv.remove();
+            appendMessage("Došlo je do tehničke greške. Molimo Vas pokušajte ponovo ili nas kontaktirajte putem kontakt forme.", false);
         } finally {
             aiSend.disabled = false;
             aiInput.focus();
@@ -925,12 +944,12 @@ Odgovaraj profesionalno, ljubazno, i korisno, ali striktno se drži zadatog dome
 
     aiSend.addEventListener('click', () => {
         const text = aiInput.value.trim();
-        if (text) sendToDeepSeek(text);
+        if (text) sendToGrok(text);
     });
     aiInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const text = aiInput.value.trim();
-            if (text) sendToDeepSeek(text);
+            if (text) sendToGrok(text);
         }
     });
 
