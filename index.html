@@ -1,4 +1,4 @@
-<!DOCTYPE html>
++<!DOCTYPE html>
 <html lang="sr">
 <head>
     <meta charset="UTF-8">
@@ -951,7 +951,7 @@
             });
         }
 
-        // ========== AI CHATBOT LOGIKA (DIREKTNO U HTML-u SA OSNOVNOM KAMUFLAŽOM) ==========
+        // ========== AI CHATBOT LOGIKA (DIREKTNO U HTML-u) ==========
         
         const aiToggleBtn = document.getElementById('ai-chat-toggle');
         const aiChatWidget = document.getElementById('ai-chatbot');
@@ -960,10 +960,9 @@
         const aiSend = document.getElementById('ai-send');
         const aiChatBody = document.getElementById('ai-chat-body');
 
-        // UPOZORENJE: Ključ je "zakamufliran" u Base64 format, ali NIJE zaštićen od naprednijih korisnika!
-        const _0x1a = 'QVEuQWI4Uk42SU9SVjlJV1E2QXdwM0o0a3VnX05mVGZ2d3dWVTlHb3ptYmRBREx3UWxGRGcu';
-        const dekodiraniKljuc = atob(_0x1a);
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${dekodiraniKljuc}`;
+        // Tvoj API ključ
+        const API_KEY = 'AQ.Ab8RN6LBVlGZ3tni81N-AvzPt90SruYyv6ixh2WSVMf9smTxew';
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         let aiChatHistory = [];
 
@@ -1001,7 +1000,7 @@
 
             const payload = {
                 system_instruction: {
-                    parts: { text: "Ti si MSE Stručni Asistent, AI asistent za kompaniju 'Milosavljević Smart Energy'. Tvoj zadatak je da budeš stručan, ljubazan i da profesionalno odgovaraš korisnicima na pitanja vezana za elektroinstalacije, pametne kuće, industrijsku automatizaciju i robotiku." }
+                    parts: { text: "Ti si MSE Stručni Asistent, zvanični AI asistent za inženjersku kompaniju 'Milosavljević Smart Energy' (MSE). Kompanija postoji od 1998. godine. Tvoj zadatak je da budeš maksimalno stručan, ljubazan i da profesionalno odgovaraš korisnicima na pitanja vezana za elektroinstalacije, pametne kuće (Smart Home), industrijsku automatizaciju i robotiku." }
                 },
                 contents: aiChatHistory
             };
@@ -1017,20 +1016,20 @@
                 document.getElementById(typingId).remove();
 
                 if (data.error) {
-                    console.error("API Greška:", data.error);
-                    appendMessage("Žao mi je, došlo je do greške na serveru. (Proverite API ključ).", false);
+                    console.error("API Greška detalji:", data.error);
+                    appendMessage("Žao mi je, trenutno ne mogu da odgovorim zbog tehničke greške na serveru.", false);
                     aiChatHistory.pop();
                 } else if (data.candidates && data.candidates[0].content) {
                     const aiReply = data.candidates[0].content.parts[0].text;
                     appendMessage(aiReply, false);
                     aiChatHistory.push({ role: "model", parts: [{ text: aiReply }] });
                 } else {
-                    appendMessage("Nisam mogao da procesuiram odgovor.", false);
+                    appendMessage("Nisam dobio jasan odgovor od sistema.", false);
                     aiChatHistory.pop();
                 }
             } catch (error) {
                 document.getElementById(typingId).remove();
-                appendMessage("Mrežna greška. Molim Vas pokušajte ponovo.", false);
+                appendMessage("Došlo je do mrežne greške. Molim Vas proverite Vašu internet konekciju i pokušajte ponovo.", false);
                 aiChatHistory.pop();
             } finally {
                 aiSend.disabled = false;
