@@ -490,7 +490,7 @@
         <button class="chatbot-close" id="ai-chat-close">&times;</button>
     </div>
     <div class="chatbot-body" id="ai-chat-body">
-        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam Vaš AI asistent. Kako Vam mogu pomoći oko elektroinstalacija, pametnih kuća, cijena kablova ili industrijske opreme?</div>
+        <div class="chatbot-msg msg-ai">Dobar dan! Ja sam Vaš MSE Stručni Asistent. Kako Vam mogu pomoći u vezi sa elektroinstalacijama, pametnim kućama, industrijskom automatizacijom ili robotikom?</div>
     </div>
     <div class="chatbot-input-area">
         <input type="text" id="ai-input" class="chatbot-input" placeholder="Postavi pitanje...">
@@ -831,7 +831,7 @@
         });
     }
 
-    // ========== AI CHATBOT – DEEPSEEK + FALLBACK SA CIJENAMA KABLOVA ==========
+    // ========== AI CHATBOT - DEEPSEEK PREKO CLOUDFLARE WORKER PROXY ==========
     const aiToggleBtn = document.getElementById('ai-chat-toggle');
     const aiChatWidget = document.getElementById('ai-chatbot');
     const aiChatClose = document.getElementById('ai-chat-close');
@@ -839,9 +839,8 @@
     const aiSend = document.getElementById('ai-send');
     const aiChatBody = document.getElementById('ai-chat-body');
 
-    const DEEPSEEK_API_KEY = 'sk-d0ddf2c4652045bb9e8dc0bd5e0f1fe9';
-    const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-    const DEEPSEEK_API_URL = CORS_PROXY + 'https://api.deepseek.com/v1/chat/completions';
+    // VAŠ WORKER URL (zamijenjen sa vašim)
+    const WORKER_URL = 'https://mse-deepseek-proxy.mcpmarko83.workers.dev';
 
     let chatHistory = [];
 
@@ -856,32 +855,18 @@
         aiChatBody.scrollTop = aiChatBody.scrollHeight;
     }
 
-    // FALLBACK ODGOVORI SA CIJENAMA KABLOVA
-    function getFallbackResponse(userMessage) {
-        const msg = userMessage.toLowerCase();
-        if (msg.includes('cijena kabla') || msg.includes('cijene kablova') || (msg.includes('kabel') && msg.includes('cijena')) || (msg.includes('kabl') && msg.includes('cijena'))) {
-            return "📊 **Aktuelne cijene bakarnih kablova (sa PDV-om):**\n• NYY-J 3x1.5mm² → 1.20 €/m\n• NYY-J 3x2.5mm² → 1.80 €/m\n• NYY-J 5x2.5mm² → 2.90 €/m\n• NYY-J 5x4mm² → 4.20 €/m\n• PP-Y 2x2x0.8 (strujni krug) → 0.95 €/m\n• Instalacioni kabl 3x1.5mm² (crveno-crni) → 0.85 €/m\n\n*Cijene se redovno ažuriraju. Za veće količine dajemo popust – kontaktirajte nas!*";
-        }
-        if (msg.includes('cijena') || msg.includes('cijene') || msg.includes('koliko košta')) {
-            return "Cijena zavisi od obima posla i specifikacije. Najbolje je da nam pošaljete upit preko kontakt forme ili nas pozovete – napravićemo detaljnu ponudu bez obaveze. Takođe, možete pitati za cijene kablova po metru.";
-        }
-        if (msg.includes('pametna kuća') || msg.includes('smart home')) {
-            return "Za pametne kuće nudimo kompletnu integraciju: upravljanje rasvjetom, roletnama, grijanjem, video nadzorom i robotikom. Radimo sa KNX, Home Assistant, i drugim sistemima. Javite nam se za konsultacije.";
-        }
-        if (msg.includes('automatizacija') || msg.includes('robotika') || msg.includes('industrijska')) {
-            return "Specijalizovani smo za industrijske automatizacije, PLC ormare, robotske ćelije i Industrij 4.0. Imamo iskustva sa velikim proizvodnim sistemima. Detaljno vas možemo posavjetovati na licu mjesta.";
-        }
-        if (msg.includes('elektroinstalacije') || msg.includes('struja') || msg.includes('provodnici')) {
-            return "Elektroinstalacije radimo po najvišim standardima – od projektovanja do izvođenja. Bezbednost je na prvom mjestu. Ugradimo kvalitetne materijale i izdajemo garanciju.";
-        }
-        if (msg.includes('kontakt') || msg.includes('telefon') || msg.includes('mail')) {
-            return "Možete nas kontaktirati na brojeve +387 65 728 595 (Rajko) ili +387 66 921 100 (Marko), putem Viber/WhatsApp, ili nam pisati na milosavljevic@outlook.com.";
-        }
-        if (msg.includes('iskustvo') || msg.includes('godina') || msg.includes('tradicija')) {
-            return "Milosavljević Smart Energy posluje od 1998. godine. U protekle 3 decenije izveli smo stotine projekata – od kućnih instalacija do složenih industrijskih sistema i distributivnih mreža.";
-        }
-        return "Hvala na pitanju! Naš tim će Vam odgovoriti što prije. Za konkretne informacije o vašem projektu, pozovite nas ili pošaljite upit preko kontakt forme. Tu smo da Vam pomognemo.";
-    }
+    // System prompt koji ograničava asistenta samo na poslovnu domenu
+    const systemPrompt = `Ti si MSE Stručni Asistent za kompaniju "Milosavljević Smart Energy" (od 1998).
+Tvoja uloga je da odgovaraš isključivo na pitanja o sljedećim temama:
+- Elektroinstalacije
+- Pametne kuće (Smart Home)
+- Industrijska automatizacija i robotika
+- Cijene i specifikacije elektro materijala (kablovi, osigurači, itd.)
+- Usluge koje kompanija nudi
+
+Ako korisnik postavi pitanje koje NIJE iz ovih oblasti (npr. politika, rat, istorija, vijesti, opšte činjenice), ljubazno mu odgovori da nisi obučen za tu temu i predloži da postavi pitanje vezano za elektro-struku ili automatizaciju.
+
+Odgovaraj profesionalno, ljubazno, i korisno, ali striktno se drži zadatog domena.`;
 
     async function sendToDeepSeek(userText) {
         appendMessage(userText, true);
@@ -897,36 +882,57 @@
         aiChatBody.scrollTop = aiChatBody.scrollHeight;
 
         chatHistory.push({ role: "user", content: userText });
-        const systemPrompt = "Ti si MSE Stručni Asistent za kompaniju 'Milosavljević Smart Energy' (od 1998). Odgovaraj profesionalno, ljubazno i korisno na pitanja o elektroinstalacijama, pametnim kućama, automatizaciji i robotici. Ako te neko pita za cijene kablova, daj okvirne cijene (npr. NYY-J 3x1.5 ≈ 1.20€/m).";
+
+        const requestBody = {
+            model: "deepseek-chat",
+            messages: [
+                { role: "system", content: systemPrompt },
+                ...chatHistory
+            ],
+            stream: false
+        };
 
         try {
-            const response = await fetch(DEEPSEEK_API_URL, {
+            const response = await fetch(WORKER_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DEEPSEEK_API_KEY}` },
-                body: JSON.stringify({ model: "deepseek-chat", messages: [{ role: "system", content: systemPrompt }, ...chatHistory], stream: false })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
             });
+
             document.getElementById(typingId)?.remove();
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
             const data = await response.json();
             if (data.choices && data.choices[0] && data.choices[0].message) {
                 const aiReply = data.choices[0].message.content;
                 appendMessage(aiReply, false);
                 chatHistory.push({ role: "assistant", content: aiReply });
-            } else throw new Error("Nepoznat odgovor");
+            } else {
+                throw new Error("Nepoznat odgovor");
+            }
         } catch (error) {
-            console.error("DeepSeek greška:", error);
+            console.error("Greška pri komunikaciji sa DeepSeek-om:", error);
             document.getElementById(typingId)?.remove();
-            const fallback = getFallbackResponse(userText);
-            appendMessage(fallback, false);
-            chatHistory.push({ role: "assistant", content: fallback });
+            appendMessage("Došlo je do tehničke greške. Molimo Vas pokušajte ponovo kasnije.", false);
         } finally {
             aiSend.disabled = false;
             aiInput.focus();
         }
     }
 
-    aiSend.addEventListener('click', () => { const text = aiInput.value.trim(); if (text) sendToDeepSeek(text); });
-    aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { const text = aiInput.value.trim(); if (text) sendToDeepSeek(text); } });
+    aiSend.addEventListener('click', () => {
+        const text = aiInput.value.trim();
+        if (text) sendToDeepSeek(text);
+    });
+    aiInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const text = aiInput.value.trim();
+            if (text) sendToDeepSeek(text);
+        }
+    });
 
     // ========== CAROUSEL (PARTNERI) ==========
     const GITHUB_USERNAME = 'mcpmarko83';
