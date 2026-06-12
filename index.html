@@ -209,7 +209,7 @@
         @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ========== FLOATING BUTTONS (music & top) ========== */
-        .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99999; }
+        .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99998; }
         .premium-action-btn { width: 52px; height: 52px; border-radius: 50%; background: rgba(30, 36, 45, 0.6); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff; }
         .premium-action-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s; }
         .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
@@ -223,6 +223,27 @@
         .lightbox-close svg, .close-video svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
         .lightbox-close:hover, .close-video:hover { background: rgba(230,57,70,0.2); color: #e63946; border-color: rgba(230,57,70,0.4); transform: scale(1.1) rotate(90deg); }
 
+        /* ========== MSE AI WIDGET ========== */
+        #mse-ai-widget { position: fixed; bottom: 90px; right: 30px; width: 360px; height: 550px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(76,175,80,0.3); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 99999; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s; overflow: hidden; }
+        .ai-hidden { transform: translateY(120%) scale(0.9); opacity: 0; pointer-events: none; }
+        .ai-header { background: rgba(5, 7, 10, 0.9); padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .ai-header-title { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 600; font-size: 15px; }
+        .ai-header-title .pulse { width: 8px; height: 8px; background: #4caf50; border-radius: 50%; box-shadow: 0 0 10px #4caf50; animation: aiPulse 2s infinite; }
+        .ai-close-btn { background: none; border: none; color: #a1aabf; font-size: 24px; cursor: pointer; transition: color 0.3s; }
+        .ai-close-btn:hover { color: #fff; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+        .ai-msg, .user-msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; }
+        .ai-msg { background: rgba(255,255,255,0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .user-msg { background: rgba(76,175,80,0.2); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; border: 1px solid rgba(76,175,80,0.3); }
+        .ai-input-area { padding: 15px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 10px; }
+        .ai-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; padding: 12px 20px; color: #fff; font-family: inherit; font-size: 14px; outline: none; transition: border 0.3s; }
+        .ai-input-area input:focus { border-color: #4caf50; }
+        .ai-send-btn { background: #4caf50; color: #fff; border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+        .ai-send-btn:hover { background: #43a047; transform: scale(1.05); }
+        .ai-action-btn { background: rgba(76,175,80,0.15); border: 1px solid #4caf50; color: #fff; padding: 10px 15px; border-radius: 10px; cursor: pointer; margin-top: 10px; font-weight: 600; text-align: center; display: block; width: 100%; transition: background 0.3s; }
+        .ai-action-btn:hover { background: #4caf50; }
+        @keyframes aiPulse { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
+
         @media (max-width:768px) {
             .hide-mobile { display: none; } .hero-title { font-size: 38px; }
             .grid-philosophie { grid-template-columns: 1fr; } .abstract-card.full-width { grid-column: auto; }
@@ -235,6 +256,7 @@
             .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } 
             .carousel-slide { flex: 0 0 100%; min-width: 100%; } .hero-title { font-size: 32px; }
             .modal-content-grid { grid-template-columns: repeat(2, 1fr); }
+            #mse-ai-widget { width: calc(100vw - 40px); bottom: 80px; right: 20px; height: 500px; }
         }
     </style>
 </head>
@@ -256,6 +278,9 @@
 </div>
 
 <div class="floating-buttons reveal delay-2">
+    <div class="premium-action-btn" title="MSE AI Chat" onclick="toggleAI()" style="background: rgba(76,175,80,0.2); border-color: #4caf50;">
+        <svg viewBox="0 0 24 24" style="stroke: #4caf50;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </div>
     <div id="music-toggle" class="premium-action-btn" title="Muzika">
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path id="music-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" style="display:none;"></path></svg>
     </div>
@@ -395,18 +420,19 @@
     </div>
 </div>
 
-<!-- Tawk.to Script Integration (zamijenjeno umjesto starog AI chata) -->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a2b249ff0b5881c2ac3e992/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+<div id="mse-ai-widget" class="ai-hidden">
+    <div class="ai-header">
+        <div class="ai-header-title"><div class="pulse"></div> MSE AI Inženjer</div>
+        <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
+    </div>
+    <div id="ai-messages" class="ai-messages">
+        <div class="ai-msg">Poštovani, ja sam MSE AI Inženjer. Spremio sam se da Vam pomognem oko projektovanja, cijena materijala ili tehničkih detalja za automatizaciju i elektroinstalacije. Kako Vam mogu pomoći?</div>
+    </div>
+    <div class="ai-input-area">
+        <input type="text" id="ai-input" placeholder="Unesite Vaše pitanje..." onkeypress="handleAIPress(event)">
+        <button class="ai-send-btn" onclick="sendToAI()"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg></button>
+    </div>
+</div>
 
 <script>
 (function() {
@@ -613,6 +639,126 @@ s0.parentNode.insertBefore(s1,s0);
     }
     fetchLogos();
 })();
+
+// ========== MSE AI LOGIKA ==========
+// OBAVEZNO OVDJE UNESI SVOJ OPENAI API KLJUČ ZA TESTIRANJE.
+// PAŽNJA: Ako kod prebaciš na javni (Public) GitHub repozitorijum, OpenAI će u roku od par minuta blokirati ključ!
+const OPENAI_API_KEY = 'UNESI_SVOJ_API_KLJUC_OVDJE'; 
+
+const systemPrompt = `Ti si zvanični AI inženjer kompanije "Milosavljević Smart Energy". Tvoj zadatak je da pružaš stručne, tehnički tačne i edukativne odgovore klijentima. 
+Prioritet daješ činjenicama nad pretpostavkama. Ne izmišljaj informacije. 
+
+Tvoje usluge uključuju:
+- Kompleksne elektroinstalacije za kuće, zgrade i ekskluzivne vjerske objekte.
+- Industrijska automatizacija i robotika (rad sa Siemens PLC sistemima kao što su S7-1200, S7-1500, TIA Portal, te KUKA robotima).
+- Smart Home sistemi (Home Assistant, KNX, Zigbee protokoli).
+- Distributivne mreže i ulična rasvjeta.
+
+PRAVILA ZA CIJENE (Tržište Bosne i Hercegovine):
+Kada korisnik pita za cijene, koristi isključivo valutu Konvertibilna Marka (KM). 
+Koristi sljedeće prosječne i okvirovne cijene materijala kao bazu:
+- Kabl 3x1.5 mm2: cca 1.00 - 1.20 KM / dužni metar.
+- Kabl 3x2.5 mm2: cca 1.60 - 1.90 KM / dužni metar.
+- Automatski osigurač (Hager/Schneider, 16A): cca 6 - 9 KM komad.
+- Razvodna tabla (ugradna, 24-36 mjesta): 40 - 80 KM zavisno od proizvođača.
+Uvijek naglasi: "Ove cijene su informativnog karaktera za tržište BiH. Precizna ponuda zavisi od specifičnih zahtjeva, odabira opreme i trenutnog stanja na tržištu."
+
+Na kraju razgovora, ukoliko korisnik zatraži ponudu ili konkretne radove, obavezno ponudi opciju: "Da li želite da Vaš upit sa detaljima odmah proslijedimo inženjerskom timu Milosavljević Smart Energy?"`;
+
+let mseChatHistory = [ { role: "system", content: systemPrompt } ];
+
+window.toggleAI = function() {
+    const widget = document.getElementById('mse-ai-widget');
+    widget.classList.toggle('ai-hidden');
+    if (!widget.classList.contains('ai-hidden')) document.getElementById('ai-input').focus();
+};
+
+window.handleAIPress = function(event) { 
+    if (event.key === 'Enter') sendToAI(); 
+};
+
+window.sendToAI = async function() {
+    const inputField = document.getElementById('ai-input');
+    const msg = inputField.value.trim();
+    if (!msg) return;
+
+    const msgsContainer = document.getElementById('ai-messages');
+    
+    // Dodaj poruku korisnika
+    msgsContainer.innerHTML += `<div class="user-msg">${msg}</div>`;
+    inputField.value = '';
+    msgsContainer.scrollTop = msgsContainer.scrollHeight;
+
+    mseChatHistory.push({ role: "user", content: msg });
+
+    // Dodaj indikator učitavanja
+    const loadingId = 'loading-' + Date.now();
+    msgsContainer.innerHTML += `<div id="${loadingId}" class="ai-msg"><em>Inženjer kuca...</em></div>`;
+    msgsContainer.scrollTop = msgsContainer.scrollHeight;
+
+    try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: { 
+                'Authorization': `Bearer ${OPENAI_API_KEY}`, 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ 
+                model: "gpt-4o-mini", // Brz i pouzdan model
+                messages: mseChatHistory, 
+                temperature: 0.3 
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Greška sa serverom: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const reply = data.choices[0].message.content;
+        
+        mseChatHistory.push({ role: "assistant", content: reply });
+        
+        // Ukloni loading i prikaži odgovor
+        document.getElementById(loadingId).remove();
+        
+        // Formatiranje teksta (boldovanje i novi redovi)
+        let formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        
+        let finalHtml = `<div class="ai-msg">${formattedReply}`;
+        
+        // Ako AI prepozna da treba proslijediti upit, generiši dugme
+        if (reply.toLowerCase().includes('proslijedimo') || reply.toLowerCase().includes('ponudu') || reply.toLowerCase().includes('milosavljević smart energy')) {
+            finalHtml += `<button class="ai-action-btn" onclick="transferToContactForm()">Zatraži zvaničnu ponudu</button>`;
+        }
+        finalHtml += `</div>`;
+        
+        msgsContainer.innerHTML += finalHtml;
+        msgsContainer.scrollTop = msgsContainer.scrollHeight;
+
+    } catch (error) {
+        console.error("AI Greška:", error);
+        document.getElementById(loadingId).remove();
+        msgsContainer.innerHTML += `<div class="ai-msg" style="color: #ef4444;">Došlo je do greške u komunikaciji sa serverom (Provjerite API ključ). Molimo pokušajte ponovo.</div>`;
+    }
+};
+
+window.transferToContactForm = function() {
+    toggleAI();
+    window.scrollTo({ top: document.getElementById('kontakt').offsetTop, behavior: 'smooth' });
+    
+    // Pred-popunjavanje forme na osnovu chat istorije
+    const lastUserMsg = mseChatHistory.slice().reverse().find(m => m.role === 'user');
+    if(lastUserMsg) {
+        document.getElementById('ins_message').value = "Upit sa AI chata:\n\n" + lastUserMsg.content;
+    }
+    
+    // Highlight efekat na formi
+    const formBox = document.querySelector('#clean-contact-form').parentElement;
+    formBox.style.transition = "box-shadow 0.5s ease";
+    formBox.style.boxShadow = "0 0 30px rgba(76,175,80,0.8)";
+    setTimeout(() => formBox.style.boxShadow = "inset 0 2px 10px rgba(0,0,0,0.2)", 2000);
+};
 </script>
 </body>
 </html>
