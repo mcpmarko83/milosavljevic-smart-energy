@@ -640,10 +640,8 @@
     fetchLogos();
 })();
 
-// ========== MSE AI LOGIKA ==========
-// OBAVEZNO OVDJE UNESI SVOJ OPENAI API KLJUČ ZA TESTIRANJE.
-// PAŽNJA: Ako kod prebaciš na javni (Public) GitHub repozitorijum, OpenAI će u roku od par minuta blokirati ključ!
-const OPENAI_API_KEY = 'UNESI_SVOJ_API_KLJUC_OVDJE'; 
+// ========== MSE AI LOGIKA (OPENROUTER) ==========
+const OPENROUTER_API_KEY = 'sk-XoS5DhSKn8ZLLFdt19g8xN6fYuMNuHfToQF2KEJDgT61i99D';
 
 const systemPrompt = `Ti si zvanični AI inženjer kompanije "Milosavljević Smart Energy". Tvoj zadatak je da pružaš stručne, tehnički tačne i edukativne odgovore klijentima. 
 Prioritet daješ činjenicama nad pretpostavkama. Ne izmišljaj informacije. 
@@ -697,14 +695,16 @@ window.sendToAI = async function() {
     msgsContainer.scrollTop = msgsContainer.scrollHeight;
 
     try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: { 
-                'Authorization': `Bearer ${OPENAI_API_KEY}`, 
-                'Content-Type': 'application/json' 
+                'Authorization': `Bearer ${OPENROUTER_API_KEY}`, 
+                'Content-Type': 'application/json',
+                'HTTP-Referer': window.location.href,
+                'X-Title': 'Milosavljevic Smart Energy'
             },
             body: JSON.stringify({ 
-                model: "gpt-4o-mini", // Brz i pouzdan model
+                model: "openai/gpt-4o-mini", // OpenRouter identifikator modela
                 messages: mseChatHistory, 
                 temperature: 0.3 
             })
@@ -739,7 +739,7 @@ window.sendToAI = async function() {
     } catch (error) {
         console.error("AI Greška:", error);
         document.getElementById(loadingId).remove();
-        msgsContainer.innerHTML += `<div class="ai-msg" style="color: #ef4444;">Došlo je do greške u komunikaciji sa serverom (Provjerite API ključ). Molimo pokušajte ponovo.</div>`;
+        msgsContainer.innerHTML += `<div class="ai-msg" style="color: #ef4444;">Došlo je do greške u komunikaciji sa serverom. Molimo pokušajte ponovo.</div>`;
     }
 };
 
