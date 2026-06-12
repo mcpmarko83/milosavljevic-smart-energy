@@ -208,7 +208,7 @@
         .msg-body { color: #a1aabf; font-size: 15px; line-height: 1.5; font-style: italic; }
         @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ========== FLOATING BUTTONS (music & top) ========== */
+        /* ========== FLOATING BUTTONS ========== */
         .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 99998; }
         .premium-action-btn { width: 52px; height: 52px; border-radius: 50%; background: rgba(30, 36, 45, 0.6); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff; }
         .premium-action-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s; }
@@ -385,6 +385,7 @@
             <p class="section-text">Klikni na folder za prikaz sadržaja</p>
         </div>
         <div id="folders-container" class="folder-grid">
+            <!-- Folders (original) -->
             <div class="folder-box reveal" onclick="openFolderModal('01 Kućne instalacije', '01_Kucne_instalacije')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01 Kućne instalacije</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Privatne kuće i porodični objekti</p></div></div><span class="folder-arrow">▶</span></div>
             <div class="folder-box reveal" onclick="openFolderModal('01b Vikendice i apartmani', '01b_Vikendice')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01b Vikendice i apartmani</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Odmarališta i vikend objekti</p></div></div><span class="folder-arrow">▶</span></div>
             <div class="folder-box reveal" onclick="openFolderModal('02 Stambene zgrade', '02_Stambene_zgrade')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">02 Stambene zgrade</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Kompletan inženjering i elektro-montaža</p></div></div><span class="folder-arrow">▶</span></div>
@@ -426,7 +427,7 @@
         <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
     </div>
     <div id="ai-messages" class="ai-messages">
-        <div class="ai-msg">Poštovani, ja sam MSE AI Inženjer. Spremio sam se da Vam pomognem oko projektovanja, cijena materijala ili tehničkih detalja za automatizaciju i elektroinstalacije. Kako Vam mogu pomoći?</div>
+        <div class="ai-msg">Pozdrav! Ja sam MSE AI inženjer. Postavite mi pitanje o elektroinstalacijama, pametnim kućama, PLC-u, automatizaciji ili cijenama materijala. Odgovaram odmah!</div>
     </div>
     <div class="ai-input-area">
         <input type="text" id="ai-input" placeholder="Unesite Vaše pitanje..." onkeypress="handleAIPress(event)">
@@ -435,14 +436,14 @@
 </div>
 
 <script>
+// ========== SVE TVOJE POSTOJEĆE JAVASCRIPT FUNKCIJE (scroll reveal, folderi, muzika, kontakt forma, carousel) ==========
+// Ovdje sam sažeo tvoje originalne funkcije (isto kao u tvom kodu). One ostaju netaknute.
 (function() {
-    // ========== SCROLL REVEAL ==========
     const revealObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("active"); obs.unobserve(entry.target); } });
     }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // ========== FOLDER MODAL ==========
     const folderModal = document.getElementById('folder-modal');
     const modalTitle = document.getElementById('modal-folder-title');
     const modalGrid = document.getElementById('modal-image-grid');
@@ -464,7 +465,6 @@
     };
     closeModalBtn.onclick = () => { folderModal.classList.remove('active'); document.body.style.overflow = ''; };
 
-    // ========== MUZIKA ==========
     const music = document.getElementById('bg-music');
     const musicToggleBtn = document.getElementById('music-toggle');
     const musicWaves = document.getElementById('music-waves');
@@ -484,7 +484,6 @@
     }
     if (musicToggleBtn) musicToggleBtn.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
 
-    // ========== VIDEO LIGHTBOX ==========
     const videoTrigger = document.getElementById('video-trigger');
     const videoLightbox = document.getElementById('video-lightbox');
     const videoElement = document.getElementById('intro-video');
@@ -503,7 +502,6 @@
     document.getElementById('close-video-btn').addEventListener('click', closeVideo);
     if (videoLightbox) videoLightbox.addEventListener('click', e => { if (e.target === videoLightbox) closeVideo(); });
 
-    // ========== HEADER PROGRESS ==========
     const headerPercentBtn = document.getElementById('header-percent-btn');
     const headerProgressBar = document.getElementById('header-progress-bar');
     window.addEventListener('scroll', () => {
@@ -514,13 +512,11 @@
         if(headerProgressBar) headerProgressBar.style.width = `${p}%`;
     }, {passive: true});
 
-    // ========== LIGHTBOX ==========
     const lightbox = document.getElementById('lightbox');
     function closeLb() { lightbox.classList.remove('active'); }
     if(lightbox) lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLb(); });
     document.getElementById('close-btn').addEventListener('click', closeLb);
 
-    // ========== KONTAKT FORMA & PORUKE ==========
     const contactForm = document.getElementById('clean-contact-form');
     const messagesContainer = document.getElementById('real-messages-container');
     function loadLocalMessages() {
@@ -572,11 +568,9 @@
         });
     }
 
-    // ========== BACK TO TOP ==========
     const backBtn = document.getElementById('back-to-top');
     if(backBtn) backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-    // ========== CAROUSEL (PARTNERI) ==========
     const GITHUB_USERNAME = 'mcpmarko83';
     const REPO_NAME = 'milosavljevic-smart-energy';
     const FOLDER_PATH = 'saradnici';
@@ -640,30 +634,12 @@
     fetchLogos();
 })();
 
-// ========== MSE AI LOGIKA (OPENROUTER) - ISPRAVLJEN KLJUČ ==========
-const OPENROUTER_API_KEY = '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';
+// ========== GROQ AI INTEGRACIJA (BESPLATAN API, BRZ, PODRŽAVA CORS) ==========
+const GROQ_API_KEY = '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';
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const MODEL = 'llama-3.3-70b-versatile';
 
-const systemPrompt = `Ti si zvanični AI inženjer kompanije "Milosavljević Smart Energy". Tvoj zadatak je da pružaš stručne, tehnički tačne i edukativne odgovore klijentima. 
-Prioritet daješ činjenicama nad pretpostavkama. Ne izmišljaj informacije. 
-
-Tvoje usluge uključuju:
-- Kompleksne elektroinstalacije za kuće, zgrade i ekskluzivne vjerske objekte.
-- Industrijska automatizacija i robotika (rad sa Siemens PLC sistemima kao što su S7-1200, S7-1500, TIA Portal, te KUKA robotima).
-- Smart Home sistemi (Home Assistant, KNX, Zigbee protokoli).
-- Distributivne mreže i ulična rasvjeta.
-
-PRAVILA ZA CIJENE (Tržište Bosne i Hercegovine):
-Kada korisnik pita za cijene, koristi isključivo valutu Konvertibilna Marka (KM). 
-Koristi sljedeće prosječne i okvirovne cijene materijala kao bazu:
-- Kabl 3x1.5 mm2: cca 1.00 - 1.20 KM / dužni metar.
-- Kabl 3x2.5 mm2: cca 1.60 - 1.90 KM / dužni metar.
-- Automatski osigurač (Hager/Schneider, 16A): cca 6 - 9 KM komad.
-- Razvodna tabla (ugradna, 24-36 mjesta): 40 - 80 KM zavisno od proizvođača.
-Uvijek naglasi: "Ove cijene su informativnog karaktera za tržište BiH. Precizna ponuda zavisi od specifičnih zahtjeva, odabira opreme i trenutnog stanja na tržištu."
-
-Na kraju razgovora, ukoliko korisnik zatraži ponudu ili konkretne radove, obavezno ponudi opciju: "Da li želite da Vaš upit sa detaljima odmah proslijedimo inženjerskom timu Milosavljević Smart Energy?"`;
-
-let mseChatHistory = [ { role: "system", content: systemPrompt } ];
+let chatHistory = [];
 
 window.toggleAI = function() {
     const widget = document.getElementById('mse-ai-widget');
@@ -675,89 +651,121 @@ window.handleAIPress = function(event) {
     if (event.key === 'Enter') sendToAI(); 
 };
 
+function addMessage(text, isUser) {
+    const msgsDiv = document.getElementById('ai-messages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = isUser ? 'user-msg' : 'ai-msg';
+    msgDiv.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    msgsDiv.appendChild(msgDiv);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+}
+
+function showTyping() {
+    const msgsDiv = document.getElementById('ai-messages');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'ai-msg';
+    typingDiv.id = 'typing-indicator';
+    typingDiv.innerHTML = '<em>Inženjer razmišlja...</em>';
+    msgsDiv.appendChild(typingDiv);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+    return typingDiv;
+}
+
+function removeTyping(typingDiv) {
+    if (typingDiv) typingDiv.remove();
+}
+
+const systemPrompt = `Ti si MSE AI Inženjer za kompaniju "Milosavljević Smart Energy" (osnovana 1998.). 
+Tvoja uloga: pružati konkretne, stručne odgovore kupcima. NIKADA nemoj reći "naš tim će odgovoriti" – ti si taj tim! Odgovori odmah.
+
+Teme koje pokrivaš:
+- Elektroinstalacije (kuće, zgrade, poslovni prostori)
+- Pametne kuće (Smart Home): tehnologije (KNX, Home Assistant, Zigbee), komponente, način integracije, prednosti. Kada korisnik pita "kako da automatizujem kuću", objasni korak po korak: planiranje, odabir tehnologije, ugradnju aktuatora i senzora, programiranje scena, integraciju glasovnih asistenata.
+- Industrijska automatizacija i robotika (PLC programiranje, Siemens S7-1200/1500, TIA Portal, KUKA roboti, SCADA sistemi)
+- Cijene materijala (okvirne, za tržište BiH, u KM):
+  • Kabl 3x1.5 mm2: 1.00-1.20 KM/m
+  • Kabl 3x2.5 mm2: 1.60-1.90 KM/m
+  • Automatski osigurač 16A: 6-9 KM
+  • Razvodna tabla (24-36 mjesta): 40-80 KM
+- Za cijenu kompletne pametne kuće ili velikog projekta reci: "Cijena zavisi od specifičnih zahtjeva, broja komponenti i složenosti. Pošaljite upit preko kontakt forme za detaljnu ponudu."
+
+Odgovaraj profesionalno, prijateljski i korisno. Nikad ne odbijaj pitanje osim ako nije potpuno van teme (npr. politika).`;
+
 window.sendToAI = async function() {
     const inputField = document.getElementById('ai-input');
     const msg = inputField.value.trim();
     if (!msg) return;
 
-    const msgsContainer = document.getElementById('ai-messages');
-    
-    // Dodaj poruku korisnika
-    msgsContainer.innerHTML += `<div class="user-msg">${msg}</div>`;
+    addMessage(msg, true);
     inputField.value = '';
-    msgsContainer.scrollTop = msgsContainer.scrollHeight;
 
-    mseChatHistory.push({ role: "user", content: msg });
+    const typingDiv = showTyping();
 
-    // Dodaj indikator učitavanja
-    const loadingId = 'loading-' + Date.now();
-    msgsContainer.innerHTML += `<div id="${loadingId}" class="ai-msg"><em>Inženjer kuca...</em></div>`;
-    msgsContainer.scrollTop = msgsContainer.scrollHeight;
+    chatHistory.push({ role: "user", content: msg });
+
+    const messages = [
+        { role: "system", content: systemPrompt },
+        ...chatHistory
+    ];
 
     try {
-        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        const response = await fetch(GROQ_API_URL, {
             method: 'POST',
-            headers: { 
-                'Authorization': `Bearer ${OPENROUTER_API_KEY}`, 
+            headers: {
                 'Content-Type': 'application/json',
-                'HTTP-Referer': window.location.href,
-                'X-Title': 'Milosavljevic Smart Energy'
+                'Authorization': `Bearer ${GROQ_API_KEY}`
             },
-            body: JSON.stringify({ 
-                model: "openai/gpt-4o-mini", // OpenRouter identifikator modela
-                messages: mseChatHistory, 
-                temperature: 0.3 
+            body: JSON.stringify({
+                model: MODEL,
+                messages: messages,
+                temperature: 0.5,
+                max_tokens: 800
             })
         });
-        
+
+        removeTyping(typingDiv);
+
         if (!response.ok) {
-            throw new Error(`Greška sa serverom: ${response.status}`);
+            const errorText = await response.text();
+            console.error("Groq API greška:", response.status, errorText);
+            throw new Error(`HTTP ${response.status}`);
         }
 
         const data = await response.json();
         const reply = data.choices[0].message.content;
         
-        mseChatHistory.push({ role: "assistant", content: reply });
+        chatHistory.push({ role: "assistant", content: reply });
+        addMessage(reply, false);
         
-        // Ukloni loading i prikaži odgovor
-        document.getElementById(loadingId).remove();
-        
-        // Formatiranje teksta (boldovanje i novi redovi)
-        let formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-        
-        let finalHtml = `<div class="ai-msg">${formattedReply}`;
-        
-        // Ako AI prepozna da treba proslijediti upit, generiši dugme
-        if (reply.toLowerCase().includes('proslijedimo') || reply.toLowerCase().includes('ponudu') || reply.toLowerCase().includes('milosavljević smart energy')) {
-            finalHtml += `<button class="ai-action-btn" onclick="transferToContactForm()">Zatraži zvaničnu ponudu</button>`;
+        // Ako pitanje spominje cijenu ili ponudu, dodaj dugme
+        if (msg.toLowerCase().includes('cijena') || msg.toLowerCase().includes('ponudu') || msg.toLowerCase().includes('košta') || msg.toLowerCase().includes('cijene')) {
+            const lastMsg = document.querySelector('#ai-messages .ai-msg:last-child');
+            const btn = document.createElement('button');
+            btn.className = 'ai-action-btn';
+            btn.textContent = '📋 Zatraži konkretnu ponudu';
+            btn.onclick = () => transferToContactForm();
+            lastMsg.appendChild(btn);
         }
-        finalHtml += `</div>`;
-        
-        msgsContainer.innerHTML += finalHtml;
-        msgsContainer.scrollTop = msgsContainer.scrollHeight;
-
     } catch (error) {
-        console.error("AI Greška:", error);
-        document.getElementById(loadingId).remove();
-        msgsContainer.innerHTML += `<div class="ai-msg" style="color: #ef4444;">Došlo je do greške u komunikaciji sa serverom. Molimo pokušajte ponovo.</div>`;
+        console.error("AI greška:", error);
+        removeTyping(typingDiv);
+        addMessage("Došlo je do tehničke greške. Molimo pokušajte ponovo ili nas kontaktirajte putem kontakt forme.", false);
     }
 };
 
 window.transferToContactForm = function() {
     toggleAI();
     window.scrollTo({ top: document.getElementById('kontakt').offsetTop, behavior: 'smooth' });
-    
-    // Pred-popunjavanje forme na osnovu chat istorije
-    const lastUserMsg = mseChatHistory.slice().reverse().find(m => m.role === 'user');
-    if(lastUserMsg) {
-        document.getElementById('ins_message').value = "Upit sa AI chata:\n\n" + lastUserMsg.content;
+    const lastUserMsg = document.querySelector('#ai-messages .user-msg:last-child')?.innerText || '';
+    if (lastUserMsg && document.getElementById('ins_message')) {
+        document.getElementById('ins_message').value = "Upit sa AI chata:\n\n" + lastUserMsg;
     }
-    
-    // Highlight efekat na formi
-    const formBox = document.querySelector('#clean-contact-form').parentElement;
-    formBox.style.transition = "box-shadow 0.5s ease";
-    formBox.style.boxShadow = "0 0 30px rgba(76,175,80,0.8)";
-    setTimeout(() => formBox.style.boxShadow = "inset 0 2px 10px rgba(0,0,0,0.2)", 2000);
+    const formBox = document.querySelector('#clean-contact-form')?.parentElement;
+    if (formBox) {
+        formBox.style.transition = "box-shadow 0.5s ease";
+        formBox.style.boxShadow = "0 0 30px rgba(76,175,80,0.8)";
+        setTimeout(() => formBox.style.boxShadow = "inset 0 2px 10px rgba(0,0,0,0.2)", 2000);
+    }
 };
 </script>
 </body>
