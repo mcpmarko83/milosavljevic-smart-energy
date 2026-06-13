@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Motori i pumpe | MSE Elektropedija</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #05070a; color: #f3f4f6;
+            font-family: 'Outfit', sans-serif; line-height: 1.6;
+            overflow-x: hidden; padding-bottom: 120px;
+        }
+        body.tema-crvena {
+            --glavna-boja-teme: #e63946;
+            --glavna-boja-teme-rgba: rgba(230, 57, 70, 0.2);
+        }
+        .abstract-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #05070a; overflow: hidden; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; mix-blend-mode: screen; animation: float 20s infinite ease-in-out alternate; }
+        .orb-1 { width: 70vw; height: 70vw; background: var(--glavna-boja-teme); top: -15%; left: -25%; }
+        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -5s; }
+        .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -10s; opacity: 0.2; }
+        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%,12%) scale(1.1); } }
+        .header-main { background: rgba(5, 7, 10, 0.75); backdrop-filter: blur(24px) saturate(180%); padding: 16px 20px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        .header-grid { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; transition: opacity 0.3s ease; }
+        .header-logo-group:hover { opacity: 0.8; }
+        .header-logo-img { height: 38px; border-radius: 10px; }
+        .header-brand-name { font-size: 19px; color: #fff; font-weight: 600; letter-spacing: -0.3px; }
+        .header-brand-name span { color: var(--glavna-boja-teme); font-weight: 400; }
+        .btn-nazad { font-size: 14px; font-weight: 600; color: #fff; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-nazad:hover { background: rgba(255,255,255,0.2); transform: translateX(-3px); }
+        .edu-hero { text-align: center; padding: 60px 20px 20px; }
+        .edu-badge { background: var(--glavna-boja-teme-rgba); color: var(--glavna-boja-teme); padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid var(--glavna-boja-teme-rgba); display: inline-block; margin-bottom: 15px; text-transform: uppercase;}
+        .edu-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 40px; align-items: flex-start; }
+        .edu-sidebar { flex: 0 0 280px; position: sticky; top: 100px; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 30px 20px; }
+        .edu-sidebar h4 { color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .edu-sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .edu-sidebar a { color: #a1aabf; text-decoration: none; font-size: 15px; transition: all 0.3s ease; display: block; padding: 8px 12px; border-radius: 12px; }
+        .edu-sidebar a:hover, .edu-sidebar a.active { background: var(--glavna-boja-teme-rgba); color: #fff; }
+        .edu-content { flex: 1; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 50px; }
+        .edu-content h1 { font-size: 36px; color: #fff; margin-bottom: 20px; font-weight: 700; letter-spacing: -1px; }
+        .edu-content h2 { font-size: 26px; color: var(--glavna-boja-teme); margin: 50px 0 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.05); scroll-margin-top: 100px; }
+        .edu-content p { color: #a1aabf; font-size: 17px; margin-bottom: 20px; line-height: 1.8; font-weight: 300; }
+        .edu-content strong { color: #fff; font-weight: 500; }
+        .info-box { background: rgba(255,255,255,0.02); border-left: 4px solid var(--glavna-boja-teme); padding: 20px; border-radius: 0 12px 12px 0; margin: 30px 0; }
+        .info-box p { margin: 0; font-size: 16px; font-style: italic; }
+        @media (max-width: 900px) {
+            .edu-container { flex-direction: column; }
+            .edu-sidebar { position: relative; top: 0; width: 100%; flex: auto; }
+            .edu-content { padding: 30px; }
+        }
+        #mse-ai-widget { position: fixed; bottom: 30px; right: 30px; width: 360px; height: 550px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--glavna-boja-teme); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 99999; display: flex; flex-direction: column; transition: transform 0.4s ease, opacity 0.4s; }
+        .ai-hidden { transform: translateY(120%); opacity: 0; pointer-events: none; }
+        .ai-header { background: rgba(5, 7, 10, 0.9); padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .ai-header-title { color: #fff; font-weight: 600; font-size: 15px; }
+        .ai-close-btn { background: none; border: none; color: #a1aabf; font-size: 24px; cursor: pointer; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; background: rgba(255,255,255,0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .ai-btn-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--glavna-boja-teme); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 99998; border: none; color: white; }
+    </style>
+</head>
+<body class="tema-crvena">
+
+    <div class="abstract-bg"><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
+
+    <header class="header-main">
+        <div class="header-grid">
+            <a href="index.html" class="header-logo-group">
+                <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+                <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
+            </a>
+            <a href="index.html" class="btn-nazad">← Nazad na početnu</a>
+        </div>
+    </header>
+
+    <div class="edu-hero">
+        <span class="edu-badge">Elektropedija Poglavlje 06</span>
+        <h1 style="font-size: 42px;">Motori, pumpe i termotehnika</h1>
+        <p style="max-width: 700px; margin: 20px auto 0;">Kako elektromotori pokreću mašine, a pumpe vodu – od osnovnih principa do uštede energije i održavanja.</p>
+    </div>
+
+    <div class="edu-container">
+        <aside class="edu-sidebar">
+            <h4>Sadržaj teme</h4>
+            <ul>
+                <li><a href="#vrste-motora">1. Vrste elektromotora</a></li>
+                <li><a href="#upravljanje">2. Kako upravljamo motorima?</a></li>
+                <li><a href="#pumpe">3. Pumpe – vrste i primjena</a></li>
+                <li><a href="#efikasnost">4. Efikasnost i ušteda energije</a></li>
+                <li><a href="#odrzavanje">5. Održavanje i dijagnostika</a></li>
+                <li><a href="#kvarovi">6. Najčešći kvarovi</a></li>
+                <li><a href="#termotehnika">7. Termotehnika i klimatizacija</a></li>
+            </ul>
+        </aside>
+
+        <main class="edu-content">
+            <h2 id="vrste-motora" style="margin-top: 0;">1. Vrste elektromotora</h2>
+            <p>Elektromotor je uređaj koji električnu energiju pretvara u mehaničko kretanje – obrtanje osovine. Bez njih ne bi radile mašine, dizalice, pumpe, ventilator, pa ni električni automobil.</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Asinhroni (indukcioni) motori</strong> – najčešći u industriji. Jednostavni, jeftini, rade na trofaznu struju (400V). Koriste se za pokretne trake, pumpe, kompresore.</li>
+                <li><strong>Sinhronski motori</strong> – skuplji, ali tačniji. Koriste se u robotici, električnim automobilima, velikim ventilatorima.</li>
+                <li><strong>Univerzalni motori (sa četkicama)</strong> – rade i na jednosmjernu i na naizmjeničnu struju. Mali, brzi – u električnim alatima (bušilica, brusilica).</li>
+                <li><strong>Koračni motori (stepper)</strong> – omogućavaju precizno pozicioniranje, koriste se u 3D štampačima, CNC mašinama.</li>
+            </ul>
+            <p>U kućnim uslovima najčešće susrećemo male motore u mikserima, usisivačima, pumpama za vodu, ventilatorima.</p>
+
+            <h2 id="upravljanje">2. Kako upravljamo motorima?</h2>
+            <p>Da bi motor radio, potrebno mu je dovesti odgovarajući napon i zaštititi ga od preopterećenja:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Direktno uključenje</strong> – najjednostavnije, ali motor pri startu vuče veliku struju (5-7 puta veću od nazivne). Pogodno za male motore.</li>
+                <li><strong>Meko pokretanje (soft-start)</strong> – elektronski uređaj postepeno povećava napon, smanjujući udar struje. Štiti motor i mehanički sklop.</li>
+                <li><strong>Frekventni regulator (VFD)</strong> – mijenja brzinu motora podešavanjem frekvencije napajanja. Idealno za pumpe, ventilatore, pokretne trake.</li>
+                <li><strong>Kontaktori i termička zaštita</strong> – kontaktori uključuju motor, a termički relej isključuje motor ako se previše zagrije.</li>
+            </ul>
+            <div class="info-box">
+                <p><strong>MSE Savjet:</strong> Ako vaša pumpa ili ventilator rade punom brzinom iako ne treba, ugradnja frekventnog regulatora može smanjiti potrošnju struje za 30-50%.</p>
+            </div>
+
+            <h2 id="pumpe">3. Pumpe – vrste i primjena</h2>
+            <p>Pumpe su mašine koje pokreću tečnosti (vodu, ulje, hemikalije). Pokreće ih elektromotor. Najčešće vrste:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Centrifugalne pumpe</strong> – najrasprostranjenije. Rotor sa lopaticama izbacuje vodu na obod. Koriste se za vodovod, navodnjavanje, grijanje.</li>
+                <li><strong>Potopne pumpe („pumpa u bunaru”)</strong> – potpuno uronjene u vodu, koriste se za bunare, drenažu, kanalizaciju.</li>
+                <li><strong>Pumpe sa klipom (klipne)</strong> – stvaraju visok pritisak, spore su. Koriste se u autopraonicama, hidrauličkim presama.</li>
+                <li><strong>Magnezne pumpe</strong> – bez brtvi, pogonjene magnetom. Pogodne za agresivne tečnosti.</li>
+            </ul>
+            <p>Kod pumpi je ključna visina dizanja (max visina do koje mogu potisnuti vodu) i protok (litara u minuti).</p>
+
+            <h2 id="efikasnost">4. Efikasnost i ušteda energije</h2>
+            <p>Motori i pumpe su često najveći potrošači struje u fabrici ili kući. Načini za uštedu:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Korišćenje motora visoke efikasnosti (IE3, IE4)</strong> – iako su malo skuplji, vraćaju investiciju kroz manje račune za struju.</li>
+                <li><strong>Izbjegavanje „prevelikog” motora</strong> – motor dimenzionisan za veću snagu nego što treba radi neefikasno (loš faktor snage).</li>
+                <li><strong>Frekventna regulacija umjesto prigušnih ventila</strong> – umjesto da prigušujete protok ventilom (što ne štedi energiju), smanjite brzinu motora regulatorom.</li>
+                <li><strong>Redovno čišćenje i podmazivanje</strong> – prljav motor se više grije i troši više struje.</li>
+            </ul>
+            <p>U prosječnom pogonu, optimizacija rada motora može smanjiti račun za električnu energiju za 10-20%.</p>
+
+            <h2 id="odrzavanje">5. Održavanje i dijagnostika</h2>
+            <p>Kako bi motor trajao decenijama, potrebno je redovno provjeravati:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Izolaciju namotaja</strong> – megometrom se mjeri otpor izolacije. Ako padne ispod 1 MΩ, opasnost od proboja.</li>
+                <li><strong>Struju u sve tri faze</strong> – ako je jedna faza znatno viša od ostalih, motor je neuravnotežen ili postoji oštećenje namotaja.</li>
+                <li><strong>Ležajeve</strong> – ako motor čudno zuji ili se pregrijava, možda treba zamijeniti ležajeve.</li>
+                <li><strong>Vibracije i temperaturu</strong> – termovizijska kamera otkriva vruće tačke na kućištu ili ležajevima.</li>
+            </ul>
+            <p>Za većinu manjih motora (pumpe, ventilatori) dovoljno je jednom godišnje provjeriti struju i očistiti ventilator hladnjaka.</p>
+
+            <h2 id="kvarovi">6. Najčešći kvarovi</h2>
+            <p>Šta se najčešće kvari na motorima i pumpama?</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Pregrijavanje uslijed prljavštine</strong> – prašina začepi rebra hladnjaka, motor se ne hladi.</li>
+                <li><strong>Proboj izolacije (kratak spoj namotaja)</strong> – motor počinje da dimi i vuče veliku struju. Obično zahtijeva premotavanje.</li>
+                <li><strong>Ispad faze</strong> – jedna faza napajanja nedostaje (pregorio osigurač, labav spoj). Motor bruji i ne okreće se.</li>
+                <li><strong>Oštećene ležajeve</strong> – buka, vibracije, na kraju blokada.</li>
+                <li><strong>Mehanička blokada pumpe</strong> – kamenčić ili naslaga zaustavi rotor pumpe, motor se blokira i isključuje termička zaštita.</li>
+            </ul>
+            <div class="info-box">
+                <p><strong>MSE Savjet:</strong> Ako vam motor isključuje termička zaštita, nikako ga nemojte "šaltati" (ručno vraćati) više od jednom prije nego što provjerite uzrok – možete trajno uništiti namotaj.</p>
+            </div>
+
+            <h2 id="termotehnika">7. Termotehnika i klimatizacija</h2>
+            <p>Termotehnika obuhvata sisteme grijanja, ventilacije i klimatizacije (HVAC). U njima se takođe koriste motori i pumpe:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Cirkulacione pumpe za grijanje</strong> – potiskuju toplu vodu kroz radijatore. Moderne pumpe su visoke efikasnosti i same podešavaju brzinu.</li>
+                <li><strong>Ventilatori u klima uređajima i ventilaciji</strong> – najčešće su to maleni EC motori (elektronski komutirani) koji troše 50% manje struje od klasičnih.</li>
+                <li><strong>Kompresori (klipni ili spiralni)</strong> – pokreću ih motori i služe za hlađenje ili dizanje toplote. Koriste se u frižiderima, zamrzivačima, toplotnim pumpama.</li>
+                <li><strong>Regulacija temperature</strong> – pametni termostati i frekventni regulatori na ventilatorima značajno smanjuju potrošnju.</li>
+            </ul>
+            <p>U kućnim uslovima, najveću uštedu donose inverter klima uređaji i cirkulacione pumpe klase A (npr. Grundfos Alpha, Wilo Stratos).</p>
+        </main>
+    </div>
+
+    <button class="ai-btn-float" onclick="toggleAI()">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </button>
+
+    <div id="mse-ai-widget" class="ai-hidden">
+        <div class="ai-header">
+            <span class="ai-header-title">MSE AI Inženjer (Motori & Pumpe)</span>
+            <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
+        </div>
+        <div class="ai-messages" id="ai-messages">
+            <div class="ai-msg">Pitanja o elektromotorima, pumpama, uštedi ili kvarovima? Slobodno pitajte.</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAI() {
+            document.getElementById('mse-ai-widget').classList.toggle('ai-hidden');
+        }
+        const sections = document.querySelectorAll("main h2");
+        const navLinks = document.querySelectorAll(".edu-sidebar ul li a");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) current = section.getAttribute("id");
+            });
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
