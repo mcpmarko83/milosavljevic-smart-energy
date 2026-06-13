@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Pametne kuće | MSE Elektropedija</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #05070a; color: #f3f4f6;
+            font-family: 'Outfit', sans-serif; line-height: 1.6;
+            overflow-x: hidden; padding-bottom: 120px;
+        }
+        body.tema-narandzasta {
+            --glavna-boja-teme: #f39c12;
+            --glavna-boja-teme-rgba: rgba(243, 156, 18, 0.2);
+        }
+        .abstract-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #05070a; overflow: hidden; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; mix-blend-mode: screen; animation: float 20s infinite ease-in-out alternate; }
+        .orb-1 { width: 70vw; height: 70vw; background: var(--glavna-boja-teme); top: -15%; left: -25%; }
+        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -5s; }
+        .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -10s; opacity: 0.2; }
+        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%,12%) scale(1.1); } }
+        .header-main { background: rgba(5, 7, 10, 0.75); backdrop-filter: blur(24px) saturate(180%); padding: 16px 20px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        .header-grid { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; transition: opacity 0.3s ease; }
+        .header-logo-group:hover { opacity: 0.8; }
+        .header-logo-img { height: 38px; border-radius: 10px; }
+        .header-brand-name { font-size: 19px; color: #fff; font-weight: 600; letter-spacing: -0.3px; }
+        .header-brand-name span { color: var(--glavna-boja-teme); font-weight: 400; }
+        .btn-nazad { font-size: 14px; font-weight: 600; color: #fff; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-nazad:hover { background: rgba(255,255,255,0.2); transform: translateX(-3px); }
+        .edu-hero { text-align: center; padding: 60px 20px 20px; }
+        .edu-badge { background: var(--glavna-boja-teme-rgba); color: var(--glavna-boja-teme); padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid var(--glavna-boja-teme-rgba); display: inline-block; margin-bottom: 15px; text-transform: uppercase;}
+        .edu-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 40px; align-items: flex-start; }
+        .edu-sidebar { flex: 0 0 280px; position: sticky; top: 100px; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 30px 20px; }
+        .edu-sidebar h4 { color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .edu-sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .edu-sidebar a { color: #a1aabf; text-decoration: none; font-size: 15px; transition: all 0.3s ease; display: block; padding: 8px 12px; border-radius: 12px; }
+        .edu-sidebar a:hover, .edu-sidebar a.active { background: var(--glavna-boja-teme-rgba); color: #fff; }
+        .edu-content { flex: 1; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 50px; }
+        .edu-content h1 { font-size: 36px; color: #fff; margin-bottom: 20px; font-weight: 700; letter-spacing: -1px; }
+        .edu-content h2 { font-size: 26px; color: var(--glavna-boja-teme); margin: 50px 0 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.05); scroll-margin-top: 100px; }
+        .edu-content p { color: #a1aabf; font-size: 17px; margin-bottom: 20px; line-height: 1.8; font-weight: 300; }
+        .edu-content strong { color: #fff; font-weight: 500; }
+        .info-box { background: rgba(255,255,255,0.02); border-left: 4px solid var(--glavna-boja-teme); padding: 20px; border-radius: 0 12px 12px 0; margin: 30px 0; }
+        .info-box p { margin: 0; font-size: 16px; font-style: italic; }
+        @media (max-width: 900px) {
+            .edu-container { flex-direction: column; }
+            .edu-sidebar { position: relative; top: 0; width: 100%; flex: auto; }
+            .edu-content { padding: 30px; }
+        }
+        #mse-ai-widget { position: fixed; bottom: 30px; right: 30px; width: 360px; height: 550px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--glavna-boja-teme); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 99999; display: flex; flex-direction: column; transition: transform 0.4s ease, opacity 0.4s; }
+        .ai-hidden { transform: translateY(120%); opacity: 0; pointer-events: none; }
+        .ai-header { background: rgba(5, 7, 10, 0.9); padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .ai-header-title { color: #fff; font-weight: 600; font-size: 15px; }
+        .ai-close-btn { background: none; border: none; color: #a1aabf; font-size: 24px; cursor: pointer; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; background: rgba(255,255,255,0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .ai-btn-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--glavna-boja-teme); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 99998; border: none; color: white; }
+    </style>
+</head>
+<body class="tema-narandzasta">
+
+    <div class="abstract-bg"><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
+
+    <header class="header-main">
+        <div class="header-grid">
+            <a href="index.html" class="header-logo-group">
+                <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+                <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
+            </a>
+            <a href="index.html" class="btn-nazad">← Nazad na početnu</a>
+        </div>
+    </header>
+
+    <div class="edu-hero">
+        <span class="edu-badge">Elektropedija Poglavlje 07</span>
+        <h1 style="font-size: 42px;">Pametne kuće (Smart Home)</h1>
+        <p style="max-width: 700px; margin: 20px auto 0;">Kako da vaš dom sam razmišlja, štedi energiju i povećava vašu sigurnost – od daljinske kontrole do potpune automatizacije.</p>
+    </div>
+
+    <div class="edu-container">
+        <aside class="edu-sidebar">
+            <h4>Sadržaj teme</h4>
+            <ul>
+                <li><a href="#sta-je">1. Šta je pametna kuća?</a></li>
+                <li><a href="#senzori">2. Senzori – oči kuće</a></li>
+                <li><a href="#aktuatori">3. Aktuatori – mišići automatizacije</a></li>
+                <li><a href="#protokoli">4. Protokoli i tehnologije (KNX, Zigbee, Z-Wave, Wi-Fi)</a></li>
+                <li><a href="#scenariji">5. Primjeri automatizacije (rasvjeta, roletne, grijanje, sigurnost)</a></li>
+                <li><a href="#glasovni">6. Glasovni asistenti i daljinsko upravljanje</a></li>
+                <li><a href="#ugradnja">7. Kako započeti – nova gradnja vs. renovacija</a></li>
+                <li><a href="#sigurnost">8. Sigurnosni aspekti i zaštita podataka</a></li>
+            </ul>
+        </aside>
+
+        <main class="edu-content">
+            <h2 id="sta-je" style="margin-top: 0;">1. Šta je pametna kuća?</h2>
+            <p><strong>Pametna kuća (Smart Home) je dom u kojem su rasvjeta, grijanje, roletne, uređaji i sigurnosni sistemi povezani u jedinstvenu mrežu i mogu se automatski ili daljinski upravljati.</strong> Zamislite da ujutro ne morate paliti svjetlo – kuća prepozna da ste ustali i lagano podigne roletne, pusti blagu muziku i uključi aparat za kafu. Kada odete na posao, sve se automatski gasi, a termostat prelazi u režim štednje. Ako neko pokuša da provali, dobijate obavijest na telefon, a vanjska svjetla počinju da trepere.</p>
+            <p>Pametna kuća nije luksuz – sve više postaje standard u novogradnji, a mnogi sistemi se mogu naknadno ugraditi bez bušenja zidova.</p>
+
+            <h2 id="senzori">2. Senzori – oči kuće</h2>
+            <p>Senzori su osnovni gradivni blokovi svake pametne kuće. Oni prikupljaju informacije iz okoline i šalju ih centralnom kontroleru (ili u oblak). Najčešći senzori:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Senzori pokreta</strong> – pale svjetlo u hodniku ili kupatilu kada uđete, a gase nakon što izađete.</li>
+                <li><strong>Senzori otvorenih vrata/prozora</strong> – znaju da li je nešto otvoreno; ako jeste, termostat smanjuje grijanje, a sistem vas upozorava ako ste ostavili prozor otvoren dok padne kiša.</li>
+                <li><strong>Senzori temperature i vlažnosti</strong> – omogućavaju inteligentno upravljanje grijanjem i klimom, te šalju upozorenje u slučaju opasnosti od vlage ili smrzavanja.</li>
+                <li><strong>Senzori dima i vode</strong> – ako detektuju požar ili curenje, odmah zatvaraju ventil i šalju hitnu notifikaciju.</li>
+                <li><strong>Senzori svjetla (lux)</strong> – automatski prigušuju umjetnu rasvjetu kada ima dovoljno dnevnog svjetla, štedeći struju.</li>
+            </ul>
+            <div class="info-box">
+                <p><strong>MSE Savjet:</strong> Kada birate senzore, obratite pažnju na domet i način napajanja (žični vs. baterijski). Baterijski senzori su jednostavni za naknadnu ugradnju, ali zahtijevaju povremenu zamjenu baterija.</p>
+            </div>
+
+            <h2 id="aktuatori">3. Aktuatori – mišići automatizacije</h2>
+            <p>Aktuatori su uređaji koji izvršavaju naredbe – uključuju/isključuju struju, podižu roletne, podešavaju termostatske ventile. To su u stvari “pametni prekidači” koje možete kontrolisati putem mobilne aplikacije ili automatski na osnovu senzora.</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Pametne utičnice</strong> – omogućavaju daljinsko uključenje/isključenje bilo kojeg uređaja (bojler, grijalica, punjač).</li>
+                <li><strong>Pametni prekidači i dimmeri</strong> – umjesto klasičnih prekidača, možete koristiti Wi-Fi ili Zigbee prekidače koji rade i ručno i putem aplikacije.</li>
+                <li><strong>Pogoni za roletne</strong> – automatski podižu roletne u zoru, spuštaju ih kada sunce pripeče ili kada krenete na spavanje.</li>
+                <li><strong>Termostatske glave (pametni ventili)</strong> – postavljaju se na radijatore i regulišu temperaturu prostorije prema vašem rasporedu.</li>
+            </ul>
+
+            <h2 id="protokoli">4. Protokoli i tehnologije (KNX, Zigbee, Z-Wave, Wi-Fi)</h2>
+            <p>Da bi svi uređaji međusobno komunicirali, potreban im je zajednički jezik – protokol. Različite tehnologije imaju različite prednosti i nedostatke:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>KNX</strong> – žični, najpouzdaniji standard za profesionalne instalacije u novogradnji. Skup, ali izuzetno stabilan i dugotrajan. Koristi se u luksuznim vilama, hotelima, poslovnim zgradama.</li>
+                <li><strong>Zigbee</strong> – bežični, male snage, veliki broj uređaja (IKEA, Philips Hue, Samsung SmartThings). Samostalno formira mrežu (mesh) – svaki uređaj može biti repetitor. Odličan za kućnu upotrebu.</li>
+                <li><strong>Z-Wave</strong> – sličan Zigbee-u, ali radi na nižoj frekvenciji (868 MHz), što mu daje bolji prolaz kroz zidove. Manje smetnji sa Wi-Fi mrežom.</li>
+                <li><strong>Wi-Fi</strong> – najjednostavniji za početnike (ne treba dodatni hub). Međutim, veliki broj Wi-Fi uređaja može opteretiti ruter, a potrošnja struje je veća. Pogodan za manji broj uređaja.</li>
+                <li><strong>Thread / Matter</strong> – novi univerzalni standard koji povezuje Zigbee, Wi-Fi i Ethernet. Matter uređaji rade zajedno bez obzira na proizvođača.</li>
+            </ul>
+            <p>Za većinu kuća preporučujemo kombinaciju: glavni hub (npr. Home Assistant, Apple HomeKit, Google Home) + Zigbee ili Z-Wave uređaji + Wi-Fi za kamere i glasovne asistente.</p>
+
+            <h2 id="scenariji">5. Primjeri automatizacije (scenariji)</h2>
+            <p>Pametna kuća postaje korisna tek kada definišete scene (scenarije). To su unaprijed programirane radnje koje se pokreću pritiskom na dugme, u određeno vrijeme ili na osnovu senzora.</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>„Dobro jutro“</strong> – u 7:00 lagano podizanje roletni, uključenje svjetla u kupatilu (30% jačine), startovanje bojlera, puštanje vijesti na zvučniku.</li>
+                <li><strong>„Odlazak na posao“</strong> – gašenje svih svjetala, spuštanje roletni (ako je ljeti), smanjenje temperature na 18°C, aktiviranje sigurnosnog režima (senzori pokreta uključuju vanjsku rasvjetu i šalju obavijest).</li>
+                <li><strong>„Dolazak kući“</strong> – kada vaš telefon uđe u geofence (krug od 300m od kuće), automatski se uključuje grijanje, upaliti svjetlo u hodniku, otključati vrata (ako imate pametnu bravu).</li>
+                <li><strong>„Kino režim“</strong> – prigušeno svjetlo (10%), spuštene roletne, uključen TV ili projektor, isključenje obavještenja na telefonu.</li>
+                <li><strong>„Noćna sigurnost“</strong> – između 23h i 6h, ako senzor pokreta detektuje bilo kakvo kretanje u hodniku ili dnevnom boravku, pale se noćna svjetla (5% jačine) da vas ne zaslijepe, a ako detektuje izvana – pali se jaka vanjska rasvjeta i šalje upozorenje.</li>
+            </ul>
+            <div class="info-box">
+                <p><strong>MSE Savjet:</strong> Počnite sa malim – ugradite jednu pametnu utičnicu za bojler ili termostatsku glavu. Kada vidite koliko je korisno, dodajte senzore pokreta za stepenište, pa pametne sijalice. Ne morate sve odjednom.</p>
+            </div>
+
+            <h2 id="glasovni">6. Glasovni asistenti i daljinsko upravljanje</h2>
+            <p>Glasovni asistenti (Google Assistant, Amazon Alexa, Apple Siri) su najlakši način za svakodnevnu interakciju. Dovoljno je reći: “Hey Google, upali svjetlo u dnevnoj sobi” ili “Alexa, podigni roletne”. Svi veći pametni uređaji podržavaju barem jedan od ovih sistema.</p>
+            <p>Daljinsko upravljanje putem mobilne aplikacije omogućava da provjerite da li ste ostavili upaljeno grijanje dok ste na odmoru, ili da pustite dostavljaču da ostavi paket u ostavu – možete daljinski otključati vrata i ponovo ih zaključati.</p>
+            <p>Napredniji korisnici instaliraju <strong>Home Assistant</strong> (besplatni open-source softver) na Raspberry Pi ili starom računaru – tada svi uređaji, bez obzira na proizvođača, rade zajedno, a automatizacije mogu biti vrlo složene (npr. ako padne kiša i temperatura padne ispod 5°C, uključi predgrijavanje auta).</p>
+
+            <h2 id="ugradnja">7. Kako započeti – nova gradnja vs. renovacija</h2>
+            <p><strong>U novogradnji</strong> imate najviše mogućnosti. Preporučujemo polaganje dodatnih cijevi (PVC cijevi) za buduće instalacije, kao i vodenje neutralnog kabla (N) do svakog prekidača (to je potrebno za pametne prekidače). Razmotrite KNX sistem – iako skuplji, radi besprijekorno i povećava vrijednost nekretnine.</p>
+            <p><strong>Prilikom renovacije</strong> najjednostavnije je koristiti bežične Zigbee ili Z-Wave uređaje. Ne morate bušiti zidove – pametne sijalice se zašrafe u obični grlo, pametne utičnice se uključe u postojeće utičnice, a senzori pokreta se lijepe na zid. Jedino što je poželjno jeste kupiti jedan centralni hub (npr. conbee II ili Hubitat) koji povezuje sve uređaje i omogućava automatizacije čak i bez interneta.</p>
+            <p>Starije kuće sa instalacijama bez nule u prekidačima mogu koristiti pametne prekidače koji ne zahtijevaju nulu (npr. Aqara H1 bez neutralnog voda) ili zamijeniti klasične sijalice pametnim (Philips Hue, IKEA TRÅDFRI).</p>
+
+            <h2 id="sigurnost">8. Sigurnosni aspekti i zaštita podataka</h2>
+            <p>Povezivanje kuće na internet nosi i određene sigurnosne rizike. Evo kako da ih minimizirate:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Koristite jaku Wi-Fi lozinku i redovno ažurirajte firmware rutera.</strong></li>
+                <li><strong>Odvojite pametne uređaje u posebnu “IoT mrežu” (guest network)</strong> – ako neko probije jednu pametnu sijalicu, neće dobiti pristup vašem računaru.</li>
+                <li><strong>Birajte provjerene brendove</strong> – jeftini no-name uređaji često imaju lošu sigurnost i mogu postati dio botneta.</li>
+                <li><strong>Isključite daljinski pristup (port forwarding)</strong> ako vam nije potreban. Umjesto toga koristite cloud servise renomiranih firmi (Google, Amazon, Apple, Philips).</li>
+                <li><strong>Postavite dvofaktorsku autentifikaciju</strong> na nalogu putem kojeg upravljate kućom (npr. Google Home, Home Assistant Cloud).</li>
+            </ul>
+            <p>Pametna kuća ne mora biti “hakabilna” – uz osnovne mjere, sigurnija je od klasične brave na ulaznim vratima (koju svaki bravar može otvoriti za 5 minuta).</p>
+        </main>
+    </div>
+
+    <button class="ai-btn-float" onclick="toggleAI()">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </button>
+
+    <div id="mse-ai-widget" class="ai-hidden">
+        <div class="ai-header">
+            <span class="ai-header-title">MSE AI Inženjer (Smart Home)</span>
+            <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
+        </div>
+        <div class="ai-messages" id="ai-messages">
+            <div class="ai-msg">Pitanja o pametnim kućama, odabiru tehnologije ili scenarijima? Slobodno pitajte.</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAI() {
+            document.getElementById('mse-ai-widget').classList.toggle('ai-hidden');
+        }
+        const sections = document.querySelectorAll("main h2");
+        const navLinks = document.querySelectorAll(".edu-sidebar ul li a");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) current = section.getAttribute("id");
+            });
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
