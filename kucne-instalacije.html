@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Kućne instalacije | MSE Elektropedija</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== CORE STILOVI (Kopirano sa glavne) ========== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #05070a; color: #f3f4f6;
+            font-family: 'Outfit', sans-serif; line-height: 1.6;
+            overflow-x: hidden; padding-bottom: 120px;
+        }
+
+        /* DEFINICIJA BOJE ZA OVU STRANICU (Zelena) */
+        body.tema-zelena {
+            --glavna-boja-teme: #4caf50;
+            --glavna-boja-teme-rgba: rgba(76, 175, 80, 0.2);
+        }
+
+        /* Pozadina */
+        .abstract-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #05070a; overflow: hidden; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; mix-blend-mode: screen; animation: float 20s infinite ease-in-out alternate; }
+        .orb-1 { width: 70vw; height: 70vw; background: var(--glavna-boja-teme); top: -15%; left: -25%; }
+        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -5s; }
+        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%,12%) scale(1.1); } }
+
+        /* Header */
+        .header-main { background: rgba(5, 7, 10, 0.75); backdrop-filter: blur(24px) saturate(180%); padding: 16px 20px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        .header-grid { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; transition: opacity 0.3s ease; }
+        .header-logo-group:hover { opacity: 0.8; }
+        .header-logo-img { height: 38px; border-radius: 10px; }
+        .header-brand-name { font-size: 19px; color: #fff; font-weight: 600; letter-spacing: -0.3px; }
+        .header-brand-name span { color: var(--glavna-boja-teme); font-weight: 400; }
+        .btn-nazad { font-size: 14px; font-weight: 600; color: #fff; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-nazad:hover { background: rgba(255,255,255,0.2); transform: translateX(-3px); }
+
+        /* ========== DIZAJN ZA ČITANJE (Silo Struktura) ========== */
+        .edu-hero { text-align: center; padding: 60px 20px 20px; }
+        .edu-badge { background: var(--glavna-boja-teme-rgba); color: var(--glavna-boja-teme); padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid var(--glavna-boja-teme-rgba); display: inline-block; margin-bottom: 15px; text-transform: uppercase;}
+        
+        .edu-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 40px; align-items: flex-start; }
+        
+        /* Lijevi Meni */
+        .edu-sidebar { flex: 0 0 280px; position: sticky; top: 100px; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 30px 20px; }
+        .edu-sidebar h4 { color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .edu-sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .edu-sidebar a { color: #a1aabf; text-decoration: none; font-size: 15px; transition: all 0.3s ease; display: block; padding: 8px 12px; border-radius: 12px; }
+        .edu-sidebar a:hover, .edu-sidebar a.active { background: var(--glavna-boja-teme-rgba); color: #fff; }
+
+        /* Desni Tekst */
+        .edu-content { flex: 1; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 50px; }
+        .edu-content h1 { font-size: 36px; color: #fff; margin-bottom: 20px; font-weight: 700; letter-spacing: -1px; }
+        .edu-content h2 { font-size: 26px; color: var(--glavna-boja-teme); margin: 50px 0 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.05); scroll-margin-top: 100px; }
+        .edu-content p { color: #a1aabf; font-size: 17px; margin-bottom: 20px; line-height: 1.8; font-weight: 300; }
+        .edu-content strong { color: #fff; font-weight: 500; }
+        
+        .info-box { background: rgba(255,255,255,0.02); border-left: 4px solid var(--glavna-boja-teme); padding: 20px; border-radius: 0 12px 12px 0; margin: 30px 0; }
+        .info-box p { margin: 0; font-size: 16px; font-style: italic; }
+
+        @media (max-width: 900px) {
+            .edu-container { flex-direction: column; }
+            .edu-sidebar { position: relative; top: 0; width: 100%; flex: auto; }
+            .edu-content { padding: 30px; }
+        }
+
+        /* (Zadržan CSS za AI Chatbot sa glavne stranice da bi radio i ovdje) */
+        #mse-ai-widget { position: fixed; bottom: 30px; right: 30px; width: 360px; height: 550px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--glavna-boja-teme); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 99999; display: flex; flex-direction: column; transition: transform 0.4s ease, opacity 0.4s; }
+        .ai-hidden { transform: translateY(120%); opacity: 0; pointer-events: none; }
+        .ai-header { background: rgba(5, 7, 10, 0.9); padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .ai-header-title { color: #fff; font-weight: 600; font-size: 15px; }
+        .ai-close-btn { background: none; border: none; color: #a1aabf; font-size: 24px; cursor: pointer; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; background: rgba(255,255,255,0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .ai-btn-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--glavna-boja-teme); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 99998; border: none; color: white; }
+    </style>
+</head>
+<body class="tema-zelena">
+
+    <div class="abstract-bg"><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div></div>
+
+    <header class="header-main">
+        <div class="header-grid">
+            <a href="index.html" class="header-logo-group">
+                <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+                <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
+            </a>
+            <a href="index.html" class="btn-nazad">← Nazad na početnu</a>
+        </div>
+    </header>
+
+    <div class="edu-hero">
+        <span class="edu-badge">Elektropedija Poglavlje 01</span>
+        <h1 style="font-size: 42px; color: #fff; font-weight: 700;">Struja u kućama i zgradama</h1>
+    </div>
+
+    <div class="edu-container">
+        
+        <aside class="edu-sidebar">
+            <h4>Sadržaj teme</h4>
+            <ul>
+                <li><a href="#uvod">1. Osnove kućne instalacije</a></li>
+                <li><a href="#osiguraci">2. Automatski osigurači</a></li>
+                <li><a href="#fid">3. Zašto je FID sklopka bitna?</a></li>
+                <li><a href="#uzemljenje">4. Sistem uzemljenja</a></li>
+                <li><a href="#renovacija">5. Renovacija starih objekata</a></li>
+            </ul>
+        </aside>
+
+        <main class="edu-content">
+            <h2 id="uvod" style="margin-top: 0;">1. Osnove kućne instalacije</h2>
+            <p>Električna instalacija u kući predstavlja krvotok svakog objekta. Njen zadatak je da električnu energiju dovede od distributivnog ormara (brojila) do svakog potrošača u kući – od najmanje sijalice do uređaja velike snage poput bojlera ili električnog šporeta.</p>
+            <p>Osnovni provodnici (žice) koji se koriste u standardnim kućnim instalacijama su <strong>Faza (L - smeđa/crna)</strong> koja donosi energiju, <strong>Nula (N - plava)</strong> kojom se energija vraća, i <strong>Uzemljenje (PE - žuto-zelena)</strong> koje služi isključivo za vašu bezbjednost.</p>
+
+            <h2 id="osiguraci">2. Automatski osigurači</h2>
+            <p>Automatski osigurači su prva linija odbrane vaših kablova. Ako u neku utičnicu uključite previše uređaja, kabl u zidu počinje da se grije. Zadatak osigurača je da prepozna to <strong>preopterećenje</strong> (ili kratki spoj) i automatski prekine dotok struje prije nego što dođe do topljenja kabla i požara.</p>
+            <p>Pravilno dimenzionisanje je ključno. Na kabl presjeka 1.5mm² (za rasvjetu) stavlja se osigurač od 10A, dok se na kabl presjeka 2.5mm² (za utičnice) stavlja osigurač od 16A. Stavljanje jačeg osigurača od dozvoljenog je najčešća i najopasnija greška amatera.</p>
+
+            <h2 id="fid">3. Zašto je FID sklopka bitna?</h2>
+            <p>Dok osigurači štite kablove od požara, <strong>FID sklopka štiti ljudski život</strong>. Njeno ime (Zaštitni uređaj diferencijalne struje) opisuje i njen rad: ona mjeri da li je ista količina struje ušla u kuću kroz fazu i izašla kroz nulu.</p>
+            <p>Ako uređaj (npr. bojler ili mašina za veš) probije na masu, dio struje "bježi". FID sklopka detektuje taj gubitak u milisekundama i gasi kompletnu struju u kući brže nego što ljudsko tijelo može pretrpiti smrtonosni udar.</p>
+
+            <div class="info-box">
+                <p><strong>MSE Savjet:</strong> Ako vam FID sklopka često iskače tokom kiše ili kada uključite određeni aparat, nikada je nemojte isključivati iz sistema. Ona vam upravo govori da postoji ozbiljan kvar i curenje struje koji zahtijeva dolazak inženjera.</p>
+            </div>
+
+            <h2 id="uzemljenje">4. Sistem uzemljenja</h2>
+            <p>Uzemljenje je nevidljivi zaštitnik koji provodi potencijalno opasnu struju sa metalnih kućišta aparata direktno u zemlju. Kada metalno kućište frižidera ili šporeta slučajno dođe u kontakt sa strujom, uzemljenje omogućava da ta struja ode linijom manjeg otpora u zemlju, aktivirajući FID sklopku, umjesto da prođe kroz tijelo čovjeka koji dodirne taj aparat.</p>
+
+            <h2 id="renovacija">5. Renovacija starih objekata (Nulovanje)</h2>
+            <p>U kućama i zgradama starijim od 40 godina često se susrećemo sa takozvanim "nulovanjem" – sistemom gdje se umjesto žuto-zelene žice koristila plava nula kao zaštita. Ovaj sistem je po današnjim standardima nesiguran.</p>
+            <p>Prilikom svake renovacije starog stana ili kuće, naša apsolutna preporuka je prelazak na moderni trožilni/petožilni sistem (TN-S sistem), ugradnja nove table sa automatskim osiguračima i obavezna implementacija FID sklopke.</p>
+        </main>
+    </div>
+
+    <button class="ai-btn-float" onclick="toggleAI()">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </button>
+
+    <div id="mse-ai-widget" class="ai-hidden">
+        <div class="ai-header">
+            <span class="ai-header-title">MSE AI Inženjer</span>
+            <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
+        </div>
+        <div class="ai-messages" id="ai-messages">
+            <div class="ai-msg">Imate li dodatnih pitanja o kućnim instalacijama, osiguračima ili FID sklopki? Slobodno pitajte!</div>
+        </div>
+        </div>
+
+    <script>
+        // Skripta za otvaranje/zatvaranje AI
+        function toggleAI() {
+            document.getElementById('mse-ai-widget').classList.toggle('ai-hidden');
+        }
+
+        // Skripta za bočni meni (Opciono: označavanje aktivnog linka pri skrolanju)
+        const sections = document.querySelectorAll("main h2");
+        const navLi = document.querySelectorAll(".edu-sidebar ul li a");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) { current = section.getAttribute("id"); }
+            });
+            navLi.forEach((a) => {
+                a.classList.remove("active");
+                if (a.getAttribute("href") === "#" + current) { a.classList.add("active"); }
+            });
+        });
+    </script>
+</body>
+</html>
