@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Automatizacija | MSE Elektropedija</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #05070a; color: #f3f4f6;
+            font-family: 'Outfit', sans-serif; line-height: 1.6;
+            overflow-x: hidden; padding-bottom: 120px;
+        }
+        body.tema-tirkizna {
+            --glavna-boja-teme: #00d2d3;
+            --glavna-boja-teme-rgba: rgba(0, 210, 211, 0.2);
+        }
+        .abstract-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #05070a; overflow: hidden; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; mix-blend-mode: screen; animation: float 20s infinite ease-in-out alternate; }
+        .orb-1 { width: 70vw; height: 70vw; background: var(--glavna-boja-teme); top: -15%; left: -25%; }
+        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -5s; }
+        .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -10s; opacity: 0.2; }
+        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%,12%) scale(1.1); } }
+        .header-main { background: rgba(5, 7, 10, 0.75); backdrop-filter: blur(24px) saturate(180%); padding: 16px 20px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        .header-grid { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; transition: opacity 0.3s ease; }
+        .header-logo-group:hover { opacity: 0.8; }
+        .header-logo-img { height: 38px; border-radius: 10px; }
+        .header-brand-name { font-size: 19px; color: #fff; font-weight: 600; letter-spacing: -0.3px; }
+        .header-brand-name span { color: var(--glavna-boja-teme); font-weight: 400; }
+        .btn-nazad { font-size: 14px; font-weight: 600; color: #fff; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-nazad:hover { background: rgba(255,255,255,0.2); transform: translateX(-3px); }
+        .edu-hero { text-align: center; padding: 60px 20px 20px; }
+        .edu-badge { background: var(--glavna-boja-teme-rgba); color: var(--glavna-boja-teme); padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid var(--glavna-boja-teme-rgba); display: inline-block; margin-bottom: 15px; text-transform: uppercase;}
+        .edu-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 40px; align-items: flex-start; }
+        .edu-sidebar { flex: 0 0 280px; position: sticky; top: 100px; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 30px 20px; }
+        .edu-sidebar h4 { color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .edu-sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .edu-sidebar a { color: #a1aabf; text-decoration: none; font-size: 15px; transition: all 0.3s ease; display: block; padding: 8px 12px; border-radius: 12px; }
+        .edu-sidebar a:hover, .edu-sidebar a.active { background: var(--glavna-boja-teme-rgba); color: #fff; }
+        .edu-content { flex: 1; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 50px; }
+        .edu-content h1 { font-size: 36px; color: #fff; margin-bottom: 20px; font-weight: 700; letter-spacing: -1px; }
+        .edu-content h2 { font-size: 26px; color: var(--glavna-boja-teme); margin: 50px 0 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.05); scroll-margin-top: 100px; }
+        .edu-content p { color: #a1aabf; font-size: 17px; margin-bottom: 20px; line-height: 1.8; font-weight: 300; }
+        .edu-content strong { color: #fff; font-weight: 500; }
+        .info-box { background: rgba(255,255,255,0.02); border-left: 4px solid var(--glavna-boja-teme); padding: 20px; border-radius: 0 12px 12px 0; margin: 30px 0; }
+        .info-box p { margin: 0; font-size: 16px; font-style: italic; }
+        @media (max-width: 900px) {
+            .edu-container { flex-direction: column; }
+            .edu-sidebar { position: relative; top: 0; width: 100%; flex: auto; }
+            .edu-content { padding: 30px; }
+        }
+        #mse-ai-widget { position: fixed; bottom: 30px; right: 30px; width: 360px; height: 550px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--glavna-boja-teme); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 99999; display: flex; flex-direction: column; transition: transform 0.4s ease, opacity 0.4s; }
+        .ai-hidden { transform: translateY(120%); opacity: 0; pointer-events: none; }
+        .ai-header { background: rgba(5, 7, 10, 0.9); padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .ai-header-title { color: #fff; font-weight: 600; font-size: 15px; }
+        .ai-close-btn { background: none; border: none; color: #a1aabf; font-size: 24px; cursor: pointer; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; background: rgba(255,255,255,0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .ai-btn-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--glavna-boja-teme); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 99998; border: none; color: white; }
+    </style>
+</head>
+<body class="tema-tirkizna">
+
+    <div class="abstract-bg"><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
+
+    <header class="header-main">
+        <div class="header-grid">
+            <a href="index.html" class="header-logo-group">
+                <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+                <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
+            </a>
+            <a href="index.html" class="btn-nazad">← Nazad na početnu</a>
+        </div>
+    </header>
+
+    <div class="edu-hero">
+        <span class="edu-badge">Elektropedija Poglavlje 03</span>
+        <h1 style="font-size: 42px;">Pametne mašine i roboti</h1>
+        <p style="max-width: 700px; margin: 20px auto 0;">Od ručnog upravljanja do potpune automatizacije – kako mašine "razmišljaju" i zašto je to budućnost industrije.</p>
+    </div>
+
+    <div class="edu-container">
+        <aside class="edu-sidebar">
+            <h4>Sadržaj teme</h4>
+            <ul>
+                <li><a href="#sta-je">1. Šta je industrijska automatizacija?</a></li>
+                <li><a href="#plc">2. PLC – mozak mašine</a></li>
+                <li><a href="#senzori">3. Senzori – oči i uši sistema</a></li>
+                <li><a href="#aktuatori">4. Aktuatori – mišići automata</a></li>
+                <li><a href="#scada">5. SCADA – nadzor i upravljanje</a></li>
+                <li><a href="#robotika">6. Robotika u proizvodnji</a></li>
+                <li><a href="#prednosti">7. Zašto automatizovati?</a></li>
+            </ul>
+        </aside>
+
+        <main class="edu-content">
+            <h2 id="sta-je" style="margin-top: 0;">1. Šta je industrijska automatizacija?</h2>
+            <p><strong>Zamislite da mašina sama zna kada da se uključi, koliko jako da radi, kada da stane i kome da javi da je nešto pogrešno.</strong> To je automatizacija – upotreba računara, senzora i posebnih uređaja da obavljaju zadatke umjesto čovjeka, brže, tačnije i bez umora.</p>
+            <p>U tvornicama, automatizacija pokreće pokretne trake, puni boce, pakuje proizvode, miješa hemikalije, pa čak i vozi viljuškare. Sve to bez ljudske ruke, ali uz ljudski nadzor.</p>
+
+            <h2 id="plc">2. PLC – mozak mašine</h2>
+            <p><strong>PLC (Programabilni logički kontroler)</strong> je mali, ali izuzetno robusni računar napravljen da radi u prašnjavim, vlažnim i toplim fabričkim halama. Njegov zadatak je da čita signale sa senzora (npr. "da li se kutija nalazi na traci?") i na osnovu unaprijed napisanog programa uključuje ili isključuje motore, ventile, grijače.</p>
+            <p>PLC programeri koriste posebne jezike poput <strong>ljestvičnog dijagrama (Ladder)</strong> koji podsjeća na električne šeme – tako da električari lako razumiju logiku. Popularne marke su Siemens (S7-1200, S7-1500), Allen-Bradley, Schneider Electric.</p>
+            <div class="info-box">
+                <p><strong>MSE Savjet:</strong> Kada naručujete automatizaciju linije, uvijek insistirajte da vam isporuče i rezervni PLC ili barem sigurnosnu kopiju programa – to uveliko skraćuje zastoje u kvaru.</p>
+            </div>
+
+            <h2 id="senzori">3. Senzori – oči i uši sistema</h2>
+            <p>Senzori su ulazni uređaji koji daju informacije PLC-u. Najčešći su:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Induktivni senzori</strong> – otkrivaju metalne predmete bez dodira (npr. da li je lim na mjestu).</li>
+                <li><strong>Optički senzori</strong> – koriste svjetlosni snop; ako ga kutija prekine, senzor javlja "predmet je tu".</li>
+                <li><strong>Kapacitivni senzori</strong> – osjećaju i nemetalne materijale (plastiku, tečnost).</li>
+                <li><strong>Enkoderi</strong> – mjere brzinu i položaj osovine motora.</li>
+            </ul>
+            <p>Bez senzora, PLC bi bio slijep – ne bi znao šta se dešava u stvarnom svijetu.</p>
+
+            <h2 id="aktuatori">4. Aktuatori – mišići automata</h2>
+            <p>Aktuatori su izlazni uređaji koje PLC uključuje da bi nešto pokrenuo. To su:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Kontaktori</strong> – uključuju velike motore.</li>
+                <li><strong>Pneumatski ventili</strong> – puštaju komprimirani zrak u cilindre koji guraju predmete.</li>
+                <li><strong>Motori sa frekventnim regulatorom</strong> – omogućavaju meko pokretanje i promjenu brzine.</li>
+                <li><strong>Signalne lampe i sirene</strong> – upozoravaju radnike.</li>
+            </ul>
+
+            <h2 id="scada">5. SCADA – nadzor i upravljanje</h2>
+            <p><strong>SCADA (Supervisory Control and Data Acquisition)</strong> je softver koji se pokreće na običnom računaru ili tablet-u. On prikuplja podatke sa svih PLC-ova u fabrici i prikazuje ih na jednom ekranu. Operater vidi crtež fabričke linije u boji: zeleno – radi, crveno – kvar.</p>
+            <p>SCADA omogućava i daljinsko upravljanje – direktor može sa svog mobilnog telefona provjeriti da li je proizvodnja u toku. Primjeri: WinCC (Siemens), Ignition, Citect.</p>
+
+            <h2 id="robotika">6. Robotika u proizvodnji</h2>
+            <p>Industrijski roboti su napredni aktuatori sa sopstvenim kontrolerima. Oni mogu:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li>Zavarivati karoserije automobila (KUKA, ABB, Fanuc).</li>
+                <li>Pakirati kutije na palete (paletizacija).</li>
+                <li>Lijepiti i farbati dijelove.</li>
+                <li>Precizno postavljati elektroniku na štampane ploče.</li>
+            </ul>
+            <p>Robotima se programiraju pokreti, brzina i sile, a često se opremaju i kamerama (mašinski vid) da sami prepoznaju predmete.</p>
+
+            <h2 id="prednosti">7. Zašto automatizovati?</h2>
+            <p>Prednosti su višestruke:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Veća produktivnost</strong> – mašine rade 24h bez pauze.</li>
+                <li><strong>Konstantan kvalitet</strong> – nema ljudske greške.</li>
+                <li><strong>Sigurnost</strong> – roboti obavljaju opasne poslove (vrućina, toksini).</li>
+                <li><strong>Ušteda energije</strong> – PLC može gasiti motore kada nisu potrebni.</li>
+                <li><strong>Daljinska dijagnostika</strong> – serviser iz kancelarije može vidjeti zašto se mašina zaustavila.</li>
+            </ul>
+            <p>Iako početno ulaganje nije malo, povrat investicije se često mjeri u mjesecima, posebno kod većeg obima proizvodnje. Milosavljević Smart Energy je specijalizovan za projektovanje, programiranje i puštanje u rad ovakvih sistema.</p>
+        </main>
+    </div>
+
+    <button class="ai-btn-float" onclick="toggleAI()">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </button>
+
+    <div id="mse-ai-widget" class="ai-hidden">
+        <div class="ai-header">
+            <span class="ai-header-title">MSE AI Inženjer (Automatizacija)</span>
+            <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
+        </div>
+        <div class="ai-messages" id="ai-messages">
+            <div class="ai-msg">Imate pitanje o PLC programiranju, robotima ili senzorima? Tu sam da pojasnim.</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAI() {
+            document.getElementById('mse-ai-widget').classList.toggle('ai-hidden');
+        }
+        const sections = document.querySelectorAll("main h2");
+        const navLinks = document.querySelectorAll(".edu-sidebar ul li a");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) current = section.getAttribute("id");
+            });
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
