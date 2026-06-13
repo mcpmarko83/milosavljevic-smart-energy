@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Distributivne mreže | MSE Elektropedija</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #05070a; color: #f3f4f6;
+            font-family: 'Outfit', sans-serif; line-height: 1.6;
+            overflow-x: hidden; padding-bottom: 120px;
+        }
+        body.tema-ljubicasta {
+            --glavna-boja-teme: #9b59b6;
+            --glavna-boja-teme-rgba: rgba(155, 89, 182, 0.2);
+        }
+        .abstract-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #05070a; overflow: hidden; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; mix-blend-mode: screen; animation: float 20s infinite ease-in-out alternate; }
+        .orb-1 { width: 70vw; height: 70vw; background: var(--glavna-boja-teme); top: -15%; left: -25%; }
+        .orb-2 { width: 60vw; height: 60vw; background: #3a86ff; bottom: -20%; right: -15%; animation-delay: -5s; }
+        .orb-3 { width: 55vw; height: 55vw; background: #4caf50; top: 40%; left: 30%; animation-delay: -10s; opacity: 0.2; }
+        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%,12%) scale(1.1); } }
+        .header-main { background: rgba(5, 7, 10, 0.75); backdrop-filter: blur(24px) saturate(180%); padding: 16px 20px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        .header-grid { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; transition: opacity 0.3s ease; }
+        .header-logo-group:hover { opacity: 0.8; }
+        .header-logo-img { height: 38px; border-radius: 10px; }
+        .header-brand-name { font-size: 19px; color: #fff; font-weight: 600; letter-spacing: -0.3px; }
+        .header-brand-name span { color: var(--glavna-boja-teme); font-weight: 400; }
+        .btn-nazad { font-size: 14px; font-weight: 600; color: #fff; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-nazad:hover { background: rgba(255,255,255,0.2); transform: translateX(-3px); }
+        .edu-hero { text-align: center; padding: 60px 20px 20px; }
+        .edu-badge { background: var(--glavna-boja-teme-rgba); color: var(--glavna-boja-teme); padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid var(--glavna-boja-teme-rgba); display: inline-block; margin-bottom: 15px; text-transform: uppercase;}
+        .edu-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 40px; align-items: flex-start; }
+        .edu-sidebar { flex: 0 0 280px; position: sticky; top: 100px; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 30px 20px; }
+        .edu-sidebar h4 { color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .edu-sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .edu-sidebar a { color: #a1aabf; text-decoration: none; font-size: 15px; transition: all 0.3s ease; display: block; padding: 8px 12px; border-radius: 12px; }
+        .edu-sidebar a:hover, .edu-sidebar a.active { background: var(--glavna-boja-teme-rgba); color: #fff; }
+        .edu-content { flex: 1; background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 50px; }
+        .edu-content h1 { font-size: 36px; color: #fff; margin-bottom: 20px; font-weight: 700; letter-spacing: -1px; }
+        .edu-content h2 { font-size: 26px; color: var(--glavna-boja-teme); margin: 50px 0 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.05); scroll-margin-top: 100px; }
+        .edu-content p { color: #a1aabf; font-size: 17px; margin-bottom: 20px; line-height: 1.8; font-weight: 300; }
+        .edu-content strong { color: #fff; font-weight: 500; }
+        .info-box { background: rgba(255,255,255,0.02); border-left: 4px solid var(--glavna-boja-teme); padding: 20px; border-radius: 0 12px 12px 0; margin: 30px 0; }
+        .info-box p { margin: 0; font-size: 16px; font-style: italic; }
+        @media (max-width: 900px) {
+            .edu-container { flex-direction: column; }
+            .edu-sidebar { position: relative; top: 0; width: 100%; flex: auto; }
+            .edu-content { padding: 30px; }
+        }
+        #mse-ai-widget { position: fixed; bottom: 30px; right: 30px; width: 360px; height: 550px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--glavna-boja-teme); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 99999; display: flex; flex-direction: column; transition: transform 0.4s ease, opacity 0.4s; }
+        .ai-hidden { transform: translateY(120%); opacity: 0; pointer-events: none; }
+        .ai-header { background: rgba(5, 7, 10, 0.9); padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .ai-header-title { color: #fff; font-weight: 600; font-size: 15px; }
+        .ai-close-btn { background: none; border: none; color: #a1aabf; font-size: 24px; cursor: pointer; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .ai-msg { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; background: rgba(255,255,255,0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .ai-btn-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--glavna-boja-teme); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 99998; border: none; color: white; }
+    </style>
+</head>
+<body class="tema-ljubicasta">
+
+    <div class="abstract-bg"><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
+
+    <header class="header-main">
+        <div class="header-grid">
+            <a href="index.html" class="header-logo-group">
+                <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+                <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY</span></h2>
+            </a>
+            <a href="index.html" class="btn-nazad">← Nazad na početnu</a>
+        </div>
+    </header>
+
+    <div class="edu-hero">
+        <span class="edu-badge">Elektropedija Poglavlje 04</span>
+        <h1 style="font-size: 42px;">Put struje do vas</h1>
+        <p style="max-width: 700px; margin: 20px auto 0;">Od električne centrale do zidne utičnice – kako funkcionišu dalekovodi, trafostanice i distributivne mreže.</p>
+    </div>
+
+    <div class="edu-container">
+        <aside class="edu-sidebar">
+            <h4>Sadržaj teme</h4>
+            <ul>
+                <li><a href="#sta-su">1. Šta su distributivne mreže?</a></li>
+                <li><a href="#naponi">2. Visoki, srednji i niski napon</a></li>
+                <li><a href="#trafostanice">3. Trafostanice – srce mreže</a></li>
+                <li><a href="#dalekovodi">4. Nadzemni i podzemni dalekovodi</a></li>
+                <li><a href="#prikljucak">5. Priključak za kuću i firmu</a></li>
+                <li><a href="#kvarovi">6. Najčešći kvarovi u mreži</a></li>
+                <li><a href="#buducnost">7. Pametne mreže (Smart Grid)</a></li>
+            </ul>
+        </aside>
+
+        <main class="edu-content">
+            <h2 id="sta-su" style="margin-top: 0;">1. Šta su distributivne mreže?</h2>
+            <p><strong>Distributivna mreža je sistem dalekovoda, trafostanica i priključaka koji prenosi električnu energiju od visokonaponskih prenosnih sistema do vašeg brojila.</strong> Drugim riječima, to je "autoput" kojim struja putuje od elektrane do vašeg sela, grada ili ulice.</p>
+            <p>Bez dobro izgrađene distributivne mreže, čak i da imate najsavremeniju elektranu, struja ne bi stigla do vas. Zato su ove mreže ključna infrastruktura svakog društva.</p>
+
+            <h2 id="naponi">2. Visoki, srednji i niski napon</h2>
+            <p>Električna energija se prenosi na različitim naponima, ovisno o udaljenosti:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Visoki napon (110 kV, 220 kV, 400 kV)</strong> – za prenos na velike udaljenosti (stotine kilometara). Koriste se ogromni čelični stubovi.</li>
+                <li><strong>Srednji napon (10 kV, 20 kV, 35 kV)</strong> – distribucija unutar grada i do većih industrija. Ovo su stubovi koje vidite uz puteve.</li>
+                <li><strong>Niski napon (400 V / 230 V)</strong> – ono što ulazi u kuće i male firme. To su kablovi na posljednjim stubovima ispred vaše kuće ili pod zemljom.</li>
+            </ul>
+            <p>Što je napon viši, gubici tokom prenosa su manji – zato se struja prenosi na visokom naponu, a tek pred kraj se transformiše na niski.</p>
+
+            <h2 id="trafostanice">3. Trafostanice – srce mreže</h2>
+            <p><strong>Trafostanice su objekti u kojima se napon pretvara (transformiše) sa jednog nivoa na drugi.</strong> One su nezaobilazne čvorove svake distributivne mreže. Postoje:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Visokonaponske trafostanice (110/x kV)</strong> – spajaju prenosni i distributivni sistem.</li>
+                <li><strong>Srednjenaponske trafostanice (10/0.4 kV)</strong> – one koje su smještene u betonskim kabinama ili na stubovima, a snabdijevaju jednu ulicu ili dio grada.</li>
+                <li><strong>Kupac trafostanice</strong> – ako fabrika ili stambena zgrada ima svoj transformator, onda i oni posjeduju sopstvenu trafostanicu.</li>
+            </ul>
+            <div class="info-box">
+                <p><strong>MSE Savjet:</strong> Kada planirate veći objekat (halu, stambenu zgradu), pravovremeno zatražite uslove za priključenje od distributivnog sistema – često je potrebno graditi i sopstvenu trafostanicu, a to zahtijeva poseban projekat.</p>
+            </div>
+
+            <h2 id="dalekovodi">4. Nadzemni i podzemni dalekovodi</h2>
+            <p>Distributivne mreže se izvode na dva načina:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Nadzemni dalekovodi</strong> – jeftiniji su za izgradnju, ali su izloženi vremenskim nepogodama (vjetar, led, grom). Česti su na selu i prigradskim naseljima.</li>
+                <li><strong>Podzemni kablovi</strong> – skuplji, ali pouzdaniji i ne kvare vizuru grada. Sve više se koriste u urbanim sredinama.</li>
+            </ul>
+            <p>Kablovi u zemlji moraju biti zaštićeni od mehaničkih oštećenja (ogradni znak "opasnost od kabla") i vlage. Njihova popravka je složenija i zahtijeva specijalnu opremu za lociranje mjesta kvara.</p>
+
+            <h2 id="prikljucak">5. Priključak za kuću i firmu</h2>
+            <p>Posljednji dio distributivne mreže je <strong>priključak</strong> – kabl ili vod koji spaja javnu mrežu sa vašim brojilom. On može biti:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Nadzemni (tzv. "kabl sa nosačem")</strong> – čest za kuće, jeftiniji.</li>
+                <li><strong>Podzemni</strong> – obavezan u novijim naseljima, ljepši i sigurniji.</li>
+            </ul>
+            <p>Sve do brojila, mreža je u vlasništvu distributivnog sistema (npr. "Elektro Bijeljina", "Elektroprivreda BiH"). Vi ste odgovorni za instalaciju poslije brojila. Prije izgradnje, potrebno je ishoditi <strong>saglasnost za priključenje</strong> i uraditi projekat.</p>
+
+            <h2 id="kvarovi">6. Najčešći kvarovi u mreži</h2>
+            <p>Iako distributivne mreže projektuju iskusni inženjeri, kvarovi su neizbježni. Najčešći uzroci:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li><strong>Oluje i gromovi</strong> – oštećuju izolatore, obaraju drveće na vodove.</li>
+                <li><strong>Led i snijeg</strong> – prekomjerna težina na nadzemnim vodovima može ih slomiti.</li>
+                <li><strong>Krađa bakra</strong> – nažalost, česta pojava koja ostavlja bez struje čitave krajeve.</li>
+                <li><strong>Pregrijavanje trafostanice</strong> – ako je preopterećena ljeti.</li>
+                <li><strong>Oštećenje podzemnog kabla</strong> – tokom iskopa (građevinski radovi).</li>
+            </ul>
+            <p>Ekipe distribucije su u obavezi da otklone kvar u najkraćem roku, ali složeni kvarovi (poput prekinutog podzemnog kabla) mogu potrajati i do 24h.</p>
+
+            <h2 id="buducnost">7. Pametne mreže (Smart Grid)</h2>
+            <p><strong>Pametne mreže (Smart Grid) su modernizacija distributivnih sistema uvođenjem digitalnih mjerača, senzora i daljinskog upravljanja.</strong> One omogućavaju:</p>
+            <ul style="color: #a1aabf; margin-bottom: 20px; padding-left: 20px;">
+                <li>Elektrodistributeru da vidi u realnom vremenu gdje je nestala struja i da brzo prekine kvar.</li>
+                <li>Potrošačima da prate potrošnju putem mobilne aplikacije.</li>
+                <li>Integraciju solarnih panela i punionica za električne automobile.</li>
+                <li>Automatsko smanjivanje napona u vrijeme najvećeg opterećenja (time se štedi energija).</li>
+            </ul>
+            <p>U Bosni i Hercegovini se pametne mreže postepeno uvode, prvenstveno kroz zamjenu starih brojila novim, daljinski očitanim brojilima.</p>
+        </main>
+    </div>
+
+    <button class="ai-btn-float" onclick="toggleAI()">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </button>
+
+    <div id="mse-ai-widget" class="ai-hidden">
+        <div class="ai-header">
+            <span class="ai-header-title">MSE AI Inženjer (Distribucija)</span>
+            <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
+        </div>
+        <div class="ai-messages" id="ai-messages">
+            <div class="ai-msg">Pitanja o priključku, trafostanicama ili nestanku struje? Slobodno pitajte.</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAI() {
+            document.getElementById('mse-ai-widget').classList.toggle('ai-hidden');
+        }
+        const sections = document.querySelectorAll("main h2");
+        const navLinks = document.querySelectorAll(".edu-sidebar ul li a");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) current = section.getAttribute("id");
+            });
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
