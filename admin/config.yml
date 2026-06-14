@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: mcpmarko83/milosavljevic-smart-energy/ # PRIMJER: marko/mse-digital-hub
+  repo: mcpmarko83/milosavljevic-smart-energy # PRIMJER: marko/mse-digital-hub
   branch: main
   base_url: https://decap-cms-oauth-provider-for-github.netlify.app
 
