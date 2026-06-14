@@ -3,18 +3,44 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MSE Admin Panel</title>
-  <!-- CMS skripta -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <title>MSE Digital Hub - Admin Panel</title>
 </head>
 <body>
+  <!-- Decap CMS se ovdje automatski nakači na body -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
   <script>
-    // Debug provjera
-    fetch('config.yml')
-      .then(response => {
-        if (!response.ok) alert("Greška: config.yml nije pronađen na ovoj putanji!");
-        else console.log("config.yml je učitan.");
-      });
+    // Provjera da li CMS vidi config.yml
+    console.log("CMS skripta učitana, pokušavam inicijalizaciju...");
+    
+    // Eksplicitno učitavanje konfiguracije ako automatsko ne uspije
+    window.CMS_MANUAL_INIT = true;
+    CMS.init({
+      config: {
+        backend: {
+          name: "github",
+          repo: "mcpmarko83/milosavljevic-smart-energy",
+          branch: "main",
+          base_url: "https://decap-cms-oauth-provider-for-github.netlify.app"
+        },
+        media_folder: "Nasi projekti/uploads",
+        public_folder: "/Nasi projekti/uploads",
+        collections: [
+          {
+            name: "reference",
+            label: "Projekti",
+            folder: "podaci/projekti",
+            create: true,
+            fields: [
+              {label: "Naziv", name: "title", widget: "string"},
+              {label: "Opis", name: "opis", widget: "string"},
+              {label: "Boja", name: "boja", widget: "string", default: "#4caf50"},
+              {label: "Putanja", name: "folder_path", widget: "string"}
+            ]
+          }
+        ]
+      }
+    });
   </script>
 </body>
 </html>
