@@ -2,7 +2,7 @@ backend:
   name: github
   repo: mcpmarko83/milosavljevic-smart-energy/ # PRIMJER: marko/mse-digital-hub
   branch: main
-  base_url: https://milosavljevic-smart-energy.pages.dev/
+  base_url: https://decap-cms-oauth-provider-for-github.netlify.app
 
 media_folder: "Nasi projekti/uploads"
 public_folder: "/Nasi projekti/uploads"
