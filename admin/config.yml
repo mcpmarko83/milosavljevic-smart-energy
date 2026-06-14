@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: mcpmarko83/milosavljevic-smart-energy # PRIMJER: marko/mse-digital-hub
+  repo: mcpmarko83/milosavljevic-smart-energy
   branch: main
   base_url: https://decap-cms-oauth-provider-for-github.netlify.app
 
@@ -8,18 +8,18 @@ media_folder: "Nasi projekti/uploads"
 public_folder: "/Nasi projekti/uploads"
 
 collections:
-  - name: "portfolio"
-    label: "MSE Projekti i Reference"
+  - name: "config"
+    label: "Sadržaj sajta"
     files:
-      - label: "Svi Projekti (Folderi)"
+      - label: "Lista projekata"
         name: "projekti"
         file: "podaci/projekti.json"
         fields:
-          - label: "Lista Vaših Foldera"
+          - label: "Projekti"
             name: "lista"
             widget: "list"
             fields:
-              - {label: "Naziv foldera (npr. 01 Kućne instalacije)", name: "title", widget: "string"}
-              - {label: "Kratki opis", name: "opis", widget: "string"}
-              - {label: "Boja foldera (hex kod)", name: "boja", widget: "string", default: "#4caf50"}
-              - {label: "Putanja do slika (Ime foldera sa slikama)", name: "folder_path", widget: "string"}
+              - {label: "Naziv", name: "title", widget: "string"}
+              - {label: "Opis", name: "opis", widget: "string"}
+              - {label: "Boja", name: "boja", widget: "string", default: "#4caf50"}
+              - {label: "Putanja", name: "folder_path", widget: "string"}
