@@ -300,7 +300,81 @@
             .modal-content-grid { grid-template-columns: repeat(2, 1fr); }
             #mse-ai-widget { width: calc(100vw - 40px); bottom: 80px; right: 20px; height: 500px; }
         }
-    </style>
+    
+/* ===== MOBILE & PERFORMANCE OPTIMIZATION PATCH ===== */
+html{
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+body{
+    text-rendering:optimizeLegibility;
+    overscroll-behavior-y:none;
+}
+img,video{
+    max-width:100%;
+    height:auto;
+}
+section,
+.folder-section,
+.partners-section,
+.contact-section{
+    content-visibility:auto;
+    contain-intrinsic-size:800px;
+}
+.abstract-card,
+.history-card,
+.moto-card,
+.contact-card,
+.folder-box,
+.carousel-slide,
+.contact-info-box{
+    backface-visibility:hidden;
+    transform:translateZ(0);
+}
+@media (hover:none){
+    .abstract-card:hover,
+    .folder-box:hover,
+    .carousel-slide:hover,
+    .premium-action-btn:hover,
+    .btn-primary:hover,
+    .contact-info-box:hover{
+        transform:none;
+        box-shadow:inherit;
+    }
+}
+@media (max-width:768px){
+    .container{padding:0 16px;}
+    .header-grid{gap:10px;}
+    .header-brand-name{font-size:16px;}
+    .hero-section{padding:72px 16px 56px;}
+    .hero-logo{max-width:180px;}
+    .hero-subtitle{font-size:18px;}
+    .section-title{font-size:30px;}
+    .section-title-left{font-size:28px;}
+    .folder-grid,
+    .edu-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+}
+@media (max-width:480px){
+    .hero-title{font-size:30px;line-height:1.15;}
+    .header-logo-img{height:32px;}
+    .abstract-card,
+    .history-card,
+    .moto-card,
+    .contact-card{
+        border-radius:24px;
+    }
+    .floating-buttons{
+        right:16px;
+        bottom:16px;
+    }
+}
+
+</style>
 </head>
 <body>
 
@@ -335,7 +409,7 @@
     <div class="header-grid">
         <div><p class="hide-mobile header-tradition">Tradicija od 1998.</p></div>
         <div class="header-logo-group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-            <img src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+            <img loading="lazy" decoding="async" src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
             <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY DIGITAL HUB</span></h2>
         </div>
         <div><div id="header-percent-btn" class="header-percent-text" title="Procenat skrola">0%</div></div>
@@ -345,7 +419,7 @@
 
 <section class="hero-section reveal">
     <div class="hero-content">
-        <img src="logo.jpg" class="hero-logo" alt="Logo" onerror="this.style.display='none';">
+        <img loading="lazy" decoding="async" src="logo.jpg" class="hero-logo" alt="Logo" onerror="this.style.display='none';">
         <h1 class="hero-title">Inženjerska tradicija za <br><span>pametnu budućnost</span></h1>
         <div class="hero-line"></div>
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
@@ -400,7 +474,7 @@
     <section class="reveal">
         <div class="moto-card">
             <p class="moto-title">Naš Moto i Vodilja</p>
-            <div class="moto-img-wrapper"><img src="moto.jpg" class="blended-moto" loading="lazy" onerror="this.style.display='none';"></div>
+            <div class="moto-img-wrapper"><img loading="lazy" decoding="async" src="moto.jpg" class="blended-moto" loading="lazy" onerror="this.style.display='none';"></div>
         </div>
     </section>
 
@@ -414,7 +488,7 @@
                 </div>
                 <div style="flex:1; text-align:center; min-width: 300px;">
                     <p style="font-size:12px; color:#4caf50; margin-bottom:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase;">Ohmov Zakon</p>
-                    <div class="om-image-container"><img src="omov_zakon.jpg" class="blended-om" loading="lazy" onerror="this.style.display='none';"></div>
+                    <div class="om-image-container"><img loading="lazy" decoding="async" src="omov_zakon.jpg" class="blended-om" loading="lazy" onerror="this.style.display='none';"></div>
                 </div>
             </div>
         </div>
