@@ -161,7 +161,7 @@
         }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
 
-        /* ========== ZELENA FIRMA – NOVA SEKCIJA ========== */
+        /* ========== ZELENA FIRMA ========== */
         .green-company {
             background: rgba(20, 24, 32, 0.4);
             backdrop-filter: blur(24px);
@@ -243,17 +243,6 @@
         .blended-om { width: 100%; height: auto; display: block; border-radius: 50%; transition: transform 0.5s ease; }
         .om-image-container:hover .blended-om { transform: scale(1.05) rotate(2deg); }
 
-        /* ========== FOLDERS (klasični) ========== */
-        .folder-section { margin-bottom: 60px; }
-        .folder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-        .folder-box { background: rgba(30, 36, 45, 0.4); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.03); border-radius: 24px; padding: 24px; cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; align-items: center; justify-content: space-between; }
-        .folder-box:hover { background: rgba(40, 48, 60, 0.6); border-color: rgba(76,175,80,0.3); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .folder-arrow { transition: transform 0.4s ease; color: #4caf50; font-size: 14px; }
-        .folder-box:hover .folder-arrow { transform: translateX(5px); }
-        .folder-img { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transition: transform 0.3s; }
-        .folder-box:hover .folder-img { transform: scale(1.05); }
-        .auto-folder-card { background: rgba(30, 36, 45, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 50px 30px; text-align: center; margin-top: 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-
         /* ========== INSTAGRAM MODAL ========== */
         .instagram-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -296,23 +285,24 @@
         .insta-item:hover img { transform: scale(1.05); }
         .insta-item .insta-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.3s;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-weight: 500; font-size: 14px;
-            pointer-events: none;
+            background: rgba(0,0,0,0.35);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 10px; text-align: center;
+            color: #fff; pointer-events: none;
+            transition: background 0.3s;
         }
-        .insta-item:hover .insta-overlay { opacity: 1; }
-        .insta-item.folder-item .insta-overlay {
-            background: rgba(0,0,0,0.5);
-            opacity: 1;
-            font-size: 16px;
-            font-weight: 600;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-        .insta-item.folder-item:hover .insta-overlay { background: rgba(0,0,0,0.7); }
+        .insta-item:hover .insta-overlay { background: rgba(0,0,0,0.55); }
+        .insta-item .insta-overlay .icon { font-size: 32px; margin-bottom: 6px; }
+        .insta-item .insta-overlay .name { font-weight: 600; font-size: 14px; line-height: 1.3; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+        .insta-item .insta-overlay .desc { font-size: 11px; opacity: 0.85; margin-top: 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.8); max-width: 90%; }
+        .insta-item.folder-item .insta-overlay { background: rgba(0,0,0,0.45); }
+        .insta-item.folder-item:hover .insta-overlay { background: rgba(0,0,0,0.65); }
 
         @media (max-width: 600px) {
             .insta-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 2px; }
+            .insta-item .insta-overlay .icon { font-size: 24px; }
+            .insta-item .insta-overlay .name { font-size: 12px; }
+            .insta-item .insta-overlay .desc { font-size: 9px; }
         }
         @media (max-width: 400px) {
             .insta-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
@@ -521,7 +511,6 @@
             .abstract-card.full-width { grid-column: auto; }
             .abstract-card, .history-card, .moto-card, .contact-card { padding: 30px 25px; }
             .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
-            .project-img { height: 120px; }
             .hero-logo { max-width: 90vw; }
             .green-company h3 { font-size: 28px; }
             .green-company p { font-size: 16px; }
@@ -530,7 +519,6 @@
             .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
             .carousel-slide { flex: 0 0 100%; min-width: 100%; }
             .hero-title { font-size: 32px; }
-            .modal-content-grid { grid-template-columns: repeat(2, 1fr); }
             #mse-ai-widget {
                 width: calc(100vw - 40px);
                 bottom: 80px;
@@ -546,10 +534,10 @@
         html { -webkit-text-size-adjust:100%; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
         body { text-rendering:optimizeLegibility; overscroll-behavior-y:none; }
         img, video { max-width:100%; height:auto; }
-        section, .folder-section, .partners-section, .contact-section { content-visibility:auto; contain-intrinsic-size:800px; }
-        .abstract-card, .history-card, .moto-card, .contact-card, .folder-box, .carousel-slide, .contact-info-box { backface-visibility:hidden; transform:translateZ(0); }
+        section, .partners-section, .contact-section { content-visibility:auto; contain-intrinsic-size:800px; }
+        .abstract-card, .history-card, .moto-card, .contact-card, .carousel-slide, .contact-info-box { backface-visibility:hidden; transform:translateZ(0); }
         @media (hover:none) {
-            .abstract-card:hover, .folder-box:hover, .carousel-slide:hover, .premium-action-btn:hover, .btn-primary:hover, .btn-secondary:hover, .contact-info-box:hover {
+            .abstract-card:hover, .carousel-slide:hover, .premium-action-btn:hover, .btn-primary:hover, .btn-secondary:hover, .contact-info-box:hover {
                 transform:none;
                 box-shadow:inherit;
             }
@@ -574,12 +562,6 @@
         </div>
     </div>
     <div class="insta-grid" id="insta-grid"></div>
-</div>
-
-<!-- Folder modal (klasični) – zadržan za staru strukturu -->
-<div id="folder-modal" class="folder-modal">
-    <div class="modal-header"><h3 id="modal-folder-title">Naziv foldera</h3><button class="modal-close-btn" id="close-modal-btn">&times;</button></div>
-    <div class="modal-content-grid" id="modal-image-grid"></div>
 </div>
 
 <!-- Video lightbox -->
@@ -662,7 +644,7 @@
         </div>
     </section>
 
-    <!-- ========== NOVA SEKCIJA – ZELENA FIRMA ========== -->
+    <!-- ========== ZELENA FIRMA ========== -->
     <section class="green-company reveal">
         <span class="icon-leaf">🌱</span>
         <h3>Mi smo <span>zelena firma</span></h3>
@@ -681,6 +663,7 @@
         </div>
     </section>
 
+    <!-- ========== TRENUTNO RADIMO – SAMO VIDEO ========== -->
     <section class="reveal" style="margin-top: 40px; margin-bottom: 60px;">
         <div class="text-center">
             <span class="badge-primary">Aktuelno</span>
@@ -688,13 +671,6 @@
         </div>
         <div class="abstract-card" style="max-width: 900px; margin: 0 auto; padding: 25px; text-align: center;">
             <p class="section-text" style="margin-bottom: 25px;">Pogledajte naše najnovije radove i aktuelne inženjerske projekte na terenu.</p>
-            <!-- Thumbnail slika koja otvara video -->
-            <div style="position: relative; cursor: pointer; border-radius: 16px; overflow: hidden; margin-bottom: 20px;" onclick="openVideoLightbox()">
-                <img src="video-preview.jpg" alt="Pogledaj video" style="width: 100%; display: block; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s;" onerror="this.style.display='none';">
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.3); transition: all 0.3s;">
-                    <svg style="width: 30px; height: 30px; fill: white; margin-left: 4px;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </div>
             <video controls preload="metadata" style="width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
                 <source src="TrenutnoRadimo.MP4" type="video/mp4">
                 Vaš preglednik ne podržava prikazivanje videa.
@@ -755,29 +731,6 @@
                     <div class="om-image-container"><img loading="lazy" decoding="async" src="omov_zakon.jpg" class="blended-om" loading="lazy" onerror="this.style.display='none';"></div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="folder-section reveal" style="margin-top: 80px;">
-        <div class="text-center" style="margin-bottom:50px;">
-            <span class="badge-primary">Reference</span>
-            <h2 class="section-title" style="margin-bottom: 10px;">Pregled projekata po folderima</h2>
-            <p class="section-text">Klikni na folder za prikaz sadržaja (klasični prikaz)</p>
-        </div>
-        <div id="folders-container" class="folder-grid">
-            <div class="folder-box reveal" onclick="openFolderModal('01 Kućne instalacije', '01_Kucne_instalacije')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01 Kućne instalacije</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Privatne kuće i porodični objekti</p></div></div><span class="folder-arrow">▶</span></div>
-            <div class="folder-box reveal" onclick="openFolderModal('01b Vikendice i apartmani', '01b_Vikendice')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">01b Vikendice i apartmani</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Odmarališta i vikend objekti</p></div></div><span class="folder-arrow">▶</span></div>
-            <div class="folder-box reveal" onclick="openFolderModal('02 Stambene zgrade', '02_Stambene_zgrade')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">02 Stambene zgrade</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Kompletan inženjering i elektro-montaža</p></div></div><span class="folder-arrow">▶</span></div>
-            <div class="folder-box reveal" onclick="openFolderModal('03 Komercijalni objekti', '03_Komercijalni_objekti')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">03 Komercijalni objekti</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Industrijski pogoni, hale i kancelarije</p></div></div><span class="folder-arrow">▶</span></div>
-            <div class="folder-box reveal" onclick="openFolderModal('04 Vjerski objekti', '04_Vjerski_objekti')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">04 Vjerski objekti</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Instalacije projektovane za dugo trajanje</p></div></div><span class="folder-arrow">▶</span></div>
-            <div class="folder-box reveal" onclick="openFolderModal('05 Ulična rasvjeta', '05_Ulicna_rasvjeta')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">05 Ulična rasvjeta</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">LED rasvjeta i javna infrastruktura</p></div></div><span class="folder-arrow">▶</span></div>
-            <div class="folder-box reveal" onclick="openFolderModal('06 Distributivne mreže', '06_Elektrodistributivne_mreze')"><div style="display:flex; align-items:center; gap:16px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:18px; margin:0; font-weight:600;">06 Distributivne mreže</h3><p style="margin:4px 0 0; font-size:13px; color:#a1aabf;">Niskonaponske mreže i trafostanice</p></div></div><span class="folder-arrow">▶</span></div>
-        </div>
-        <div id="auto-folder" class="auto-folder-card reveal delay-1">
-            <span class="badge-primary">Glavna Orijentacija</span>
-            <h3 style="font-size:32px; color:#fff; margin:20px 0 16px; font-weight: 600; letter-spacing:-0.5px;">Fokus na polju: Automatizacija i Robotika</h3>
-            <p class="section-text" style="max-width:700px; margin:0 auto 35px;">Integracija robotskih ćelija, industrijski elektro-ormari i kreiranje naprednih Smart Home sistema.</p>
-            <div class="folder-box" style="background: rgba(0,0,0,0.3); max-width:650px; margin:0 auto; text-align:left;" onclick="openFolderModal('07 Automatizacija i robotika', '07_Automatizacija_i_robotika')"><div style="display:flex; align-items:center; gap:18px;"><img class="folder-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2364B5F6'/%3E%3Cstop offset='100%25' stop-color='%231E88E5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M4 4 C4 2.5 5.5 2 7 2 L19 2 L22 8 L41 8 C42.5 8 44 9.5 44 11 L44 34 C44 35.5 42.5 37 41 37 L7 37 C5.5 37 4 35.5 4 34 Z' fill='url(%23grad)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E" alt="folder"><div><h3 style="color:#fff; font-size:19px; font-weight:600;">07 Automatizacija i robotika</h3><p style="font-size:14px; color:#a1aabf; margin-top:2px;">Industrija 4.0 i pametni sistemi</p></div></div><span class="folder-arrow">▶</span></div>
         </div>
     </section>
 
@@ -946,19 +899,19 @@ const instaGrid = document.getElementById('insta-grid');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// Definicija foldera i njihovih slika (isti kao ranije)
+// Definicija foldera sa ikonicom i opisom
 const folderDefs = [
-    { name: '01 Kućne instalacije', path: '01_Kucne_instalacije' },
-    { name: '01b Vikendice i apartmani', path: '01b_Vikendice' },
-    { name: '02 Stambene zgrade', path: '02_Stambene_zgrade' },
-    { name: '03 Komercijalni objekti', path: '03_Komercijalni_objekti' },
-    { name: '04 Vjerski objekti', path: '04_Vjerski_objekti' },
-    { name: '05 Ulična rasvjeta', path: '05_Ulicna_rasvjeta' },
-    { name: '06 Distributivne mreže', path: '06_Elektrodistributivne_mreze' },
-    { name: '07 Automatizacija i robotika', path: '07_Automatizacija_i_robotika' }
+    { name: '01 Kućne instalacije', path: '01_Kucne_instalacije', icon: '🏠', desc: 'Privatne kuće i porodični objekti' },
+    { name: '01b Vikendice i apartmani', path: '01b_Vikendice', icon: '🏡', desc: 'Odmarališta i vikend objekti' },
+    { name: '02 Stambene zgrade', path: '02_Stambene_zgrade', icon: '🏢', desc: 'Kompletan inženjering i elektro-montaža' },
+    { name: '03 Komercijalni objekti', path: '03_Komercijalni_objekti', icon: '🏭', desc: 'Industrijski pogoni, hale i kancelarije' },
+    { name: '04 Vjerski objekti', path: '04_Vjerski_objekti', icon: '⛪', desc: 'Instalacije projektovane za dugo trajanje' },
+    { name: '05 Ulična rasvjeta', path: '05_Ulicna_rasvjeta', icon: '💡', desc: 'LED rasvjeta i javna infrastruktura' },
+    { name: '06 Distributivne mreže', path: '06_Elektrodistributivne_mreze', icon: '⚡', desc: 'Niskonaponske mreže i trafostanice' },
+    { name: '07 Automatizacija i robotika', path: '07_Automatizacija_i_robotika', icon: '🤖', desc: 'Industrija 4.0 i pametni sistemi' }
 ];
 
-let instaHistory = []; // stack za nazad
+let instaHistory = [];
 
 function openInstaModal() {
     instaModal.classList.add('active');
@@ -979,22 +932,27 @@ function showFolderGrid() {
     folderDefs.forEach(folder => {
         const div = document.createElement('div');
         div.className = 'insta-item folder-item';
-        // Pokušaj učitati prvu sliku iz foldera kao cover
+        // Slika (cover)
         const img = document.createElement('img');
         img.src = `Nasi projekti/${folder.path}/1.jpg`;
         img.alt = folder.name;
         img.onerror = function() {
             this.style.display = 'none';
-            // fallback ikonica
+            // Fallback – prikazati ikonicu umjesto slike
             const fallback = document.createElement('span');
-            fallback.textContent = '📁';
-            fallback.style.cssText = 'font-size:40px; display:flex; align-items:center; justify-content:center; width:100%; height:100%; background:rgba(255,255,255,0.03);';
+            fallback.textContent = folder.icon;
+            fallback.style.cssText = 'font-size:48px; display:flex; align-items:center; justify-content:center; width:100%; height:100%; background:rgba(255,255,255,0.03);';
             div.prepend(fallback);
         };
         div.appendChild(img);
+        // Overlay sa ikonicom, nazivom i opisom
         const overlay = document.createElement('div');
         overlay.className = 'insta-overlay';
-        overlay.textContent = folder.name;
+        overlay.innerHTML = `
+            <div class="icon">${folder.icon}</div>
+            <div class="name">${folder.name}</div>
+            <div class="desc">${folder.desc}</div>
+        `;
         div.appendChild(overlay);
         div.onclick = () => openFolderImages(folder);
         instaGrid.appendChild(div);
@@ -1006,7 +964,6 @@ function openFolderImages(folder) {
     instaTitle.textContent = `📂 ${folder.name}`;
     instaBackBtn.style.display = 'block';
     instaGrid.innerHTML = '';
-    // Prikaži do 12 slika (možeš povećati)
     const maxImages = 12;
     for (let i = 1; i <= maxImages; i++) {
         const div = document.createElement('div');
@@ -1032,15 +989,6 @@ function instaGoBack() {
     }
 }
 
-// ========== VIDEO LIGHTBOX (dodatna funkcija za thumbnail) ==========
-function openVideoLightbox() {
-    const videoLightbox = document.getElementById('video-lightbox');
-    const video = document.getElementById('intro-video');
-    videoLightbox.classList.add('active');
-    video.currentTime = 0;
-    video.play().catch(e => console.log);
-}
-
 // ========== OSTALI SKRIPTOVI ==========
 (function() {
     // SCROLL REVEAL
@@ -1048,28 +996,6 @@ function openVideoLightbox() {
         entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("active"); obs.unobserve(entry.target); } });
     }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // FOLDER MODAL (klasični)
-    const folderModal = document.getElementById('folder-modal');
-    const modalTitle = document.getElementById('modal-folder-title');
-    const modalGrid = document.getElementById('modal-image-grid');
-    const closeModalBtn = document.getElementById('close-modal-btn');
-    window.openFolderModal = function(folderName, folderPath) {
-        modalTitle.innerText = folderName;
-        modalGrid.innerHTML = '';
-        for (let i = 1; i <= 4; i++) {
-            const img = document.createElement('img');
-            img.src = `Nasi projekti/${folderPath}/${i}.jpg`;
-            img.className = 'project-img';
-            img.loading = 'lazy';
-            img.onerror = function() { this.style.display = 'none'; };
-            img.onclick = function() { document.getElementById('lightbox-img').src = this.src; document.getElementById('lightbox').classList.add('active'); };
-            modalGrid.appendChild(img);
-        }
-        folderModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    };
-    closeModalBtn.onclick = () => { folderModal.classList.remove('active'); document.body.style.overflow = ''; };
 
     // MUZIKA
     const music = document.getElementById('bg-music');
@@ -1091,7 +1017,7 @@ function openVideoLightbox() {
     }
     if (musicToggleBtn) musicToggleBtn.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
 
-    // VIDEO LIGHTBOX (za video-circle)
+    // VIDEO LIGHTBOX
     const videoTrigger = document.getElementById('video-trigger');
     const videoLightbox = document.getElementById('video-lightbox');
     const videoElement = document.getElementById('intro-video');
