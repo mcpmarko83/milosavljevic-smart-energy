@@ -658,7 +658,8 @@
         
         <div id="video-trigger" class="video-circle reveal delay-1">
             <div class="video-thumb">
-                <img src="video-preview.jpg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
+                <!-- Zamijenjena slika: sada Tesla.jpeg umjesto video-preview.jpg -->
+                <img src="Tesla.jpeg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
                 <div class="glass-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             </div>
             <div class="video-label" style="color: #4caf50; font-weight: 700;">🎬 Pogledajte ko smo mi – naša prezentacija i uvod (preporučujemo!)</div>
@@ -716,7 +717,8 @@
                 Pogledajte naše najnovije radove i aktuelne inženjerske projekte na terenu. 
                 <strong style="color:#4caf50;">🎥 Video iz terena – kliknite za reprodukciju</strong>
             </p>
-            <video controls preload="metadata" poster="video-preview.jpg" style="width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <!-- Poster takođe ažuriran na Tesla.jpeg radi konzistentnosti -->
+            <video controls preload="metadata" poster="Tesla.jpeg" style="width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
                 <source src="TrenutnoRadimo.MP4" type="video/mp4">
                 Vaš preglednik ne podržava prikazivanje videa.
             </video>
