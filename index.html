@@ -75,6 +75,16 @@
         .orb-3 { width: 55vw; height: 55vw; background: #9b59b6; top: 40%; left: 30%; animation-delay: -10s; opacity: 0.2; }
         @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%,12%) scale(1.1); } }
 
+        /* ========== CIRCUIT FLOW BACKGROUND ========== */
+        #circuit-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
         /* ========== UTILITY ========== */
         .hide-mobile { display: inline; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -588,7 +598,7 @@
 </head>
 <body>
 
-<div class="abstract-bg"><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
+<div class="abstract-bg"><canvas id="circuit-canvas"></canvas><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
 <audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
 
 <!-- Lightbox za slike -->
@@ -1211,6 +1221,161 @@ function instaGoBack() {
     startAutoScroll();
     createDots();
     updateCarouselPosition();
+})();
+
+// ========== CIRCUIT FLOW BACKGROUND ==========
+(function() {
+    const canvas = document.getElementById('circuit-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const COLORS = ['#4caf50', '#3a86ff', '#9b59b6'];
+    let W, H;
+    let paths = [];
+    let scrollSpeedBoost = 0;
+    let lastScrollY = window.pageYOffset || 0;
+
+    function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W * (window.devicePixelRatio || 1);
+        canvas.height = H * (window.devicePixelRatio || 1);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+        generatePaths();
+    }
+
+    // Generiše "strujno kolo" - linije sa pravim uglovima (circuit-board stil)
+    function generatePaths() {
+        paths = [];
+        const cols = Math.max(5, Math.floor(W / 220));
+        const rows = Math.max(4, Math.floor(H / 220));
+        const cellW = W / cols;
+        const cellH = H / rows;
+        const count = Math.min(14, cols * rows / 2);
+
+        for (let i = 0; i < count; i++) {
+            const startCol = Math.floor(Math.random() * cols);
+            const startRow = Math.floor(Math.random() * rows);
+            let x = startCol * cellW + cellW / 2;
+            let y = startRow * cellH + cellH / 2;
+            const points = [{x, y}];
+            const segments = 3 + Math.floor(Math.random() * 4);
+            let dir = Math.floor(Math.random() * 4); // 0=right,1=down,2=left,3=up
+
+            for (let s = 0; s < segments; s++) {
+                // skreni 90 stepeni levo ili desno (nikad nazad)
+                const turn = Math.random() < 0.5 ? 1 : -1;
+                if (Math.random() < 0.6) dir = (dir + turn + 4) % 4;
+
+                const len = (1 + Math.floor(Math.random() * 2)) * (dir % 2 === 0 ? cellW : cellH);
+                if (dir === 0) x += len;
+                else if (dir === 1) y += len;
+                else if (dir === 2) x -= len;
+                else y -= len;
+
+                x = Math.max(0, Math.min(W, x));
+                y = Math.max(0, Math.min(H, y));
+                points.push({x, y});
+            }
+
+            // ukupna duzina puta
+            let totalLen = 0;
+            for (let p = 1; p < points.length; p++) {
+                totalLen += Math.hypot(points[p].x - points[p-1].x, points[p].y - points[p-1].y);
+            }
+
+            paths.push({
+                points,
+                totalLen,
+                color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                pulseT: Math.random(),
+                speed: 0.00018 + Math.random() * 0.00015,
+                pulseLen: 0.12 + Math.random() * 0.08
+            });
+        }
+    }
+
+    function getPointAt(path, t) {
+        // t je 0..1 duz totalLen
+        const targetLen = t * path.totalLen;
+        let acc = 0;
+        for (let p = 1; p < path.points.length; p++) {
+            const a = path.points[p-1], b = path.points[p];
+            const segLen = Math.hypot(b.x - a.x, b.y - a.y);
+            if (acc + segLen >= targetLen) {
+                const localT = segLen === 0 ? 0 : (targetLen - acc) / segLen;
+                return { x: a.x + (b.x - a.x) * localT, y: a.y + (b.y - a.y) * localT };
+            }
+            acc += segLen;
+        }
+        return path.points[path.points.length - 1];
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        paths.forEach(path => {
+            // nacrtaj baznu liniju (vrlo suptilna)
+            ctx.beginPath();
+            ctx.moveTo(path.points[0].x, path.points[0].y);
+            for (let p = 1; p < path.points.length; p++) {
+                ctx.lineTo(path.points[p].x, path.points[p].y);
+            }
+            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // pomjeri pulsni impuls duz puta
+            path.pulseT += path.speed * (1 + scrollSpeedBoost);
+            if (path.pulseT > 1.3) path.pulseT = -0.2;
+
+            // nacrtaj svjetleci impuls kao kratak gradient segment
+            const segments = 18;
+            for (let i = 0; i < segments; i++) {
+                const t = path.pulseT - (i / segments) * path.pulseLen;
+                if (t < 0 || t > 1) continue;
+                const pt = getPointAt(path, t);
+                const alpha = (1 - i / segments) * 0.7;
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 1.8, 0, Math.PI * 2);
+                ctx.fillStyle = path.color;
+                ctx.globalAlpha = alpha;
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            // glow tacka na glavi impulsa
+            if (path.pulseT >= 0 && path.pulseT <= 1) {
+                const head = getPointAt(path, path.pulseT);
+                const grad = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 8);
+                grad.addColorStop(0, path.color);
+                grad.addColorStop(1, 'transparent');
+                ctx.beginPath();
+                ctx.arc(head.x, head.y, 8, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+            }
+        });
+
+        // postepeno smanji scroll boost (decay)
+        scrollSpeedBoost *= 0.92;
+
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener('scroll', () => {
+        const y = window.pageYOffset || 0;
+        const delta = Math.abs(y - lastScrollY);
+        scrollSpeedBoost = Math.min(scrollSpeedBoost + delta * 0.15, 25);
+        lastScrollY = y;
+    }, { passive: true });
+
+    resize();
+    draw();
 })();
 
 // ========== AI ==========
