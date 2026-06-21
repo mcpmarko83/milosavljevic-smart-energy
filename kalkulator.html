@@ -1,292 +1,891 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>MSE Kalkulator Troškova | Milosavljević Smart Energy</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
-        body { background-color: #05070a; color: #f3f4f6; line-height: 1.6; padding: 40px 20px; }
-        
-        .container { max-width: 1000px; margin: 0 auto; }
-        .text-center { text-align: center; }
-        .text-white { color: #fff; }
-        
-        /* Navigacija za povratak */
-        .back-nav { margin-bottom: 40px; display: flex; align-items: center; justify-content: space-between; }
-        .btn-back { display: inline-flex; align-items: center; gap: 8px; color: #a1aabf; text-decoration: none; font-weight: 500; transition: color 0.3s; }
-        .btn-back:hover { color: #4caf50; }
-        .brand-logo { font-size: 18px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
-        .brand-logo span { color: #4caf50; font-weight: 400; }
-
-        .badge-primary { background: rgba(58,134,255,0.1); color: #3a86ff; padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; display: inline-block; border: 1px solid rgba(58,134,255,0.25); text-transform: uppercase; margin-bottom: 15px; }
-        .section-title { font-size: 36px; color: #fff; margin-bottom: 15px; font-weight: 600; letter-spacing: -0.5px; }
-        .section-text { color: #a1aabf; font-size: 17px; font-weight: 300; }
-
-        .mse-calc-container { background: rgba(20, 24, 32, 0.55); border: 1px solid rgba(58, 134, 255, 0.3); border-radius: 32px; padding: 45px; margin-top: 20px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); }
-        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-top: 30px; }
-        .calc-form { display: flex; flex-direction: column; gap: 20px; }
-        
-        .form-group { text-align: left; }
-        .form-group label { display: block; font-size: 14px; color: #a1aabf; margin-bottom: 8px; font-weight: 500; padding-left: 5px; }
-        .form-control { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 16px 20px; color: #fff; font-size: 15px; transition: all 0.3s ease; }
-        .form-control:focus { outline: none; border-color: #3a86ff; background: rgba(0,0,0,0.5); box-shadow: 0 0 0 4px rgba(58,134,255,0.15); }
-        
-        .calc-select { appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23a1aabf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>"); background-repeat: no-repeat; background-position: right 20px center; background-size: 16px; cursor: pointer; }
-
-        .calc-conditional { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; display: flex; flex-direction: column; gap: 15px; }
-        .calc-conditional.show { max-height: 400px; opacity: 1; margin-top: 5px; }
-
-        .calc-results { background: rgba(10, 14, 22, 0.7); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 35px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: inset 0 4px 20px rgba(0,0,0,0.4); }
-        .result-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .result-row.total { border-bottom: none; margin-top: 15px; padding-top: 15px; border-top: 2px dashed rgba(76,175,80,0.4); }
-        .result-price { font-size: 18px; font-weight: 600; color: #fff; }
-        .result-price.grand { font-size: 32px; color: #4caf50; text-shadow: 0 0 15px rgba(76,175,80,0.3); font-weight: 700; }
-        
-        .ai-action-btn { background: #3a86ff; color: #fff; border: none; padding: 15px; border-radius: 12px; cursor: pointer; margin-top: 20px; font-weight: 600; text-align: center; display: block; width: 100%; transition: all 0.3s; font-size: 16px; }
-        .ai-action-btn:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(58,134,255,0.3); }
-
-        @media (max-width: 768px) {
-            .calc-grid { grid-template-columns: 1fr; }
-            .mse-calc-container { padding: 25px; }
-            .calc-results { padding: 25px; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="back-nav">
-        <a href="index.html" class="btn-back">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-            Nazad na početnu
-        </a>
-        <div class="brand-logo">MILOSAVLJEVIĆ <span>SMART ENERGY</span></div>
-    </div>
-
-    <div class="mse-calc-container">
-        <div class="text-center">
-            <span class="badge-primary">Interaktivni proračun</span>
-            <h1 class="section-title">MSE Inženjerski Kalkulator</h1>
-            <p class="section-text" style="max-width: 700px; margin: 0 auto;">Izaberite kategoriju objekta iz padajućeg menija i unesite parametre za trenutni informativni proračun cijene i vremena izvođenja radova.</p>
-        </div>
-        
-        <div class="calc-grid">
-            <div class="calc-form">
-                <div class="form-group">
-                    <label for="calc-object-type">Tip objekta (Kategorija)</label>
-                    <select id="calc-object-type" class="form-control calc-select" onchange="handleObjectTypeChange()">
-                        <option value="stan">Stan (Stambena zgrada)</option>
-                        <option value="vikendica">Vikendica / Apartman</option>
-                        <option value="kuca">Porodična kuća (Više etaža)</option>
-                        <option value="industrija">Industrijski pogon / Hala</option>
-                        <option value="specificno">Specifični objekat (Visoki plafoni/Crkve)</option>
-                    </select>
-                </div>
-                
-                <div id="group-area" class="form-group">
-                    <label id="label-area" for="calc-area">Površina objekta (m²)</label>
-                    <input type="number" id="calc-area" class="form-control" value="60" min="5" max="5000" oninput="calculateMSETrošak()">
-                </div>
-                
-                <div id="group-automation" class="form-group">
-                    <label for="calc-smart-level">Nivo pametne automatizacije</label>
-                    <select id="calc-smart-level" class="form-control calc-select" onchange="calculateMSETrošak()">
-                        <option value="none">Klasične elektroinstalacije (Bez automatizacije)</option>
-                        <option value="basic">Basic Smart Home (Zigbee / Home Assistant Green)</option>
-                        <option value="premium">Premium Smart Home (Industrijski Siemens PLC / KNX)</option>
-                    </select>
-                </div>
-                
-                <div id="industrial-fields" class="calc-conditional">
-                    <div class="form-group">
-                        <label for="calc-power">Instalirana snaga potrošača (kW)</label>
-                        <input type="number" id="calc-power" class="form-control" value="22" min="1" max="1000" oninput="calculateMSETrošak()">
-                    </div>
-                    <div class="form-group">
-                        <label for="calc-regali">Dužina trasa / Kablovskih regala (m)</label>
-                        <input type="number" id="calc-regali" class="form-control" value="40" min="0" max="2000" oninput="calculateMSETrošak()">
-                    </div>
-                    <div class="form-group">
-                        <label for="calc-sockets-3f">Broj trofaznih industrijskih utičnica</label>
-                        <input type="number" id="calc-sockets-3f" class="form-control" value="6" min="0" max="200" oninput="calculateMSETrošak()">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="calc-results">
-                <div>
-                    <h4 class="text-white" style="margin: 0 0 20px 0; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px;">Inženjerska specifikacija</h4>
-                    
-                    <div class="result-row">
-                        <span class="section-text">Osnovni materijal i kabliranje:</span>
-                        <span id="res-material" class="result-price">0.00 KM</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="section-text">Razvodni ormar i zaštita:</span>
-                        <span id="res-board" class="result-price">0.00 KM</span>
-                    </div>
-                    <div id="res-row-smart" class="result-row">
-                        <span class="section-text">Sistem automatizacije (Smart):</span>
-                        <span id="res-smart" class="result-price">0.00 KM</span>
-                    </div>
-                    <div id="res-row-ind" class="result-row" style="display: none;">
-                        <span class="section-text">Industrijski razvod i trase:</span>
-                        <span id="res-ind-extras" class="result-price">0.00 KM</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="section-text">Inženjerski radni sati:</span>
-                        <span id="res-labor" class="result-price">0.00 KM</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="section-text">Rok za završetak radova:</span>
-                        <span id="res-days" class="result-price" style="color: #3a86ff;">0 dana</span>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="result-row total">
-                        <strong class="text-white" style="font-size: 18px;">UKUPNA PROCJENA:</strong>
-                        <strong id="res-grand-total" class="result-price grand">0.00 KM</strong>
-                    </div>
-                    <p style="font-size: 11px; color: #6b7280; margin-top: 10px; line-height: 1.3;">*Proračun je informativnog karaktera. U cijenu je uračunat materijal prve klase i ruke.</p>
-                    <button class="ai-action-btn" onclick="copyAndRedirect()">📋 Kopiraj i pređi na kontakt formu</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Poziv pri učitavanju stranice
-    window.onload = function() {
-        calculateMSETrošak();
-    };
-
-    function handleObjectTypeChange() {
-        const type = document.getElementById('calc-object-type').value;
-        const indFields = document.getElementById('industrial-fields');
-        const labelArea = document.getElementById('label-area');
-        const groupAuto = document.getElementById('group-automation');
-        const resRowSmart = document.getElementById('res-row-smart');
-        const resRowInd = document.getElementById('res-row-ind');
-        const areaInput = document.getElementById('calc-area');
-
-        if (type === 'industrija') {
-            indFields.classList.add('show');
-            labelArea.innerText = "Površina pogona / hale (m²)";
-            groupAuto.style.display = 'none';
-            resRowSmart.style.display = 'none';
-            resRowInd.style.display = 'flex';
-            if(areaInput.value == 60) areaInput.value = 350;
-        } else {
-            indFields.classList.remove('show');
-            groupAuto.style.display = 'block';
-            resRowSmart.style.display = 'flex';
-            resRowInd.style.display = 'none';
-            labelArea.innerText = "Površina objekta (m²)";
-            if(areaInput.value == 350) areaInput.value = 80;
-        }
-        calculateMSETrošak();
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSE Kalkulator Troškova | Milosavljević Smart Energy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07100d;
+      --panel: rgba(18, 25, 29, 0.82);
+      --panel-strong: rgba(9, 14, 18, 0.92);
+      --line: rgba(255, 255, 255, 0.1);
+      --line-strong: rgba(96, 196, 139, 0.4);
+      --text: #f5f7f5;
+      --muted: #9daaa3;
+      --muted-2: #6f7c76;
+      --green: #57c878;
+      --blue: #4c9cff;
+      --amber: #f1bd55;
+      --red: #ff6b6b;
+      --input: rgba(0, 0, 0, 0.28);
+      --radius: 8px;
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.38);
     }
 
-    function calculateMSETrošak() {
-        const type = document.getElementById('calc-object-type').value;
-        const area = parseFloat(document.getElementById('calc-area').value) || 0;
-        const smartLevel = document.getElementById('calc-smart-level').value;
+    * { box-sizing: border-box; }
 
-        let costMaterial = 0, costBoard = 0, costSmart = 0, costIndExtras = 0, costLabor = 0, days = 0;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(140deg, rgba(10, 25, 17, 0.94), rgba(4, 7, 10, 1) 48%, rgba(12, 18, 20, 0.98)),
+        #07100d;
+      color: var(--text);
+      font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      padding: 28px 18px 44px;
+    }
 
-        if (area <= 0) return;
+    button, input, select { font: inherit; }
 
-        if (type !== 'industrija') {
-            let basePricePerM2 = 22, boardBase = 350;
+    .container {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
 
-            if (type === 'stan') { basePricePerM2 = 32; boardBase = 550; } 
-            else if (type === 'kuca') { basePricePerM2 = 38; boardBase = 850; } 
-            else if (type === 'specificno') { basePricePerM2 = 52; boardBase = 1200; }
+    .back-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
 
-            costMaterial = area * basePricePerM2;
-            costBoard = boardBase + (area * 3.5);
-            costLabor = (costMaterial * 0.85) + (costBoard * 0.3);
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
 
-            if (smartLevel === 'basic') {
-                costSmart = 900 + (area * 14);
-                costLabor += costSmart * 0.4; 
-            } else if (smartLevel === 'premium') {
-                costSmart = 4200 + (area * 55);
-                costLabor += costSmart * 0.55;
-                costBoard *= 1.8; 
-            }
-            days = Math.ceil((area * 0.15) + (smartLevel === 'none' ? 3 : smartLevel === 'basic' ? 6 : 15));
-        } else {
-            const power = parseFloat(document.getElementById('calc-power').value) || 0;
-            const regali = parseFloat(document.getElementById('calc-regali').value) || 0;
-            const sockets3f = parseFloat(document.getElementById('calc-sockets-3f').value) || 0;
+    .btn-back:hover { color: var(--green); }
 
-            costMaterial = area * 18; 
-            costBoard = 2200 + (power * 35);
-            costIndExtras = (regali * 28) + (sockets3f * 85);
-            costMaterial += power * 45;
-            costLabor = (costMaterial * 0.95) + (costBoard * 0.35) + (costIndExtras * 0.8);
-            days = Math.ceil((area * 0.05) + (regali * 0.2) + (sockets3f * 0.5) + 8);
+    .brand-logo {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-align: right;
+    }
+
+    .brand-logo span {
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .mse-calc-container {
+      background: var(--panel);
+      border: 1px solid rgba(87, 200, 120, 0.28);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .calc-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+      padding: 30px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .badge-primary {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 30px;
+      padding: 6px 12px;
+      border: 1px solid rgba(87, 200, 120, 0.3);
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(87, 200, 120, 0.1);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 54px;
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .section-text {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 700px;
+    }
+
+    .rate-chip {
+      display: grid;
+      gap: 3px;
+      min-width: 185px;
+      padding: 16px;
+      border: 1px solid rgba(241, 189, 85, 0.38);
+      border-radius: var(--radius);
+      background: rgba(241, 189, 85, 0.1);
+      color: #fff7e3;
+    }
+
+    .rate-chip strong {
+      font-size: 28px;
+      line-height: 1;
+      color: var(--amber);
+    }
+
+    .rate-chip span {
+      color: #d7c7a5;
+      font-size: 13px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
+      min-height: 620px;
+    }
+
+    .calc-form {
+      padding: 28px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      border-right: 1px solid var(--line);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .form-group { min-width: 0; }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    .label-note {
+      color: var(--muted-2);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .form-control {
+      width: 100%;
+      min-height: 48px;
+      color: #fff;
+      background: var(--input);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(87, 200, 120, 0.13);
+      background: rgba(0, 0, 0, 0.38);
+    }
+
+    .calc-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%239daaa3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 13px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+
+    .section-block {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .block-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 13px;
+    }
+
+    .block-title h2 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    .mini-btn {
+      min-height: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .mini-btn:hover { border-color: rgba(87, 200, 120, 0.5); }
+
+    .points-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .calc-conditional {
+      display: none;
+      gap: 14px;
+    }
+
+    .calc-conditional.show { display: grid; }
+
+    .status-line {
+      color: var(--muted-2);
+      font-size: 12px;
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
+    .calc-results {
+      padding: 28px;
+      background: var(--panel-strong);
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .result-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.025);
+      padding: 16px;
+    }
+
+    .result-card h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .result-row:last-child { border-bottom: 0; }
+
+    .result-price {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .result-price.blue { color: var(--blue); }
+    .result-price.green { color: var(--green); }
+    .result-price.amber { color: var(--amber); }
+
+    .materials-list {
+      display: grid;
+      gap: 9px;
+      margin-top: 8px;
+    }
+
+    .material-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .material-item:last-child { border-bottom: 0; }
+
+    .material-item strong {
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .grand-total {
+      border-color: var(--line-strong);
+      background: linear-gradient(135deg, rgba(87, 200, 120, 0.13), rgba(76, 156, 255, 0.07));
+    }
+
+    .grand-total .result-row {
+      border-bottom: 0;
+      padding: 0;
+    }
+
+    .grand-total strong:first-child {
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .grand-total .grand {
+      color: var(--green);
+      font-size: 39px;
+      line-height: 1;
+    }
+
+    .ai-action-btn {
+      width: 100%;
+      min-height: 50px;
+      color: #06100a;
+      background: var(--green);
+      border: 0;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .ai-action-btn:hover {
+      transform: translateY(-1px);
+      background: #6ddd8b;
+      box-shadow: 0 14px 28px rgba(87, 200, 120, 0.2);
+    }
+
+    .fine-print {
+      color: var(--muted-2);
+      font-size: 12px;
+      line-height: 1.45;
+      margin: 10px 0 0;
+    }
+
+    @media (max-width: 920px) {
+      body { padding: 18px 12px 32px; }
+      .calc-header, .calc-grid { grid-template-columns: 1fr; }
+      .calc-form { border-right: 0; border-bottom: 1px solid var(--line); }
+      .rate-chip { width: 100%; }
+      .brand-logo { font-size: 16px; }
+      h1 { font-size: 42px; }
+      .grand-total .grand { font-size: 34px; }
+    }
+
+    @media (max-width: 640px) {
+      .back-nav { align-items: flex-start; }
+      .calc-header, .calc-form, .calc-results { padding: 18px; }
+      .form-row, .points-grid, .price-grid { grid-template-columns: 1fr; }
+      .result-row { align-items: flex-start; flex-direction: column; gap: 4px; }
+      .grand-total .result-row { flex-direction: row; align-items: baseline; }
+      .brand-logo { font-size: 13px; }
+      h1 { font-size: 32px; }
+      .grand-total .grand { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <nav class="back-nav" aria-label="Navigacija">
+      <a href="index.html" class="btn-back" aria-label="Nazad na početnu">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+        Nazad
+      </a>
+      <div class="brand-logo">MILOSAVLJEVIĆ <span>SMART ENERGY</span></div>
+    </nav>
+
+    <section class="mse-calc-container">
+      <header class="calc-header">
+        <div>
+          <span class="badge-primary">Interaktivni proračun</span>
+          <h1>MSE Inženjerski Kalkulator</h1>
+          <p class="section-text">Unesite kvadraturu, tip objekta i broj instalacionih mjesta. Kalkulator procjenjuje dužine kablova, materijal, rad i rok izvođenja.</p>
+        </div>
+        <div class="rate-chip">
+          <span>Rad po instalacionom mjestu</span>
+          <strong>35 KM</strong>
+          <span>utičnice, rasvjeta, UTP i ostale tačke</span>
+        </div>
+      </header>
+
+      <div class="calc-grid">
+        <form class="calc-form" onsubmit="event.preventDefault()">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="calc-object-type">Tip objekta</label>
+              <select id="calc-object-type" class="form-control calc-select">
+                <option value="stan">Stan</option>
+                <option value="vikendica">Vikendica / Apartman</option>
+                <option value="kuca">Porodična kuća</option>
+                <option value="industrija">Industrijski pogon / Hala</option>
+                <option value="specificno">Specifični objekat</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label id="label-area" for="calc-area">Površina objekta <span class="label-note">m²</span></label>
+              <input type="number" id="calc-area" class="form-control" value="80" min="5" max="5000" step="1">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="calc-floors">Etaže <span class="label-note">kom</span></label>
+              <input type="number" id="calc-floors" class="form-control" value="1" min="1" max="8" step="1">
+            </div>
+            <div class="form-group">
+              <label for="calc-quality">Klasa materijala</label>
+              <select id="calc-quality" class="form-control calc-select">
+                <option value="standard">Standard</option>
+                <option value="premium">Premium</option>
+                <option value="budget">Ekonomična</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="group-automation" class="form-group">
+            <label for="calc-smart-level">Nivo pametne automatizacije</label>
+            <select id="calc-smart-level" class="form-control calc-select">
+              <option value="none">Klasične elektroinstalacije</option>
+              <option value="basic">Basic Smart Home</option>
+              <option value="premium">Premium Smart Home / KNX / PLC</option>
+            </select>
+          </div>
+
+          <section class="section-block">
+            <div class="block-title">
+              <h2>Instalaciona mjesta</h2>
+              <button type="button" class="mini-btn" id="btn-auto-points">Auto procjena</button>
+            </div>
+            <div class="points-grid">
+              <div class="form-group">
+                <label for="calc-sockets">Utičnice <span class="label-note">kom</span></label>
+                <input type="number" id="calc-sockets" class="form-control" min="0" max="1000" step="1">
+              </div>
+              <div class="form-group">
+                <label for="calc-lights">Rasvjeta <span class="label-note">kom</span></label>
+                <input type="number" id="calc-lights" class="form-control" min="0" max="1000" step="1">
+              </div>
+              <div class="form-group">
+                <label for="calc-switches">Prekidači <span class="label-note">kom</span></label>
+                <input type="number" id="calc-switches" class="form-control" min="0" max="1000" step="1">
+              </div>
+              <div class="form-group">
+                <label for="calc-utp">UTP tačke <span class="label-note">kom</span></label>
+                <input type="number" id="calc-utp" class="form-control" min="0" max="1000" step="1">
+              </div>
+            </div>
+          </section>
+
+          <section id="industrial-fields" class="section-block calc-conditional">
+            <div class="block-title">
+              <h2>Industrijski parametri</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="calc-power">Instalirana snaga <span class="label-note">kW</span></label>
+                <input type="number" id="calc-power" class="form-control" value="22" min="1" max="1000" step="1">
+              </div>
+              <div class="form-group">
+                <label for="calc-regali">Kablovski regali <span class="label-note">m</span></label>
+                <input type="number" id="calc-regali" class="form-control" value="40" min="0" max="2000" step="1">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="calc-sockets-3f">Trofazne utičnice <span class="label-note">kom</span></label>
+                <input type="number" id="calc-sockets-3f" class="form-control" value="6" min="0" max="200" step="1">
+              </div>
+              <div class="form-group">
+                <label for="calc-machine-lines">Mašinske linije <span class="label-note">kom</span></label>
+                <input type="number" id="calc-machine-lines" class="form-control" value="2" min="0" max="100" step="1">
+              </div>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <div class="block-title">
+              <h2>Cijene materijala</h2>
+              <button type="button" class="mini-btn" id="btn-online-prices">Online cijene</button>
+            </div>
+            <div class="price-grid">
+              <div class="form-group">
+                <label for="price-cable-light">Kabal 3x1.5 <span class="label-note">KM/m</span></label>
+                <input type="number" id="price-cable-light" class="form-control" value="1.25" min="0" step="0.05">
+              </div>
+              <div class="form-group">
+                <label for="price-cable-socket">Kabal 3x2.5 <span class="label-note">KM/m</span></label>
+                <input type="number" id="price-cable-socket" class="form-control" value="1.95" min="0" step="0.05">
+              </div>
+              <div class="form-group">
+                <label for="price-utp">UTP Cat6 <span class="label-note">KM/m</span></label>
+                <input type="number" id="price-utp" class="form-control" value="0.85" min="0" step="0.05">
+              </div>
+              <div class="form-group">
+                <label for="price-tubes">Cijevi/kanalice <span class="label-note">KM/m</span></label>
+                <input type="number" id="price-tubes" class="form-control" value="0.55" min="0" step="0.05">
+              </div>
+              <div class="form-group">
+                <label for="price-boxes">Kutije/dozne <span class="label-note">KM/kom</span></label>
+                <input type="number" id="price-boxes" class="form-control" value="1.10" min="0" step="0.05">
+              </div>
+              <div class="form-group">
+                <label for="price-faceplates">Program oprema <span class="label-note">KM/kom</span></label>
+                <input type="number" id="price-faceplates" class="form-control" value="6.50" min="0" step="0.05">
+              </div>
+            </div>
+            <p id="price-status" class="status-line">Cijene su prosječne i mogu se ručno mijenjati.</p>
+          </section>
+        </form>
+
+        <aside class="calc-results">
+          <section class="result-card">
+            <h2>Specifikacija tačaka</h2>
+            <div class="result-row">
+              <span>Ukupno instalacionih mjesta</span>
+              <span id="res-total-points" class="result-price amber">0 kom</span>
+            </div>
+            <div class="result-row">
+              <span>Rad po tačkama, 35 KM/kom</span>
+              <span id="res-point-labor" class="result-price">0.00 KM</span>
+            </div>
+            <div class="result-row">
+              <span>Dodatni inženjerski rad</span>
+              <span id="res-engineering-labor" class="result-price">0.00 KM</span>
+            </div>
+          </section>
+
+          <section class="result-card">
+            <h2>Materijal i dužine</h2>
+            <div id="materials-list" class="materials-list"></div>
+          </section>
+
+          <section class="result-card">
+            <h2>Finansijski pregled</h2>
+            <div class="result-row">
+              <span>Osnovni materijal i kabliranje</span>
+              <span id="res-material" class="result-price">0.00 KM</span>
+            </div>
+            <div class="result-row">
+              <span>Razvodni ormar i zaštita</span>
+              <span id="res-board" class="result-price">0.00 KM</span>
+            </div>
+            <div id="res-row-smart" class="result-row">
+              <span>Sistem automatizacije</span>
+              <span id="res-smart" class="result-price">0.00 KM</span>
+            </div>
+            <div id="res-row-ind" class="result-row" style="display: none;">
+              <span>Industrijski razvod i trase</span>
+              <span id="res-ind-extras" class="result-price">0.00 KM</span>
+            </div>
+            <div class="result-row">
+              <span>Ukupan rad</span>
+              <span id="res-labor" class="result-price">0.00 KM</span>
+            </div>
+            <div class="result-row">
+              <span>Rok za završetak</span>
+              <span id="res-days" class="result-price blue">0 dana</span>
+            </div>
+          </section>
+
+          <section class="result-card grand-total">
+            <div class="result-row">
+              <strong>Ukupna procjena</strong>
+              <strong id="res-grand-total" class="result-price grand">0.00 KM</strong>
+            </div>
+            <p class="fine-print">Proračun je informativan. Tačna ponuda zavisi od predmjera, trase kablova, kvaliteta opreme, stanja objekta i dobavljačkih cijena na dan ponude.</p>
+          </section>
+
+          <button class="ai-action-btn" type="button" id="btn-copy">Kopiraj specifikaciju za kontakt</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const LABOR_PER_POINT = 35;
+    const MATERIAL_PRICE_API = "";
+    const els = {};
+    const fieldIds = [
+      "calc-object-type", "calc-area", "calc-floors", "calc-quality", "calc-smart-level",
+      "calc-sockets", "calc-lights", "calc-switches", "calc-utp", "calc-power", "calc-regali",
+      "calc-sockets-3f", "calc-machine-lines", "price-cable-light", "price-cable-socket",
+      "price-utp", "price-tubes", "price-boxes", "price-faceplates"
+    ];
+
+    const profiles = {
+      stan: { sockets: 0.36, lights: 0.15, switches: 0.13, utp: 0.045, length: 1, board: 560, boardM2: 3.2, engineering: 0.06 },
+      vikendica: { sockets: 0.32, lights: 0.14, switches: 0.12, utp: 0.035, length: 1.08, board: 520, boardM2: 3, engineering: 0.065 },
+      kuca: { sockets: 0.34, lights: 0.16, switches: 0.14, utp: 0.05, length: 1.2, board: 860, boardM2: 4.2, engineering: 0.085 },
+      specificno: { sockets: 0.26, lights: 0.18, switches: 0.14, utp: 0.035, length: 1.45, board: 1200, boardM2: 5.5, engineering: 0.12 },
+      industrija: { sockets: 0.08, lights: 0.055, switches: 0.035, utp: 0.02, length: 1.35, board: 2200, boardM2: 2.5, engineering: 0.09 }
+    };
+
+    const q = id => document.getElementById(id);
+    const num = id => Math.max(0, parseFloat(q(id).value) || 0);
+    const money = value => `${value.toLocaleString("bs-BA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} KM`;
+    const whole = value => Math.round(value).toLocaleString("bs-BA");
+
+    window.addEventListener("DOMContentLoaded", () => {
+      fieldIds.forEach(id => els[id] = q(id));
+      fieldIds.forEach(id => els[id].addEventListener("input", calculateMSETrosak));
+      els["calc-object-type"].addEventListener("change", handleObjectTypeChange);
+      q("btn-auto-points").addEventListener("click", () => {
+        applyAutoPoints(true);
+        calculateMSETrosak();
+      });
+      q("btn-online-prices").addEventListener("click", fetchOnlinePrices);
+      q("btn-copy").addEventListener("click", copyAndRedirect);
+      handleObjectTypeChange();
+      applyAutoPoints(true);
+      calculateMSETrosak();
+    });
+
+    function handleObjectTypeChange() {
+      const type = els["calc-object-type"].value;
+      const industrial = type === "industrija";
+      q("industrial-fields").classList.toggle("show", industrial);
+      q("group-automation").style.display = industrial ? "none" : "block";
+      q("res-row-smart").style.display = industrial ? "none" : "flex";
+      q("res-row-ind").style.display = industrial ? "flex" : "none";
+      q("label-area").firstChild.textContent = industrial ? "Površina pogona / hale " : "Površina objekta ";
+      if (industrial && Number(els["calc-area"].value) < 120) els["calc-area"].value = 350;
+      if (!industrial && Number(els["calc-area"].value) > 300) els["calc-area"].value = 80;
+      applyAutoPoints(true);
+      calculateMSETrosak();
+    }
+
+    function applyAutoPoints(force = false) {
+      const area = num("calc-area");
+      const type = els["calc-object-type"].value;
+      const floors = Math.max(1, num("calc-floors"));
+      const p = profiles[type];
+      const floorFactor = 1 + ((floors - 1) * 0.08);
+      const values = {
+        "calc-sockets": Math.max(4, Math.ceil(area * p.sockets * floorFactor)),
+        "calc-lights": Math.max(2, Math.ceil(area * p.lights * floorFactor)),
+        "calc-switches": Math.max(2, Math.ceil(area * p.switches * floorFactor)),
+        "calc-utp": Math.ceil(area * p.utp * floorFactor)
+      };
+      Object.entries(values).forEach(([id, value]) => {
+        if (force || els[id].value === "") els[id].value = value;
+      });
+    }
+
+    function qualityMultiplier() {
+      const quality = els["calc-quality"].value;
+      if (quality === "premium") return 1.28;
+      if (quality === "budget") return 0.86;
+      return 1;
+    }
+
+    function calculateMSETrosak() {
+      const type = els["calc-object-type"].value;
+      const area = num("calc-area");
+      const floors = Math.max(1, num("calc-floors"));
+      const sockets = num("calc-sockets");
+      const lights = num("calc-lights");
+      const switches = num("calc-switches");
+      const utp = num("calc-utp");
+      const points = sockets + lights + switches + utp;
+      const profile = profiles[type];
+      const qMult = qualityMultiplier();
+      const floorFactor = 1 + ((floors - 1) * 0.1);
+      const lengthFactor = profile.length * floorFactor;
+
+      const lengths = {
+        lightCable: Math.ceil((lights * 9 + switches * 7) * lengthFactor),
+        socketCable: Math.ceil(sockets * 11 * lengthFactor),
+        utpCable: Math.ceil(utp * 15 * lengthFactor),
+      };
+      lengths.tubes = Math.ceil((lengths.lightCable + lengths.socketCable + lengths.utpCable) * 0.68);
+
+      const unitPrices = {
+        lightCable: num("price-cable-light") * qMult,
+        socketCable: num("price-cable-socket") * qMult,
+        utpCable: num("price-utp") * qMult,
+        tubes: num("price-tubes") * qMult,
+        boxes: num("price-boxes") * qMult,
+        faceplates: num("price-faceplates") * qMult
+      };
+
+      const materialLines = [
+        { label: "Kabal 3x1.5 za rasvjetu", qty: lengths.lightCable, unit: "m", cost: lengths.lightCable * unitPrices.lightCable },
+        { label: "Kabal 3x2.5 za utičnice", qty: lengths.socketCable, unit: "m", cost: lengths.socketCable * unitPrices.socketCable },
+        { label: "UTP Cat6 kabal", qty: lengths.utpCable, unit: "m", cost: lengths.utpCable * unitPrices.utpCable },
+        { label: "Instalacione cijevi / kanalice", qty: lengths.tubes, unit: "m", cost: lengths.tubes * unitPrices.tubes },
+        { label: "Dozne, kutije i sitni materijal", qty: points, unit: "kom", cost: points * unitPrices.boxes },
+        { label: "Utičnice, prekidači i završna oprema", qty: points, unit: "kom", cost: points * unitPrices.faceplates }
+      ];
+
+      let materialCost = materialLines.reduce((sum, item) => sum + item.cost, 0);
+      let boardCost = (profile.board + area * profile.boardM2 + floors * 65) * qMult;
+      let smartCost = 0;
+      let industrialExtras = 0;
+      let engineeringLabor = area * profile.engineering * LABOR_PER_POINT;
+
+      if (type === "industrija") {
+        const power = num("calc-power");
+        const regali = num("calc-regali");
+        const sockets3f = num("calc-sockets-3f");
+        const machineLines = num("calc-machine-lines");
+        const industrialCable = Math.ceil((power * 2.5) + (sockets3f * 18) + (machineLines * 28));
+        const industrialMaterial = industrialCable * 5.8 * qMult;
+        boardCost = (2200 + power * 36 + machineLines * 180) * qMult;
+        industrialExtras = ((regali * 31) + (sockets3f * 105) + (machineLines * 240) + industrialMaterial) * qMult;
+        engineeringLabor += (regali * 4.5) + (sockets3f * 22) + (machineLines * 85);
+        materialLines.push({ label: "Industrijski energetski kablovi", qty: industrialCable, unit: "m", cost: industrialMaterial });
+      } else {
+        const smartLevel = els["calc-smart-level"].value;
+        if (smartLevel === "basic") {
+          smartCost = (850 + area * 13 + points * 9) * qMult;
+          engineeringLabor += smartCost * 0.22;
         }
+        if (smartLevel === "premium") {
+          smartCost = (4200 + area * 48 + points * 18) * qMult;
+          boardCost *= 1.65;
+          engineeringLabor += smartCost * 0.32;
+        }
+      }
 
-        let grandTotal = costMaterial + costBoard + costSmart + costIndExtras + costLabor;
+      const pointLabor = points * LABOR_PER_POINT;
+      const laborTotal = pointLabor + engineeringLabor;
+      const grandTotal = materialCost + boardCost + smartCost + industrialExtras + laborTotal;
+      const days = estimateDays(type, area, points, floors);
 
-        document.getElementById('res-material').innerText = `${costMaterial.toFixed(2)} KM`;
-        document.getElementById('res-board').innerText = `${costBoard.toFixed(2)} KM`;
-        document.getElementById('res-smart').innerText = `${costSmart.toFixed(2)} KM`;
-        document.getElementById('res-ind-extras').innerText = `${costIndExtras.toFixed(2)} KM`;
-        document.getElementById('res-labor').innerText = `${costLabor.toFixed(2)} KM`;
-        document.getElementById('res-days').innerText = `${days} radnih dana`;
-        document.getElementById('res-grand-total').innerText = `${grandTotal.toFixed(2)} KM`;
+      renderMaterials(materialLines);
+      q("res-total-points").textContent = `${whole(points)} kom`;
+      q("res-point-labor").textContent = money(pointLabor);
+      q("res-engineering-labor").textContent = money(engineeringLabor);
+      q("res-material").textContent = money(materialCost);
+      q("res-board").textContent = money(boardCost);
+      q("res-smart").textContent = money(smartCost);
+      q("res-ind-extras").textContent = money(industrialExtras);
+      q("res-labor").textContent = money(laborTotal);
+      q("res-days").textContent = `${days} radnih dana`;
+      q("res-grand-total").textContent = money(grandTotal);
+    }
+
+    function estimateDays(type, area, points, floors) {
+      const base = type === "industrija" ? 8 : 3;
+      const areaDays = type === "industrija" ? area * 0.035 : area * 0.055;
+      const pointDays = points * 0.12;
+      const floorDays = (Math.max(1, floors) - 1) * 2;
+      const smartLevel = els["calc-smart-level"].value;
+      const smartDays = type === "industrija" ? 0 : smartLevel === "premium" ? 10 : smartLevel === "basic" ? 4 : 0;
+      return Math.max(1, Math.ceil(base + areaDays + pointDays + floorDays + smartDays));
+    }
+
+    function renderMaterials(lines) {
+      q("materials-list").innerHTML = lines.map(item => `
+        <div class="material-item">
+          <span>${item.label}<br><small>${whole(item.qty)} ${item.unit}</small></span>
+          <strong>${money(item.cost)}</strong>
+        </div>
+      `).join("");
+    }
+
+    async function fetchOnlinePrices() {
+      const status = q("price-status");
+      const endpoint = localStorage.getItem("mseMaterialPriceApi") || MATERIAL_PRICE_API;
+      if (!endpoint) {
+        status.textContent = "Online izvor nije podešen. Dodajte API adresu u kod ili unesite cijene ručno.";
+        status.style.color = "var(--amber)";
+        return;
+      }
+      status.textContent = "Provjeravam online cijene...";
+      status.style.color = "var(--muted-2)";
+      try {
+        const response = await fetch(endpoint, { cache: "no-store" });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const prices = await response.json();
+        const map = {
+          cableLight: "price-cable-light",
+          cableSocket: "price-cable-socket",
+          utp: "price-utp",
+          tubes: "price-tubes",
+          boxes: "price-boxes",
+          faceplates: "price-faceplates"
+        };
+        Object.entries(map).forEach(([key, id]) => {
+          if (Number.isFinite(Number(prices[key]))) q(id).value = Number(prices[key]).toFixed(2);
+        });
+        status.textContent = "Online cijene su učitane.";
+        status.style.color = "var(--green)";
+        calculateMSETrosak();
+      } catch (error) {
+        status.textContent = "Nije moguće učitati online cijene. Ručni unos ostaje aktivan.";
+        status.style.color = "var(--red)";
+      }
+    }
+
+    function buildMessage() {
+      const typeEl = els["calc-object-type"];
+      const smartEl = els["calc-smart-level"];
+      const lines = [
+        "Generisana specifikacija iz MSE Kalkulatora:",
+        "-------------------------------------------",
+        `Tip objekta: ${typeEl.options[typeEl.selectedIndex].text}`,
+        `Površina: ${els["calc-area"].value} m²`,
+        `Etaže: ${els["calc-floors"].value}`,
+        `Utičnice: ${els["calc-sockets"].value} kom`,
+        `Rasvjeta: ${els["calc-lights"].value} kom`,
+        `Prekidači: ${els["calc-switches"].value} kom`,
+        `UTP tačke: ${els["calc-utp"].value} kom`,
+        `Rad po instalacionom mjestu: ${LABOR_PER_POINT} KM/kom`
+      ];
+      if (typeEl.value === "industrija") {
+        lines.push(`Instalirana snaga: ${els["calc-power"].value} kW`);
+        lines.push(`Kablovski regali: ${els["calc-regali"].value} m`);
+        lines.push(`Trofazne utičnice: ${els["calc-sockets-3f"].value} kom`);
+      } else {
+        lines.push(`Automatizacija: ${smartEl.options[smartEl.selectedIndex].text}`);
+      }
+      lines.push(`Procijenjeno vrijeme: ${q("res-days").textContent}`);
+      lines.push(`Okvirna cijena: ${q("res-grand-total").textContent}`);
+      lines.push("-------------------------------------------");
+      lines.push("Molim Vas za detaljnu provjeru predmjera i zvaničnu ponudu.");
+      return lines.join("\n");
     }
 
     function copyAndRedirect() {
-        const typeEl = document.getElementById('calc-object-type');
-        const type = typeEl.options[typeEl.selectedIndex].text;
-        const area = document.getElementById('calc-area').value;
-        const total = document.getElementById('res-grand-total').innerText;
-        const days = document.getElementById('res-days').innerText;
-
-        let messageText = `Generisana specifikacija iz MSE Kalkulatora:\n`;
-        messageText += `-------------------------------------------\n`;
-        messageText += `• Tip objekta: ${type}\n`;
-        
-        if (document.getElementById('calc-object-type').value === 'industrija') {
-            const power = document.getElementById('calc-power').value;
-            const regali = document.getElementById('calc-regali').value;
-            const sockets = document.getElementById('calc-sockets-3f').value;
-            messageText += `• Površina hale: ${area} m²\n`;
-            messageText += `• Instalirana snaga: ${power} kW\n`;
-            messageText += `• Kablovski regali: ${regali} m\n`;
-            messageText += `• Trofazne utičnice: ${sockets} kom\n`;
-        } else {
-            const smartEl = document.getElementById('calc-smart-level');
-            const smart = smartEl.options[smartEl.selectedIndex].text;
-            messageText += `• Površina prostora: ${area} m²\n`;
-            messageText += `• Nivo automatizacije: ${smart}\n`;
-        }
-        
-        messageText += `• Procijenjeno vreme: ${days}\n`;
-        messageText += `• Okvirna cijena: ${total}\n`;
-        messageText += `-------------------------------------------\n`;
-        messageText += `Molim Vas za detaljnu provjeru predmjera i zvaničnu ponudu.`;
-
-        // Kopira u clipboard korisnika i preusmerava na kontakt formu
-        navigator.clipboard.writeText(messageText).then(() => {
-            alert("✅ Specifikacija je kopirana!\n\nSada ćete biti preusmjereni na kontakt formu gdje je možete samo 'Zalijepiti' (Paste) u polje za poruku.");
-            window.location.href = 'index.html#kontakt';
-        }).catch(err => {
-            alert("Nije uspjelo automatsko kopiranje. Pokušajte ponovo.");
-        });
+      const messageText = buildMessage();
+      navigator.clipboard.writeText(messageText).then(() => {
+        alert("Specifikacija je kopirana. Sada je možete zalijepiti u kontakt formu.");
+        window.location.href = "index.html#kontakt";
+      }).catch(() => {
+        window.prompt("Kopirajte specifikaciju:", messageText);
+      });
     }
-</script>
+  </script>
 </body>
-</html
+</html>
