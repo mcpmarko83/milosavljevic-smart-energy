@@ -172,83 +172,6 @@
         }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
 
-        /* ========== MSE ENGINNERING CALCULATOR ========== */
-        .mse-calc-container {
-            background: rgba(20, 24, 32, 0.55);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(58, 134, 255, 0.3);
-            border-radius: 32px;
-            padding: 45px;
-            margin: 60px 0;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.4);
-        }
-        .calc-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 35px;
-            margin-top: 30px;
-        }
-        .calc-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .calc-results {
-            background: rgba(10, 14, 22, 0.7);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 24px;
-            padding: 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
-        }
-        .calc-conditional {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
-            opacity: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .calc-conditional.show {
-            max-height: 400px;
-            opacity: 1;
-            margin-top: 5px;
-        }
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .result-row.total {
-            border-bottom: none;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px dashed rgba(76,175,80,0.4);
-        }
-        .result-price {
-            font-size: 20px;
-            font-weight: 700;
-            color: #fff;
-        }
-        .result-price.grand {
-            font-size: 32px;
-            color: #4caf50;
-            text-shadow: 0 0 15px rgba(76,175,80,0.3);
-        }
-        .calc-select {
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23a1aabf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-            background-size: 16px;
-        }
-
         /* ========== ZELENA FIRMA ========== */
         .green-company {
             background: rgba(20, 24, 32, 0.4);
@@ -649,97 +572,17 @@
         </div>
     </section>
 
-    <section id="kalkulator" class="reveal">
-        <div class="mse-calc-container">
-            <div class="text-center">
-                <span class="badge-primary" style="color: #3a86ff; background: rgba(58,134,255,0.1); border-color: rgba(58,134,255,0.25);">Interaktivni proračun</span>
-                <h2 class="section-title">MSE Inženjerski Kalkulator</h2>
-                <p class="section-text" style="max-width: 700px; margin: -15px auto 30px auto;">Izračunajte okvirne troškove projekta na osnovu tačnih koeficijenata složenosti, tipa objekta i nivoa automatizacije.</p>
-            </div>
-            
-            <div class="calc-grid">
-                <div class="calc-form">
-                    <div class="form-group">
-                        <label for="calc-object-type">Tip objekta</label>
-                        <select id="calc-object-type" class="form-control calc-select" onchange="handleObjectTypeChange()">
-                            <option value="stan">Stan (Stambena zgrada)</option>
-                            <option value="vikendica">Vikendica / Apartman</option>
-                            <option value="kuca">Porodična kuća (Više etaža)</option>
-                            <option value="industrija">Industrijski pogon / Hala</option>
-                            <option value="specificno">Specifični objekat (Visoki plafoni/Crkve)</option>
-                        </select>
-                    </div>
-                    
-                    <div id="group-area" class="form-group">
-                        <label id="label-area" for="calc-area">Površina objekta (m²)</label>
-                        <input type="number" id="calc-area" class="form-control" value="60" min="5" max="5000" oninput="calculateMSETrošak()">
-                    </div>
-                    
-                    <div id="group-automation" class="form-group">
-                        <label for="calc-smart-level">Nivo pametne automatizacije</label>
-                        <select id="calc-smart-level" class="form-control calc-select" onchange="calculateMSETrošak()">
-                            <option value="none">Klasične elektroinstalacije (Bez automatizacije)</option>
-                            <option value="basic">Basic Smart Home (Zigbee / Home Assistant Green)</option>
-                            <option value="premium">Premium Smart Home (Industrijski Siemens PLC / KNX)</option>
-                        </select>
-                    </div>
-                    
-                    <div id="industrial-fields" class="calc-conditional">
-                        <div class="form-group">
-                            <label for="calc-power">Instalirana snaga potrošača (kW)</label>
-                            <input type="number" id="calc-power" class="form-control" value="22" min="1" max="1000" oninput="calculateMSETrošak()">
-                        </div>
-                        <div class="form-group">
-                            <label for="calc-regali">Dužina trasa / Kablovskih regala (m)</label>
-                            <input type="number" id="calc-regali" class="form-control" value="40" min="0" max="2000" oninput="calculateMSETrošak()">
-                        </div>
-                        <div class="form-group">
-                            <label for="calc-sockets-3f">Broj trofaznih industrijskih utičnica (IP zaštita)</label>
-                            <input type="number" id="calc-sockets-3f" class="form-control" value="6" min="0" max="200" oninput="calculateMSETrošak()">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="calc-results">
-                    <div>
-                        <h4 class="text-white" style="margin: 0 0 20px 0; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px;">Inženjerska specifikacija (Okvirno)</h4>
-                        
-                        <div class="result-row">
-                            <span class="section-text">Osnovni materijal i kabliranje:</span>
-                            <span id="res-material" class="result-price">0.00 KM</span>
-                        </div>
-                        <div class="result-row">
-                            <span class="section-text">Razvodni ormar i zaštitna oprema:</span>
-                            <span id="res-board" class="result-price">0.00 KM</span>
-                        </div>
-                        <div id="res-row-smart" class="result-row">
-                            <span class="section-text">Sistem automatizacije i programiranje:</span>
-                            <span id="res-smart" class="result-price">0.00 KM</span>
-                        </div>
-                        <div id="res-row-ind" class="result-row" style="display: none;">
-                            <span class="section-text">Industrijski razvod i trase (regali):</span>
-                            <span id="res-ind-extras" class="result-price">0.00 KM</span>
-                        </div>
-                        <div class="result-row">
-                            <span class="section-text">Inženjerski radni sati (Izvođenje):</span>
-                            <span id="res-labor" class="result-price">0.00 KM</span>
-                        </div>
-                        <div class="result-row">
-                            <span class="section-text">Rok za završetak radova:</span>
-                            <span id="res-days" class="result-price" style="color: #3a86ff;">0 dana</span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <div class="result-row total">
-                            <strong class="text-white" style="font-size: 18px;">UKUPNA PROCJENA:</strong>
-                            <strong id="res-grand-total" class="result-price grand">0.00 KM</strong>
-                        </div>
-                        <p style="font-size: 11px; color: #6b7280; margin-top: 10px; line-height: 1.3;">*Proračun je informativnog karaktera i zasnovan na standardnim predmjerima. U cijenu je uračunat kompletan materijal prve klase i rad.</p>
-                        <button class="ai-action-btn" style="margin-top: 15px; background: #3a86ff; border-color: #3a86ff;" onclick="exportCalcToContactForm()">📋 Prebaci specifikaciju u kontakt formu</button>
-                    </div>
-                </div>
-            </div>
+    <section class="reveal" style="margin: 60px 0; text-align: center;">
+        <div class="cta-banner" style="max-width: 700px; margin-left: auto; margin-right: auto; padding: 45px 30px;">
+            <span class="badge-primary" style="margin-bottom: 15px; color: #3a86ff; background: rgba(58,134,255,0.1); border-color: rgba(58,134,255,0.25);">Novi alat</span>
+            <h3 style="font-size: 28px; color: #fff; font-weight: 600; margin-bottom: 15px;">Detaljni Inženjerski Kalkulator</h3>
+            <p class="section-text" style="margin-bottom: 30px;">
+                Izračunajte precizne troškove vašeg projekta. Naš novi sistem računa svako utično mjesto, rasvjetu, razvodni ormar i Smart Home komponente, uključujući PDV.
+            </p>
+            <a href="kalkulator.html" target="_blank" class="btn-primary" style="background: #3a86ff; color: #fff; border: none;">
+                <svg style="width:20px;height:20px;margin-right:8px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                Otvori Kalkulator
+            </a>
         </div>
     </section>
 
@@ -985,166 +828,10 @@
 </div>
 
 <script>
-// ========== NA LOAD – SKROLUJ NA VRH IR POKRENI KALKULATOR ==========
+// ========== NA LOAD – SKROLUJ NA VRH ==========
 window.addEventListener('load', function() {
     window.scrollTo(0, 0);
-    calculateMSETrošak();
 });
-
-// ========== MSE REALISTIČNA LOGIKA KALKULATORA ==========
-function handleObjectTypeChange() {
-    const type = document.getElementById('calc-object-type').value;
-    const indFields = document.getElementById('industrial-fields');
-    const groupArea = document.getElementById('group-area');
-    const labelArea = document.getElementById('label-area');
-    const groupAuto = document.getElementById('group-automation');
-    const resRowSmart = document.getElementById('res-row-smart');
-    const resRowInd = document.getElementById('res-row-ind');
-    const areaInput = document.getElementById('calc-area');
-
-    if (type === 'industrija') {
-        indFields.classList.add('show');
-        labelArea.innerText = "Površina pogona / hale (m²)";
-        groupAuto.style.display = 'none';
-        resRowSmart.style.display = 'none';
-        resRowInd.style.display = 'flex';
-        if(areaInput.value == 60) areaInput.value = 350; // Realnija podrazumijevana vrijednost za industriju
-    } else {
-        indFields.classList.remove('show');
-        groupAuto.style.display = 'block';
-        resRowSmart.style.display = 'flex';
-        resRowInd.style.display = 'none';
-        labelArea.innerText = "Površina objekta (m²)";
-        if(areaInput.value == 350) areaInput.value = 80; // Povratak na stambeni prosjek
-    }
-    calculateMSETrošak();
-}
-
-function calculateMSETrošak() {
-    const type = document.getElementById('calc-object-type').value;
-    const area = parseFloat(document.getElementById('calc-area').value) || 0;
-    const smartLevel = document.getElementById('calc-smart-level').value;
-
-    let costMaterial = 0;
-    let costBoard = 0;
-    let costSmart = 0;
-    let costIndExtras = 0;
-    let costLabor = 0;
-    let days = 0;
-
-    if (area <= 0) return;
-
-    if (type !== 'industrija') {
-        // --- STAMBENA I SPECIFIČNA LOGIKA ---
-        let basePricePerM2 = 22; // Vikendica polazna tačka
-        let boardBase = 350;
-
-        if (type === 'stan') {
-            basePricePerM2 = 32; // Standardna gustina krugova u zgradi
-            boardBase = 550;
-        } else if (type === 'kuca') {
-            basePricePerM2 = 38; // Više nivoa, uzemljenje, spoljna infrastruktura
-            boardBase = 850;
-        } else if (type === 'specificno') {
-            basePricePerM2 = 52; // Visoki plafoni, kompleksne skele, selektivna rasvjeta
-            boardBase = 1200;
-        }
-
-        costMaterial = area * basePricePerM2;
-        costBoard = boardBase + (area * 3.5); // Ormar raste sa veličinom prostora
-        costLabor = (costMaterial * 0.85) + (costBoard * 0.3); // Inženjerske ruke
-
-        // Faktor automatizacije (Smart Home)
-        if (smartLevel === 'basic') {
-            costSmart = 900 + (area * 14); // Hub, Zigbee moduli po prostorijama, senzori
-            costLabor += costSmart * 0.4;  // Konfiguracija i uparivanje
-        } else if (smartLevel === 'premium') {
-            costSmart = 4200 + (area * 55); // KNX bus kabliranje, aktuatori, Siemens S7 PLC, SCADA/ekrani
-            costLabor += costSmart * 0.55; // Ozbiljno inženjersko programiranje i testiranje krugova
-            costBoard *= 1.8; // Značajno veći ormar za smještaj industrijskih šina i kontrolera
-        }
-
-        days = Math.ceil((area * 0.15) + (smartLevel === 'none' ? 3 : smartLevel === 'basic' ? 6 : 15));
-
-    } else {
-        // --- INDUSTRIJSKA LOGIKA (kW, Regali, 3F Utičnice) ---
-        const power = parseFloat(document.getElementById('calc-power').value) || 0;
-        const regali = parseFloat(document.getElementById('calc-regali').value) || 0;
-        const sockets3f = parseFloat(document.getElementById('calc-sockets-3f').value) || 0;
-
-        // Bazna hala podrazumijeva opšte napajanje i rasvjetu visoke IP zaštite
-        costMaterial = area * 18; 
-        costBoard = 2200 + (power * 35); // Glavni razvodni ormar sa energetskim sklopkama i sabirnicama prema kW
-
-        // Specifični industrijski parametri
-        let costRegali = regali * 28;      // Metalne perforirane trase sa konzolama i priborom
-        let costSockets = sockets3f * 85;   // Industrijske utičnice sa pripadajućim krugovima i zaštitama
-        costIndExtras = costRegali + costSockets;
-
-        // Dodatni napojni kablovi za teške potrošače (skaliranje po kW)
-        costMaterial += power * 45;
-
-        // Rad za industriju zahtijeva ateste, stručna mjerenja i teži rad na visini
-        costLabor = (costMaterial * 0.95) + (costBoard * 0.35) + (costIndExtras * 0.8);
-        
-        days = Math.ceil((area * 0.05) + (regali * 0.2) + (sockets3f * 0.5) + 8);
-    }
-
-    // Konačni zbir
-    let grandTotal = costMaterial + costBoard + costSmart + costIndExtras + costLabor;
-
-    // Ažuriranje UI elemenata
-    document.getElementById('res-material').innerText = `${costMaterial.toFixed(2)} KM`;
-    document.getElementById('res-board').innerText = `${costBoard.toFixed(2)} KM`;
-    document.getElementById('res-smart').innerText = `${costSmart.toFixed(2)} KM`;
-    document.getElementById('res-ind-extras').innerText = `${costIndExtras.toFixed(2)} KM`;
-    document.getElementById('res-labor').innerText = `${costLabor.toFixed(2)} KM`;
-    document.getElementById('res-days').innerText = `${days} radnih dana`;
-    document.getElementById('res-grand-total').innerText = `${grandTotal.toFixed(2)} KM`;
-}
-
-function exportCalcToContactForm() {
-    const type = document.getElementById('calc-object-type').options[document.getElementById('calc-object-type').selectedIndex].text;
-    const area = document.getElementById('calc-area').value;
-    const smart = document.getElementById('calc-smart-level').options[document.getElementById('calc-smart-level').selectedIndex].text;
-    const total = document.getElementById('res-grand-total').innerText;
-    const days = document.getElementById('res-days').innerText;
-
-    let messageText = `Generisana specifikacija iz MSE Kalkulatora:\n`;
-    messageText += `-------------------------------------------\n`;
-    messageText += `• Tip objekta: ${type}\n`;
-    
-    if (document.getElementById('calc-object-type').value === 'industrija') {
-        const power = document.getElementById('calc-power').value;
-        const regali = document.getElementById('calc-regali').value;
-        const sockets = document.getElementById('calc-sockets-3f').value;
-        messageText += `• Površina hale: ${area} m²\n`;
-        messageText += `• Instalirana snaga: ${power} kW\n`;
-        messageText += `• Kablovski regali: ${regali} m\n`;
-        messageText += `• Trofazne industrijske utičnice: ${sockets} kom\n`;
-    } else {
-        messageText += `• Površina prostora: ${area} m²\n`;
-        messageText += `• Nivo automatizacije: ${smart}\n`;
-    }
-    
-    messageText += `• Procijenjeno vreme izvođenja: ${days}\n`;
-    messageText += `• Okvirna izračunata cijena: ${total}\n`;
-    messageText += `-------------------------------------------\n`;
-    messageText += `Molim Vas za detaljnu provjeru predmjera i zvaničnu ponudu.`;
-
-    document.getElementById('ins_message').value = messageText;
-    
-    // Glatko skrolovanje do kontakt forme
-    window.scrollTo({ top: document.getElementById('kontakt').offsetTop, behavior: 'smooth' });
-
-    // Vizuelni efekat fokusiranja na kontakt formu
-    const formBox = document.querySelector('#clean-contact-form')?.parentElement;
-    if (formBox) {
-        formBox.style.transition = "box-shadow 0.5s ease";
-        formBox.style.boxShadow = "0 0 35px rgba(58,134,255,0.8)";
-        setTimeout(() => formBox.style.boxShadow = "inset 0 2px 10px rgba(0,0,0,0.2)", 2500);
-    }
-}
 
 // ========== INSTAGRAM MODAL ==========
 const instaModal = document.getElementById('instagram-modal');
@@ -1660,10 +1347,13 @@ window.sendToAI = async function() {
         
         if (msg.toLowerCase().includes('cijena') || msg.toLowerCase().includes('ponudu') || msg.toLowerCase().includes('košta') || msg.toLowerCase().includes('cijene') || msg.toLowerCase().includes('kalkulator')) {
             const lastMsg = document.querySelector('#ai-messages .ai-msg:last-child');
-            const btn = document.createElement('button');
+            const btn = document.createElement('a');
             btn.className = 'ai-action-btn';
             btn.textContent = '🧮 Otvori MSE Kalkulator troškova';
-            btn.onclick = () => { toggleAI(); window.scrollTo({ top: document.getElementById('kalkulator').offsetTop, behavior: 'smooth' }); };
+            btn.href = 'kalkulator.html';
+            btn.target = '_blank';
+            btn.style.textDecoration = 'none';
+            btn.style.display = 'block';
             lastMsg.appendChild(btn);
         }
     } catch (error) {
