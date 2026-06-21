@@ -148,6 +148,7 @@
         .video-circle:hover .video-thumb { transform: translateY(-5px) scale(1.02); box-shadow: 0 25px 50px rgba(76,175,80,0.3), inset 0 0 0 4px #4caf50; }
         .video-circle:hover img { transform: scale(1.1); }
         .video-circle:hover .glass-play { background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); }
+        .video-circle:hover .video-label { color: #fff; }
         .video-label { margin-top: 20px; font-size: 13px; font-weight: 600; color: #a1aabf; letter-spacing: 0.5px; text-transform: uppercase; }
 
         /* ========== CTA BANNER ========== */
@@ -170,6 +171,83 @@
             transform: skewX(-20deg); animation: shine 6s infinite;
         }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        /* ========== MSE ENGINNERING CALCULATOR ========== */
+        .mse-calc-container {
+            background: rgba(20, 24, 32, 0.55);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(58, 134, 255, 0.3);
+            border-radius: 32px;
+            padding: 45px;
+            margin: 60px 0;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+            margin-top: 30px;
+        }
+        .calc-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .calc-results {
+            background: rgba(10, 14, 22, 0.7);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .calc-conditional {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .calc-conditional.show {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 5px;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .result-row.total {
+            border-bottom: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed rgba(76,175,80,0.4);
+        }
+        .result-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .result-price.grand {
+            font-size: 32px;
+            color: #4caf50;
+            text-shadow: 0 0 15px rgba(76,175,80,0.3);
+        }
+        .calc-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23a1aabf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 16px;
+        }
 
         /* ========== ZELENA FIRMA ========== */
         .green-company {
@@ -199,28 +277,9 @@
             letter-spacing: -0.5px;
             margin-bottom: 20px;
         }
-        .green-company h3 span {
-            color: #4caf50;
-        }
-        .green-company p {
-            max-width: 750px;
-            margin: 0 auto 20px;
-            color: #cbd5e6;
-            font-size: 18px;
-            line-height: 1.8;
-        }
-        .green-company .highlight-badge {
-            display: inline-block;
-            background: rgba(76,175,80,0.15);
-            border: 1px solid rgba(76,175,80,0.3);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            color: #4caf50;
-            font-weight: 500;
-            margin: 5px 8px;
-            backdrop-filter: blur(4px);
-        }
+        .green-company h3 span { color: #4caf50; }
+        .green-company p { max-width: 750px; margin: 0 auto 20px; color: #cbd5e6; font-size: 18px; line-height: 1.8; }
+        .green-company .highlight-badge { display: inline-block; background: rgba(76,175,80,0.15); border: 1px solid rgba(76,175,80,0.3); padding: 8px 20px; border-radius: 50px; font-size: 14px; color: #4caf50; font-weight: 500; margin: 5px 8px; backdrop-filter: blur(4px); }
 
         /* ========== CARDS & GRIDS ========== */
         .grid-philosophie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -245,7 +304,6 @@
         .history-card, .moto-card, .contact-card { background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); border-radius: 32px; padding: 50px; transition: transform 0.5s ease, box-shadow 0.5s ease; }
         .history-card:hover, .moto-card:hover, .contact-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.1); }
         .history-grid { display: flex; flex-wrap: wrap; gap: 50px; align-items: center; }
-        .moto-card { margin-top: 40px; }
         .moto-title { font-size: 14px; color: #3a86ff; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; margin-bottom: 30px; text-align: center; }
         .moto-img-wrapper { max-width: 600px; margin: 0 auto; }
         .blended-moto { width: 100%; height: auto; display: block; mix-blend-mode: screen; opacity: 0.9; filter: drop-shadow(0 0 20px rgba(58,134,255,0.2)); transition: filter 0.4s; }
@@ -254,7 +312,7 @@
         .blended-om { width: 100%; height: auto; display: block; border-radius: 50%; transition: transform 0.5s ease; }
         .om-image-container:hover .blended-om { transform: scale(1.05) rotate(2deg); }
 
-        /* ========== INSTAGRAM MODAL – NOVI IZGLED ========== */
+        /* ========== INSTAGRAM MODAL ========== */
         .instagram-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(5,7,10,0.96); backdrop-filter: blur(20px);
@@ -281,74 +339,17 @@
         }
         .insta-close-btn:hover { background: rgba(255,255,255,0.1); }
 
-        /* Grid za foldere – 2 kolone na desktopu, 1 na mobitelu */
-        .insta-folder-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            padding: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        .insta-folder-card {
-            background: rgba(255,255,255,0.02);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-        .insta-folder-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(76,175,80,0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .insta-folder-card .folder-image {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            display: block;
-            background: rgba(255,255,255,0.03);
-        }
-        .insta-folder-card .folder-info {
-            padding: 16px 18px 20px;
-            text-align: left;
-        }
-        .insta-folder-card .folder-info .folder-name {
-            font-size: 17px;
-            font-weight: 600;
-            color: #fff;
-            letter-spacing: -0.3px;
-            margin-bottom: 4px;
-        }
-        .insta-folder-card .folder-info .folder-desc {
-            font-size: 14px;
-            color: #a1aabf;
-            font-weight: 300;
-            opacity: 0.8;
-        }
+        .insta-folder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; max-width: 900px; margin: 0 auto; width: 100%; }
+        .insta-folder-card { background: rgba(255,255,255,0.02); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; cursor: pointer; }
+        .insta-folder-card:hover { transform: translateY(-5px); border-color: rgba(76,175,80,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .insta-folder-card .folder-image { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: rgba(255,255,255,0.03); }
+        .insta-folder-card .folder-info { padding: 16px 18px 20px; text-align: left; }
+        .insta-folder-card .folder-info .folder-name { font-size: 17px; font-weight: 600; color: #fff; letter-spacing: -0.3px; margin-bottom: 4px; }
+        .insta-folder-card .folder-info .folder-desc { font-size: 14px; color: #a1aabf; font-weight: 300; opacity: 0.8; }
 
-        /* Grid za slike unutar foldera – 3 kolone */
-        .insta-image-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            padding: 4px;
-        }
-        .insta-image-item {
-            position: relative;
-            aspect-ratio: 1/1;
-            overflow: hidden;
-            cursor: pointer;
-            background: rgba(255,255,255,0.02);
-            transition: transform 0.3s ease;
-            border-radius: 4px;
-        }
-        .insta-image-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            display: block; transition: transform 0.4s ease;
-        }
+        .insta-image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; }
+        .insta-image-item { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer; background: rgba(255,255,255,0.02); transition: transform 0.3s ease; border-radius: 4px; }
+        .insta-image-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
         .insta-image-item:hover img { transform: scale(1.05); }
 
         @media (max-width: 600px) {
@@ -402,8 +403,6 @@
         .form-group label { display: block; font-size: 14px; color: #a1aabf; margin-bottom: 10px; font-weight: 500; padding-left: 5px; }
         .form-control { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 18px 22px; color: #fff; font-size: 16px; font-family: inherit; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .form-control:focus { outline: none; border-color: #4caf50; background: rgba(0,0,0,0.5); box-shadow: 0 0 0 4px rgba(76,175,80,0.15); transform: translateY(-2px); }
-        select.form-control { color: #f3f4f6; cursor: pointer; }
-        select.form-control option { background-color: #0d1117; color: #f3f4f6; }
         .form-submit-btn { background: #4caf50; color: white; border: none; padding: 18px 30px; border-radius: 50px; font-weight: 600; font-size: 17px; cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); width: 100%; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .form-submit-btn:hover { background: #43a047; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(76,175,80,0.4); }
         .real-messages-container { margin-top: 30px; display: flex; flex-direction: column; gap: 15px; }
@@ -429,34 +428,10 @@
         .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
         .premium-action-btn:hover svg { transform: scale(1.15); }
         
-        .ai-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #4caf50;
-            color: #fff;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 12px;
-            line-height: 1.4;
-            box-shadow: 0 0 12px rgba(76,175,80,0.6);
-            animation: badgePulse 2s infinite;
-            pointer-events: none;
-        }
-        @keyframes badgePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-        .ai-glow {
-            animation: glowPulse 2.5s ease-in-out infinite;
-        }
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 0 0 rgba(76,175,80,0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(76,175,80,0); }
-            100% { box-shadow: 0 0 0 0 rgba(76,175,80,0); }
-        }
+        .ai-badge { position: absolute; top: -4px; right: -4px; background: #4caf50; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 12px; line-height: 1.4; box-shadow: 0 0 12px rgba(76,175,80,0.6); animation: badgePulse 2s infinite; pointer-events: none; }
+        @keyframes badgePulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+        .ai-glow { animation: glowPulse 2.5s ease-in-out infinite; }
+        @keyframes glowPulse { 0% { box-shadow: 0 0 0 0 rgba(76,175,80,0.3); } 50% { box-shadow: 0 0 0 8px rgba(76,175,80,0); } 100% { box-shadow: 0 0 0 0 rgba(76,175,80,0); } }
 
         .lightbox-overlay, .video-lightbox { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5,7,10,0.95); backdrop-filter: blur(15px); display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 1000000; opacity: 0; transition: opacity 0.4s ease; }
         .lightbox-overlay.active, .video-lightbox.active { display: flex; opacity: 1; }
@@ -534,28 +509,11 @@
             border-color: rgba(76,175,80,0.2);
             box-shadow: 0 8px 30px rgba(0,0,0,0.3);
         }
-        .footer-highlight .hl-item {
-            display: inline-block;
-            margin: 0 20px;
-            font-size: 18px;
-            font-weight: 500;
-            color: #e5e7eb;
-            letter-spacing: 0.3px;
-        }
-        .footer-highlight .hl-item strong {
-            color: #4caf50;
-            font-weight: 600;
-        }
-        .footer-highlight .hl-item .icon {
-            margin-right: 8px;
-            font-size: 20px;
-        }
+        .footer-highlight .hl-item { display: inline-block; margin: 0 20px; font-size: 18px; font-weight: 500; color: #e5e7eb; letter-spacing: 0.3px; }
+        .footer-highlight .hl-item strong { color: #4caf50; font-weight: 600; }
+        .footer-highlight .hl-item .icon { margin-right: 8px; font-size: 20px; }
         @media (max-width: 768px) {
-            .footer-highlight .hl-item {
-                display: block;
-                margin: 12px 0;
-                font-size: 16px;
-            }
+            .footer-highlight .hl-item { display: block; margin: 12px 0; font-size: 16px; }
         }
 
         /* ========== MOBILE RESPONSIVE ========== */
@@ -569,17 +527,14 @@
             .hero-logo { max-width: 90vw; }
             .green-company h3 { font-size: 28px; }
             .green-company p { font-size: 16px; }
+            .calc-grid { grid-template-columns: 1fr; gap: 25px; }
+            .mse-calc-container { padding: 25px; }
         }
         @media (max-width:480px) {
             .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
             .carousel-slide { flex: 0 0 100%; min-width: 100%; }
             .hero-title { font-size: 32px; }
-            #mse-ai-widget {
-                width: calc(100vw - 40px);
-                bottom: 80px;
-                right: 20px;
-                height: 420px;
-            }
+            #mse-ai-widget { width: calc(100vw - 40px); bottom: 80px; right: 20px; height: 420px; }
             .hero-logo { max-width: 92vw; }
             .footer-highlight .hl-item { font-size: 15px; }
             .green-company { padding: 30px 20px; }
@@ -593,8 +548,7 @@
         .abstract-card, .history-card, .moto-card, .contact-card, .carousel-slide, .contact-info-box { backface-visibility:hidden; transform:translateZ(0); }
         @media (hover:none) {
             .abstract-card:hover, .carousel-slide:hover, .premium-action-btn:hover, .btn-primary:hover, .btn-secondary:hover, .contact-info-box:hover {
-                transform:none;
-                box-shadow:inherit;
+                transform:none; box-shadow:inherit;
             }
         }
     </style>
@@ -604,7 +558,7 @@
 <div class="abstract-bg"><canvas id="circuit-canvas"></canvas><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
 <audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
 
-<div id="lightbox" class="lightbox-overlay"><div class="lightbox-close" id="close-btn"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div>img id="lightbox-img" class="lightbox-img" alt="Uvećani prikaz"></div>
+<div id="lightbox" class="lightbox-overlay"><div class="lightbox-close" id="close-btn"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div><img id="lightbox-img" class="lightbox-img" alt="Uvećani prikaz"></div>
 
 <div id="instagram-modal" class="instagram-modal">
     <div class="insta-header">
@@ -695,6 +649,100 @@
         </div>
     </section>
 
+    <section id="kalkulator" class="reveal">
+        <div class="mse-calc-container">
+            <div class="text-center">
+                <span class="badge-primary" style="color: #3a86ff; background: rgba(58,134,255,0.1); border-color: rgba(58,134,255,0.25);">Interaktivni proračun</span>
+                <h2 class="section-title">MSE Inženjerski Kalkulator</h2>
+                <p class="section-text" style="max-width: 700px; margin: -15px auto 30px auto;">Izračunajte okvirne troškove projekta na osnovu tačnih koeficijenata složenosti, tipa objekta i nivoa automatizacije.</p>
+            </div>
+            
+            <div class="calc-grid">
+                <div class="calc-form">
+                    <div class="form-group">
+                        <label for="calc-object-type">Tip objekta</label>
+                        <select id="calc-object-type" class="form-control calc-select" onchange="handleObjectTypeChange()">
+                            <option value="stan">Stan (Stambena zgrada)</option>
+                            <option value="vikendica">Vikendica / Apartman</option>
+                            <option value="kuca">Porodična kuća (Više etaža)</option>
+                            <option value="industrija">Industrijski pogon / Hala</option>
+                            <option value="specificno">Specifični objekat (Visoki plafoni/Crkve)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="group-area" class="form-group">
+                        <label id="label-area" for="calc-area">Površina objekta (m²)</label>
+                        <input type="number" id="calc-area" class="form-control" value="60" min="5" max="5000" oninput="calculateMSETrošak()">
+                    </div>
+                    
+                    <div id="group-automation" class="form-group">
+                        <label for="calc-smart-level">Nivo pametne automatizacije</label>
+                        <select id="calc-smart-level" class="form-control calc-select" onchange="calculateMSETrošak()">
+                            <option value="none">Klasične elektroinstalacije (Bez automatizacije)</option>
+                            <option value="basic">Basic Smart Home (Zigbee / Home Assistant Green)</option>
+                            <option value="premium">Premium Smart Home (Industrijski Siemens PLC / KNX)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="industrial-fields" class="calc-conditional">
+                        <div class="form-group">
+                            <label for="calc-power">Instalirana snaga potrošača (kW)</label>
+                            <input type="number" id="calc-power" class="form-control" value="22" min="1" max="1000" oninput="calculateMSETrošak()">
+                        </div>
+                        <div class="form-group">
+                            <label for="calc-regali">Dužina trasa / Kablovskih regala (m)</label>
+                            <input type="number" id="calc-regali" class="form-control" value="40" min="0" max="2000" oninput="calculateMSETrošak()">
+                        </div>
+                        <div class="form-group">
+                            <label for="calc-sockets-3f">Broj trofaznih industrijskih utičnica (IP zaštita)</label>
+                            <input type="number" id="calc-sockets-3f" class="form-control" value="6" min="0" max="200" oninput="calculateMSETrošak()">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="calc-results">
+                    <div>
+                        <h4 class="text-white" style="margin: 0 0 20px 0; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px;">Inženjerska specifikacija (Okvirno)</h4>
+                        
+                        <div class="result-row">
+                            <span class="section-text">Osnovni materijal i kabliranje:</span>
+                            <span id="res-material" class="result-price">0.00 KM</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="section-text">Razvodni ormar i zaštitna oprema:</span>
+                            <span id="res-board" class="result-price">0.00 KM</span>
+                        </div>
+                        <div id="res-row-smart" class="result-row">
+                            <span class="section-text">Sistem automatizacije i programiranje:</span>
+                            <span id="res-smart" class="result-price">0.00 KM</span>
+                        </div>
+                        <div id="res-row-ind" class="result-row" style="display: none;">
+                            <span class="section-text">Industrijski razvod i trase (regali):</span>
+                            <span id="res-ind-extras" class="result-price">0.00 KM</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="section-text">Inženjerski radni sati (Izvođenje):</span>
+                            <span id="res-labor" class="result-price">0.00 KM</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="section-text">Rok za završetak radova:</span>
+                            <span id="res-days" class="result-price" style="color: #3a86ff;">0 dana</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="result-row total">
+                            <strong class="text-white" style="font-size: 18px;">UKUPNA PROCJENA:</strong>
+                            <strong id="res-grand-total" class="result-price grand">0.00 KM</strong>
+                        </div>
+                        <p style="font-size: 11px; color: #6b7280; margin-top: 10px; line-height: 1.3;">*Proračun je informativnog karaktera i zasnovan na standardnim predmjerima. U cijenu je uračunat kompletan materijal prve klase i rad.</p>
+                        <button class="ai-action-btn" style="margin-top: 15px; background: #3a86ff; border-color: #3a86ff;" onclick="exportCalcToContactForm()">📋 Prebaci specifikaciju u kontakt formu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="green-company reveal">
         <span class="icon-leaf">🌱</span>
         <h3>Mi smo <span>zelena firma</span></h3>
@@ -727,66 +775,6 @@
                 <source src="TrenutnoRadimo.MP4" type="video/mp4">
                 Vaš preglednik ne podržava prikazivanje videa.
             </video>
-        </div>
-    </section>
-
-    <section id="mse-kalkulator" class="reveal" style="margin-top: 50px; margin-bottom: 60px;">
-        <div class="text-center">
-            <span class="badge-primary">Procjena Investicije</span>
-            <h2 class="section-title">MSE Inteligentni Kalkulator Radova</h2>
-            <p class="section-text" style="max-width: 650px; margin: 0 auto 35px;">Izaberite tip objekta i željeni inženjerski nivo za generisanje realne, prilagođene cjenovne specifikacije.</p>
-        </div>
-        <div class="abstract-card" style="max-width: 900px; margin: 0 auto; padding: 40px;">
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:24px; margin-bottom: 24px;">
-                <div class="form-group">
-                    <label for="calc_tip_objekta">Tip specifičnog objekta</label>
-                    <select id="calc_tip_objekta" class="form-control" onchange="adaptirajKalkulatorObjektu()">
-                        <option value="stan">Stan (Stambena jedinica)</option>
-                        <option value="kuca">Porodična kuća (Kompleksna struktura)</option>
-                        <option value="vikendica">Vikendica / Apartman (Sezonski objekat)</option>
-                        <option value="industrija">Industrijski pogon / Radionica / Hala</option>
-                        <option value="specifican">Specifičan objekat (Vjerski, Javni objekti, itd.)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="calc_kvadratura">Neto površina objekta (m²)</label>
-                    <input type="number" id="calc_kvadratura" class="form-control" value="70" min="5" max="20000">
-                </div>
-            </div>
-
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:24px; margin-bottom: 24px;">
-                <div class="form-group">
-                    <label for="calc_nivo">Željeni tehnološki nivo</label>
-                    <select id="calc_nivo" class="form-control" onchange="adaptirajKalkulatorObjektu()">
-                        <option value="osnovni">Osnovne Elektroinstalacije (Pouzdan Standard)</option>
-                        <option value="napredni">Napredne Instalacije (Premium Materijali, Mreža, Multimedija)</option>
-                        <option value="pametna">Smart Home Automatizacija / Industrijski PLC (Najviša klasa)</option>
-                    </select>
-                </div>
-                
-                <div class="form-group" id="dina_grupa_industrija" style="display: none;">
-                    <label for="calc_ind_uticnice">Broj industrijskih/trofaznih utičnica</label>
-                    <input type="number" id="calc_ind_uticnice" class="form-control" value="4" min="0">
-                </div>
-
-                <div class="form-group" id="dina_grupa_smarthome" style="display: none;">
-                    <label for="calc_smart_zone">Broj automatizovanih zona (grijanje, rasvjeta, roletne)</label>
-                    <input type="number" id="calc_smart_zone" class="form-control" value="6" min="1">
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 15px;">
-                <button type="button" class="form-submit-btn" onclick="izracunajMSEInvesticiju()" style="max-width: 320px; margin: 0 auto;">
-                    ⚡ Izračunaj procjenu troškova
-                </button>
-            </div>
-
-            <div id="mse_rezultat_box" style="display:none; margin-top: 40px; padding: 30px; background: rgba(76,175,80,0.06); border: 1px solid rgba(76,175,80,0.25); border-radius: 24px; text-align: center;">
-                <h3 style="color:#fff; font-size: 19px; font-weight:500; margin-bottom: 8px;">Projektovana okvirna cijena (Materijal + Rad):</h3>
-                <div id="calc_cijena_prikaz" style="font-size: 38px; font-weight: 700; color: #4caf50; margin-bottom: 15px; letter-spacing: -0.5px;">0.00 KM</div>
-                <p id="calc_opis_prikaz" class="section-text" style="color: #cbd5e6; font-size: 15px; line-height: 1.6; text-align:left; background: rgba(0,0,0,0.2); padding: 16px; border-radius: 12px; border-left: 3px solid #4caf50;"></p>
-                <button class="ai-action-btn" onclick="sinhronizujKalkulatorSaFormom()" style="max-width: 320px; margin: 24px auto 0; font-size:15px; padding:12px;">📋 Automatski popuni kontakt formu</button>
-            </div>
         </div>
     </section>
 
@@ -836,7 +824,7 @@
                 <div style="flex:1; min-width: 300px;">
                     <span class="badge-primary">Istorijat i Evolucija</span>
                     <h2 class="section-title-left">Inženjerska preciznost i iskustvo</h2>
-                    <p class="section-text"><strong class="text-white">Milosavljević Smart Energy Digital Hub posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na dugogodišnje specijalizovano iskustvo, naš primarni fokus leži u najsavremenijim rješenjima za <strong class="text-white">industrijsku automatizaciju i robotiku</strong>.</p>
+                    <p class="section-text"><strong class="text-white">Milosavljević Smart Energy Digital Hub posluje od 1998. godine.</strong> Od osnivanja u Prijedoru do rada na velikim evropskim projektima, uspešno smo kroz decenije projektovali i izveli stotine sistema – obuhvatajući kućne instalacije, stambene i komercijalne zgrade, vjerske objekte i distributivne mreže. Danas, oslanjajući se na dugogodišnje specijalizovano iskustvo, naš primarni focus leži u najsavremenijim rješenjima za <strong class="text-white">industrijsku automatizaciju i robotiku</strong>.</p>
                 </div>
                 <div style="flex:1; text-align:center; min-width: 300px;">
                     <p style="font-size:12px; color:#4caf50; margin-bottom:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase;">Ohmov Zakon</p>
@@ -997,153 +985,166 @@
 </div>
 
 <script>
-// ========== NA LOAD – SKROLUJ NA VRH ==========
+// ========== NA LOAD – SKROLUJ NA VRH IR POKRENI KALKULATOR ==========
 window.addEventListener('load', function() {
     window.scrollTo(0, 0);
+    calculateMSETrošak();
 });
 
-// ========== MSE INTELIGENTNI KALKULATOR LOGIKA ==========
-window.adaptirajKalkulatorObjektu = function() {
-    const tipObjekta = document.getElementById('calc_tip_objekta').value;
-    const nivoTehnologije = document.getElementById('calc_nivo').value;
-    
-    const indGrupa = document.getElementById('dina_grupa_industrija');
-    const smartGrupa = document.getElementById('dina_grupa_smarthome');
-    
-    // Upravljanje vidljivošću za industriju
-    if (tipObjekta === 'industrija') {
-        indGrupa.style.display = 'block';
+// ========== MSE REALISTIČNA LOGIKA KALKULATORA ==========
+function handleObjectTypeChange() {
+    const type = document.getElementById('calc-object-type').value;
+    const indFields = document.getElementById('industrial-fields');
+    const groupArea = document.getElementById('group-area');
+    const labelArea = document.getElementById('label-area');
+    const groupAuto = document.getElementById('group-automation');
+    const resRowSmart = document.getElementById('res-row-smart');
+    const resRowInd = document.getElementById('res-row-ind');
+    const areaInput = document.getElementById('calc-area');
+
+    if (type === 'industrija') {
+        indFields.classList.add('show');
+        labelArea.innerText = "Površina pogona / hale (m²)";
+        groupAuto.style.display = 'none';
+        resRowSmart.style.display = 'none';
+        resRowInd.style.display = 'flex';
+        if(areaInput.value == 60) areaInput.value = 350; // Realnija podrazumijevana vrijednost za industriju
     } else {
-        indGrupa.style.display = 'none';
+        indFields.classList.remove('show');
+        groupAuto.style.display = 'block';
+        resRowSmart.style.display = 'flex';
+        resRowInd.style.display = 'none';
+        labelArea.innerText = "Površina objekta (m²)";
+        if(areaInput.value == 350) areaInput.value = 80; // Povratak na stambeni prosjek
     }
-    
-    // Upravljanje vidljivošću za pametne sisteme u stambenom sektoru
-    if (nivoTehnologije === 'pametna' && tipObjekta !== 'industrija' && tipObjekta !== 'specifican') {
-        smartGrupa.style.display = 'block';
+    calculateMSETrošak();
+}
+
+function calculateMSETrošak() {
+    const type = document.getElementById('calc-object-type').value;
+    const area = parseFloat(document.getElementById('calc-area').value) || 0;
+    const smartLevel = document.getElementById('calc-smart-level').value;
+
+    let costMaterial = 0;
+    let costBoard = 0;
+    let costSmart = 0;
+    let costIndExtras = 0;
+    let costLabor = 0;
+    let days = 0;
+
+    if (area <= 0) return;
+
+    if (type !== 'industrija') {
+        // --- STAMBENA I SPECIFIČNA LOGIKA ---
+        let basePricePerM2 = 22; // Vikendica polazna tačka
+        let boardBase = 350;
+
+        if (type === 'stan') {
+            basePricePerM2 = 32; // Standardna gustina krugova u zgradi
+            boardBase = 550;
+        } else if (type === 'kuca') {
+            basePricePerM2 = 38; // Više nivoa, uzemljenje, spoljna infrastruktura
+            boardBase = 850;
+        } else if (type === 'specificno') {
+            basePricePerM2 = 52; // Visoki plafoni, kompleksne skele, selektivna rasvjeta
+            boardBase = 1200;
+        }
+
+        costMaterial = area * basePricePerM2;
+        costBoard = boardBase + (area * 3.5); // Ormar raste sa veličinom prostora
+        costLabor = (costMaterial * 0.85) + (costBoard * 0.3); // Inženjerske ruke
+
+        // Faktor automatizacije (Smart Home)
+        if (smartLevel === 'basic') {
+            costSmart = 900 + (area * 14); // Hub, Zigbee moduli po prostorijama, senzori
+            costLabor += costSmart * 0.4;  // Konfiguracija i uparivanje
+        } else if (smartLevel === 'premium') {
+            costSmart = 4200 + (area * 55); // KNX bus kabliranje, aktuatori, Siemens S7 PLC, SCADA/ekrani
+            costLabor += costSmart * 0.55; // Ozbiljno inženjersko programiranje i testiranje krugova
+            costBoard *= 1.8; // Značajno veći ormar za smještaj industrijskih šina i kontrolera
+        }
+
+        days = Math.ceil((area * 0.15) + (smartLevel === 'none' ? 3 : smartLevel === 'basic' ? 6 : 15));
+
     } else {
-        smartGrupa.style.display = 'none';
-    }
-};
+        // --- INDUSTRIJSKA LOGIKA (kW, Regali, 3F Utičnice) ---
+        const power = parseFloat(document.getElementById('calc-power').value) || 0;
+        const regali = parseFloat(document.getElementById('calc-regali').value) || 0;
+        const sockets3f = parseFloat(document.getElementById('calc-sockets-3f').value) || 0;
 
-window.izracunajMSEInvesticiju = function() {
-    const tip = document.getElementById('calc_tip_objekta').value;
-    const m2 = parseFloat(document.getElementById('calc_kvadratura').value) || 0;
-    const nivo = document.getElementById('calc_nivo').value;
-    const indUticnice = parseInt(document.getElementById('calc_ind_uticnice').value) || 0;
-    const smartZone = parseInt(document.getElementById('calc_smart_zone').value) || 0;
+        // Bazna hala podrazumijeva opšte napajanje i rasvjetu visoke IP zaštite
+        costMaterial = area * 18; 
+        costBoard = 2200 + (power * 35); // Glavni razvodni ormar sa energetskim sklopkama i sabirnicama prema kW
 
-    if (m2 <= 0) {
-        alert("Molimo unesite ispravnu vrijednost površine objekta.");
-        return;
-    }
+        // Specifični industrijski parametri
+        let costRegali = regali * 28;      // Metalne perforirane trase sa konzolama i priborom
+        let costSockets = sockets3f * 85;   // Industrijske utičnice sa pripadajućim krugovima i zaštitama
+        costIndExtras = costRegali + costSockets;
 
-    let osnovnaCijenaM2 = 0;
-    let dodatakStrukture = 0;
-    let inzenjerskiOpis = "";
+        // Dodatni napojni kablovi za teške potrošače (skaliranje po kW)
+        costMaterial += power * 45;
 
-    switch(tip) {
-        case 'stan':
-            if (nivo === 'osnovni') { 
-                osnovnaCijenaM2 = 28; 
-                inzenjerskiOpis = "Standardni proračun elektroinstalacija za stanove. Obuhvata optimalno postavljanje kablova (3x1.5 i 3x2.5), montažu razvodne table sa automatskim osiguračima i standardan broj izvoda po prostoriji prema projektnim normama."; 
-            } else if (nivo === 'napredni') { 
-                osnovnaCijenaM2 = 48; 
-                inzenjerskiOpis = "Napredni premium paket za stanove. Uključuje kompletan modularni program opreme, postavljanje strukturirane LAN mrežne infrastrukture, pripremu centralnih rasvjetnih linija i ugradnju dodatne prenaponske zaštite."; 
-            } else { 
-                osnovnaCijenaM2 = 95; 
-                dodatakStrukture = smartZone * 180;
-                inzenjerskiOpis = `Premium Smart Home sistem integracije stana zasnovan na pouzdanom centralnom HUB kontroleru. Proračun obuhvata kompletnu integraciju za ${smartZone} pametnih zona (automatizacija rasvjete, kontrola roletni i upravljanje termostatima).`; 
-            }
-            break;
-            
-        case 'kuca':
-            if (nivo === 'osnovni') { 
-                osnovnaCijenaM2 = 34; 
-                inzenjerskiOpis = "Standardni inženjerski proračun za porodične kuće. Uključuje izvedbu bazičnog uzemljenja objekta, glavne razvodne table, FID sklopke, kabliranje i osnovne izvode unutrašnje i spoljne energetike."; 
-            } else if (nivo === 'napredni') { 
-                osnovnaCijenaM2 = 58; 
-                inzenjerskiOpis = "Premium nivo za stambene kuće. Obuhvata visoko-kvalitetnu modularnu galanteriju, pripremu za video-nadzor i alarmne sisteme, mrežnu instalaciju kroz sve etaže i fino selektovane elemente razvodne opreme."; 
-            } else { 
-                osnovnaCijenaM2 = 125; 
-                dodatakStrukture = smartZone * 220;
-                inzenjerskiOpis = `Kompletna Smart Home automatizacija kuće visokog inženjerskog standarda. Integrisan sistem upravljanja, optimizovan za ${smartZone} nezavisnih zona rada za napredno sklapanje rasvjetnih scena, automatizaciju roletni, senzora pokreta i energetskih podsistema.`; 
-            }
-            break;
-            
-        case 'vikendica':
-            if (nivo === 'osnovni') { 
-                osnovnaCijenaM2 = 24; 
-                inzenjerskiOpis = "Pouzdan i ekonomski optimizovan proračun elektroinstalacija za vikendice i apartmane. Fokusiran na stabilan, dugotrajan rad osnovnih električnih krugova za objekte sa povremenim boravkom."; 
-            } else if (nivo === 'napredni') { 
-                osnovnaCijenaM2 = 40; 
-                inzenjerskiOpis = "Napredne instalacije za odmarališta. Uključuje ojačanu zaštitu od atmosferskih pražnjenja (prenapona), spoljno sigurnosno osvjetljenje objekta i pojačanu mrežnu infrastrukturu."; 
-            } else { 
-                osnovnaCijenaM2 = 85; 
-                dodatakStrukture = smartZone * 150;
-                inzenjerskiOpis = `Smart rješenje prilagođeno vikend objektima. Fokus je stavljen na pouzdanu daljinsku kontrolu sistema grijanja, klimatizacije i energetskih čvorišta putem pametne aplikacije za ${smartZone} zone, omogućujući Vam optimalnu temperaturu prije dolaska.`; 
-            }
-            break;
-            
-        case 'industrija':
-            // Industrijski pogon ima veće osnovne troškove zbog snage, kablovskih trasa i specifičnih zahtjeva
-            if (nivo === 'osnovni') { 
-                osnovnaCijenaM2 = 45; 
-                inzenjerskiOpis = "Bazične industrijske instalacije projektovane za radionice i manje pogone. Polaganje kablova u PNK kanalima, montaža robusnih industrijskih tabli i osnovno energetsko napajanje."; 
-            } else if (nivo === 'napredni') { 
-                osnovnaCijenaM2 = 75; 
-                inzenjerskiOpis = "Složeni industrijski elektro-sistemi. Obuhvata ugradnju sistema za automatsku kompenzaciju reaktivne energije, montažu samostojećih energetskih ormara sa strujnim transformatorima i visoku selektivnu zaštitu krugova."; 
-            } else { 
-                osnovnaCijenaM2 = 145; 
-                inzenjerskiOpis = "Industrija 4.0 automatizacioni standard. Proračun uključuje integraciju PLC upravljačkih jedinica (Siemens S7 serije), programiranje industrijskih petlji, parametrizaciju frekventnih regulatora i povezivanje sa SCADA/HMI sistemima."; 
-            }
-            dodatakStrukture = indUticnice * 95; // 95 KM fiksno po industrijskoj/trofaznoj utičnici sa ojačanim napojnim vodom
-            inzenjerskiOpis += ` U kalkulaciju je uključen i poseban energetski proračun i izvedba za ${indUticnice} industrijskih/trofaznih priključaka povećane snage.`;
-            break;
-            
-        case 'specifican':
-            if (nivo === 'osnovni') { osnovnaCijenaM2 = 38; } 
-            else if (nivo === 'napredni') { osnovnaCijenaM2 = 65; } 
-            else { osnovnaCijenaM2 = 115; }
-            inzenjerskiOpis = "Specifični objekti (kao što su vjerski objekti, javne ustanove ili specifične sportske hale) zahtijevaju striktno unikatna inženjerska rješenja, detaljne elektroenergetske projekte i poseban pristup materijalima. Ova cijena predstavlja bazični orjentir.";
-            break;
+        // Rad za industriju zahtijeva ateste, stručna mjerenja i teži rad na visini
+        costLabor = (costMaterial * 0.95) + (costBoard * 0.35) + (costIndExtras * 0.8);
+        
+        days = Math.ceil((area * 0.05) + (regali * 0.2) + (sockets3f * 0.5) + 8);
     }
 
-    let ukupnaInvesticija = (osnovnaCijenaM2 * m2) + dodatakStrukture;
+    // Konačni zbir
+    let grandTotal = costMaterial + costBoard + costSmart + costIndExtras + costLabor;
 
-    // Prikaz rezultata
-    document.getElementById('calc_cijena_prikaz').innerText = ukupnaInvesticija.toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " KM";
-    document.getElementById('calc_opis_prikaz').innerHTML = `<strong>Inženjerski izvještaj:</strong> ${inzenjerskiOpis}<br><br><small style="color:#6b7280; font-style: italic;">*Napomena: Generisana cijena je informativno-orjentacionog karaktera (obuhvata kompletan materijal i izvođačke radove). Za dobijanje zvanične, fiksne ponude sa detaljnim predmjerom i predračunom, kliknite na dugme ispod i pošaljite upit.</small>`;
-    document.getElementById('mse_rezultat_box').style.display = 'block';
-};
+    // Ažuriranje UI elemenata
+    document.getElementById('res-material').innerText = `${costMaterial.toFixed(2)} KM`;
+    document.getElementById('res-board').innerText = `${costBoard.toFixed(2)} KM`;
+    document.getElementById('res-smart').innerText = `${costSmart.toFixed(2)} KM`;
+    document.getElementById('res-ind-extras').innerText = `${costIndExtras.toFixed(2)} KM`;
+    document.getElementById('res-labor').innerText = `${costLabor.toFixed(2)} KM`;
+    document.getElementById('res-days').innerText = `${days} radnih dana`;
+    document.getElementById('res-grand-total').innerText = `${grandTotal.toFixed(2)} KM`;
+}
 
-window.sinhronizujKalkulatorSaFormom = function() {
-    const selektovaniTip = document.getElementById('calc_tip_objekta').options[document.getElementById('calc_tip_objekta').selectedIndex].text;
-    const unesenaKvadratura = document.getElementById('calc_kvadratura').value;
-    const selektovaniNivo = document.getElementById('calc_nivo').options[document.getElementById('calc_nivo').selectedIndex].text;
-    const izracunataCijena = document.getElementById('calc_cijena_prikaz').innerText;
+function exportCalcToContactForm() {
+    const type = document.getElementById('calc-object-type').options[document.getElementById('calc-object-type').selectedIndex].text;
+    const area = document.getElementById('calc-area').value;
+    const smart = document.getElementById('calc-smart-level').options[document.getElementById('calc-smart-level').selectedIndex].text;
+    const total = document.getElementById('res-grand-total').innerText;
+    const days = document.getElementById('res-days').innerText;
 
-    let generisanaPoruka = `Poštovani, kreirao sam okvirni proračun putem MSE Kalkulatora na sajtu:\n` +
-                           `- Tip objekta: ${selektovaniTip}\n` +
-                           `- Površina objekta: ${unesenaKvadratura} m²\n` +
-                           `- Nivo opreme i instalacija: ${selektovaniNivo}\n` +
-                           `- Projektovana procjena: ${izracunataCijena}\n\n` +
-                           `Molim Vas da pregledate ove podatke i kontaktirate me radi izrade detaljne i precizne ponude.`;
+    let messageText = `Generisana specifikacija iz MSE Kalkulatora:\n`;
+    messageText += `-------------------------------------------\n`;
+    messageText += `• Tip objekta: ${type}\n`;
     
-    if (document.getElementById('ins_message')) {
-        document.getElementById('ins_message').value = generisanaPoruka;
+    if (document.getElementById('calc-object-type').value === 'industrija') {
+        const power = document.getElementById('calc-power').value;
+        const regali = document.getElementById('calc-regali').value;
+        const sockets = document.getElementById('calc-sockets-3f').value;
+        messageText += `• Površina hale: ${area} m²\n`;
+        messageText += `• Instalirana snaga: ${power} kW\n`;
+        messageText += `• Kablovski regali: ${regali} m\n`;
+        messageText += `• Trofazne industrijske utičnice: ${sockets} kom\n`;
+    } else {
+        messageText += `• Površina prostora: ${area} m²\n`;
+        messageText += `• Nivo automatizacije: ${smart}\n`;
     }
+    
+    messageText += `• Procijenjeno vreme izvođenja: ${days}\n`;
+    messageText += `• Okvirna izračunata cijena: ${total}\n`;
+    messageText += `-------------------------------------------\n`;
+    messageText += `Molim Vas za detaljnu provjeru predmjera i zvaničnu ponudu.`;
 
+    document.getElementById('ins_message').value = messageText;
+    
     // Glatko skrolovanje do kontakt forme
     window.scrollTo({ top: document.getElementById('kontakt').offsetTop, behavior: 'smooth' });
-    
-    // Vizuelni highlight kontakt forme
-    const kutijaForme = document.querySelector('#clean-contact-form')?.parentElement;
-    if (kutijaForme) {
-        kutijaForme.style.transition = "box-shadow 0.5s ease";
-        kutijaForme.style.boxShadow = "0 0 30px rgba(76,175,80,0.8)";
-        setTimeout(() => kutijaForme.style.boxShadow = "inset 0 2px 10px rgba(0,0,0,0.2)", 2000);
+
+    // Vizuelni efekat fokusiranja na kontakt formu
+    const formBox = document.querySelector('#clean-contact-form')?.parentElement;
+    if (formBox) {
+        formBox.style.transition = "box-shadow 0.5s ease";
+        formBox.style.boxShadow = "0 0 35px rgba(58,134,255,0.8)";
+        setTimeout(() => formBox.style.boxShadow = "inset 0 2px 10px rgba(0,0,0,0.2)", 2500);
     }
-};
+}
 
 // ========== INSTAGRAM MODAL ==========
 const instaModal = document.getElementById('instagram-modal');
@@ -1151,7 +1152,6 @@ const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// Definicija foldera
 const folderDefs = [
     { name: '01 Kućne instalacije', path: '01_Kucne_instalacije', icon: '🏠', desc: 'Privatne kuće i porodični objekti' },
     { name: '01b Vikendice i apartmani', path: '01b_Vikendice', icon: '🏡', desc: 'Odmarališta i vikend objekti' },
@@ -1187,7 +1187,6 @@ function showFolderGrid() {
         const card = document.createElement('div');
         card.className = 'insta-folder-card';
 
-        // Slika
         const img = document.createElement('img');
         img.className = 'folder-image';
         img.src = `Nasi projekti/${folder.path}/1.jpg`;
@@ -1201,7 +1200,6 @@ function showFolderGrid() {
         };
         card.appendChild(img);
 
-        // Informacije ispod slike (diskretno)
         const info = document.createElement('div');
         info.className = 'folder-info';
         info.innerHTML = `
@@ -1247,7 +1245,7 @@ function instaGoBack() {
     }
 }
 
-// ========== OSTALI SKRIPTOVI ==========
+// ========== OSTALI FUNKCIONALNI SKRIPTOVI ==========
 (function() {
     // SCROLL REVEAL
     const revealObserver = new IntersectionObserver((entries, obs) => {
@@ -1314,4 +1312,366 @@ function instaGoBack() {
     // KONTAKT FORMA
     const contactForm = document.getElementById('clean-contact-form');
     const messagesContainer = document.getElementById('real-messages-container');
-    function loadLocalMessages
+    function loadLocalMessages() {
+        const saved = localStorage.getItem('mse_messages');
+        if (saved) {
+            const msgs = JSON.parse(saved);
+            messagesContainer.innerHTML = '';
+            msgs.forEach(msg => {
+                const card = document.createElement('div');
+                card.className = 'user-message-card';
+                card.innerHTML = `<div class="msg-header"><span class="msg-name">${msg.name}</span><span class="msg-time">${msg.time}</span></div><div class="msg-body">"${msg.text}"</div>`;
+                messagesContainer.appendChild(card);
+            });
+        }
+    }
+    loadLocalMessages();
+    if(contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('ins_name').value;
+            const msgInput = document.getElementById('ins_message').value;
+            const btn = document.getElementById('submit-btn');
+            const original = btn.innerHTML;
+            btn.innerHTML = "⏳ Slanje u toku..."; btn.disabled = true;
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    access_key: 'cc0ac5b2-dae0-4051-86be-94a57cca494e',
+                    name: nameInput,
+                    email: document.getElementById('ins_email').value,
+                    phone: document.getElementById('ins_phone').value,
+                    message: msgInput,
+                    subject: 'Novi upit sa sajta Milosavljević Smart Energy Digital Hub', _captcha: 'false'
+                })
+            }).then(res => res.json()).then(data => {
+                if(data.success) {
+                    contactForm.style.display = 'none';
+                    document.getElementById('form-title').innerText = "Informacija pošiljaocu";
+                    document.getElementById('status-box').style.display = 'block';
+                    let savedMsgs = JSON.parse(localStorage.getItem('mse_messages') || '[]');
+                    const now = new Date();
+                    const timeString = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+                    savedMsgs.unshift({ name: nameInput, text: msgInput.substring(0,100)+(msgInput.length>100?'...':''), time: 'Danas u ' + timeString });
+                    if (savedMsgs.length > 3) savedMsgs.pop();
+                    localStorage.setItem('mse_messages', JSON.stringify(savedMsgs));
+                    loadLocalMessages();
+                } else throw new Error('Greška');
+            }).catch(err => alert("Došlo je do greške prilikom slanja.")).finally(() => { btn.innerHTML = original; btn.disabled = false; });
+        });
+    }
+
+    // BACK TO TOP
+    const backBtn = document.getElementById('back-to-top');
+    if(backBtn) backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+    // KARUSEL
+    const trackEl = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+    let currentIndex = 0, slidesPerView = 4, autoInterval = null;
+
+    function updateSlidesPerView() {
+        if (window.innerWidth <= 480) slidesPerView = 1;
+        else if (window.innerWidth <= 768) slidesPerView = 2;
+        else if (window.innerWidth <= 1024) slidesPerView = 3;
+        else slidesPerView = 4;
+    }
+
+    function updateCarouselPosition() {
+        if (!slides.length) return;
+        updateSlidesPerView();
+        const maxIdx = Math.max(0, slides.length - slidesPerView);
+        if (currentIndex > maxIdx) currentIndex = maxIdx;
+        if (currentIndex < 0) currentIndex = 0;
+        const w = slides[0].offsetWidth;
+        trackEl.style.transform = `translateX(${-currentIndex * (w + 30)}px)`;
+        slides.forEach((el, idx) => {
+            if (idx === currentIndex) el.classList.add('turn-active');
+            else el.classList.remove('turn-active');
+        });
+        document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===currentIndex));
+    }
+
+    function createDots() {
+        if (!dotsContainer) return;
+        const cnt = Math.max(1, slides.length - slidesPerView + 1);
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < cnt; i++) {
+            let d = document.createElement('div'); d.className = 'dot'; if (i === currentIndex) d.classList.add('active');
+            d.addEventListener('click', () => { currentIndex = i; updateCarouselPosition(); resetAutoScroll(); });
+            dotsContainer.appendChild(d);
+        }
+        dotsContainer.style.display = cnt <= 1 ? 'none' : 'flex';
+    }
+
+    function nextSlide() { const maxIdx = Math.max(0, slides.length - slidesPerView); if (currentIndex < maxIdx) currentIndex++; else if (slides.length > slidesPerView) currentIndex = 0; updateCarouselPosition(); }
+    function startAutoScroll() { if (autoInterval) clearInterval(autoInterval); if (slides.length > slidesPerView) autoInterval = setInterval(() => nextSlide(), 3500); }
+    function resetAutoScroll() { if (autoInterval) clearInterval(autoInterval); startAutoScroll(); }
+
+    window.addEventListener('resize', () => { updateCarouselPosition(); createDots(); resetAutoScroll(); });
+    startAutoScroll();
+    createDots();
+    updateCarouselPosition();
+})();
+
+// ========== CIRCUIT FLOW BACKGROUND ==========
+(function() {
+    const canvas = document.getElementById('circuit-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const COLORS = ['#4caf50', '#3a86ff', '#9b59b6'];
+    let W, H;
+    let paths = [];
+    let scrollSpeedBoost = 0;
+    let lastScrollY = window.pageYOffset || 0;
+
+    function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W * (window.devicePixelRatio || 1);
+        canvas.height = H * (window.devicePixelRatio || 1);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+        generatePaths();
+    }
+
+    function generatePaths() {
+        paths = [];
+        const cols = Math.max(5, Math.floor(W / 220));
+        const rows = Math.max(4, Math.floor(H / 220));
+        const cellW = W / cols;
+        const cellH = H / rows;
+        const count = Math.min(14, cols * rows / 2);
+
+        for (let i = 0; i < count; i++) {
+            const startCol = Math.floor(Math.random() * cols);
+            const startRow = Math.floor(Math.random() * rows);
+            let x = startCol * cellW + cellW / 2;
+            let y = startRow * cellH + cellH / 2;
+            const points = [{x, y}];
+            const segments = 3 + Math.floor(Math.random() * 4);
+            let dir = Math.floor(Math.random() * 4);
+
+            for (let s = 0; s < segments; s++) {
+                const turn = Math.random() < 0.5 ? 1 : -1;
+                if (Math.random() < 0.6) dir = (dir + turn + 4) % 4;
+
+                const len = (1 + Math.floor(Math.random() * 2)) * (dir % 2 === 0 ? cellW : cellH);
+                if (dir === 0) x += len;
+                else if (dir === 1) y += len;
+                else if (dir === 2) x -= len;
+                else y -= len;
+
+                x = Math.max(0, Math.min(W, x));
+                y = Math.max(0, Math.min(H, y));
+                points.push({x, y});
+            }
+
+            let totalLen = 0;
+            for (let p = 1; p < points.length; p++) {
+                totalLen += Math.hypot(points[p].x - points[p-1].x, points[p].y - points[p-1].y);
+            }
+
+            paths.push({
+                points,
+                totalLen,
+                color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                pulseT: Math.random(),
+                speed: 0.00018 + Math.random() * 0.00015,
+                pulseLen: 0.12 + Math.random() * 0.08
+            });
+        }
+    }
+
+    function getPointAt(path, t) {
+        const targetLen = t * path.totalLen;
+        let acc = 0;
+        for (let p = 1; p < path.points.length; p++) {
+            const a = path.points[p-1], b = path.points[p];
+            const segLen = Math.hypot(b.x - a.x, b.y - a.y);
+            if (acc + segLen >= targetLen) {
+                const localT = segLen === 0 ? 0 : (targetLen - acc) / segLen;
+                return { x: a.x + (b.x - a.x) * localT, y: a.y + (b.y - a.y) * localT };
+            }
+            acc += segLen;
+        }
+        return path.points[path.points.length - 1];
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        paths.forEach(path => {
+            ctx.beginPath();
+            ctx.moveTo(path.points[0].x, path.points[0].y);
+            for (let p = 1; p < path.points.length; p++) {
+                ctx.lineTo(path.points[p].x, path.points[p].y);
+            }
+            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            path.pulseT += path.speed * (1 + scrollSpeedBoost);
+            if (path.pulseT > 1.3) path.pulseT = -0.2;
+
+            const segments = 18;
+            for (let i = 0; i < segments; i++) {
+                const t = path.pulseT - (i / segments) * path.pulseLen;
+                if (t < 0 || t > 1) continue;
+                const pt = getPointAt(path, t);
+                const alpha = (1 - i / segments) * 0.7;
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 1.8, 0, Math.PI * 2);
+                ctx.fillStyle = path.color;
+                ctx.globalAlpha = alpha;
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            if (path.pulseT >= 0 && path.pulseT <= 1) {
+                const head = getPointAt(path, path.pulseT);
+                const grad = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 8);
+                grad.addColorStop(0, path.color);
+                grad.addColorStop(1, 'transparent');
+                ctx.beginPath();
+                ctx.arc(head.x, head.y, 8, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+            }
+        });
+
+        scrollSpeedBoost *= 0.92;
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener('scroll', () => {
+        const y = window.pageYOffset || 0;
+        const delta = Math.abs(y - lastScrollY);
+        scrollSpeedBoost = Math.min(scrollSpeedBoost + delta * 0.15, 25);
+        lastScrollY = y;
+    }, { passive: true });
+
+    resize();
+    draw();
+})();
+
+// ========== AI INŽENJER ==========
+const GROQ_API_KEY = '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';
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const MODEL = 'llama-3.3-70b-versatile';
+let chatHistory = [];
+
+window.toggleAI = function() {
+    const widget = document.getElementById('mse-ai-widget');
+    widget.classList.toggle('ai-hidden');
+};
+
+window.handleAIPress = function(event) { 
+    if (event.key === 'Enter') sendToAI(); 
+};
+
+function addMessage(text, isUser) {
+    const msgsDiv = document.getElementById('ai-messages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = isUser ? 'user-msg' : 'ai-msg';
+    msgDiv.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    msgsDiv.appendChild(msgDiv);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+}
+
+function showTyping() {
+    const msgsDiv = document.getElementById('ai-messages');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'ai-msg';
+    typingDiv.id = 'typing-indicator';
+    typingDiv.innerHTML = '<em>Inženjer razmišlja...</em>';
+    msgsDiv.appendChild(typingDiv);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+    return typingDiv;
+}
+
+function removeTyping(typingDiv) {
+    if (typingDiv) typingDiv.remove();
+}
+
+const systemPrompt = `Ti si MSE AI Inženjer za kompaniju "Milosavljević Smart Energy Digital Hub" (osnovana 1998.). 
+Tvoja uloga: pružati konkretne, stručne odgovore kupcima. NIKADA nemoj reći "naš tim će odgovoriti" – ti si taj tim! Odgovori odmah.
+
+Teme koje pokrivaš:
+- Elektroinstalacije (kuće, zgrade, poslovni prostori)
+- Pametne kuće (Smart Home): tehnologije (KNX, Home Assistant, Zigbee), komponente, način integracije, prednosti. Kada korisnik pita "kako da automatizujem kuću", objasni korak po korak: planiranje, odabir tehnologije, ugradnju aktuatora i senzora, programiranje scena, integraciju glasovnih asistenata.
+- Industrijska automatizacija i robotika (PLC programiranje, Siemens S7-1200/1500, TIA Portal, KUKA roboti, SCADA sistemi)
+- Cijene materijala (okvirne, za tržište BiH, u KM):
+  • Kabl 3x1.5 mm2: 1.00-1.20 KM/m
+  • Kabl 3x2.5 mm2: 1.60-1.90 KM/m
+  • Automatski osigurač 16A: 6-9 KM
+  • Razvodna tabla (24-36 mjesta): 40-80 KM
+- Za cijenu kompletne pametne kuće ili velikog projekta reci: "Cijena zavisi od specifičnih zahtjeva, broja komponenti i složenosti. Iskoristite naš MSE Inženjerski Kalkulator na sajtu za trenutni proračun ili pošaljite upit preko kontakt forme."
+
+Dodatno: U bilo koju poruku ubaci napomenu: "Naš tim preporučuje direktan kontakt za precizne ponude i složene projekte – asistent pruža osnovne informacije."
+
+Odgovaraj profesionalno, prijateljski i korisno. Nikad ne odbijaj pitanje osim ako nije potpuno van teme (npr. politika).`;
+
+window.sendToAI = async function() {
+    const inputField = document.getElementById('ai-input');
+    const msg = inputField.value.trim();
+    if (!msg) return;
+
+    addMessage(msg, true);
+    inputField.value = '';
+
+    const typingDiv = showTyping();
+    chatHistory.push({ role: "user", content: msg });
+
+    const messages = [
+        { role: "system", content: systemPrompt },
+        ...chatHistory
+    ];
+
+    try {
+        const response = await fetch(GROQ_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${GROQ_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: MODEL,
+                messages: messages,
+                temperature: 0.5,
+                max_tokens: 800
+            })
+        });
+
+        removeTyping(typingDiv);
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+        let reply = data.choices[0].message.content;
+        
+        chatHistory.push({ role: "assistant", content: reply });
+        addMessage(reply, false);
+        
+        if (msg.toLowerCase().includes('cijena') || msg.toLowerCase().includes('ponudu') || msg.toLowerCase().includes('košta') || msg.toLowerCase().includes('cijene') || msg.toLowerCase().includes('kalkulator')) {
+            const lastMsg = document.querySelector('#ai-messages .ai-msg:last-child');
+            const btn = document.createElement('button');
+            btn.className = 'ai-action-btn';
+            btn.textContent = '🧮 Otvori MSE Kalkulator troškova';
+            btn.onclick = () => { toggleAI(); window.scrollTo({ top: document.getElementById('kalkulator').offsetTop, behavior: 'smooth' }); };
+            lastMsg.appendChild(btn);
+        }
+    } catch (error) {
+        console.error("AI greška:", error);
+        removeTyping(typingDiv);
+        addMessage("Došlo je do tehničke greške. Molimo pokušajte ponovo ili nas kontaktirajte putem kontakt forme.", false);
+    }
+};
+</script>
+</body>
+</html>
