@@ -76,14 +76,7 @@
         @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(8%,12%) scale(1.1); } }
 
         /* ========== CIRCUIT FLOW BACKGROUND ========== */
-        #circuit-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.5;
-        }
+        #circuit-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.5; }
 
         /* ========== UTILITY ========== */
         .hide-mobile { display: inline; }
@@ -115,18 +108,7 @@
         /* ========== HERO ========== */
         .hero-section { padding: 80px 20px 60px; text-align: center; position: relative; }
         .hero-content { position: relative; z-index: 2; }
-        .hero-logo {
-            max-width: 400px;
-            width: 100%;
-            height: auto;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
-            margin-bottom: 25px;
-            transition: transform 0.5s ease;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .hero-logo { max-width: 400px; width: 100%; height: auto; border-radius: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05); margin-bottom: 25px; transition: transform 0.5s ease; display: block; margin-left: auto; margin-right: auto; }
         .hero-logo:hover { transform: translateY(-5px); }
         .hero-title { font-size: 52px; margin-top: 15px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .hero-title span { background: linear-gradient(90deg, #3a86ff, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -156,26 +138,21 @@
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #05070a; 
             z-index: 100000; display: none; flex-direction: column;
-            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             overflow-y: auto; overflow-x: hidden;
         }
-        .instagram-modal.active { display: flex; transform: translateX(0); }
+        .instagram-modal.active { display: flex; transform: translateY(0); }
         .insta-header {
             position: sticky; top: 0; background: #05070a; 
             padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 10;
         }
         .insta-header h3 { color: #fff; font-size: 18px; font-weight: 600; margin: 0; }
-        .insta-back-btn {
-            background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;
-            padding: 0 10px 0 0; display: none; align-items: center;
-        }
-        .insta-close-btn {
-            background: none; border: none; color: #fff; font-size: 32px; cursor: pointer;
-            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-        }
+        .insta-back-btn { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 0 10px 0 0; display: none; align-items: center; }
+        .insta-close-btn { background: none; border: none; color: #fff; font-size: 32px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        
         /* FOLDER GRID */
-        .insta-folder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; max-width: 900px; margin: 0 auto; width: 100%; align-content: start; }
+        .insta-folder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; max-width: 900px; margin: 0 auto; width: 100%; align-content: start;}
         .insta-folder-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: transform 0.3s ease; }
         .insta-folder-card:hover { transform: translateY(-3px); border-color: rgba(76,175,80,0.5); }
         .insta-folder-card .folder-image { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background-color: #1a1f2a; }
@@ -183,102 +160,28 @@
         .insta-folder-card .folder-info .folder-name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
         .insta-folder-card .folder-info .folder-desc { font-size: 13px; color: #888; }
         
-        /* HORIZONTALNO SKROLANJE SLIKA */
-        .insta-image-grid-container { max-width: 100%; margin: 0; width: 100%; display: flex; align-items: center; }
-        .insta-image-slider { 
-            display: flex; 
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            gap: 20px; 
-            padding: 20px; 
-            width: 100%;
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: none; scrollbar-width: none;
-        }
-        .insta-image-slider::-webkit-scrollbar { display: none; }
-        
-        .insta-image-card {
-            flex: 0 0 85%;
-            max-width: 500px;
-            scroll-snap-align: center;
-            background: #111;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid #222;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .insta-image-wrapper { position: relative; width: 100%; aspect-ratio: 4/3; background: #1a1f2a; cursor: pointer; overflow: hidden; }
+        /* INSTAGRAM IMAGE GRID (3 Slike u redu) */
+        .insta-image-grid-container { max-width: 900px; margin: 0 auto; width: 100%; }
+        .insta-image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 0 0 20px 0; }
+        .insta-image-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; background: #111; cursor: pointer; overflow: hidden; }
         .insta-image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter 0.3s; }
         .insta-image-wrapper:hover img { filter: brightness(0.8); }
 
-        /* AI Opis */
-        .ai-description {
-            padding: 12px 15px;
-            background: #15181e;
-            border-top: 1px solid #222;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .ai-icon { font-size: 14px; background: rgba(76,175,80,0.15); color: #4caf50; padding: 4px 6px; border-radius: 6px; border: 1px solid rgba(76,175,80,0.3); font-weight: bold;}
-        .ai-text { font-size: 12px; color: #a1aabf; font-style: italic; line-height: 1.4; }
-
         @media (max-width: 600px) {
             .insta-folder-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-            .insta-image-card { flex: 0 0 90%; }
+            .insta-image-grid { gap: 2px; } 
         }
 
         /* ========== CTA BANNER ========== */
-        .cta-banner {
-            background: rgba(20, 24, 32, 0.6);
-            backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(76,175,80,0.3);
-            border-radius: 32px;
-            padding: 40px 30px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 60px auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-banner::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
-            transform: skewX(-20deg); animation: shine 6s infinite;
-        }
+        .cta-banner { background: rgba(20, 24, 32, 0.6); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 40px 30px; text-align: center; max-width: 900px; margin: 0 auto 60px auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+        .cta-banner::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent); transform: skewX(-20deg); animation: shine 6s infinite; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
 
         /* ========== ZELENA FIRMA ========== */
-        .green-company {
-            background: rgba(20, 24, 32, 0.4);
-            backdrop-filter: blur(24px);
-            border-radius: 32px;
-            padding: 50px 30px;
-            margin: 60px 0;
-            border: 1px solid rgba(76,175,80,0.2);
-            text-align: center;
-            transition: all 0.5s ease;
-        }
-        .green-company:hover {
-            border-color: rgba(76,175,80,0.5);
-            box-shadow: 0 0 40px rgba(76,175,80,0.1);
-        }
-        .green-company .icon-leaf {
-            font-size: 48px;
-            display: block;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(76,175,80,0.3));
-        }
-        .green-company h3 {
-            font-size: 32px;
-            color: #fff;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            margin-bottom: 20px;
-        }
+        .green-company { background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border-radius: 32px; padding: 50px 30px; margin: 60px 0; border: 1px solid rgba(76,175,80,0.2); text-align: center; transition: all 0.5s ease; }
+        .green-company:hover { border-color: rgba(76,175,80,0.5); box-shadow: 0 0 40px rgba(76,175,80,0.1); }
+        .green-company .icon-leaf { font-size: 48px; display: block; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(76,175,80,0.3)); }
+        .green-company h3 { font-size: 32px; color: #fff; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; }
         .green-company h3 span { color: #4caf50; }
         .green-company p { max-width: 750px; margin: 0 auto 20px; color: #cbd5e6; font-size: 18px; line-height: 1.8; }
         .green-company .highlight-badge { display: inline-block; background: rgba(76,175,80,0.15); border: 1px solid rgba(76,175,80,0.3); padding: 8px 20px; border-radius: 50px; font-size: 14px; color: #4caf50; font-weight: 500; margin: 5px 8px; backdrop-filter: blur(4px); }
@@ -387,12 +290,19 @@
 
         .lightbox-overlay, .video-lightbox { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5,7,10,0.95); backdrop-filter: blur(15px); display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 1000000; opacity: 0; transition: opacity 0.4s ease; }
         .lightbox-overlay.active, .video-lightbox.active { display: flex; opacity: 1; }
-        .lightbox-img, .video-lightbox video { max-width: 90%; max-height: 80%; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .lightbox-img, .video-lightbox video { max-width: 90%; max-height: 80%; border-radius: 12px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); user-select: none; }
         .lightbox-overlay.active .lightbox-img, .video-lightbox.active video { transform: scale(1); }
-        .lightbox-close, .close-video { position: absolute; top: 30px; right: 40px; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff; }
+        .lightbox-close, .close-video { position: absolute; top: 30px; right: 40px; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff; z-index: 1000002; }
         .lightbox-close svg, .close-video svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
         .lightbox-close:hover, .close-video:hover { background: rgba(230,57,70,0.2); color: #e63946; border-color: rgba(230,57,70,0.4); transform: scale(1.1) rotate(90deg); }
         #lightbox-caption { color: #fff; margin-top: 20px; font-size: 16px; font-weight: 500; letter-spacing: 0.5px; text-align: center; }
+
+        /* Strelice za navigaciju u Lightboxu */
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff; z-index: 1000001; }
+        .lightbox-nav:hover { background: rgba(76,175,80,0.4); border-color: #4caf50; transform: translateY(-50%) scale(1.1); }
+        .lightbox-nav svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .lightbox-prev { left: 30px; }
+        .lightbox-next { right: 30px; }
 
         /* ========== MSE AI WIDGET ========== */
         #mse-ai-widget { 
@@ -446,22 +356,8 @@
         .edu-card-tirkizna .folder-arrow { color: #00d2d3; }
 
         /* ========== FOOTER HIGHLIGHT ========== */
-        .footer-highlight {
-            background: rgba(20, 24, 32, 0.3);
-            backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255,255,255,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 30px 20px;
-            margin: 20px 0 0;
-            text-align: center;
-            border-radius: 20px;
-            transition: all 0.4s ease;
-        }
-        .footer-highlight:hover {
-            background: rgba(30, 36, 45, 0.5);
-            border-color: rgba(76,175,80,0.2);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
+        .footer-highlight { background: rgba(20, 24, 32, 0.3); backdrop-filter: blur(16px); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 30px 20px; margin: 20px 0 0; text-align: center; border-radius: 20px; transition: all 0.4s ease; }
+        .footer-highlight:hover { background: rgba(30, 36, 45, 0.5); border-color: rgba(76,175,80,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
         .footer-highlight .hl-item { display: inline-block; margin: 0 20px; font-size: 18px; font-weight: 500; color: #e5e7eb; letter-spacing: 0.3px; }
         .footer-highlight .hl-item strong { color: #4caf50; font-weight: 600; }
         .footer-highlight .hl-item .icon { margin-right: 8px; font-size: 20px; }
@@ -486,6 +382,7 @@
             .hero-logo { max-width: 92vw; }
             .footer-highlight .hl-item { font-size: 15px; }
             .green-company { padding: 30px 20px; }
+            .lightbox-nav { display: none; /* Skrivamo dugmiće na malim ekranima jer rade na Swipe */ }
         }
 
         /* ===== PERFORMANCE PATCH ===== */
@@ -508,6 +405,8 @@
 
 <div id="lightbox" class="lightbox-overlay">
     <div class="lightbox-close" id="close-btn"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div>
+    <div class="lightbox-nav lightbox-prev" onclick="prevLightboxImg(event)"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg></div>
+    <div class="lightbox-nav lightbox-next" onclick="nextLightboxImg(event)"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></div>
     <img id="lightbox-img" class="lightbox-img" alt="Uvećani prikaz">
     <div id="lightbox-caption"></div>
 </div>
@@ -586,7 +485,6 @@
 </section>
 
 <div class="container">
-
     <section class="reveal text-center" style="margin-top: 30px; margin-bottom: 40px;">
         <div class="cta-banner">
             <span class="badge-primary" style="margin-bottom: 15px;">Interaktivni Sadržaj</span>
@@ -868,16 +766,15 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// ========== INSTAGRAM MODAL - AUTOMATSKO UČITAVANJE SA GITHUB API + KESIRANJE ==========
+// ========== INSTAGRAM MODAL SA GITHUB API + KESIRANJE ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// Koristimo CDN za brzo učitavanje početnih naslovnih slika i samih slika u galeriji
 const REPO_BASE = 'https://cdn.jsdelivr.net/gh/mcpmarko83/milosavljevic-smart-energy@main/';
 
-// Dinamički spisak foldera
+// Dinamički spisak foldera sa NASLOVNIM SLIKAMA koje postoje u repozitorijumu
 const folderData = [
     { name: 'Distributivne Mreže', path: 'DistributivneMreze', desc: 'Niskonaponske mreže i trafostanice', thumb: 'DistributivneMreze1_result.webp' },
     { name: 'Javna Rasvjeta', path: 'JavnaRasvjeta', desc: 'LED rasvjeta i javna infrastruktura', thumb: 'JavnaRasvjeta2_result.webp' },
@@ -891,17 +788,9 @@ const folderData = [
     { name: 'Vjerski Objekti 1', path: 'VjerskiObjekti1', desc: 'Instalacije vjerskih objekata', thumb: 'VjerskiObjekti1-1_result.webp' }
 ];
 
-// Spisak AI tekstova koji će se nasumično ili redom vrtiti ispod slika
-const aiKomentari = [
-    "Uočeno precizno rutiranje kablova i visokokvalitetna izolacija.",
-    "Analiza ukazuje na optimalno raspoređivanje elemenata po industrijskim standardima.",
-    "Besprijekorna montaža sa fokusom na dugotrajnost i energetsku efikasnost.",
-    "Detektovana upotreba naprednih rješenja za pametno upravljanje objektom.",
-    "Sistem dizajniran za visoku pouzdanost i sprječavanje pregrijavanja.",
-    "Vizuelna inspekcija potvrđuje pedantnost i inženjersku tačnost."
-];
-
 let instaHistory = [];
+let currentGalleryImages = []; // Pamti sve slike u aktivnom folderu za potrebe prelistavanja (Lightbox)
+let currentLightboxIndex = 0;  // Koju sliku trenutno gledamo u Lightboxu
 
 function openInstaModal() {
     instaModal.classList.add('active');
@@ -920,7 +809,6 @@ function closeInstaModal() {
 
 function showFolderGrid() {
     instaContent.innerHTML = '';
-    instaContent.style.display = 'grid'; // Resetuje na Grid sistem
 
     folderData.forEach(folder => {
         const card = document.createElement('div');
@@ -952,18 +840,14 @@ function showFolderGrid() {
     });
 }
 
-// 2. DINAMIČKO UČITAVANJE + KEŠIRANJE DA SE IZBJEGNE GITHUB LIMIT
 async function openFolderImages(folder) {
     instaHistory.push('folders');
     instaTitle.textContent = folder.name;
     instaBackBtn.style.display = 'flex';
     
-    // Mijenjamo klasu na HORIZONTALNI SLIDER
-    instaContent.className = 'insta-image-slider';
-    instaContent.style.display = 'flex';
-    
-    // Loader dok se spaja sa GitHub API-jem (ili lokalnim kešom)
-    instaContent.innerHTML = '<div style="margin: auto; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike...</div>';
+    // VRATILI SMO GRID KLASU (3 slike u redu)
+    instaContent.className = 'insta-image-grid';
+    instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike...</div>';
 
     const username = 'mcpmarko83';
     const repository = 'milosavljevic-smart-energy';
@@ -972,58 +856,49 @@ async function openFolderImages(folder) {
 
     try {
         let files;
-        
-        // Prvo provjeravamo da li već imamo sačuvane slike u Session Storage (da ne bi udarili u limit)
         const cachedData = sessionStorage.getItem(cacheKey);
         
         if (cachedData) {
-            files = JSON.parse(cachedData); // Učitaj iz memorije browsera (Trenutno)
+            files = JSON.parse(cachedData);
         } else {
-            // Ako nema u memoriji, pitamo GitHub
             const response = await fetch(apiUrl);
-            
             if (!response.ok) {
                 if (response.status === 403 || response.status === 429) {
                     throw new Error('GitHub API Limit. Previše zahtjeva u kratkom vremenu.');
                 }
                 throw new Error('Folder nije pronađen na serveru.');
             }
-
             files = await response.json();
-            // Sačuvaj rezultat u Session Storage, tako da ga sledeći put ne vuče sa neta
             sessionStorage.setItem(cacheKey, JSON.stringify(files));
         }
 
-        instaContent.innerHTML = ''; // Sklanjamo loader
+        instaContent.innerHTML = ''; 
 
-        // Pretraga: Uzima apsolutno SVE slike koje pronađe unutar foldera
         const imageFiles = files.filter(file => file.type === 'file' && file.name.match(/\.(jpe?g|png|webp|gif)$/i));
 
         if(imageFiles.length === 0) {
-            instaContent.innerHTML = '<div style="margin: auto; text-align:center; padding: 40px; color:#888;">Nema slika u ovom folderu.</div>';
+            instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">Nema slika u ovom folderu.</div>';
             return;
         }
 
-        // SAVRŠENO SORTIRANJE PO BROJEVIMA
-        // Prolazi kroz imena slika, npr. "Slika12.jpg" i vadi broj "12". Ako nema broja, dodeljuje "0".
+        // STROGO NUMERIČKO SORTIRANJE (1, 2, 3...)
         imageFiles.sort((a, b) => {
             const brojA = parseInt((a.name.match(/\d+/) || [0])[0]);
             const brojB = parseInt((b.name.match(/\d+/) || [0])[0]);
             return brojA - brojB;
         });
 
-        imageFiles.forEach((file, index) => {
-            // Glavna kartica (Slika + AI Opis)
-            const card = document.createElement('div');
-            card.className = 'insta-image-card';
+        // POPUNJAVAMO NIZ SLIKA ZA LISTANJE U LIGHTBOXU
+        currentGalleryImages = imageFiles.map(file => ({
+            src: `${REPO_BASE}${folder.path}/${file.name}`,
+            name: file.name
+        }));
 
-            // Gornji dio: Slika
+        imageFiles.forEach((file, index) => {
             const wrapper = document.createElement('div');
             wrapper.className = 'insta-image-wrapper';
 
             const img = document.createElement('img');
-            
-            // Koristi jsDelivr umjesto sporog GitHub raw linka 
             img.src = `${REPO_BASE}${folder.path}/${file.name}`;
             img.alt = file.name;
             img.loading = "lazy";
@@ -1032,46 +907,91 @@ async function openFolderImages(folder) {
                 this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%23a1aabf">Greška</text></svg>';
             };
             
+            // Kada kliknemo na malu sliku, prosleđujemo tačan INDEKS funkcijama
             img.onclick = function(e) {
                 e.stopPropagation();
-                document.getElementById('lightbox-img').src = this.src;
-                document.getElementById('lightbox-caption').textContent = file.name; 
-                document.getElementById('lightbox').classList.add('active');
+                openLightbox(index);
             };
 
             wrapper.appendChild(img);
-
-            // Donji dio: AI Opis sitnim slovima
-            const aiDesc = document.createElement('div');
-            aiDesc.className = 'ai-description';
-            
-            // Bira se tekst iz niza (po redu)
-            const tekst = aiKomentari[index % aiKomentari.length];
-            aiDesc.innerHTML = `<span class="ai-icon">AI</span> <span class="ai-text">${tekst} (Br. ${index + 1})</span>`;
-
-            card.appendChild(wrapper);
-            card.appendChild(aiDesc);
-            instaContent.appendChild(card);
+            instaContent.appendChild(wrapper);
         });
 
     } catch (error) {
         console.error("Greška pri učitavanju:", error);
-        instaContent.innerHTML = `<div style="margin: auto; text-align:center; padding: 40px; color:#e63946;">Došlo je do greške: ${error.message} <br> Sačekajte par minuta pa pokušajte ponovo.</div>`;
+        instaContent.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#e63946;">Došlo je do greške: ${error.message} <br> Sačekajte par minuta pa pokušajte ponovo.</div>`;
     }
 }
 
+// LOGIKA ZA POVRATAK NAZAD (GUMB)
 function instaGoBack() {
     if (instaHistory.length > 0) {
         instaHistory.pop();
         instaContent.className = 'insta-folder-grid';
-        instaContent.style.display = 'grid'; // Vraćamo nazad na Grid
         instaTitle.textContent = 'Naši projekti';
         instaBackBtn.style.display = 'none';
         showFolderGrid();
     }
 }
 
-// ========== LOGIKA ZA PREVLAČENJE NAZAD (SWIPE TO GO BACK) ==========
+// ========== LOGIKA ZA LIGHTBOX (LISTANJE SLIKA LIJEVO/DESNO) ==========
+const lightbox = document.getElementById('lightbox');
+
+function openLightbox(index) {
+    currentLightboxIndex = index;
+    updateLightboxImage();
+    lightbox.classList.add('active');
+}
+
+function updateLightboxImage() {
+    if(currentGalleryImages.length === 0) return;
+    const imgData = currentGalleryImages[currentLightboxIndex];
+    document.getElementById('lightbox-img').src = imgData.src;
+    document.getElementById('lightbox-caption').textContent = imgData.name;
+}
+
+function prevLightboxImg(e) {
+    if (e) e.stopPropagation();
+    if (currentGalleryImages.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+    updateLightboxImage();
+}
+
+function nextLightboxImg(e) {
+    if (e) e.stopPropagation();
+    if (currentGalleryImages.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex + 1) % currentGalleryImages.length;
+    updateLightboxImage();
+}
+
+function closeLb() { lightbox.classList.remove('active'); }
+if(lightbox) lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLb(); });
+document.getElementById('close-btn').addEventListener('click', closeLb);
+
+// Swipe za prevlačenje slika LIJEVO/DESNO u Lightboxu
+let lbTouchStartX = 0;
+let lbTouchEndX = 0;
+
+lightbox.addEventListener('touchstart', e => {
+    lbTouchStartX = e.changedTouches[0].screenX;
+}, {passive: true});
+
+lightbox.addEventListener('touchend', e => {
+    lbTouchEndX = e.changedTouches[0].screenX;
+    const swipeThreshold = 50;
+    
+    // Ako prevučemo lijevo -> idemo na sljedeću sliku
+    if (lbTouchEndX < lbTouchStartX - swipeThreshold) {
+        nextLightboxImg();
+    }
+    // Ako prevučemo desno -> idemo na prethodnu sliku
+    if (lbTouchEndX > lbTouchStartX + swipeThreshold) {
+        prevLightboxImg();
+    }
+}, {passive: true});
+
+
+// ========== LOGIKA ZA PREVLAČENJE NAZAD U GALERIJI (SWIPE TO GO BACK) ==========
 let touchstartX = 0;
 let touchendX = 0;
 let touchstartY = 0;
@@ -1088,14 +1008,7 @@ instaModal.addEventListener('touchend', e => {
     
     // Prepoznajemo Swipe Desno (min 100px u desno, bez puno skrolanja gore/dole)
     if (touchendX > touchstartX + 100 && Math.abs(touchendY - touchstartY) < 50) {
-        // Zabrani swipe-to-back ako korisnik zapravo skrola horizontalno po slikama 
-        // osim ako nije na samom početku slidera
-        const slider = document.querySelector('.insta-image-slider');
-        if (slider && e.target.closest('.insta-image-slider')) {
-            if (slider.scrollLeft <= 5) instaGoBack(); // Vrati se ako smo na prvoj slici
-        } else {
-            instaGoBack(); // Vrati se normalno ako smo povukli po headeru ili praznom prostoru
-        }
+        instaGoBack(); // Vrati se ako smo prevukli
     }
 }, {passive: true});
 
@@ -1156,12 +1069,6 @@ instaModal.addEventListener('touchend', e => {
         if(headerPercentBtn) headerPercentBtn.textContent = `${Math.round(p)}%`;
         if(headerProgressBar) headerProgressBar.style.width = `${p}%`;
     }, {passive: true});
-
-    // LIGHTBOX
-    const lightbox = document.getElementById('lightbox');
-    function closeLb() { lightbox.classList.remove('active'); }
-    if(lightbox) lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLb(); });
-    document.getElementById('close-btn').addEventListener('click', closeLb);
 
     // KONTAKT FORMA
     const contactForm = document.getElementById('clean-contact-form');
