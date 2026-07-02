@@ -154,7 +154,7 @@
         /* ========== INSTAGRAM MODAL (GALERIJA) ========== */
         .instagram-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #05070a; /* Čista crna kao na Insta */
+            background: #05070a; 
             z-index: 100000; display: none; flex-direction: column;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             overflow-y: auto; overflow-x: hidden;
@@ -835,7 +835,7 @@ const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-/* Svi tvoji folderi (bez prefiksa), spremni za ucitavanje .webp slika */
+/* SADA SU DEFINISANA TAČNA IMENA FAJLOVA SA SVE EKSTENZIJOM */
 const folderDefs = [
     { 
         name: 'Kućne instalacije', 
@@ -843,9 +843,9 @@ const folderDefs = [
         icon: '🏠', 
         desc: 'Privatne kuće i porodični objekti',
         images: [
-            { file: '1', desc: 'Dnevni boravak - razvođenje' },
-            { file: '2', desc: 'Kuhinja - raspored utičnica' },
-            { file: '3', desc: 'Fina montaža rasvjete' }
+            { file: 'PorodicniSObjekti1_result.webp', desc: 'Dnevni boravak - razvođenje' },
+            { file: 'PorodicniSObjekti2_result.webp', desc: 'Kuhinja - raspored utičnica' },
+            { file: 'PorodicniSObjekti3_result.webp', desc: 'Fina montaža rasvjete' }
         ] 
     },
     { 
@@ -854,8 +854,8 @@ const folderDefs = [
         icon: '🏡', 
         desc: 'Odmarališta i vikend objekti',
         images: [
-            { file: '1', desc: 'Vanjska dekorativna rasvjeta' },
-            { file: '2', desc: 'Unutrašnje instalacije' }
+            { file: 'VikendiceApartmani1_result.webp', desc: 'Vanjska dekorativna rasvjeta' },
+            { file: 'VikendiceApartmani2_result.webp', desc: 'Unutrašnje instalacije' }
         ] 
     },
     { 
@@ -864,8 +864,8 @@ const folderDefs = [
         icon: '🏢', 
         desc: 'Kompletan inženjering i elektro-montaža',
         images: [
-            { file: '1', desc: 'Glavni razvodni ormar' },
-            { file: '2', desc: 'Hodnici - senzorska rasvjeta' }
+            { file: 'StambeneZgrade1_result.webp', desc: 'Glavni razvodni ormar' },
+            { file: 'StambeneZgrade2_result.webp', desc: 'Hodnici - senzorska rasvjeta' }
         ] 
     },
     { 
@@ -874,8 +874,8 @@ const folderDefs = [
         icon: '🏭', 
         desc: 'Industrijski pogoni, hale i kancelarije',
         images: [
-            { file: '1', desc: 'Industrijska hala - opšte' },
-            { file: '2', desc: 'Kabliranje za teške mašine' }
+            { file: 'KomercijalniObjekti1_result.webp', desc: 'Industrijska hala - opšte' },
+            { file: 'KomercijalniObjekti2_result.webp', desc: 'Kabliranje za teške mašine' }
         ] 
     },
     { 
@@ -884,8 +884,8 @@ const folderDefs = [
         icon: '⛪', 
         desc: 'Instalacije projektovane za dugo trajanje',
         images: [
-            { file: '1', desc: 'Osvjetljenje oltara' },
-            { file: '2', desc: 'Ambijentalna svjetla pod kupolom' }
+            { file: 'VjerskiObjekti1_result.webp', desc: 'Osvjetljenje oltara' },
+            { file: 'VjerskiObjekti2_result.webp', desc: 'Ambijentalna svjetla pod kupolom' }
         ] 
     },
     { 
@@ -894,8 +894,8 @@ const folderDefs = [
         icon: '💡', 
         desc: 'LED rasvjeta i javna infrastruktura',
         images: [
-            { file: '1', desc: 'Ulični LED paneli' },
-            { file: '2', desc: 'Osvjetljenje parkova' }
+            { file: 'JavnaRasvjeta1_result.webp', desc: 'Ulični LED paneli' },
+            { file: 'JavnaRasvjeta2_result.webp', desc: 'Osvjetljenje parkova' }
         ] 
     },
     { 
@@ -904,8 +904,9 @@ const folderDefs = [
         icon: '⚡', 
         desc: 'Niskonaponske mreže i trafostanice',
         images: [
-            { file: '1', desc: 'Trafostanica - ugradnja' },
-            { file: '2', desc: 'Spajanje podzemnih kablova' }
+            // Ovde sam stavio tačno kako si ti napisao (bez r u fajlu) da bi sigurno radilo!
+            { file: 'DistibutivneMreze1_result.webp', desc: 'Trafostanica - ugradnja' },
+            { file: 'DistibutivneMreze2_result.webp', desc: 'Spajanje podzemnih kablova' }
         ] 
     },
     { 
@@ -914,8 +915,8 @@ const folderDefs = [
         icon: '✨', 
         desc: 'Praznična gradska rasvjeta',
         images: [
-            { file: '1', desc: 'Novogodišnja dekoracija' },
-            { file: '2', desc: 'Trg i ulična rasvjeta' }
+            { file: 'KicenjeGrada1_result.webp', desc: 'Novogodišnja dekoracija' },
+            { file: 'KicenjeGrada2_result.webp', desc: 'Trg i ulična rasvjeta' }
         ] 
     },
     { 
@@ -924,8 +925,8 @@ const folderDefs = [
         icon: '🔧', 
         desc: 'Tržni centri i sistemi na mjesečnom održavanju',
         images: [
-            { file: '1', desc: 'Preventivni pregled instalacija' },
-            { file: '2', desc: 'Zamjena rasvjete' }
+            { file: 'OdrzavanjeTrgovackogCentara1_result.webp', desc: 'Preventivni pregled instalacija' },
+            { file: 'OdrzavanjeTrgovackogCentara2_result.webp', desc: 'Zamjena rasvjete' }
         ] 
     }
 ];
@@ -957,14 +958,15 @@ function showFolderGrid() {
         const img = document.createElement('img');
         img.className = 'folder-image';
         
-        let coverImage = folder.images.length > 0 ? folder.images[0].file : '1';
+        let coverImage = folder.images.length > 0 ? folder.images[0].file : '';
         
-        img.src = `${folder.path}/${coverImage}.webp`;
+        // NOVI KOD ZA PUTANJU (Bez dodavanja .webp jer je sad u samom imenu gore)
+        img.src = `${folder.path}/${coverImage}`;
         img.alt = folder.name;
         
-        // AKO SLIKA NE RADI, NEĆE NESTATI, VEĆ ĆE POKAZATI SIVI KVADRAT
+        // AKO SLIKA NE RADI, POKAZAĆE SIVI KVADRAT SA IMENOM FAJLA DA VIDIŠ ŠTA NE VALJA
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" fill="%23a1aabf">Nema Slike</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%23a1aabf">Greška: '+coverImage+'</text></svg>';
         };
         
         card.appendChild(img);
@@ -1000,13 +1002,15 @@ function openFolderImages(folder) {
         wrapper.className = 'insta-image-wrapper';
 
         const img = document.createElement('img');
-        img.src = `${folder.path}/${imgObj.file}.webp`;
+        
+        // NOVI KOD ZA SLIKE UNUTAR FOLDERA (Ime već sadrži .webp)
+        img.src = `${folder.path}/${imgObj.file}`;
         img.alt = imgObj.desc;
         img.loading = "lazy";
         
-        // AKO SLIKA NE RADI, POKAZAĆE SIVI KVADRAT SA GREŠKOM
+        // POKAZUJE GREŠKU AKO SLIKA FALI
         img.onerror = function() { 
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%23a1aabf">Greška: '+imgObj.file+'.webp</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%23a1aabf">Greška: '+imgObj.file+'</text></svg>';
         };
         
         img.onclick = function(e) {
