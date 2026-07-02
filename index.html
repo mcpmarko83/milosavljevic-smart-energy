@@ -277,7 +277,7 @@
         .insta-image-wrapper { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer; }
         .insta-image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
         .insta-image-wrapper:hover img { transform: scale(1.05); }
-        .insta-image-title { font-size: 12px; font-weight: 500; color: #a1aabf; text-align: center; padding: 8px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: rgba(5,7,10,0.5); }
+        .insta-image-title { font-size: 13px; font-weight: 500; color: #fff; text-align: center; padding: 10px 8px; background: rgba(5,7,10,0.8); border-top: 1px solid rgba(255,255,255,0.05); line-height: 1.3;}
 
         @media (max-width: 600px) {
             .insta-folder-grid { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
@@ -845,10 +845,9 @@ const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-/* OBAVEZNO OVDJE UNESITE TAČNE NAZIVE SVOJIH SLIKA! 
-   S obzirom na to da je ovo statična web stranica (na GitHubu), JavaScript 
-   ne može sam pretražiti folder i "pogoditi" imena vaših slika. 
-   Unutar 'images: []' niza upišite nazive slika bez '.jpg' na kraju.
+/* OBAVEZNO OVDJE UNESITE TAČNE NAZIVE SVOJIH SLIKA I OPISE! 
+   Format je prebačen na .webp u skripti ispod, a vama je ostalo samo da 
+   dodajete nove slike kao objekat { file: 'broj', desc: 'Opis slike' }.
 */
 const folderDefs = [
     { 
@@ -857,10 +856,10 @@ const folderDefs = [
         icon: '🏠', 
         desc: 'Privatne kuće i porodični objekti',
         images: [
-            'PorodicniSObjekat1_dnevna', 
-            'PorodicniSObjekat2_kuhinja', 
-            'PorodicniSObjekat3_spavaca'
-            // OVDJE DODAJ OSTALE NAZIVE...
+            { file: '1', desc: 'Dnevni boravak - razvođenje' },
+            { file: '2', desc: 'Kuhinja - raspored utičnica' },
+            { file: '3', desc: 'Fina montaža rasvjete' }
+            // OVDJE DODAJ OSTALE NAZIVE NA ISTI NAČIN...
         ] 
     },
     { 
@@ -869,8 +868,8 @@ const folderDefs = [
         icon: '🏡', 
         desc: 'Odmarališta i vikend objekti',
         images: [
-            'Vikendica1_vanjska', 
-            'Vikendica2_unutrasnja'
+            { file: '1', desc: 'Vanjska dekorativna rasvjeta' },
+            { file: '2', desc: 'Unutrašnje instalacije' }
         ] 
     },
     { 
@@ -879,8 +878,8 @@ const folderDefs = [
         icon: '🏢', 
         desc: 'Kompletan inženjering i elektro-montaža',
         images: [
-            'Zgrada1_ulaz', 
-            'Zgrada2_hodnici'
+            { file: '1', desc: 'Glavni razvodni ormar' },
+            { file: '2', desc: 'Hodnici - senzorska rasvjeta' }
         ] 
     },
     { 
@@ -889,8 +888,8 @@ const folderDefs = [
         icon: '🏭', 
         desc: 'Industrijski pogoni, hale i kancelarije',
         images: [
-            'Komercijalni1_hala', 
-            'Komercijalni2_ormari'
+            { file: '1', desc: 'Industrijska hala - opšte' },
+            { file: '2', desc: 'Kabliranje za teške mašine' }
         ] 
     },
     { 
@@ -899,8 +898,8 @@ const folderDefs = [
         icon: '⛪', 
         desc: 'Instalacije projektovane za dugo trajanje',
         images: [
-            'Vjerski1_oltar', 
-            'Vjerski2_kupola'
+            { file: '1', desc: 'Osvjetljenje oltara' },
+            { file: '2', desc: 'Ambijentalna svjetla pod kupolom' }
         ] 
     },
     { 
@@ -909,8 +908,8 @@ const folderDefs = [
         icon: '💡', 
         desc: 'LED rasvjeta i javna infrastruktura',
         images: [
-            'Rasvjeta1_ulica', 
-            'Rasvjeta2_park'
+            { file: '1', desc: 'Ulični LED paneli' },
+            { file: '2', desc: 'Osvjetljenje parkova' }
         ] 
     },
     { 
@@ -919,8 +918,8 @@ const folderDefs = [
         icon: '⚡', 
         desc: 'Niskonaponske mreže i trafostanice',
         images: [
-            'Mreza1_trafo', 
-            'Mreza2_kablovi'
+            { file: '1', desc: 'Trafostanica - ugradnja' },
+            { file: '2', desc: 'Spajanje podzemnih kablova' }
         ] 
     },
     { 
@@ -929,8 +928,8 @@ const folderDefs = [
         icon: '🤖', 
         desc: 'Industrija 4.0 i pametni sistemi',
         images: [
-            'Robotika1_plc', 
-            'Robotika2_masina'
+            { file: '1', desc: 'PLC programiranje' },
+            { file: '2', desc: 'Industrijski robot u pogonu' }
         ] 
     }
 ];
@@ -962,9 +961,11 @@ function showFolderGrid() {
         const img = document.createElement('img');
         img.className = 'folder-image';
         
-        // Prikazuje prvu sliku iz niza kao cover. Ako nema ni jedne, pokušava učitati 1.jpg kao backup
-        let coverImage = folder.images.length > 0 ? folder.images[0] : '1';
-        img.src = `Nasi projekti/${folder.path}/${coverImage}.jpg`;
+        // Prikazuje prvu sliku iz niza kao cover. Ako nema ni jedne, pokušava učitati 1.webp
+        let coverImage = folder.images.length > 0 ? folder.images[0].file : '1';
+        
+        // --- OVDJE JE PROMIJENJEN FORMAT NA .webp ---
+        img.src = `Nasi projekti/${folder.path}/${coverImage}.webp`;
         img.alt = folder.name;
         img.onerror = function() {
             this.style.display = 'none';
@@ -995,14 +996,14 @@ function openFolderImages(folder) {
     instaContent.className = 'insta-image-grid';
     instaContent.innerHTML = '';
 
-    // Logika za pravilno sortiranje brojeva u stringu (npr. Slika2_ ide pre Slika10_)
+    // Logika za pravilno sortiranje brojeva (kako bi slika 1, 2 išle prije 10, 11)
     let sortedImages = [...folder.images].sort((a, b) => {
-        let numA = parseInt(a.match(/\d+/)) || 0;
-        let numB = parseInt(b.match(/\d+/)) || 0;
+        let numA = parseInt(a.file.match(/\d+/)) || 0;
+        let numB = parseInt(b.file.match(/\d+/)) || 0;
         return numA - numB;
     });
 
-    sortedImages.forEach(imageName => {
+    sortedImages.forEach(imgObj => {
         const div = document.createElement('div');
         div.className = 'insta-image-item';
 
@@ -1010,8 +1011,9 @@ function openFolderImages(folder) {
         wrapper.className = 'insta-image-wrapper';
 
         const img = document.createElement('img');
-        img.src = `Nasi projekti/${folder.path}/${imageName}.jpg`;
-        img.alt = imageName;
+        // --- OVDJE JE PROMIJENJEN FORMAT NA .webp ---
+        img.src = `Nasi projekti/${folder.path}/${imgObj.file}.webp`;
+        img.alt = imgObj.desc;
         img.loading = "lazy"; // Optimizacija brzine učitavanja
         img.onerror = function() { 
             this.parentElement.parentElement.style.display = 'none'; 
@@ -1024,12 +1026,11 @@ function openFolderImages(folder) {
 
         wrapper.appendChild(img);
 
-        // Naslov ispod slike (sitan naziv bez ekstenzije)
+        // Naslov ispod slike koji smo unijeli u nizu (desc)
         const title = document.createElement('div');
         title.className = 'insta-image-title';
-        // Zamenjujemo donju crtu sa razmakom radi lepšeg prikaza
-        title.textContent = imageName.replace(/_/g, ' '); 
-        title.title = imageName;
+        title.textContent = imgObj.desc; 
+        title.title = imgObj.desc;
 
         div.appendChild(wrapper);
         div.appendChild(title);
