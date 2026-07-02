@@ -848,23 +848,23 @@ const instaBackBtn = document.getElementById('insta-back-btn');
 /* OBAVEZNO OVDJE UNESITE TAČNE NAZIVE SVOJIH SLIKA I OPISE! 
    Format je prebačen na .webp u skripti ispod, a vama je ostalo samo da 
    dodajete nove slike kao objekat { file: 'broj', desc: 'Opis slike' }.
+   PUTANJE SU SADA USKLAĐENE SA FOLDERIMA NA TVOM GITHUB-u.
 */
 const folderDefs = [
     { 
-        name: '01 Kućne instalacije', 
-        path: '01_Kucne_Instalacije', 
+        name: 'Kućne instalacije', 
+        path: 'PorodicniSObjekti', 
         icon: '🏠', 
         desc: 'Privatne kuće i porodični objekti',
         images: [
             { file: '1', desc: 'Dnevni boravak - razvođenje' },
             { file: '2', desc: 'Kuhinja - raspored utičnica' },
             { file: '3', desc: 'Fina montaža rasvjete' }
-            // OVDJE DODAJ OSTALE NAZIVE NA ISTI NAČIN...
         ] 
     },
     { 
-        name: '01b Vikendice i apartmani', 
-        path: '01b_Vikendice', 
+        name: 'Vikendice i apartmani', 
+        path: 'VikendiceApartmani', 
         icon: '🏡', 
         desc: 'Odmarališta i vikend objekti',
         images: [
@@ -873,8 +873,8 @@ const folderDefs = [
         ] 
     },
     { 
-        name: '02 Stambene zgrade', 
-        path: '02_Stambene_Zgrade', 
+        name: 'Stambene zgrade', 
+        path: 'StambeneZgrade', 
         icon: '🏢', 
         desc: 'Kompletan inženjering i elektro-montaža',
         images: [
@@ -883,8 +883,8 @@ const folderDefs = [
         ] 
     },
     { 
-        name: '03 Komercijalni objekti', 
-        path: '03_Komercijalni_Objekti', 
+        name: 'Komercijalni objekti', 
+        path: 'KomercijalniObjekti', 
         icon: '🏭', 
         desc: 'Industrijski pogoni, hale i kancelarije',
         images: [
@@ -893,8 +893,8 @@ const folderDefs = [
         ] 
     },
     { 
-        name: '04 Vjerski objekti', 
-        path: '04_Vjerski_Objekti', 
+        name: 'Vjerski objekti', 
+        path: 'VjerskiObjekti', 
         icon: '⛪', 
         desc: 'Instalacije projektovane za dugo trajanje',
         images: [
@@ -903,8 +903,8 @@ const folderDefs = [
         ] 
     },
     { 
-        name: '05 Ulična rasvjeta', 
-        path: '05_Ulicna_Rasvjeta', 
+        name: 'Javna rasvjeta', 
+        path: 'JavnaRasvjeta', 
         icon: '💡', 
         desc: 'LED rasvjeta i javna infrastruktura',
         images: [
@@ -913,8 +913,8 @@ const folderDefs = [
         ] 
     },
     { 
-        name: '06 Distributivne mreže', 
-        path: '06_Elektrodistributivne_Mreze', 
+        name: 'Distributivne mreže', 
+        path: 'DistributivneMreze', 
         icon: '⚡', 
         desc: 'Niskonaponske mreže i trafostanice',
         images: [
@@ -923,13 +923,23 @@ const folderDefs = [
         ] 
     },
     { 
-        name: '07 Automatizacija i robotika', 
-        path: '07_Automatizacija', 
-        icon: '🤖', 
-        desc: 'Industrija 4.0 i pametni sistemi',
+        name: 'Kićenje grada', 
+        path: 'KicenjeGrada', 
+        icon: '✨', 
+        desc: 'Praznična gradska rasvjeta',
         images: [
-            { file: '1', desc: 'PLC programiranje' },
-            { file: '2', desc: 'Industrijski robot u pogonu' }
+            { file: '1', desc: 'Novogodišnja dekoracija' },
+            { file: '2', desc: 'Trg i ulična rasvjeta' }
+        ] 
+    },
+    { 
+        name: 'Održavanje objekata', 
+        path: 'OdrzavanjeTrgovackogCentara', 
+        icon: '🔧', 
+        desc: 'Tržni centri i sistemi na mjesečnom održavanju',
+        images: [
+            { file: '1', desc: 'Preventivni pregled instalacija' },
+            { file: '2', desc: 'Zamjena rasvjete' }
         ] 
     }
 ];
@@ -964,8 +974,8 @@ function showFolderGrid() {
         // Prikazuje prvu sliku iz niza kao cover. Ako nema ni jedne, pokušava učitati 1.webp
         let coverImage = folder.images.length > 0 ? folder.images[0].file : '1';
         
-        // --- OVDJE JE PROMIJENJEN FORMAT NA .webp ---
-        img.src = `Nasi projekti/${folder.path}/${coverImage}.webp`;
+        // --- OVDJE JE UKLONJEN PREFIKS DA BI SE POKLAPALO SA TVOJIM GITHUB-om ---
+        img.src = `${folder.path}/${coverImage}.webp`;
         img.alt = folder.name;
         img.onerror = function() {
             this.style.display = 'none';
@@ -1011,8 +1021,8 @@ function openFolderImages(folder) {
         wrapper.className = 'insta-image-wrapper';
 
         const img = document.createElement('img');
-        // --- OVDJE JE PROMIJENJEN FORMAT NA .webp ---
-        img.src = `Nasi projekti/${folder.path}/${imgObj.file}.webp`;
+        // --- OVDJE JE TAKOĐE UKLONJEN PREFIKS ---
+        img.src = `${folder.path}/${imgObj.file}.webp`;
         img.alt = imgObj.desc;
         img.loading = "lazy"; // Optimizacija brzine učitavanja
         img.onerror = function() { 
