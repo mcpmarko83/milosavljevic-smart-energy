@@ -156,10 +156,10 @@
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #05070a; 
             z-index: 100000; display: none; flex-direction: column;
-            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             overflow-y: auto; overflow-x: hidden;
         }
-        .instagram-modal.active { display: flex; transform: translateY(0); }
+        .instagram-modal.active { display: flex; transform: translateX(0); }
         .insta-header {
             position: sticky; top: 0; background: #05070a; 
             padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
@@ -175,23 +175,59 @@
             width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
         }
         /* FOLDER GRID */
-        .insta-folder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; max-width: 900px; margin: 0 auto; width: 100%; }
+        .insta-folder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; max-width: 900px; margin: 0 auto; width: 100%; align-content: start; }
         .insta-folder-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: transform 0.3s ease; }
         .insta-folder-card:hover { transform: translateY(-3px); border-color: rgba(76,175,80,0.5); }
         .insta-folder-card .folder-image { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background-color: #1a1f2a; }
         .insta-folder-card .folder-info { padding: 12px; }
         .insta-folder-card .folder-info .folder-name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
         .insta-folder-card .folder-info .folder-desc { font-size: 13px; color: #888; }
-        /* INSTAGRAM IMAGE GRID (3 Slike u redu) */
-        .insta-image-grid-container { max-width: 900px; margin: 0 auto; width: 100%; }
-        .insta-image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 0 0 20px 0; }
-        .insta-image-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; background: #111; cursor: pointer; overflow: hidden; }
+        
+        /* HORIZONTALNO SKROLANJE SLIKA */
+        .insta-image-grid-container { max-width: 100%; margin: 0; width: 100%; display: flex; align-items: center; }
+        .insta-image-slider { 
+            display: flex; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            gap: 20px; 
+            padding: 20px; 
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .insta-image-slider::-webkit-scrollbar { display: none; }
+        
+        .insta-image-card {
+            flex: 0 0 85%;
+            max-width: 500px;
+            scroll-snap-align: center;
+            background: #111;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #222;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .insta-image-wrapper { position: relative; width: 100%; aspect-ratio: 4/3; background: #1a1f2a; cursor: pointer; overflow: hidden; }
         .insta-image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter 0.3s; }
         .insta-image-wrapper:hover img { filter: brightness(0.8); }
 
+        /* AI Opis */
+        .ai-description {
+            padding: 12px 15px;
+            background: #15181e;
+            border-top: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ai-icon { font-size: 14px; background: rgba(76,175,80,0.15); color: #4caf50; padding: 4px 6px; border-radius: 6px; border: 1px solid rgba(76,175,80,0.3); font-weight: bold;}
+        .ai-text { font-size: 12px; color: #a1aabf; font-style: italic; line-height: 1.4; }
+
         @media (max-width: 600px) {
             .insta-folder-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-            .insta-image-grid { gap: 2px; } 
+            .insta-image-card { flex: 0 0 90%; }
         }
 
         /* ========== CTA BANNER ========== */
@@ -855,6 +891,16 @@ const folderData = [
     { name: 'Vjerski Objekti 1', path: 'VjerskiObjekti1', desc: 'Instalacije vjerskih objekata', thumb: 'VjerskiObjekti1-1_result.webp' }
 ];
 
+// Spisak AI tekstova koji će se nasumično ili redom vrtiti ispod slika
+const aiKomentari = [
+    "Uočeno precizno rutiranje kablova i visokokvalitetna izolacija.",
+    "Analiza ukazuje na optimalno raspoređivanje elemenata po industrijskim standardima.",
+    "Besprijekorna montaža sa fokusom na dugotrajnost i energetsku efikasnost.",
+    "Detektovana upotreba naprednih rješenja za pametno upravljanje objektom.",
+    "Sistem dizajniran za visoku pouzdanost i sprječavanje pregrijavanja.",
+    "Vizuelna inspekcija potvrđuje pedantnost i inženjersku tačnost."
+];
+
 let instaHistory = [];
 
 function openInstaModal() {
@@ -874,6 +920,7 @@ function closeInstaModal() {
 
 function showFolderGrid() {
     instaContent.innerHTML = '';
+    instaContent.style.display = 'grid'; // Resetuje na Grid sistem
 
     folderData.forEach(folder => {
         const card = document.createElement('div');
@@ -910,10 +957,13 @@ async function openFolderImages(folder) {
     instaHistory.push('folders');
     instaTitle.textContent = folder.name;
     instaBackBtn.style.display = 'flex';
-    instaContent.className = 'insta-image-grid';
+    
+    // Mijenjamo klasu na HORIZONTALNI SLIDER
+    instaContent.className = 'insta-image-slider';
+    instaContent.style.display = 'flex';
     
     // Loader dok se spaja sa GitHub API-jem (ili lokalnim kešom)
-    instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike...</div>';
+    instaContent.innerHTML = '<div style="margin: auto; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike...</div>';
 
     const username = 'mcpmarko83';
     const repository = 'milosavljevic-smart-energy';
@@ -950,7 +1000,7 @@ async function openFolderImages(folder) {
         const imageFiles = files.filter(file => file.type === 'file' && file.name.match(/\.(jpe?g|png|webp|gif)$/i));
 
         if(imageFiles.length === 0) {
-            instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">Nema slika u ovom folderu.</div>';
+            instaContent.innerHTML = '<div style="margin: auto; text-align:center; padding: 40px; color:#888;">Nema slika u ovom folderu.</div>';
             return;
         }
 
@@ -962,7 +1012,12 @@ async function openFolderImages(folder) {
             return brojA - brojB;
         });
 
-        imageFiles.forEach(file => {
+        imageFiles.forEach((file, index) => {
+            // Glavna kartica (Slika + AI Opis)
+            const card = document.createElement('div');
+            card.className = 'insta-image-card';
+
+            // Gornji dio: Slika
             const wrapper = document.createElement('div');
             wrapper.className = 'insta-image-wrapper';
 
@@ -985,12 +1040,23 @@ async function openFolderImages(folder) {
             };
 
             wrapper.appendChild(img);
-            instaContent.appendChild(wrapper);
+
+            // Donji dio: AI Opis sitnim slovima
+            const aiDesc = document.createElement('div');
+            aiDesc.className = 'ai-description';
+            
+            // Bira se tekst iz niza (po redu)
+            const tekst = aiKomentari[index % aiKomentari.length];
+            aiDesc.innerHTML = `<span class="ai-icon">AI</span> <span class="ai-text">${tekst} (Br. ${index + 1})</span>`;
+
+            card.appendChild(wrapper);
+            card.appendChild(aiDesc);
+            instaContent.appendChild(card);
         });
 
     } catch (error) {
         console.error("Greška pri učitavanju:", error);
-        instaContent.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#e63946;">Došlo je do greške: ${error.message} <br> Sačekajte par minuta pa pokušajte ponovo.</div>`;
+        instaContent.innerHTML = `<div style="margin: auto; text-align:center; padding: 40px; color:#e63946;">Došlo je do greške: ${error.message} <br> Sačekajte par minuta pa pokušajte ponovo.</div>`;
     }
 }
 
@@ -998,11 +1064,40 @@ function instaGoBack() {
     if (instaHistory.length > 0) {
         instaHistory.pop();
         instaContent.className = 'insta-folder-grid';
+        instaContent.style.display = 'grid'; // Vraćamo nazad na Grid
         instaTitle.textContent = 'Naši projekti';
         instaBackBtn.style.display = 'none';
         showFolderGrid();
     }
 }
+
+// ========== LOGIKA ZA PREVLAČENJE NAZAD (SWIPE TO GO BACK) ==========
+let touchstartX = 0;
+let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
+
+instaModal.addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX;
+    touchstartY = e.changedTouches[0].screenY;
+}, {passive: true});
+
+instaModal.addEventListener('touchend', e => {
+    touchendX = e.changedTouches[0].screenX;
+    touchendY = e.changedTouches[0].screenY;
+    
+    // Prepoznajemo Swipe Desno (min 100px u desno, bez puno skrolanja gore/dole)
+    if (touchendX > touchstartX + 100 && Math.abs(touchendY - touchstartY) < 50) {
+        // Zabrani swipe-to-back ako korisnik zapravo skrola horizontalno po slikama 
+        // osim ako nije na samom početku slidera
+        const slider = document.querySelector('.insta-image-slider');
+        if (slider && e.target.closest('.insta-image-slider')) {
+            if (slider.scrollLeft <= 5) instaGoBack(); // Vrati se ako smo na prvoj slici
+        } else {
+            instaGoBack(); // Vrati se normalno ako smo povukli po headeru ili praznom prostoru
+        }
+    }
+}, {passive: true});
 
 // ========== OSTALI FUNKCIONALNI SKRIPTOVI ==========
 (function() {
