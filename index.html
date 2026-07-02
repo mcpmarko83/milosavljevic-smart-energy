@@ -841,34 +841,36 @@ const GITHUB_OWNER = 'mcpmarko83';
 const GITHUB_REPO = 'milosavljevic-smart-energy';
 const GITHUB_BRANCH = 'main';
 const GITHUB_API_BASE = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents`;
+// PROXY je rešenje za CORS grešku na Cloudflare Pages!
+const CORS_PROXY = 'https://corsproxy.io/?';
 
 let instaHistory = [];
-let folderCache = {}; // Keš za slike folder-a da ne mučimo API više puta
+let folderCache = {};
 
 // Pomoćna funkcija za prirodno sortiranje (1, 2, 10, 20, a ne 1, 10, 2)
 function naturalSortFileName(fileName) {
-    // Izvući brojeve, ako nema brojeva stavi ga na kraj (veliki broj)
     const num = parseInt(fileName.match(/\d+/)) || 99999;
     return num;
 }
 
 async function fetchFolderList() {
-    const resp = await fetch(`${GITHUB_API_BASE}?ref=${GITHUB_BRANCH}`);
-    if (!resp.ok) throw new Error('Ne mogu da dohvatim foldere.');
-    const data = await resp.json();
-    // Filtriraj samo direktorijume i izbacim .git ako postoji
+    const url = `${GITHUB_API_BASE}?ref=${GITHUB_BRANCH}`;
+    // Koristimo proxy da zaobiđemo CORS blokadu
+    const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+    if (!response.ok) throw new Error('Ne mogu da dohvatim foldere.');
+    const data = await response.json();
     return data.filter(item => item.type === 'dir' && item.name !== '.git');
 }
 
 async function fetchImagesFromFolder(folderPath) {
-    // Ako smo već keširali taj folder, vrati keš
     if (folderCache[folderPath]) return folderCache[folderPath];
 
-    const resp = await fetch(`${GITHUB_API_BASE}/${folderPath}?ref=${GITHUB_BRANCH}`);
-    if (!resp.ok) throw new Error(`Ne mogu da dohvatim slike za folder ${folderPath}.`);
-    const data = await resp.json();
+    const url = `${GITHUB_API_BASE}/${folderPath}?ref=${GITHUB_BRANCH}`;
+    // Koristimo proxy da zaobiđemo CORS blokadu
+    const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+    if (!response.ok) throw new Error(`Ne mogu da dohvatim slike za folder ${folderPath}.`);
+    const data = await response.json();
     
-    // Filtriraj samo slike (.webp, .jpg, .jpeg, .png)
     const images = data.filter(item => 
         item.type === 'file' && /\.(webp|jpg|jpeg|png)$/i.test(item.name)
     ).map(item => ({
@@ -876,12 +878,11 @@ async function fetchImagesFromFolder(folderPath) {
         download_url: item.download_url
     }));
 
-    // Sortiraj slike numerički (1, 2, 3...)
     images.sort((a, b) => {
         return naturalSortFileName(a.file) - naturalSortFileName(b.file);
     });
 
-    folderCache[folderPath] = images; // Sačuvaj u keš
+    folderCache[folderPath] = images;
     return images;
 }
 
@@ -895,11 +896,8 @@ async function openInstaModal() {
     instaBackBtn.style.display = 'none';
     
     try {
-        // 1. Dohvati sve foldere
         const folders = await fetchFolderList();
         
-        // 2. Za svaki folder dohvati slike (za naslovnu sliku)
-        // Radimo sve paralelno da bude brzo
         const folderPromises = folders.map(async (folder) => {
             try {
                 const images = await fetchImagesFromFolder(folder.path);
@@ -910,15 +908,12 @@ async function openInstaModal() {
         });
         
         const foldersWithImages = await Promise.all(folderPromises);
-        
-        // 3. Prikaži foldere
         showFolderGrid(foldersWithImages);
         
     } catch (error) {
         console.error(error);
         instaContent.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#e63946;">
-            ⚠️ Došlo je do greške prilikom učitavanja. <br> 
-            Proverite da li su folderi javni na GitHub-u ili pokušajte ponovo kasnije.<br>
+            ⚠️ Došlo je do greške prilikom učitavanja.<br>
             <small style="color:#888;">${error.message}</small>
         </div>`;
     }
@@ -936,7 +931,6 @@ function showFolderGrid(folders) {
     instaContent.innerHTML = '';
 
     folders.forEach(folder => {
-        // Formatiraj ime foldera (zameni _ sa razmakom)
         const displayName = folder.name.replace(/_/g, ' ').replace(/([A-Z])/g, ' $1').trim();
         
         const card = document.createElement('div');
@@ -946,7 +940,6 @@ function showFolderGrid(folders) {
         img.className = 'folder-image';
         img.alt = displayName;
         
-        // Uzmi prvu sliku kao naslovnu
         if (folder.images && folder.images.length > 0) {
             img.src = folder.images[0].download_url;
         } else {
@@ -1012,13 +1005,9 @@ function openFolderImages(folder) {
 function instaGoBack() {
     if (instaHistory.length > 0) {
         instaHistory.pop();
-        // Moramo ponovo da učitamo foldere ako se vratimo, jer su podaci možda izgubljeni.
-        // Ali pošto koristimo Promise u openInstaModal, najbolje je ponovo pokrenuti otvaranje
-        // koje će iskoristiti keš ako postoji.
         const modalContent = instaContent;
         modalContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">📂 Učitavam...</div>';
         
-        // Ponovo dohvati foldere iz keša (ako postoje)
         fetchFolderList().then(folders => {
             const promises = folders.map(async (folder) => {
                 try {
