@@ -832,17 +832,16 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// ========== INSTAGRAM MODAL - AUTOMATSKO UČITAVANJE SA GITHUB API ==========
+// ========== INSTAGRAM MODAL - AUTOMATSKO UČITAVANJE SA GITHUB API + KESIRANJE ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// Koristimo CDN za brzo učitavanje početnih naslovnih slika
+// Koristimo CDN za brzo učitavanje početnih naslovnih slika i samih slika u galeriji
 const REPO_BASE = 'https://cdn.jsdelivr.net/gh/mcpmarko83/milosavljevic-smart-energy@main/';
 
-// 1. Znatno pojednostavljen niz - NE MORAŠ više unositi svaku sliku ručno! 
-// Dovoljno je samo da definišeš ime foldera i jednu početnu (naslovnu) sliku.
+// Dinamički spisak foldera
 const folderData = [
     { name: 'Distributivne Mreže', path: 'DistributivneMreze', desc: 'Niskonaponske mreže i trafostanice', thumb: 'DistributivneMreze1_result.webp' },
     { name: 'Javna Rasvjeta', path: 'JavnaRasvjeta', desc: 'LED rasvjeta i javna infrastruktura', thumb: 'JavnaRasvjeta2_result.webp' },
@@ -885,7 +884,6 @@ function showFolderGrid() {
         img.alt = folder.name;
         img.loading = "lazy";
         
-        // Prikazuje samo naslovnu sliku pomoću jsDelivr CDN-a (za brzo učitavanje bez blokada API-ja)
         img.src = `${REPO_BASE}${folder.path}/${folder.thumb}`;
         
         img.onerror = function() {
@@ -907,28 +905,45 @@ function showFolderGrid() {
     });
 }
 
-// 2. DINAMIČKO UČITAVANJE SLIKA: Ovde radi GitHub API
+// 2. DINAMIČKO UČITAVANJE + KEŠIRANJE DA SE IZBJEGNE GITHUB LIMIT
 async function openFolderImages(folder) {
     instaHistory.push('folders');
     instaTitle.textContent = folder.name;
     instaBackBtn.style.display = 'flex';
     instaContent.className = 'insta-image-grid';
     
-    // Loader dok se spaja sa GitHub API-jem
-    instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike sa servera...</div>';
+    // Loader dok se spaja sa GitHub API-jem (ili lokalnim kešom)
+    instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike...</div>';
 
     const username = 'mcpmarko83';
     const repository = 'milosavljevic-smart-energy';
     const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/${folder.path}`;
+    const cacheKey = `mse_gallery_cache_${folder.path}`;
 
     try {
-        const response = await fetch(apiUrl);
+        let files;
         
-        if (!response.ok) {
-            throw new Error('Folder nije pronađen.');
+        // Prvo provjeravamo da li već imamo sačuvane slike u Session Storage (da ne bi udarili u limit)
+        const cachedData = sessionStorage.getItem(cacheKey);
+        
+        if (cachedData) {
+            files = JSON.parse(cachedData); // Učitaj iz memorije browsera (Trenutno)
+        } else {
+            // Ako nema u memoriji, pitamo GitHub
+            const response = await fetch(apiUrl);
+            
+            if (!response.ok) {
+                if (response.status === 403 || response.status === 429) {
+                    throw new Error('GitHub API Limit. Previše zahtjeva u kratkom vremenu.');
+                }
+                throw new Error('Folder nije pronađen na serveru.');
+            }
+
+            files = await response.json();
+            // Sačuvaj rezultat u Session Storage, tako da ga sledeći put ne vuče sa neta
+            sessionStorage.setItem(cacheKey, JSON.stringify(files));
         }
 
-        const files = await response.json();
         instaContent.innerHTML = ''; // Sklanjamo loader
 
         // Pretraga: Uzima apsolutno SVE slike koje pronađe unutar foldera
@@ -939,11 +954,12 @@ async function openFolderImages(folder) {
             return;
         }
 
-        // Sortiranje slika po broju u nazivu da bi išle redom
+        // SAVRŠENO SORTIRANJE PO BROJEVIMA
+        // Prolazi kroz imena slika, npr. "Slika12.jpg" i vadi broj "12". Ako nema broja, dodeljuje "0".
         imageFiles.sort((a, b) => {
-            let numA = parseInt(a.name.match(/\d+/)) || 0;
-            let numB = parseInt(b.name.match(/\d+/)) || 0;
-            return numA - numB;
+            const brojA = parseInt((a.name.match(/\d+/) || [0])[0]);
+            const brojB = parseInt((b.name.match(/\d+/) || [0])[0]);
+            return brojA - brojB;
         });
 
         imageFiles.forEach(file => {
@@ -951,8 +967,9 @@ async function openFolderImages(folder) {
             wrapper.className = 'insta-image-wrapper';
 
             const img = document.createElement('img');
-            // Koristi direktan download link slike sa GitHub API-ja
-            img.src = file.download_url;
+            
+            // Koristi jsDelivr umjesto sporog GitHub raw linka 
+            img.src = `${REPO_BASE}${folder.path}/${file.name}`;
             img.alt = file.name;
             img.loading = "lazy";
             
@@ -973,7 +990,7 @@ async function openFolderImages(folder) {
 
     } catch (error) {
         console.error("Greška pri učitavanju:", error);
-        instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#e63946;">Došlo je do greške pri učitavanju slika. Molimo pokušajte ponovo.</div>';
+        instaContent.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#e63946;">Došlo je do greške: ${error.message} <br> Sačekajte par minuta pa pokušajte ponovo.</div>`;
     }
 }
 
