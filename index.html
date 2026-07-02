@@ -270,14 +270,18 @@
         .insta-folder-card .folder-info .folder-name { font-size: 17px; font-weight: 600; color: #fff; letter-spacing: -0.3px; margin-bottom: 4px; }
         .insta-folder-card .folder-info .folder-desc { font-size: 14px; color: #a1aabf; font-weight: 300; opacity: 0.8; }
 
-        .insta-image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; }
-        .insta-image-item { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer; background: rgba(255,255,255,0.02); transition: transform 0.3s ease; border-radius: 4px; }
-        .insta-image-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-        .insta-image-item:hover img { transform: scale(1.05); }
+        /* AZURIRAN GRID ZA SLIKE SA NASLOVIMA */
+        .insta-image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px; }
+        .insta-image-item { background: rgba(255,255,255,0.02); border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+        .insta-image-item:hover { transform: translateY(-3px); border-color: rgba(76,175,80,0.3); }
+        .insta-image-wrapper { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer; }
+        .insta-image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+        .insta-image-wrapper:hover img { transform: scale(1.05); }
+        .insta-image-title { font-size: 12px; font-weight: 500; color: #a1aabf; text-align: center; padding: 8px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: rgba(5,7,10,0.5); }
 
         @media (max-width: 600px) {
             .insta-folder-grid { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
-            .insta-image-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 2px; }
+            .insta-image-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 8px; }
             .insta-folder-card .folder-info .folder-name { font-size: 15px; }
             .insta-folder-card .folder-info .folder-desc { font-size: 13px; }
         }
@@ -813,7 +817,9 @@
     <div style="margin-top: 10px; padding: 20px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.06);">
         <div style="color: #6b7280; font-size: 14px; font-weight: 300;">© 2026 Milosavljević Smart Energy Digital Hub – sva prava zadržana</div>
     </div>
-</div> <div id="mse-ai-widget" class="ai-hidden">
+</div> 
+
+<div id="mse-ai-widget" class="ai-hidden">
     <div class="ai-header">
         <div class="ai-header-title"><div class="pulse"></div> MSE AI Inženjer</div>
         <button class="ai-close-btn" onclick="toggleAI()">&times;</button>
@@ -833,21 +839,100 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// ========== INSTAGRAM MODAL ==========
+// ========== INSTAGRAM MODAL (GALERIJA) ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
+/* OBAVEZNO OVDJE UNESITE TAČNE NAZIVE SVOJIH SLIKA! 
+   S obzirom na to da je ovo statična web stranica (na GitHubu), JavaScript 
+   ne može sam pretražiti folder i "pogoditi" imena vaših slika. 
+   Unutar 'images: []' niza upišite nazive slika bez '.jpg' na kraju.
+*/
 const folderDefs = [
-    { name: '01 Kućne instalacije', path: '01_Kucne_instalacije', icon: '🏠', desc: 'Privatne kuće i porodični objekti' },
-    { name: '01b Vikendice i apartmani', path: '01b_Vikendice', icon: '🏡', desc: 'Odmarališta i vikend objekti' },
-    { name: '02 Stambene zgrade', path: '02_Stambene_zgrade', icon: '🏢', desc: 'Kompletan inženjering i elektro-montaža' },
-    { name: '03 Komercijalni objekti', path: '03_Komercijalni_objekti', icon: '🏭', desc: 'Industrijski pogoni, hale i kancelarije' },
-    { name: '04 Vjerski objekti', path: '04_Vjerski_objekti', icon: '⛪', desc: 'Instalacije projektovane za dugo trajanje' },
-    { name: '05 Ulična rasvjeta', path: '05_Ulicna_rasvjeta', icon: '💡', desc: 'LED rasvjeta i javna infrastruktura' },
-    { name: '06 Distributivne mreže', path: '06_Elektrodistributivne_mreze', icon: '⚡', desc: 'Niskonaponske mreže i trafostanice' },
-    { name: '07 Automatizacija i robotika', path: '07_Automatizacija_i_robotika', icon: '🤖', desc: 'Industrija 4.0 i pametni sistemi' }
+    { 
+        name: '01 Kućne instalacije', 
+        path: '01_Kucne_Instalacije', 
+        icon: '🏠', 
+        desc: 'Privatne kuće i porodični objekti',
+        images: [
+            'PorodicniSObjekat1_dnevna', 
+            'PorodicniSObjekat2_kuhinja', 
+            'PorodicniSObjekat3_spavaca'
+            // OVDJE DODAJ OSTALE NAZIVE...
+        ] 
+    },
+    { 
+        name: '01b Vikendice i apartmani', 
+        path: '01b_Vikendice', 
+        icon: '🏡', 
+        desc: 'Odmarališta i vikend objekti',
+        images: [
+            'Vikendica1_vanjska', 
+            'Vikendica2_unutrasnja'
+        ] 
+    },
+    { 
+        name: '02 Stambene zgrade', 
+        path: '02_Stambene_Zgrade', 
+        icon: '🏢', 
+        desc: 'Kompletan inženjering i elektro-montaža',
+        images: [
+            'Zgrada1_ulaz', 
+            'Zgrada2_hodnici'
+        ] 
+    },
+    { 
+        name: '03 Komercijalni objekti', 
+        path: '03_Komercijalni_Objekti', 
+        icon: '🏭', 
+        desc: 'Industrijski pogoni, hale i kancelarije',
+        images: [
+            'Komercijalni1_hala', 
+            'Komercijalni2_ormari'
+        ] 
+    },
+    { 
+        name: '04 Vjerski objekti', 
+        path: '04_Vjerski_Objekti', 
+        icon: '⛪', 
+        desc: 'Instalacije projektovane za dugo trajanje',
+        images: [
+            'Vjerski1_oltar', 
+            'Vjerski2_kupola'
+        ] 
+    },
+    { 
+        name: '05 Ulična rasvjeta', 
+        path: '05_Ulicna_Rasvjeta', 
+        icon: '💡', 
+        desc: 'LED rasvjeta i javna infrastruktura',
+        images: [
+            'Rasvjeta1_ulica', 
+            'Rasvjeta2_park'
+        ] 
+    },
+    { 
+        name: '06 Distributivne mreže', 
+        path: '06_Elektrodistributivne_Mreze', 
+        icon: '⚡', 
+        desc: 'Niskonaponske mreže i trafostanice',
+        images: [
+            'Mreza1_trafo', 
+            'Mreza2_kablovi'
+        ] 
+    },
+    { 
+        name: '07 Automatizacija i robotika', 
+        path: '07_Automatizacija', 
+        icon: '🤖', 
+        desc: 'Industrija 4.0 i pametni sistemi',
+        images: [
+            'Robotika1_plc', 
+            'Robotika2_masina'
+        ] 
+    }
 ];
 
 let instaHistory = [];
@@ -876,7 +961,10 @@ function showFolderGrid() {
 
         const img = document.createElement('img');
         img.className = 'folder-image';
-        img.src = `Nasi projekti/${folder.path}/1.jpg`;
+        
+        // Prikazuje prvu sliku iz niza kao cover. Ako nema ni jedne, pokušava učitati 1.jpg kao backup
+        let coverImage = folder.images.length > 0 ? folder.images[0] : '1';
+        img.src = `Nasi projekti/${folder.path}/${coverImage}.jpg`;
         img.alt = folder.name;
         img.onerror = function() {
             this.style.display = 'none';
@@ -907,21 +995,51 @@ function openFolderImages(folder) {
     instaContent.className = 'insta-image-grid';
     instaContent.innerHTML = '';
 
-    const maxImages = 12;
-    for (let i = 1; i <= maxImages; i++) {
+    // Logika za pravilno sortiranje brojeva u stringu (npr. Slika2_ ide pre Slika10_)
+    let sortedImages = [...folder.images].sort((a, b) => {
+        let numA = parseInt(a.match(/\d+/)) || 0;
+        let numB = parseInt(b.match(/\d+/)) || 0;
+        return numA - numB;
+    });
+
+    sortedImages.forEach(imageName => {
         const div = document.createElement('div');
         div.className = 'insta-image-item';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'insta-image-wrapper';
+
         const img = document.createElement('img');
-        img.src = `Nasi projekti/${folder.path}/${i}.jpg`;
-        img.alt = `${folder.name} ${i}`;
-        img.onerror = function() { this.style.display = 'none'; };
+        img.src = `Nasi projekti/${folder.path}/${imageName}.jpg`;
+        img.alt = imageName;
+        img.loading = "lazy"; // Optimizacija brzine učitavanja
+        img.onerror = function() { 
+            this.parentElement.parentElement.style.display = 'none'; 
+        };
         img.onclick = function(e) {
             e.stopPropagation();
             document.getElementById('lightbox-img').src = this.src;
             document.getElementById('lightbox').classList.add('active');
         };
-        div.appendChild(img);
+
+        wrapper.appendChild(img);
+
+        // Naslov ispod slike (sitan naziv bez ekstenzije)
+        const title = document.createElement('div');
+        title.className = 'insta-image-title';
+        // Zamenjujemo donju crtu sa razmakom radi lepšeg prikaza
+        title.textContent = imageName.replace(/_/g, ' '); 
+        title.title = imageName;
+
+        div.appendChild(wrapper);
+        div.appendChild(title);
+        
         instaContent.appendChild(div);
+    });
+
+    // U slučaju da je folder prazan
+    if(sortedImages.length === 0) {
+        instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#a1aabf;">Slike za ovaj projekat se još uvijek pripremaju.</div>';
     }
 }
 
