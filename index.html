@@ -176,7 +176,8 @@
         }
         /* FOLDER GRID */
         .insta-folder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; max-width: 900px; margin: 0 auto; width: 100%; }
-        .insta-folder-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; }
+        .insta-folder-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: transform 0.3s ease; }
+        .insta-folder-card:hover { transform: translateY(-3px); border-color: rgba(76,175,80,0.5); }
         .insta-folder-card .folder-image { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background-color: #1a1f2a; }
         .insta-folder-card .folder-info { padding: 12px; }
         .insta-folder-card .folder-info .folder-name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
@@ -831,132 +832,28 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// ========== INSTAGRAM MODAL - KORIŠĆENJE jsDelivr CDN-a (100% RADI) ==========
+// ========== INSTAGRAM MODAL - AUTOMATSKO UČITAVANJE SA GITHUB API ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// NOVO: Korišćenje jsDelivr GitHub CDN-a. Ovo je daleko najbrže i najpouzdanije, nema CORS blokada!
+// Koristimo CDN za brzo učitavanje početnih naslovnih slika
 const REPO_BASE = 'https://cdn.jsdelivr.net/gh/mcpmarko83/milosavljevic-smart-energy@main/';
 
-// 1. Definišemo tačne foldere i sve slike sortirane po vašim GitHub snimcima
+// 1. Znatno pojednostavljen niz - NE MORAŠ više unositi svaku sliku ručno! 
+// Dovoljno je samo da definišeš ime foldera i jednu početnu (naslovnu) sliku.
 const folderData = [
-    { 
-        name: 'Distributivne Mreže', 
-        path: 'DistributivneMreze',
-        desc: 'Niskonaponske mreže i trafostanice',
-        files: [
-            'DistributivneMreze1_result.webp', 'DistributivneMreze2_result.webp', 
-            'DistributivneMreze3_result.webp', 'DistributivneMreze4_result.webp',
-            'DistributivneMreze5_result.webp', 'DistributivneMreze6_result.webp',
-            'DistributivneMreze8_result.webp', 'DistributivneMreze9_result.webp',
-            'NestabilnosRecnogTla_result.webp'
-        ]
-    },
-    { 
-        name: 'Javna Rasvjeta', 
-        path: 'JavnaRasvjeta',
-        desc: 'LED rasvjeta i javna infrastruktura',
-        files: [
-            'JavnaRasvjeta2_result.webp', 'JavnaRasvjeta3_result.webp', 
-            'JavnaRasvjeta4_result.webp', 'JavnaRasvjeta5_result.webp', 
-            'JavnaRasvjeta6_result.webp', 'JavnaRasvjeta7_result.webp',
-            'JavnaRasvjeta8_result.webp', 'JavnaRasvjeta9_result.webp',
-            'JavnaRasvjeta10_result.webp', 'JavnaRasvjeta11_result.webp',
-            'JavnaRasvjeta12_result.webp', 'JavnaRasvjeta13_result.webp',
-            'JavnaRasvjeta14_result.webp', 'JavnaRasvjeta15_result.webp',
-            'JavnaRasvjeta16_result.webp', 'JavnaRasvjeta_result.webp'
-        ]
-    },
-    { 
-        name: 'Kićenje Grada', 
-        path: 'KicenjeGrada',
-        desc: 'Praznična gradska rasvjeta',
-        files: [
-            'KicenjeGrada1_result.webp', 'KicenjeGrada2_result.webp',
-            'KicenjeGrada3jpg_result.webp', 'KicenjeGrada4jpg_result.webp',
-            'KicenjeGrada_result.webp'
-        ]
-    },
-    { 
-        name: 'Komercijalni Objekti', 
-        path: 'KomercijalniObjekti',
-        desc: 'Industrijski pogoni, hale i kancelarije',
-        files: [
-            'KomercijalniObjekti1_result.webp', 'KomercijalniObjekti2_result.webp',
-            'KomercijalniObjekti3_result.webp', 'KomercijalniObjekti4_result.webp',
-            'KomercijalniObjekti5_result.webp', 'KomercijalniObjekti6_result.webp',
-            'KomercijalniObjekti7_result.webp', 'KomercijalniObjekti8_result.webp',
-            'KomercijalniObjekti9_result.webp', 'KomercijalniObjekti10_result.webp',
-            'KomercijalniObjekti11_result.webp', 'KomercijalniObjekti12_result.webp',
-            'KomercijalniObjekti13_result.webp', 'KomercijalniObjekti14_result.webp',
-            'KomercijalniObjekti15_result.webp', 'KomercijalniObjekti16_result.webp',
-            'KomercijalniObjekti17_result.webp', 'KomercijalniObjekti18_result.webp',
-            'KomercijalniObjekti19_result.webp', 'KomercijalniObjekti20_result.webp',
-            'KomercijalniObjekti_result.webp'
-        ]
-    },
-    { 
-        name: 'Održavanje Trgov. Centara', 
-        path: 'OdrzavanjeTrgovackogCentara',
-        desc: 'Tržni centri i sistemi na mjesečnom održavanju',
-        files: [
-            'OdrzavanjeTrgovackogCentara0_result.webp', 'OdrzavanjeTrgovackogCentara2_result.webp',
-            'OdrzavanjeTrgovackogCentara3_result.webp', 'OdrzavanjeTrgovackogCentara4_result.webp',
-            'OdrzavanjeTrgovackogCentara5_result.webp', 'OdrzavanjeTrgovackogCentara6_result.webp',
-            'OdrzavanjeTrgovackogCentara7_result.webp', 'OdrzavanjeTrgovackogCentara8_result.webp',
-            'OdrzavanjeTrgovackogCentara9_result.webp', 'OdrzavanjeTrgovackogCentara_result.webp'
-        ]
-    },
-    { 
-        name: 'Porodični Objekti', 
-        path: 'PorodicniSObjekti',
-        desc: 'Privatne kuće i porodični objekti',
-        files: (() => {
-            let list = [];
-            for(let i=1; i<=35; i++) list.push(`PorodicniSObjekti${i}_result.webp`);
-            list.push('PorodicniSObjekti_result.webp');
-            return list;
-        })()
-    },
-    { 
-        name: 'Stambene Zgrade', 
-        path: 'StambeneZgrade',
-        desc: 'Kompletan inženjering i elektro-montaža',
-        files: [
-            'StambeneZgrade1_result.webp', 'StambeneZgrade2_result.webp',
-            'StambeneZgrade3_result.webp', 'StambeneZgrade_result.webp'
-        ]
-    },
-    { 
-        name: 'Vikendice i Apartmani', 
-        path: 'VikendiceApartmani',
-        desc: 'Odmarališta i vikend objekti',
-        files: (() => {
-            let list = [];
-            for(let i=11; i<=35; i++) list.push(`VikendiceApartmani${i}_result.webp`);
-            list.push('VikendiceApartmani_result.webp');
-            return list;
-        })()
-    },
-    { 
-        name: 'Vjerski Objekti', 
-        path: 'VjerskiObjekti',
-        desc: 'Instalacije vjerskih objekata',
-        files: ['1.jpg']
-    },
-    { 
-        name: 'Vjerski Objekti 1', 
-        path: 'VjerskiObjekti1',
-        desc: 'Instalacije vjerskih objekata',
-        files: (() => {
-            let list = [];
-            for(let i=1; i<=15; i++) list.push(`VjerskiObjekti1-${i}_result.webp`);
-            list.push('VjerskiObjekti1_result.webp');
-            return list;
-        })()
-    }
+    { name: 'Distributivne Mreže', path: 'DistributivneMreze', desc: 'Niskonaponske mreže i trafostanice', thumb: 'DistributivneMreze1_result.webp' },
+    { name: 'Javna Rasvjeta', path: 'JavnaRasvjeta', desc: 'LED rasvjeta i javna infrastruktura', thumb: 'JavnaRasvjeta2_result.webp' },
+    { name: 'Kićenje Grada', path: 'KicenjeGrada', desc: 'Praznična gradska rasvjeta', thumb: 'KicenjeGrada1_result.webp' },
+    { name: 'Komercijalni Objekti', path: 'KomercijalniObjekti', desc: 'Industrijski pogoni, hale i kancelarije', thumb: 'KomercijalniObjekti1_result.webp' },
+    { name: 'Održavanje Trgov. Centara', path: 'OdrzavanjeTrgovackogCentara', desc: 'Tržni centri i sistemi', thumb: 'OdrzavanjeTrgovackogCentara0_result.webp' },
+    { name: 'Porodični Objekti', path: 'PorodicniSObjekti', desc: 'Privatne kuće i porodični objekti', thumb: 'PorodicniSObjekti1_result.webp' },
+    { name: 'Stambene Zgrade', path: 'StambeneZgrade', desc: 'Kompletan inženjering i elektro-montaža', thumb: 'StambeneZgrade1_result.webp' },
+    { name: 'Vikendice i Apartmani', path: 'VikendiceApartmani', desc: 'Odmarališta i vikend objekti', thumb: 'VikendiceApartmani11_result.webp' },
+    { name: 'Vjerski Objekti', path: 'VjerskiObjekti', desc: 'Instalacije vjerskih objekata', thumb: '1.jpg' },
+    { name: 'Vjerski Objekti 1', path: 'VjerskiObjekti1', desc: 'Instalacije vjerskih objekata', thumb: 'VjerskiObjekti1-1_result.webp' }
 ];
 
 let instaHistory = [];
@@ -988,15 +885,11 @@ function showFolderGrid() {
         img.alt = folder.name;
         img.loading = "lazy";
         
-        // KORISTIMO NOVI CDN LINK OVDE
-        if (folder.files && folder.files.length > 0) {
-            img.src = `${REPO_BASE}${folder.path}/${folder.files[0]}`;
-        } else {
-            img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
-        }
+        // Prikazuje samo naslovnu sliku pomoću jsDelivr CDN-a (za brzo učitavanje bez blokada API-ja)
+        img.src = `${REPO_BASE}${folder.path}/${folder.thumb}`;
         
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%23a1aabf">Spremno</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
         };
         
         card.appendChild(img);
@@ -1005,7 +898,7 @@ function showFolderGrid() {
         info.className = 'folder-info';
         info.innerHTML = `
             <div class="folder-name">${folder.name}</div>
-            <div class="folder-desc">${folder.files ? folder.files.length : 0} slika</div>
+            <div class="folder-desc">${folder.desc}</div>
         `;
         card.appendChild(info);
 
@@ -1014,47 +907,73 @@ function showFolderGrid() {
     });
 }
 
-function openFolderImages(folder) {
+// 2. DINAMIČKO UČITAVANJE SLIKA: Ovde radi GitHub API
+async function openFolderImages(folder) {
     instaHistory.push('folders');
     instaTitle.textContent = folder.name;
     instaBackBtn.style.display = 'flex';
     instaContent.className = 'insta-image-grid';
-    instaContent.innerHTML = '';
+    
+    // Loader dok se spaja sa GitHub API-jem
+    instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike sa servera...</div>';
 
-    // Sortiranje po brojevima (1, 2, 3, 10, 20, 35...)
-    folder.files.sort((a, b) => {
-        let numA = parseInt(a.match(/\d+/)) || 0;
-        let numB = parseInt(b.match(/\d+/)) || 0;
-        return numA - numB;
-    });
+    const username = 'mcpmarko83';
+    const repository = 'milosavljevic-smart-energy';
+    const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/${folder.path}`;
 
-    folder.files.forEach(fileName => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'insta-image-wrapper';
-
-        const img = document.createElement('img');
-        // KORISTIMO NOVI CDN LINK OVDE
-        img.src = `${REPO_BASE}${folder.path}/${fileName}`;
-        img.alt = fileName;
-        img.loading = "lazy";
+    try {
+        const response = await fetch(apiUrl);
         
-        img.onerror = function() { 
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%23a1aabf">Greška</text></svg>';
-        };
-        
-        img.onclick = function(e) {
-            e.stopPropagation();
-            document.getElementById('lightbox-img').src = this.src;
-            document.getElementById('lightbox-caption').textContent = fileName; 
-            document.getElementById('lightbox').classList.add('active');
-        };
+        if (!response.ok) {
+            throw new Error('Folder nije pronađen.');
+        }
 
-        wrapper.appendChild(img);
-        instaContent.appendChild(wrapper);
-    });
+        const files = await response.json();
+        instaContent.innerHTML = ''; // Sklanjamo loader
 
-    if(folder.files.length === 0) {
-        instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">Nema slika u ovom folderu.</div>';
+        // Pretraga: Uzima apsolutno SVE slike koje pronađe unutar foldera
+        const imageFiles = files.filter(file => file.type === 'file' && file.name.match(/\.(jpe?g|png|webp|gif)$/i));
+
+        if(imageFiles.length === 0) {
+            instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">Nema slika u ovom folderu.</div>';
+            return;
+        }
+
+        // Sortiranje slika po broju u nazivu da bi išle redom
+        imageFiles.sort((a, b) => {
+            let numA = parseInt(a.name.match(/\d+/)) || 0;
+            let numB = parseInt(b.name.match(/\d+/)) || 0;
+            return numA - numB;
+        });
+
+        imageFiles.forEach(file => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'insta-image-wrapper';
+
+            const img = document.createElement('img');
+            // Koristi direktan download link slike sa GitHub API-ja
+            img.src = file.download_url;
+            img.alt = file.name;
+            img.loading = "lazy";
+            
+            img.onerror = function() { 
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%23a1aabf">Greška</text></svg>';
+            };
+            
+            img.onclick = function(e) {
+                e.stopPropagation();
+                document.getElementById('lightbox-img').src = this.src;
+                document.getElementById('lightbox-caption').textContent = file.name; 
+                document.getElementById('lightbox').classList.add('active');
+            };
+
+            wrapper.appendChild(img);
+            instaContent.appendChild(wrapper);
+        });
+
+    } catch (error) {
+        console.error("Greška pri učitavanju:", error);
+        instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#e63946;">Došlo je do greške pri učitavanju slika. Molimo pokušajte ponovo.</div>';
     }
 }
 
