@@ -831,17 +831,16 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// ========== INSTAGRAM MODAL (100% RADI - DIREKTNI RAW LINKOVI) ==========
+// ========== INSTAGRAM MODAL - KORIŠĆENJE jsDelivr CDN-a (100% RADI) ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// Ovo je NAJPOUZDANIJE rešenje za Cloudflare Pages jer koristi raw.githubusercontent.com
-// Pretraživač DOZVOLJAVA učitavanje slika sa ovog servera.
-const REPO_RAW_BASE = 'https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/';
+// NOVO: Korišćenje jsDelivr GitHub CDN-a. Ovo je daleko najbrže i najpouzdanije, nema CORS blokada!
+const REPO_BASE = 'https://cdn.jsdelivr.net/gh/mcpmarko83/milosavljevic-smart-energy@main/';
 
-// 1. Definišemo tačne foldere i sve slike koje ste otpremili na GitHub
+// 1. Definišemo tačne foldere i sve slike sortirane po vašim GitHub snimcima
 const folderData = [
     { 
         name: 'Distributivne Mreže', 
@@ -987,14 +986,15 @@ function showFolderGrid() {
         const img = document.createElement('img');
         img.className = 'folder-image';
         img.alt = folder.name;
+        img.loading = "lazy";
         
+        // KORISTIMO NOVI CDN LINK OVDE
         if (folder.files && folder.files.length > 0) {
-            img.src = `${REPO_RAW_BASE}${folder.path}/${folder.files[0]}`;
+            img.src = `${REPO_BASE}${folder.path}/${folder.files[0]}`;
         } else {
             img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
         }
         
-        // Ovo osigurava da se slika uvek prikaže, čak i ako je ime fajla pogrešno
         img.onerror = function() {
             this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%23a1aabf">Spremno</text></svg>';
         };
@@ -1021,7 +1021,7 @@ function openFolderImages(folder) {
     instaContent.className = 'insta-image-grid';
     instaContent.innerHTML = '';
 
-    // Sortiranje slika po brojevima (1, 2, 3, 10, 20...)
+    // Sortiranje po brojevima (1, 2, 3, 10, 20, 35...)
     folder.files.sort((a, b) => {
         let numA = parseInt(a.match(/\d+/)) || 0;
         let numB = parseInt(b.match(/\d+/)) || 0;
@@ -1033,7 +1033,8 @@ function openFolderImages(folder) {
         wrapper.className = 'insta-image-wrapper';
 
         const img = document.createElement('img');
-        img.src = `${REPO_RAW_BASE}${folder.path}/${fileName}`;
+        // KORISTIMO NOVI CDN LINK OVDE
+        img.src = `${REPO_BASE}${folder.path}/${fileName}`;
         img.alt = fileName;
         img.loading = "lazy";
         
