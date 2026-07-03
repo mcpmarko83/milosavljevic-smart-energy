@@ -774,18 +774,18 @@ const instaBackBtn = document.getElementById('insta-back-btn');
 
 const REPO_BASE = 'https://cdn.jsdelivr.net/gh/mcpmarko83/milosavljevic-smart-energy@main/';
 
-// Dinamički spisak foldera sa NASLOVNIM SLIKAMA koje postoje u repozitorijumu
+// Dinamički spisak foldera
 const folderData = [
-    { name: 'Distributivne Mreže', path: 'DistributivneMreze', desc: 'Niskonaponske mreže i trafostanice', thumb: 'DistributivneMreze1_result.webp' },
-    { name: 'Javna Rasvjeta', path: 'JavnaRasvjeta', desc: 'LED rasvjeta i javna infrastruktura', thumb: 'JavnaRasvjeta2_result.webp' },
-    { name: 'Kićenje Grada', path: 'KicenjeGrada', desc: 'Praznična gradska rasvjeta', thumb: 'KicenjeGrada1_result.webp' },
-    { name: 'Komercijalni Objekti', path: 'KomercijalniObjekti', desc: 'Industrijski pogoni, hale i kancelarije', thumb: 'KomercijalniObjekti1_result.webp' },
-    { name: 'Održavanje Trgov. Centara', path: 'OdrzavanjeTrgovackogCentara', desc: 'Tržni centri i sistemi', thumb: 'OdrzavanjeTrgovackogCentara0_result.webp' },
-    { name: 'Porodični Objekti', path: 'PorodicniSObjekti', desc: 'Privatne kuće i porodični objekti', thumb: 'PorodicniSObjekti1_result.webp' },
-    { name: 'Stambene Zgrade', path: 'StambeneZgrade', desc: 'Kompletan inženjering i elektro-montaža', thumb: 'StambeneZgrade1_result.webp' },
-    { name: 'Vikendice i Apartmani', path: 'VikendiceApartmani', desc: 'Odmarališta i vikend objekti', thumb: 'VikendiceApartmani11_result.webp' },
-    { name: 'Vjerski Objekti', path: 'VjerskiObjekti', desc: 'Instalacije vjerskih objekata', thumb: '1.jpg' },
-    { name: 'Vjerski Objekti 1', path: 'VjerskiObjekti1', desc: 'Instalacije vjerskih objekata', thumb: 'VjerskiObjekti1-1_result.webp' }
+    { name: 'Distributivne Mreže', path: 'DistributivneMreze', desc: 'Niskonaponske mreže i trafostanice' },
+    { name: 'Javna Rasvjeta', path: 'JavnaRasvjeta', desc: 'LED rasvjeta i javna infrastruktura' },
+    { name: 'Kićenje Grada', path: 'KicenjeGrada', desc: 'Praznična gradska rasvjeta' },
+    { name: 'Komercijalni Objekti', path: 'KomercijalniObjekti', desc: 'Industrijski pogoni, hale i kancelarije' },
+    { name: 'Održavanje Trgov. Centara', path: 'OdrzavanjeTrgovackogCentara', desc: 'Tržni centri i sistemi' },
+    { name: 'Porodični Objekti', path: 'PorodicniSObjekti', desc: 'Privatne kuće i porodični objekti' },
+    { name: 'Stambene Zgrade', path: 'StambeneZgrade', desc: 'Kompletan inženjering i elektro-montaža' },
+    { name: 'Vikendice i Apartmani', path: 'VikendiceApartmani', desc: 'Odmarališta i vikend objekti' },
+    { name: 'Vjerski Objekti', path: 'VjerskiObjekti', desc: 'Instalacije vjerskih objekata' },
+    { name: 'Vjerski Objekti 1', path: 'VjerskiObjekti1', desc: 'Instalacije vjerskih objekata' }
 ];
 
 let instaHistory = [];
@@ -807,8 +807,54 @@ function closeInstaModal() {
     document.body.style.overflow = '';
 }
 
+// Funkcija za preuzimanje prve prave slike za naslovnicu foldera
+async function loadFolderCover(folder, imgElement) {
+    const username = 'mcpmarko83';
+    const repository = 'milosavljevic-smart-energy';
+    const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/${folder.path}`;
+    const cacheKey = `mse_gallery_cache_${folder.path}`;
+
+    try {
+        let files;
+        const cachedData = sessionStorage.getItem(cacheKey);
+        
+        if (cachedData) {
+            files = JSON.parse(cachedData);
+        } else {
+            const response = await fetch(apiUrl);
+            if (response.ok) {
+                files = await response.json();
+                sessionStorage.setItem(cacheKey, JSON.stringify(files));
+            } else {
+                return; // Ako folder padne sa servera ostavljamo placeholder
+            }
+        }
+
+        const imageFiles = files.filter(file => file.type === 'file' && file.name.match(/\.(jpe?g|png|webp|gif)$/i));
+        
+        if(imageFiles.length > 0) {
+            // Sortiraj po brojevima da bi "prva" slika stvarno bila prva
+            imageFiles.sort((a, b) => {
+                const brojA = parseInt((a.name.match(/\d+/) || [0])[0]);
+                const brojB = parseInt((b.name.match(/\d+/) || [0])[0]);
+                return brojA - brojB;
+            });
+            // Postavi prvu sliku
+            imgElement.src = `${REPO_BASE}${folder.path}/${imageFiles[0].name}`;
+        }
+    } catch (error) {
+        console.error("Greška pri učitavanju naslovne slike:", error);
+    }
+}
+
 function showFolderGrid() {
     instaContent.innerHTML = '';
+
+    // Dodat tekst sa obavještenjem
+    const disclaimer = document.createElement('div');
+    disclaimer.style.cssText = "grid-column: 1/-1; text-align: center; color: #a1aabf; font-size: 14px; margin-bottom: 5px; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);";
+    disclaimer.innerHTML = '📸 <em>Ovdje je prikazan samo mali dio fotografija sačuvanih sa naših brojnih projekata širom Evrope.</em>';
+    instaContent.appendChild(disclaimer);
 
     folderData.forEach(folder => {
         const card = document.createElement('div');
@@ -819,7 +865,8 @@ function showFolderGrid() {
         img.alt = folder.name;
         img.loading = "lazy";
         
-        img.src = `${REPO_BASE}${folder.path}/${folder.thumb}`;
+        // Postavi placeholder ikonicu dok se ne učita slika sa GitHuba
+        img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">Učitavanje...</text></svg>';
         
         img.onerror = function() {
             this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
@@ -837,6 +884,9 @@ function showFolderGrid() {
 
         card.onclick = () => openFolderImages(folder);
         instaContent.appendChild(card);
+        
+        // Povuči pravu sliku asinhrono
+        loadFolderCover(folder, img);
     });
 }
 
@@ -845,7 +895,6 @@ async function openFolderImages(folder) {
     instaTitle.textContent = folder.name;
     instaBackBtn.style.display = 'flex';
     
-    // VRATILI SMO GRID KLASU (3 slike u redu)
     instaContent.className = 'insta-image-grid';
     instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#4caf50; font-weight: 500;">⏳ Učitavam slike...</div>';
 
@@ -907,7 +956,7 @@ async function openFolderImages(folder) {
                 this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%23a1aabf">Greška</text></svg>';
             };
             
-            // Kada kliknemo na malu sliku, prosleđujemo tačan INDEKS funkcijama
+            // Kada kliknemo na malu sliku, prosleđujemo tačan INDEKS
             img.onclick = function(e) {
                 e.stopPropagation();
                 openLightbox(index);
@@ -923,7 +972,6 @@ async function openFolderImages(folder) {
     }
 }
 
-// LOGIKA ZA POVRATAK NAZAD (GUMB)
 function instaGoBack() {
     if (instaHistory.length > 0) {
         instaHistory.pop();
