@@ -853,18 +853,15 @@ window.addEventListener('load', function() {
 // GLOBALNE VARIJABLE ZA KONTROLU CANVASA
 let canvasAnimationId = null;
 
-// ========== INSTAGRAM MODAL - POUZDANI CORS PROXY + BLOB MODEL ==========
+// ========== INSTAGRAM MODAL - DIREKTNO POVEZIVANJE NA GITHUB (BEZ PROXYJA) ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// KLJUČNA PROMENA: Koristimo CORS proxy server za fetch-ovanje slika, a zatim ih pretvaramo u Blob URL-ove.
-// Ovaj model garantuje prikaz jer pretraživač ne može blokirati Blob URL.
-const PROXY_URL = 'https://corsproxy.io/?';
+// GitHub već odobrava CORS (Access-Control-Allow-Origin: *), pa proxy nije potreban.
 const RAW_BASE = 'https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/';
 
-// 1. Definišemo tačne foldere i sve slike
 const folderData = [
     { 
         name: 'Distributivne Mreže', 
@@ -1017,20 +1014,6 @@ function closeInstaModal() {
     }
 }
 
-// NOVI MODEL: Asinhrono preuzimanje slike kroz proxy i stvaranje Blob URL-a
-async function loadImageBlobViaProxy(imageUrl) {
-    try {
-        const proxyUrl = PROXY_URL + encodeURIComponent(imageUrl);
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('Greška pri preuzimanju slike');
-        const blob = await response.blob();
-        return URL.createObjectURL(blob);
-    } catch (error) {
-        console.error('Greška u loadImageBlobViaProxy:', error);
-        return null; // U slučaju greške vraćamo null
-    }
-}
-
 function showFolderGrid() {
     instaContent.innerHTML = '';
 
@@ -1043,16 +1026,14 @@ function showFolderGrid() {
         img.alt = folder.name;
         img.loading = "lazy";
         
-        // Za naslovne slike, najbolje je koristiti direktnu putanju sa proxyjem
-        // ali kako je ovo samo naslovna, nećemo čekati Blob.
         if (folder.files && folder.files.length > 0) {
-            img.src = PROXY_URL + encodeURIComponent(`${RAW_BASE}${folder.path}/${folder.files[0]}`);
+            img.src = `${RAW_BASE}${folder.path}/${folder.files[0]}`;
         } else {
             img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
         }
         
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%239ca3af">Spremno</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%239ca3af">Slika nije pronađena</text></svg>';
         };
         
         card.appendChild(img);
@@ -1070,8 +1051,8 @@ function showFolderGrid() {
     });
 }
 
-// Lazy load funkcija - NOVI MODEL (Blob URL)
-async function appendBatch(folder, startIndex) {
+// Lazy load funkcija bez proxyja i bloba - prepuštamo pregledaču optimizaciju
+function appendBatch(folder, startIndex) {
     const endIndex = Math.min(startIndex + 9, folder.files.length);
     const container = instaContent;
     
@@ -1081,21 +1062,15 @@ async function appendBatch(folder, startIndex) {
         wrapper.className = 'insta-image-wrapper';
 
         const img = document.createElement('img');
-        // Prikazujemo placeholder u međuvremenu
-        img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%236b7280">⏳ Učitavam...</text></svg>';
         img.alt = fileName;
         img.loading = "lazy";
         
-        // Asinhrono dohvaćanje slike
-        const rawUrl = `${RAW_BASE}${folder.path}/${fileName}`;
-        const blobUrl = await loadImageBlobViaProxy(rawUrl);
+        // Povezujemo se direktno na GitHub fajl
+        img.src = `${RAW_BASE}${folder.path}/${fileName}`;
         
-        // Ako je uspešno dohvaćena, menjamo src
-        if (blobUrl) {
-            img.src = blobUrl;
-        } else {
-            img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%239ca3af">Spremno</text></svg>';
-        }
+        img.onerror = function() {
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%239ca3af">Slika nije pronađena</text></svg>';
+        };
         
         img.onclick = function(e) {
             e.stopPropagation();
