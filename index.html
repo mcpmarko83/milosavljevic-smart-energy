@@ -853,15 +853,15 @@ window.addEventListener('load', function() {
 // GLOBALNE VARIJABLE ZA KONTROLU CANVASA
 let canvasAnimationId = null;
 
-// ========== INSTAGRAM MODAL - NOVI NAČIN UČITAVANJA (statically.io) ==========
+// ========== INSTAGRAM MODAL - KRAJNJE REŠENJE (CORS PROXY) ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// KLJUČNA PROMENA: Koristimo statically.io. Ovaj CDN je napravljen isključivo za front-end prikaz slika i NIKADA ne pravi CORS greške.
-// Zamenili smo obični 'raw' link sa ovim.
-const STATIC_BASE = 'https://cdn.statically.io/gh/mcpmarko83/milosavljevic-smart-energy/main/';
+// KLJUČNA PROMENA: Koristimo CORS proxy server. On preuzima sliku sa GitHub-a i prosleđuje je vašoj stranici bez blokada!
+const PROXY_BASE = 'https://api.allorigins.win/raw?url=';
+const RAW_BASE = 'https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/';
 
 // 1. Definišemo tačne foldere i sve slike
 const folderData = [
@@ -1016,6 +1016,12 @@ function closeInstaModal() {
     }
 }
 
+// Pomoćna funkcija za generisanje proxy slike
+function getProxyUrl(imagePath) {
+    const fullUrl = `${RAW_BASE}${imagePath}`;
+    return `${PROXY_BASE}${encodeURIComponent(fullUrl)}`;
+}
+
 function showFolderGrid() {
     instaContent.innerHTML = '';
 
@@ -1029,12 +1035,11 @@ function showFolderGrid() {
         img.loading = "lazy";
         
         if (folder.files && folder.files.length > 0) {
-            img.src = `${STATIC_BASE}${folder.path}/${folder.files[0]}`;
+            img.src = getProxyUrl(`${folder.path}/${folder.files[0]}`);
         } else {
             img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
         }
         
-        // Zaštita ako slika slučajno ne postoji
         img.onerror = function() {
             this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%239ca3af">Spremno</text></svg>';
         };
@@ -1064,8 +1069,8 @@ function appendBatch(folder, startIndex) {
         wrapper.className = 'insta-image-wrapper';
 
         const img = document.createElement('img');
-        // KORISTIMO STATICALLY.IO
-        img.src = `${STATIC_BASE}${folder.path}/${fileName}`;
+        // KORISTIMO PROXY
+        img.src = getProxyUrl(`${folder.path}/${fileName}`);
         img.alt = fileName;
         img.loading = "lazy";
         
