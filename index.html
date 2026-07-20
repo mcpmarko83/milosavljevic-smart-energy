@@ -15,7 +15,7 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "Milosavljević Smart Energy Digital Hub",
-      "image": "https://milosavljevic-smart-energy.pages.dev/logo.jpg",
+      "image": "https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/logo.jpg",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Prijedor",
@@ -155,7 +155,7 @@
         .instagram-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #05070a; 
-            z-index: 100000; display: none; flex-direction: column;
+            z-index: 10000; display: none; flex-direction: column;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             overflow-y: auto; overflow-x: hidden;
             contain: layout paint; 
@@ -486,7 +486,7 @@
 <body>
 
 <div class="abstract-bg"><canvas id="circuit-canvas"></canvas><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div></div>
-<audio id="bg-music" src="Muzika.mp3" loop preload="none"></audio>
+<audio id="bg-music" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/Muzika.mp3" loop preload="none"></audio>
 
 <div id="lightbox" class="lightbox-overlay">
     <div class="lightbox-close" id="close-btn"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div>
@@ -511,7 +511,7 @@
 
 <div id="video-lightbox" class="video-lightbox">
     <div class="close-video" id="close-video-btn"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div>
-    <video id="intro-video" controls><source src="Uvodni%20Video.MP4" type="video/mp4">Vaš preglednik ne podržava video tag.</video>
+    <video id="intro-video" controls><source src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/Uvodni%20Video.MP4" type="video/mp4">Vaš preglednik ne podržava video tag.</video>
 </div>
 
 <div class="floating-buttons reveal delay-2">
@@ -533,7 +533,7 @@
     <div class="header-grid">
         <div><p class="hide-mobile header-tradition">Tradicija od 1998.</p></div>
         <div class="header-logo-group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-            <img loading="lazy" decoding="async" src="logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/logo.jpg" alt="Logo" class="header-logo-img" onerror="this.style.display='none';">
             <h2 class="header-brand-name">MILOSAVLJEVIĆ <span>SMART ENERGY DIGITAL HUB</span></h2>
         </div>
         <div><div id="header-percent-btn" class="header-percent-text" title="Procenat skrola">0%</div></div>
@@ -543,7 +543,7 @@
 
 <section class="hero-section reveal">
     <div class="hero-content">
-        <img loading="lazy" decoding="async" src="logo.jpg" class="hero-logo" alt="Logo" onerror="this.style.display='none';">
+        <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/logo.jpg" class="hero-logo" alt="Logo" onerror="this.style.display='none';">
         <h1 class="hero-title">Inženjerska tradicija za <br><span>pametnu budućnost</span></h1>
         <div class="hero-line"></div>
         <p class="hero-subtitle">Elektroinstalacije, automatizacija i industrijski sistemi nove generacije.</p>
@@ -559,7 +559,7 @@
         
         <div id="video-trigger" class="video-circle reveal delay-1">
             <div class="video-thumb">
-                <img src="Tesla.jpeg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
+                <img src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/Tesla.jpeg" alt="Video preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a1f2a%27/%3E%3Ctext x=%2750%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%239ca3af%27%3EPreview%3C/text%3E%3C/svg%3E'">
                 <div class="glass-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             </div>
             <div class="video-label" style="color: #4caf50; font-weight: 700;">🎬 Pogledajte ko smo mi – naša prezentacija i uvod (preporučujemo!)</div>
@@ -629,8 +629,8 @@
                 Pogledajte naše najnovije radove i aktuelne inženjerske projekte na terenu. 
                 <strong style="color:#4caf50;">🎥 Video iz terena – kliknite za reprodukciju</strong>
             </p>
-            <video controls preload="metadata" poster="Tesla.jpeg" style="width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-                <source src="TrenutnoRadimo.MP4" type="video/mp4">
+            <video controls preload="metadata" poster="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/Tesla.jpeg" style="width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+                <source src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/TrenutnoRadimo.MP4" type="video/mp4">
                 Vaš preglednik ne podržava prikazivanje videa.
             </video>
         </div>
@@ -672,7 +672,7 @@
     <section class="reveal">
         <div class="moto-card">
             <p class="moto-title">Naš Moto i Vodilja</p>
-            <div class="moto-img-wrapper"><img loading="lazy" decoding="async" src="moto.jpg" class="blended-moto" onerror="this.style.display='none';"></div>
+            <div class="moto-img-wrapper"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/moto.jpg" class="blended-moto" onerror="this.style.display='none';"></div>
         </div>
     </section>
 
@@ -686,7 +686,7 @@
                 </div>
                 <div style="flex:1; text-align:center; min-width: 300px;">
                     <p style="font-size:12px; color:#4caf50; margin-bottom:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase;">Ohmov Zakon</p>
-                    <div class="om-image-container"><img loading="lazy" decoding="async" src="omov_zakon.jpg" class="blended-om" onerror="this.style.display='none';"></div>
+                    <div class="om-image-container"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/omov_zakon.jpg" class="blended-om" onerror="this.style.display='none';"></div>
                 </div>
             </div>
         </div>
@@ -785,11 +785,11 @@
             <p class="contact-brand">Milosavljević Smart Energy Digital Hub</p>
             <div class="contact-grid">
                 <div class="contact-info-box">
-                    <img src="RajkoM.jpg" class="contact-photo" alt="Rajko Milosavljević" onerror="this.style.display='none';">
+                    <img src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/RajkoM.jpg" class="contact-photo" alt="Rajko Milosavljević" onerror="this.style.display='none';">
                     <h4 class="text-white" style="font-size: 19px; font-weight: 600;">Rajko Milosavljević</h4>
                     <div class="contact-links"><a href="tel:+38765728595" class="contact-link-btn bg-phone-alt"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> Pozovi telefonom</a><a href="viber://chat?number=%2B38765728595" class="contact-link-btn bg-viber"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na Viber</a><a href="https://wa.me/38765728595" target="_blank" class="contact-link-btn bg-whatsapp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na WhatsApp</a></div></div>
                 <div class="contact-info-box">
-                    <img src="MarkoM.jpeg" class="contact-photo" alt="Marko Milosavljević" onerror="this.style.display='none';">
+                    <img src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/MarkoM.jpeg" class="contact-photo" alt="Marko Milosavljević" onerror="this.style.display='none';">
                     <h4 class="text-white" style="font-size: 19px; font-weight: 600;">Marko Milosavljević</h4>
                     <div class="contact-links"><a href="tel:+38766921100" class="contact-link-btn bg-phone"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> Pozovi telefonom</a><a href="viber://chat?number=%2B38766921100" class="contact-link-btn bg-viber"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na Viber</a><a href="https://wa.me/38766921100" target="_blank" class="contact-link-btn bg-whatsapp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Piši na WhatsApp</a></div></div>
             </div>
@@ -803,15 +803,15 @@
         <h2 class="partners-title">🤝 Naši saradnici</h2>
         <div class="carousel-container">
             <div class="carousel-track" id="carouselTrack">
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Grad%20Prijedor.jpeg" alt="Grad Prijedor" loading="lazy"></div><div class="partner-name">Grad Prijedor</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Hypo%20Bank.jpeg" alt="Hypo Bank" loading="lazy"></div><div class="partner-name">Hypo Bank</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Kino%20Kozara.jpeg" alt="Kino Kozara" loading="lazy"></div><div class="partner-name">Kino Kozara</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Kozara%20Putevi.jpeg" alt="Kozara Putevi" loading="lazy"></div><div class="partner-name">Kozara Putevi</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Marjanovic%20Prijedor.jpeg" alt="Marjanović Prijedor" loading="lazy"></div><div class="partner-name">Marjanović Prijedor</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Niskogradnja%20Laktasi.jpeg" alt="Niskogradnja Laktasi" loading="lazy"></div><div class="partner-name">Niskogradnja Laktasi</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Pozoriste%20Prijedor.jpeg" alt="Pozorište Prijedor" loading="lazy"></div><div class="partner-name">Pozorište Prijedor</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/PrijedorPutevi.jpeg" alt="Prijedor Putevi" loading="lazy"></div><div class="partner-name">Prijedor Putevi</div></div>
-                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="saradnici/Srpska%20Pravoslavna%20Crkva%20.jpeg" alt="Srpska Pravoslavna Crkva" loading="lazy"></div><div class="partner-name">Srpska Pravoslavna Crkva</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Grad%20Prijedor.jpeg" alt="Grad Prijedor" loading="lazy"></div><div class="partner-name">Grad Prijedor</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Hypo%20Bank.jpeg" alt="Hypo Bank" loading="lazy"></div><div class="partner-name">Hypo Bank</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Kino%20Kozara.jpeg" alt="Kino Kozara" loading="lazy"></div><div class="partner-name">Kino Kozara</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Kozara%20Putevi.jpeg" alt="Kozara Putevi" loading="lazy"></div><div class="partner-name">Kozara Putevi</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Marjanovic%20Prijedor.jpeg" alt="Marjanović Prijedor" loading="lazy"></div><div class="partner-name">Marjanović Prijedor</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Niskogradnja%20Laktasi.jpeg" alt="Niskogradnja Laktasi" loading="lazy"></div><div class="partner-name">Niskogradnja Laktasi</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Pozoriste%20Prijedor.jpeg" alt="Pozorište Prijedor" loading="lazy"></div><div class="partner-name">Pozorište Prijedor</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/PrijedorPutevi.jpeg" alt="Prijedor Putevi" loading="lazy"></div><div class="partner-name">Prijedor Putevi</div></div>
+                <div class="carousel-slide"><div class="logo-container"><img class="partner-logo" src="https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main/saradnici/Srpska%20Pravoslavna%20Crkva%20.jpeg" alt="Srpska Pravoslavna Crkva" loading="lazy"></div><div class="partner-name">Srpska Pravoslavna Crkva</div></div>
             </div>
         </div>
         <div class="carousel-dots" id="carouselDots"></div>
@@ -853,32 +853,34 @@ window.addEventListener('load', function() {
 // GLOBALNE VARIJABLE ZA KONTROLU CANVASA
 let canvasAnimationId = null;
 
-// ========== INSTAGRAM MODAL - DIREKTNO UČITAVANJE SLIKA SA HOSTINGA ==========
+// ========== INSTAGRAM MODAL - DIREKTNO UČITAVANJE SLIKA SA GITHUB-A ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// Definisane mape foldera i slika za galeriju (možete dodati nazive fajlova po želji)
+// Osnovni URL za repozitorijum na GitHub-u (Raw linkovi)
+const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main";
+
 const folderData = [
     {
         name: "Elektroinstalacije",
-        path: "galerija/instalacije",
+        path: `${GITHUB_RAW_BASE}/galerija/instalacije`,
         files: ["slika1.jpg", "slika2.jpg", "slika3.jpg", "slika4.jpg"]
     },
     {
         name: "Pametne Kuće (Smart Home)",
-        path: "galerija/smarthome",
+        path: `${GITHUB_RAW_BASE}/galerija/smarthome`,
         files: ["slika1.jpg", "slika2.jpg", "slika3.jpg"]
     },
     {
         name: "Industrijska Automatizacija",
-        path: "galerija/automatizacija",
+        path: `${GITHUB_RAW_BASE}/galerija/automatizacija`,
         files: ["slika1.jpg", "slika2.jpg", "slika3.jpg", "slika4.jpg"]
     },
     {
         name: "Razvodni Ormari",
-        path: "galerija/ormari",
+        path: `${GITHUB_RAW_BASE}/galerija/ormari`,
         files: ["slika1.jpg", "slika2.jpg", "slika3.jpg"]
     }
 ];
@@ -922,11 +924,10 @@ function showFolderGrid() {
         img.alt = folder.name;
         img.loading = "lazy";
         
-        // Prikazuje prvu sliku iz foldera kao naslovnu ili placeholder ako slika ne postoji
         if (folder.files && folder.files.length > 0) {
             img.src = `${folder.path}/${folder.files[0]}`;
         } else {
-            img.src = 'logo.jpg';
+            img.src = `${GITHUB_RAW_BASE}/logo.jpg`;
         }
         
         img.onerror = function() {
@@ -955,7 +956,6 @@ function openFolderImages(folder) {
     instaContent.className = 'insta-image-grid';
     instaContent.innerHTML = '';
     
-    // Baner za kvalitet unutar foldera
     const qualityBanner = document.createElement('div');
     qualityBanner.className = 'folder-quality-banner';
     qualityBanner.innerHTML = `
