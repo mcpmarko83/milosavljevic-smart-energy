@@ -40,16 +40,7 @@
  {
         "name": "Odrzavanje trgovackog centra",
         "folder": "OdrzavanjeTrgovackogCentara",
-        "files": ["OdrzavanjeTrgovackihCentara_result.webp",
-"OdrzavanjeTrgovackihCentara2_result.webp",
-"OdrzavanjeTrgovackihCentara3_result.webp",
-"OdrzavanjeTrgovackihCentara4_result.webp",
-"OdrzavanjeTrgovackihCentara5_result.webp",
-"OdrzavanjeTrgovackihCentara6_result.webp",
-"OdrzavanjeTrgovackihCentara7_result.webp",
-"OdrzavanjeTrgovackihCentara8_result.webp",
-"OdrzavanjeTrgovackihCentara9_result.webp",
-"OdrzavanjeTrgovackihCentara10_result.webp"]
+        "files": ["OdrzavanjeTrgovackihCentara_result.webp","OdrzavanjeTrgovackihCentara2_result.webp", "OdrzavanjeTrgovackihCentara3_result.webp","OdrzavanjeTrgovackihCentara4_result.webp","OdrzavanjeTrgovackihCentara5_result.webp","OdrzavanjeTrgovackihCentara6_result.webp""OdrzavanjeTrgovackihCentara7_result.webp","OdrzavanjeTrgovackihCentara8_result.webp","OdrzavanjeTrgovackihCentara9_result.webp","OdrzavanjeTrgovackihCentara10_result.webp"]
     },
  {
         "name": "Vjerski Objekti",
