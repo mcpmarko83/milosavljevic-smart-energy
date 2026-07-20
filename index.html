@@ -183,7 +183,7 @@
         .insta-folder-card .folder-info .folder-name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
         .insta-folder-card .folder-info .folder-desc { font-size: 13px; color: #888; }
         
-        /* INSTAGRAM IMAGE GRID (3 Slike u redu) - LAZY LOAD OPTIMIZOVANO */
+        /* INSTAGRAM IMAGE GRID (3 Slike u redu) */
         .insta-image-grid-container { max-width: 900px; margin: 0 auto; width: 100%; contain: content; }
         .insta-image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 0 0 20px 0; contain: layout paint; }
         .insta-image-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; background: #111; cursor: pointer; overflow: hidden; contain: layout paint; }
@@ -192,7 +192,7 @@
 
         /* BANNER ZA PRIVLAČENJE KUPACA UNUTAR FOLDERA */
         .folder-quality-banner {
-            grid-column: 1 / -1; /* Proteže se preko sve 3 kolone */
+            grid-column: 1 / -1; 
             background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(58,134,255,0.15));
             border: 1px solid rgba(76,175,80,0.4);
             border-radius: 16px;
@@ -853,17 +853,37 @@ window.addEventListener('load', function() {
 // GLOBALNE VARIJABLE ZA KONTROLU CANVASA
 let canvasAnimationId = null;
 
-// ========== INSTAGRAM MODAL - KONAČNO REŠENJE (GITHUB API + KEŠIRANJE) ==========
+// ========== INSTAGRAM MODAL - DIREKTNO UČITAVANJE SLIKA SA HOSTINGA ==========
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// KLJUČNA PROMENA: Koristimo zvanični GitHub API koji podržava CORS.
-const GITHUB_API = 'https://api.github.com/repos/mcpmarko83/milosavljevic-smart-energy/contents/';
+// Definisane mape foldera i slika za galeriju (možete dodati nazive fajlova po želji)
+const folderData = [
+    {
+        name: "Elektroinstalacije",
+        path: "galerija/instalacije",
+        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg", "slika4.jpg"]
+    },
+    {
+        name: "Pametne Kuće (Smart Home)",
+        path: "galerija/smarthome",
+        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg"]
+    },
+    {
+        name: "Industrijska Automatizacija",
+        path: "galerija/automatizacija",
+        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg", "slika4.jpg"]
+    },
+    {
+        name: "Razvodni Ormari",
+        path: "galerija/ormari",
+        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg"]
+    }
+];
 
 let instaHistory = [];
-let lazyObserver = null;
 
 function openInstaModal() {
     instaModal.classList.add('active');
@@ -873,7 +893,6 @@ function openInstaModal() {
     instaBackBtn.style.display = 'none';
     instaContent.className = 'insta-folder-grid';
     
-    // ZAUSTAVLJAMO CANVAS ANIMACIJU
     if (canvasAnimationId) {
         cancelAnimationFrame(canvasAnimationId);
         canvasAnimationId = null;
@@ -886,68 +905,15 @@ function closeInstaModal() {
     instaModal.classList.remove('active');
     document.body.style.overflow = '';
     
-    if (lazyObserver) {
-        lazyObserver.disconnect();
-        lazyObserver = null;
-    }
-
     if (!canvasAnimationId) {
         draw();
     }
 }
 
-// Pomoćna funkcija za dohvatanje sadržaja slike preko GitHub API-ja uz keširanje
-async function fetchImageData(filePath) {
-    const cacheKey = 'mse_img_' + filePath;
-    const cacheExpiry = 24 * 60 * 60 * 1000; // Keš traje 24 sata
-
-    // 1. Proveri keš
-    try {
-        const cached = localStorage.getItem(cacheKey);
-        if (cached) {
-            const data = JSON.parse(cached);
-            if (Date.now() - data.timestamp < cacheExpiry) {
-                return data.content; // Vrati keširanu sliku
-            } else {
-                localStorage.removeItem(cacheKey); // Isprazni istekli keš
-            }
-        }
-    } catch (e) { /* Ignoriši greške keša */ }
-
-    // 2. Ako nema u kešu, dohvati sa GitHub API-ja
-    try {
-        const response = await fetch(GITHUB_API + filePath);
-        if (!response.ok) {
-            if (response.status === 403) {
-                console.warn("Dostignut GitHub API limit. Slike će raditi samo ako su keširane.");
-                return null;
-            }
-            return null;
-        }
-        const data = await response.json();
-        
-        if (data.content) {
-            // 3. Sačuvaj u keš
-            try {
-                localStorage.setItem(cacheKey, JSON.stringify({
-                    content: data.content,
-                    timestamp: Date.now()
-                }));
-            } catch (e) { /* Ignoriši grešku ako je keš pun */ }
-            
-            return data.content;
-        }
-    } catch (error) {
-        console.error("Greška pri dohvatanju slike:", filePath, error);
-    }
-    return null;
-}
-
-async function showFolderGrid() {
+function showFolderGrid() {
     instaContent.innerHTML = '';
 
-    // Za naslovne slike koristimo isti API
-    for (const folder of folderData) {
+    folderData.forEach(folder => {
         const card = document.createElement('div');
         card.className = 'insta-folder-card';
 
@@ -956,20 +922,15 @@ async function showFolderGrid() {
         img.alt = folder.name;
         img.loading = "lazy";
         
+        // Prikazuje prvu sliku iz foldera kao naslovnu ili placeholder ako slika ne postoji
         if (folder.files && folder.files.length > 0) {
-            const base64 = await fetchImageData(`${folder.path}/${folder.files[0]}`);
-            if (base64) {
-                const ext = folder.files[0].split('.').pop();
-                img.src = `data:image/${ext};base64,${base64}`;
-            } else {
-                img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
-            }
+            img.src = `${folder.path}/${folder.files[0]}`;
         } else {
-            img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
+            img.src = 'logo.jpg';
         }
         
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%239ca3af">Spremno</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
         };
         
         card.appendChild(img);
@@ -984,94 +945,17 @@ async function showFolderGrid() {
 
         card.onclick = () => openFolderImages(folder);
         instaContent.appendChild(card);
-    }
+    });
 }
 
-// Lazy load funkcija - SADA SVI API POZIVI RADE!
-async function appendBatch(folder, startIndex) {
-    const endIndex = Math.min(startIndex + 9, folder.files.length);
-    const container = instaContent;
-    
-    for (let i = startIndex; i < endIndex; i++) {
-        const fileName = folder.files[i];
-        const wrapper = document.createElement('div');
-        wrapper.className = 'insta-image-wrapper';
-
-        const img = document.createElement('img');
-        // Placeholder
-        img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%236b7280">⏳ Učitavam...</text></svg>';
-        img.alt = fileName;
-        img.loading = "lazy";
-        
-        // Dohvatanje slike preko API-ja
-        const filePath = `${folder.path}/${fileName}`;
-        const base64 = await fetchImageData(filePath);
-        
-        if (base64) {
-            const ext = fileName.split('.').pop();
-            img.src = `data:image/${ext};base64,${base64}`;
-        } else {
-            img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%23222"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%239ca3af">Spremno</text></svg>';
-        }
-        
-        img.onclick = function(e) {
-            e.stopPropagation();
-            document.getElementById('lightbox-img').src = this.src;
-            document.getElementById('lightbox-caption').textContent = fileName; 
-            document.getElementById('lightbox').classList.add('active');
-        };
-
-        wrapper.appendChild(img);
-        container.appendChild(wrapper);
-    }
-
-    // IntersectionObserver za sledeću seriju
-    if (endIndex < folder.files.length) {
-        const lastElement = container.lastElementChild;
-        
-        if (lazyObserver) {
-            lazyObserver.disconnect();
-        }
-
-        lazyObserver = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                lazyObserver.disconnect();
-                appendBatch(folder, endIndex);
-            }
-        }, { 
-            root: instaModal, 
-            rootMargin: '150px', 
-            threshold: 0.1 
-        });
-        
-        lazyObserver.observe(lastElement);
-    } else {
-        if (lazyObserver) {
-            lazyObserver.disconnect();
-            lazyObserver = null;
-        }
-    }
-}
-
-async function openFolderImages(folder) {
+function openFolderImages(folder) {
     instaHistory.push('folders');
     instaTitle.textContent = folder.name;
     instaBackBtn.style.display = 'flex';
     instaContent.className = 'insta-image-grid';
     instaContent.innerHTML = '';
     
-    if (lazyObserver) {
-        lazyObserver.disconnect();
-        lazyObserver = null;
-    }
-
-    folder.files.sort((a, b) => {
-        let numA = parseInt(a.match(/\d+/)) || 0;
-        let numB = parseInt(b.match(/\d+/)) || 0;
-        return numA - numB;
-    });
-
-    // BANNER ZA KVALITET
+    // Baner za kvalitet unutar foldera
     const qualityBanner = document.createElement('div');
     qualityBanner.className = 'folder-quality-banner';
     qualityBanner.innerHTML = `
@@ -1082,8 +966,29 @@ async function openFolderImages(folder) {
     `;
     instaContent.appendChild(qualityBanner);
 
-    // POKRENI UČITAVANJE PRVE SERIJE
-    appendBatch(folder, 0);
+    folder.files.forEach(fileName => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'insta-image-wrapper';
+
+        const img = document.createElement('img');
+        img.src = `${folder.path}/${fileName}`;
+        img.alt = fileName;
+        img.loading = "lazy";
+        
+        img.onerror = function() {
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%239ca3af">Slika uskoro</text></svg>';
+        };
+        
+        img.onclick = function(e) {
+            e.stopPropagation();
+            document.getElementById('lightbox-img').src = this.src;
+            document.getElementById('lightbox-caption').textContent = folder.name; 
+            document.getElementById('lightbox').classList.add('active');
+        };
+
+        wrapper.appendChild(img);
+        instaContent.appendChild(wrapper);
+    });
 }
 
 function instaGoBack() {
@@ -1092,12 +997,6 @@ function instaGoBack() {
         instaContent.className = 'insta-folder-grid';
         instaTitle.textContent = 'Naši projekti';
         instaBackBtn.style.display = 'none';
-        
-        if (lazyObserver) {
-            lazyObserver.disconnect();
-            lazyObserver = null;
-        }
-        
         showFolderGrid();
     }
 }
