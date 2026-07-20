@@ -115,18 +115,7 @@
         /* ========== HERO ========== */
         .hero-section { padding: 80px 20px 60px; text-align: center; position: relative; }
         .hero-content { position: relative; z-index: 2; }
-        .hero-logo {
-            max-width: 400px;
-            width: 100%;
-            height: auto;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
-            margin-bottom: 25px;
-            transition: transform 0.5s ease;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .hero-logo { max-width: 400px; width: 100%; height: auto; border-radius: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05); margin-bottom: 25px; transition: transform 0.5s ease; display: block; margin-left: auto; margin-right: auto; }
         .hero-logo:hover { transform: translateY(-5px); }
         .hero-title { font-size: 52px; margin-top: 15px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .hero-title span { background: linear-gradient(90deg, #3a86ff, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -167,14 +156,9 @@
             border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 10;
         }
         .insta-header h3 { color: #fff; font-size: 18px; font-weight: 600; margin: 0; }
-        .insta-back-btn {
-            background: none; border: none; color: #fff; font-size: 22px; cursor: pointer;
-            padding: 0 10px 0 0; display: none; align-items: center;
-        }
-        .insta-close-btn {
-            background: none; border: none; color: #fff; font-size: 32px; cursor: pointer;
-            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-        }
+        .insta-back-btn { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 0 10px 0 0; display: none; align-items: center; }
+        .insta-close-btn { background: none; border: none; color: #fff; font-size: 32px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        
         /* FOLDER GRID */
         .insta-folder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; max-width: 900px; margin: 0 auto; width: 100%; }
         .insta-folder-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; }
@@ -183,14 +167,13 @@
         .insta-folder-card .folder-info .folder-name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
         .insta-folder-card .folder-info .folder-desc { font-size: 13px; color: #888; }
         
-        /* INSTAGRAM IMAGE GRID (3 Slike u redu) */
+        /* INSTAGRAM IMAGE GRID */
         .insta-image-grid-container { max-width: 900px; margin: 0 auto; width: 100%; contain: content; }
         .insta-image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 0 0 20px 0; contain: layout paint; }
         .insta-image-wrapper { position: relative; width: 100%; aspect-ratio: 1/1; background: #111; cursor: pointer; overflow: hidden; contain: layout paint; }
         .insta-image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter 0.3s; }
         .insta-image-wrapper:hover img { filter: brightness(0.8); }
 
-        /* BANNER ZA PRIVLAČENJE KUPACA UNUTAR FOLDERA */
         .folder-quality-banner {
             grid-column: 1 / -1; 
             background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(58,134,255,0.15));
@@ -212,60 +195,19 @@
             .folder-quality-banner h3 { font-size: 18px; }
         }
 
-        /* ========== CTA BANNER ========== */
-        .cta-banner {
-            background: rgba(20, 24, 32, 0.6);
-            backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(76,175,80,0.3);
-            border-radius: 32px;
-            padding: 40px 30px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 60px auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-banner::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
-            transform: skewX(-20deg); animation: shine 6s infinite;
-        }
+        /* ========== OSTALI STILOVI KAKO SU I BILI (Skraćeni pregled zbog dužine, preneseni u cjelosti) ========== */
+        .cta-banner { background: rgba(20, 24, 32, 0.6); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 40px 30px; text-align: center; max-width: 900px; margin: 0 auto 60px auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+        .cta-banner::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent); transform: skewX(-20deg); animation: shine 6s infinite; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
 
-        /* ========== ZELENA FIRMA ========== */
-        .green-company {
-            background: rgba(20, 24, 32, 0.4);
-            backdrop-filter: blur(24px);
-            border-radius: 32px;
-            padding: 50px 30px;
-            margin: 60px 0;
-            border: 1px solid rgba(76,175,80,0.2);
-            text-align: center;
-            transition: all 0.5s ease;
-        }
-        .green-company:hover {
-            border-color: rgba(76,175,80,0.5);
-            box-shadow: 0 0 40px rgba(76,175,80,0.1);
-        }
-        .green-company .icon-leaf {
-            font-size: 48px;
-            display: block;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(76,175,80,0.3));
-        }
-        .green-company h3 {
-            font-size: 32px;
-            color: #fff;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            margin-bottom: 20px;
-        }
+        .green-company { background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border-radius: 32px; padding: 50px 30px; margin: 60px 0; border: 1px solid rgba(76,175,80,0.2); text-align: center; transition: all 0.5s ease; }
+        .green-company:hover { border-color: rgba(76,175,80,0.5); box-shadow: 0 0 40px rgba(76,175,80,0.1); }
+        .green-company .icon-leaf { font-size: 48px; display: block; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(76,175,80,0.3)); }
+        .green-company h3 { font-size: 32px; color: #fff; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; }
         .green-company h3 span { color: #4caf50; }
         .green-company p { max-width: 750px; margin: 0 auto 20px; color: #cbd5e6; font-size: 18px; line-height: 1.8; }
         .green-company .highlight-badge { display: inline-block; background: rgba(76,175,80,0.15); border: 1px solid rgba(76,175,80,0.3); padding: 8px 20px; border-radius: 50px; font-size: 14px; color: #4caf50; font-weight: 500; margin: 5px 8px; backdrop-filter: blur(4px); }
 
-        /* ========== CARDS & GRIDS ========== */
         .grid-philosophie { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .abstract-card { background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 32px; padding: 40px; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .abstract-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); opacity: 0.5; transition: opacity 0.3s ease; }
@@ -296,7 +238,6 @@
         .blended-om { width: 100%; height: auto; display: block; border-radius: 50%; transition: transform 0.5s ease; }
         .om-image-container:hover .blended-om { transform: scale(1.05) rotate(2deg); }
 
-        /* ========== PARTNERS CAROUSEL ========== */
         .partners-section { background: rgba(20, 24, 32, 0.4); backdrop-filter: blur(24px); border-radius: 32px; padding: 60px 20px; margin: 80px 0 60px; border: 1px solid rgba(255,255,255,0.05); position: relative; }
         .partners-title { text-align: center; margin-bottom: 50px; font-size: 32px; font-weight: 600; color: #fff; letter-spacing: -0.5px; }
         .carousel-container { position: relative; overflow: hidden; padding: 10px 0 20px; -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
@@ -314,17 +255,12 @@
         .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .dot.active { background: #4caf50; width: 32px; border-radius: 8px; box-shadow: 0 0 10px rgba(76,175,80,0.5); }
 
-        /* ========== KONTAKT ========== */
         .contact-section { padding: 80px 0; max-width: 850px; margin: 0 auto; }
         .contact-brand { font-weight: 600; color: #4caf50; font-size: 28px; text-align: center; letter-spacing: -0.5px; }
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 30px; margin: 40px 0; }
         .contact-info-box { background: rgba(255,255,255,0.015); border-radius: 32px; padding: 40px 30px; text-align: center; border: 1px solid rgba(255,255,255,0.04); transition: transform 0.4s ease; }
         .contact-info-box:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); }
-        .contact-info-box img.contact-photo { 
-            display: block; max-width: 80px; height: auto; margin: 0 auto 12px; 
-            border-radius: 50%; border: 2px solid rgba(255,255,255,0.08); 
-            object-fit: cover; aspect-ratio: 1/1;
-        }
+        .contact-info-box img.contact-photo { display: block; max-width: 80px; height: auto; margin: 0 auto 12px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.08); object-fit: cover; aspect-ratio: 1/1; }
         .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
         .contact-link-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: 16px; color: white; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; backdrop-filter: blur(10px); }
         .contact-link-btn svg { width: 20px; height: 20px; fill: currentColor; }
@@ -348,16 +284,8 @@
         .msg-body { color: #a1aabf; font-size: 15px; line-height: 1.5; font-style: italic; }
         @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ========== FLOATING BUTTONS & LIGHTBOX ========== */
         .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: flex-end; gap: 15px; z-index: 99998; }
-        .premium-action-btn { 
-            width: 52px; height: 52px; border-radius: 50%; 
-            background: rgba(30, 36, 45, 0.6); backdrop-filter: blur(20px) saturate(180%); 
-            border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; transition: all 0.3s ease; color: #fff; 
-            position: relative;
-        }
+        .premium-action-btn { width: 52px; height: 52px; border-radius: 50%; background: rgba(30, 36, 45, 0.6); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: #fff; position: relative; }
         .premium-action-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s; }
         .premium-action-btn:hover { background: rgba(76,175,80,0.2); border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
         .premium-action-btn:hover svg { transform: scale(1.15); }
@@ -376,17 +304,7 @@
         .lightbox-close:hover, .close-video:hover { background: rgba(230,57,70,0.2); color: #e63946; border-color: rgba(230,57,70,0.4); transform: scale(1.1) rotate(90deg); }
         #lightbox-caption { color: #fff; margin-top: 20px; font-size: 16px; font-weight: 500; letter-spacing: 0.5px; text-align: center; }
 
-        /* ========== MSE AI WIDGET ========== */
-        #mse-ai-widget { 
-            position: fixed; bottom: 90px; right: 30px; 
-            width: 360px; height: 550px; 
-            background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); 
-            border: 1px solid rgba(76,175,80,0.3); 
-            border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
-            z-index: 99999; display: flex; flex-direction: column; 
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s; 
-            overflow: hidden; 
-        }
+        #mse-ai-widget { position: fixed; bottom: 90px; right: 30px; width: 360px; height: 550px; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(76,175,80,0.3); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 99999; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s; overflow: hidden; }
         .ai-hidden { transform: translateY(120%) scale(0.9); opacity: 0; pointer-events: none; }
         .ai-header { background: rgba(5, 7, 10, 0.9); padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
         .ai-header-title { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 600; font-size: 15px; }
@@ -406,69 +324,27 @@
         .ai-action-btn:hover { background: #4caf50; }
         @keyframes aiPulse { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
 
-        /* ========== ELEKTROPEDIJA ========== */
         .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }
         .edu-card { background: rgba(30, 36, 45, 0.4); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.03); border-radius: 24px; padding: 24px; cursor: pointer; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; align-items: center; justify-content: space-between; text-decoration: none; }
         .edu-card:hover { background: rgba(40, 48, 60, 0.6); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .edu-card .folder-arrow { transition: transform 0.4s ease; font-size: 14px; }
         .edu-card:hover .folder-arrow { transform: translateX(5px); }
-        .edu-card-zelena:hover { border-color: rgba(76,175,80,0.5); }
-        .edu-card-zelena .folder-arrow { color: #4caf50; }
-        .edu-card-narandzasta:hover { border-color: rgba(255,140,0,0.5); }
-        .edu-card-narandzasta .folder-arrow { color: #ff8c00; }
-        .edu-card-plava:hover { border-color: rgba(58,134,255,0.5); }
-        .edu-card-plava .folder-arrow { color: #3a86ff; }
-        .edu-card-crvena:hover { border-color: rgba(230,57,70,0.5); }
-        .edu-card-crvena .folder-arrow { color: #e63946; }
-        .edu-card-zuta:hover { border-color: rgba(241,196,15,0.5); }
-        .edu-card-zuta .folder-arrow { color: #f1c40f; }
-        .edu-card-ljubicasta:hover { border-color: rgba(155,89,182,0.5); }
-        .edu-card-ljubicasta .folder-arrow { color: #9b59b6; }
-        .edu-card-tirkizna:hover { border-color: rgba(0,210,211,0.5); }
-        .edu-card-tirkizna .folder-arrow { color: #00d2d3; }
+        .edu-card-zelena:hover { border-color: rgba(76,175,80,0.5); } .edu-card-zelena .folder-arrow { color: #4caf50; }
+        .edu-card-narandzasta:hover { border-color: rgba(255,140,0,0.5); } .edu-card-narandzasta .folder-arrow { color: #ff8c00; }
+        .edu-card-plava:hover { border-color: rgba(58,134,255,0.5); } .edu-card-plava .folder-arrow { color: #3a86ff; }
+        .edu-card-crvena:hover { border-color: rgba(230,57,70,0.5); } .edu-card-crvena .folder-arrow { color: #e63946; }
+        .edu-card-zuta:hover { border-color: rgba(241,196,15,0.5); } .edu-card-zuta .folder-arrow { color: #f1c40f; }
+        .edu-card-ljubicasta:hover { border-color: rgba(155,89,182,0.5); } .edu-card-ljubicasta .folder-arrow { color: #9b59b6; }
+        .edu-card-tirkizna:hover { border-color: rgba(0,210,211,0.5); } .edu-card-tirkizna .folder-arrow { color: #00d2d3; }
 
-        /* ========== FOOTER HIGHLIGHT ========== */
-        .footer-highlight {
-            background: rgba(20, 24, 32, 0.3);
-            backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255,255,255,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 30px 20px;
-            margin: 20px 0 0;
-            text-align: center;
-            border-radius: 20px;
-            transition: all 0.4s ease;
-        }
-        .footer-highlight:hover {
-            background: rgba(30, 36, 45, 0.5);
-            border-color: rgba(76,175,80,0.2);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
+        .footer-highlight { background: rgba(20, 24, 32, 0.3); backdrop-filter: blur(16px); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 30px 20px; margin: 20px 0 0; text-align: center; border-radius: 20px; transition: all 0.4s ease; }
+        .footer-highlight:hover { background: rgba(30, 36, 45, 0.5); border-color: rgba(76,175,80,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
         .footer-highlight .hl-item { display: inline-block; margin: 0 20px; font-size: 18px; font-weight: 500; color: #e5e7eb; letter-spacing: 0.3px; }
         .footer-highlight .hl-item strong { color: #4caf50; font-weight: 600; }
         .footer-highlight .hl-item .icon { margin-right: 8px; font-size: 20px; }
 
-        /* ========== MOBILE RESPONSIVE ========== */
-        @media (max-width:768px) {
-            .hide-mobile { display: none; }
-            .hero-title { font-size: 38px; }
-            .grid-philosophie { grid-template-columns: 1fr; }
-            .abstract-card.full-width { grid-column: auto; }
-            .abstract-card, .history-card, .moto-card, .contact-card { padding: 30px 25px; }
-            .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); }
-            .hero-logo { max-width: 90vw; }
-            .green-company h3 { font-size: 28px; }
-            .footer-highlight .hl-item { display: block; margin: 12px 0; font-size: 16px; }
-        }
-        @media (max-width:480px) {
-            .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
-            .carousel-slide { flex: 0 0 100%; min-width: 100%; }
-            .hero-title { font-size: 32px; }
-            #mse-ai-widget { width: calc(100vw - 40px); bottom: 80px; right: 20px; height: 420px; }
-            .hero-logo { max-width: 92vw; }
-            .footer-highlight .hl-item { font-size: 15px; }
-            .green-company { padding: 30px 20px; }
-        }
+        @media (max-width:768px) { .hide-mobile { display: none; } .hero-title { font-size: 38px; } .grid-philosophie { grid-template-columns: 1fr; } .abstract-card.full-width { grid-column: auto; } .abstract-card, .history-card, .moto-card, .contact-card { padding: 30px 25px; } .carousel-slide { flex: 0 0 calc(50% - 15px); min-width: calc(50% - 15px); } .hero-logo { max-width: 90vw; } .green-company h3 { font-size: 28px; } .footer-highlight .hl-item { display: block; margin: 12px 0; font-size: 16px; } }
+        @media (max-width:480px) { .floating-buttons { bottom: 20px; right: 20px; gap: 12px; } .carousel-slide { flex: 0 0 100%; min-width: 100%; } .hero-title { font-size: 32px; } #mse-ai-widget { width: calc(100vw - 40px); bottom: 80px; right: 20px; height: 420px; } .hero-logo { max-width: 92vw; } .footer-highlight .hl-item { font-size: 15px; } .green-company { padding: 30px 20px; } }
 
         /* ===== PERFORMANCE PATCH ===== */
         html { -webkit-text-size-adjust:100%; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
@@ -476,11 +352,7 @@
         img, video { max-width:100%; height:auto; }
         section, .partners-section, .contact-section { content-visibility:auto; contain-intrinsic-size:800px; }
         .abstract-card, .history-card, .moto-card, .contact-card, .carousel-slide, .contact-info-box { backface-visibility:hidden; transform:translateZ(0); }
-        @media (hover:none) {
-            .abstract-card:hover, .carousel-slide:hover, .premium-action-btn:hover, .btn-primary:hover, .btn-secondary:hover, .contact-info-box:hover {
-                transform:none; box-shadow:inherit;
-            }
-        }
+        @media (hover:none) { .abstract-card:hover, .carousel-slide:hover, .premium-action-btn:hover, .btn-primary:hover, .btn-secondary:hover, .contact-info-box:hover { transform:none; box-shadow:inherit; } }
     </style>
 </head>
 <body>
@@ -582,7 +454,7 @@
                 <a href="#elektropedija" class="btn-primary btn-secondary" style="margin-top: 0;">
                     <svg style="width:20px;height:20px;margin-right:8px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     MSE Elektropedija
-                </a>
+                </a >
             </div>
         </div>
     </section>
@@ -859,29 +731,35 @@ const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
 
-// Osnovni URL za repozitorijum na GitHub-u (Raw linkovi)
 const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main";
 
+// ⚠️ KLJUČNO: Ovdje su ubačeni tvoji stvarni folderi sa slike (DistributivneMreze, JavnaRasvjeta...).
+// MORAŠ promijeniti "1.jpg", "2.jpg" u STVARNA IMENA SLIKA koja se nalaze unutar tih foldera na GitHub-u!
 const folderData = [
     {
-        name: "Elektroinstalacije",
-        path: `${GITHUB_RAW_BASE}/galerija/instalacije`,
-        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg", "slika4.jpg"]
+        name: "Distributivne Mreže",
+        path: `${GITHUB_RAW_BASE}/DistributivneMreze`,
+        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
     },
     {
-        name: "Pametne Kuće (Smart Home)",
-        path: `${GITHUB_RAW_BASE}/galerija/smarthome`,
-        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg"]
+        name: "Javna Rasvjeta",
+        path: `${GITHUB_RAW_BASE}/JavnaRasvjeta`,
+        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
     },
     {
-        name: "Industrijska Automatizacija",
-        path: `${GITHUB_RAW_BASE}/galerija/automatizacija`,
-        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg", "slika4.jpg"]
+        name: "Komercijalni Objekti",
+        path: `${GITHUB_RAW_BASE}/KomercijalniObjekti`,
+        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
     },
     {
-        name: "Razvodni Ormari",
-        path: `${GITHUB_RAW_BASE}/galerija/ormari`,
-        files: ["slika1.jpg", "slika2.jpg", "slika3.jpg"]
+        name: "Stambene Zgrade",
+        path: `${GITHUB_RAW_BASE}/StambeneZgrade`,
+        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
+    },
+    {
+        name: "Vjerski Objekti",
+        path: `${GITHUB_RAW_BASE}/VjerskiObjekti`,
+        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
     }
 ];
 
@@ -895,7 +773,8 @@ function openInstaModal() {
     instaBackBtn.style.display = 'none';
     instaContent.className = 'insta-folder-grid';
     
-    if (canvasAnimationId) {
+    // Optimizacija performansi: Gasi tešku animaciju pozadine
+    if (typeof canvasAnimationId !== 'undefined' && canvasAnimationId) {
         cancelAnimationFrame(canvasAnimationId);
         canvasAnimationId = null;
     }
@@ -907,13 +786,16 @@ function closeInstaModal() {
     instaModal.classList.remove('active');
     document.body.style.overflow = '';
     
-    if (!canvasAnimationId) {
+    // Ponovo pali animaciju kada se modal zatvori
+    if (typeof canvasAnimationId !== 'undefined' && !canvasAnimationId && typeof draw === 'function') {
         draw();
     }
 }
 
 function showFolderGrid() {
     instaContent.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
 
     folderData.forEach(folder => {
         const card = document.createElement('div');
@@ -922,16 +804,17 @@ function showFolderGrid() {
         const img = document.createElement('img');
         img.className = 'folder-image';
         img.alt = folder.name;
-        img.loading = "lazy";
+        img.loading = "lazy"; // Spriječava istovremeno blokiranje RAM-a
+        img.decoding = "async"; // Asinhrono dekodiranje slike (ubrzava telefon)
         
         if (folder.files && folder.files.length > 0) {
-            img.src = `${folder.path}/${folder.files[0]}`;
+            img.src = `${folder.path}/${encodeURIComponent(folder.files[0])}`;
         } else {
             img.src = `${GITHUB_RAW_BASE}/logo.jpg`;
         }
         
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">📁</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">Nema slike</text></svg>';
         };
         
         card.appendChild(img);
@@ -945,8 +828,10 @@ function showFolderGrid() {
         card.appendChild(info);
 
         card.onclick = () => openFolderImages(folder);
-        instaContent.appendChild(card);
+        fragment.appendChild(card);
     });
+
+    instaContent.appendChild(fragment);
 }
 
 function openFolderImages(folder) {
@@ -966,17 +851,21 @@ function openFolderImages(folder) {
     `;
     instaContent.appendChild(qualityBanner);
 
+    // Korištenje Fragmenta za drastično ubrzanje DOM manipulacije
+    const fragment = document.createDocumentFragment();
+
     folder.files.forEach(fileName => {
         const wrapper = document.createElement('div');
         wrapper.className = 'insta-image-wrapper';
 
         const img = document.createElement('img');
-        img.src = `${folder.path}/${fileName}`;
+        img.src = `${folder.path}/${encodeURIComponent(fileName)}`;
         img.alt = fileName;
-        img.loading = "lazy";
+        img.loading = "lazy"; // Sprečava zamrzavanje skrolanja
+        img.decoding = "async"; // Ne blokira glavni (UI) thread
         
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%239ca3af">Slika uskoro</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%239ca3af">Provjeri ime fajla</text></svg>';
         };
         
         img.onclick = function(e) {
@@ -987,8 +876,10 @@ function openFolderImages(folder) {
         };
 
         wrapper.appendChild(img);
-        instaContent.appendChild(wrapper);
+        fragment.appendChild(wrapper);
     });
+    
+    instaContent.appendChild(fragment);
 }
 
 function instaGoBack() {
