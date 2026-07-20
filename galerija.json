@@ -1,0 +1,28 @@
+[
+    {
+        "name": "Distributivne Mreže",
+        "folder": "DistributivneMreze",
+        "files": ["DistibutivneMreze1_result.webp","DistributivneMreze2_result.webp","DistributivneMreze3_result.webp","DistributivneMreze4_result.webp","DistributivneMreze5_result.webp","DistributivneMreze6_result.webp","DistributivneMreze8_result.webp","DistributivneMreze9_result.webp","NestabilnostRecnogTla_result.webp"]
+    },
+    {
+        "name": "Javna Rasvjeta",
+        "folder": "JavnaRasvjeta",
+        "files": ["JavnaRasvjeta_result.webp",
+"JavnaRasvjeta2_result.webp","JavnaRasvjeta3_result.webp","JavnaRAsvjeta4_result.webp","JavnaRasvjeta5_result.webp","JavnaRasvjeta6_result.webp","JavnaRasvjeta7_result.webp","JavnaRasvjeta8_result.webp","JavnaRasvjeta9_result.webp","JavnaRasvjeta10_result.webp","JavnaRasvjeta11_result.webp","JavnaRasvjeta12_result.webp","JavnaRasvjeta13_result.webp","JavnaRasvjeta14_result.webp","JavnaRasvjeta15_result.webp","JavnaRasvjeta16_result.webp"]
+    },
+    {
+        "name": "Komercijalni Objekti",
+        "folder": "KomercijalniObjekti",
+        "files": ["1.jpg", "2.jpg", "3.jpg"]
+    },
+    {
+        "name": "Stambene Zgrade",
+        "folder": "StambeneZgrade",
+        "files": ["1.jpg", "2.jpg", "3.jpg"]
+    },
+    {
+        "name": "Vjerski Objekti",
+        "folder": "VjerskiObjekti",
+        "files": ["1.jpg", "2.jpg", "3.jpg"]
+    }
+]
