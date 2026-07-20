@@ -30,7 +30,10 @@
     {
         "name": "Stambene Zgrade",
         "folder": "StambeneZgrade",
-        "files": [""]
+        "files": ["StambeneZgrade_result.webp",
+"StambeneZgrade1_result.webp",
+"StambeneZgrade2_result.webp",
+"StambeneZgrade3_result.webp"]
     },
     {
         "name": "Vjerski Objekti",
