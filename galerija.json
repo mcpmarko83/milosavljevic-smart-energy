@@ -13,12 +13,24 @@
     {
         "name": "Komercijalni Objekti",
         "folder": "KomercijalniObjekti",
-        "files": ["1.jpg", "2.jpg", "3.jpg"]
+        "files": ["KomercijalniObjekti1_result.webp","KomercijalniObjekti2_result.webp","KomercijalniObjekti4_result.webp","KomercijalniObjekti5_result.webp","KomercijalniObjekti6_result.webp","KomercijalniObjekti7_result.webp","KomercijalniObjekti8_result.webp",
+"KomercijalniObjekti9_result.webp",
+"KomercijalniObjekti10_result.webp",
+"KomercijalniObjekti11_result.webp",
+"KomercijalniObjekti12_result.webp",
+"KomercijalniObjekti13_result.webp",
+"KomercijalniObjekti14_result.webp",
+"KomercijalniObjekti15_result.webp",
+"KomercijalniObjekti16_result.webp",
+"KomercijalniObjekti17_result.webp",
+"KomercijalniObjekti18_result.webp",
+"KomercijalniObjekti19_result.webp",
+"KomercijalniObjekti20_result.webp"]
     },
     {
         "name": "Stambene Zgrade",
         "folder": "StambeneZgrade",
-        "files": ["1.jpg", "2.jpg", "3.jpg"]
+        "files": [""]
     },
     {
         "name": "Vjerski Objekti",
