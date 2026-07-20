@@ -195,7 +195,7 @@
             .folder-quality-banner h3 { font-size: 18px; }
         }
 
-        /* ========== OSTALI STILOVI KAKO SU I BILI (Skraćeni pregled zbog dužine, preneseni u cjelosti) ========== */
+        /* OSTALI ELEMENTI SAJTA */
         .cta-banner { background: rgba(20, 24, 32, 0.6); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(76,175,80,0.3); border-radius: 32px; padding: 40px 30px; text-align: center; max-width: 900px; margin: 0 auto 60px auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
         .cta-banner::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent); transform: skewX(-20deg); animation: shine 6s infinite; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
@@ -376,7 +376,7 @@
     </div>
     <div id="insta-content-container" class="insta-image-grid-container">
         <div id="insta-content" class="insta-folder-grid">
-            <div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">📂 Učitavam slike...</div>
+            <div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">📂 Učitavam galeriju...</div>
         </div>
     </div>
 </div>
@@ -454,7 +454,7 @@
                 <a href="#elektropedija" class="btn-primary btn-secondary" style="margin-top: 0;">
                     <svg style="width:20px;height:20px;margin-right:8px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     MSE Elektropedija
-                </a >
+                </a>
             </div>
         </div>
     </section>
@@ -722,48 +722,36 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// GLOBALNE VARIJABLE ZA KONTROLU CANVASA
+// GLOBALNE VARIJABLE
 let canvasAnimationId = null;
+const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main";
+let folderData = [];
+let instaHistory = [];
 
-// ========== INSTAGRAM MODAL - DIREKTNO UČITAVANJE SLIKA SA GITHUB-A ==========
+// ========== DINAMIČKO ČITANJE GALERIJE IZ JSON FAJLA ==========
+async function ucitajGaleriju() {
+    try {
+        const response = await fetch(`${GITHUB_RAW_BASE}/galerija.json?v=` + new Date().getTime());
+        if (!response.ok) throw new Error("Nije moguće učitati galerija.json");
+        
+        const data = await response.json();
+        folderData = data.map(kategorija => ({
+            name: kategorija.name,
+            path: `${GITHUB_RAW_BASE}/${kategorija.folder}`,
+            files: kategorija.files
+        }));
+    } catch (error) {
+        console.error("Greška pri učitavanju galerije:", error);
+    }
+}
+
+// Pokrećemo čitaje odmah
+ucitajGaleriju();
+
 const instaModal = document.getElementById('instagram-modal');
 const instaContent = document.getElementById('insta-content');
 const instaTitle = document.getElementById('insta-title');
 const instaBackBtn = document.getElementById('insta-back-btn');
-
-const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/mcpmarko83/milosavljevic-smart-energy/main";
-
-// ⚠️ KLJUČNO: Ovdje su ubačeni tvoji stvarni folderi sa slike (DistributivneMreze, JavnaRasvjeta...).
-// MORAŠ promijeniti "1.jpg", "2.jpg" u STVARNA IMENA SLIKA koja se nalaze unutar tih foldera na GitHub-u!
-const folderData = [
-    {
-        name: "Distributivne Mreže",
-        path: `${GITHUB_RAW_BASE}/DistributivneMreze`,
-        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
-    },
-    {
-        name: "Javna Rasvjeta",
-        path: `${GITHUB_RAW_BASE}/JavnaRasvjeta`,
-        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
-    },
-    {
-        name: "Komercijalni Objekti",
-        path: `${GITHUB_RAW_BASE}/KomercijalniObjekti`,
-        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
-    },
-    {
-        name: "Stambene Zgrade",
-        path: `${GITHUB_RAW_BASE}/StambeneZgrade`,
-        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
-    },
-    {
-        name: "Vjerski Objekti",
-        path: `${GITHUB_RAW_BASE}/VjerskiObjekti`,
-        files: ["1.jpg", "2.jpg", "3.jpg"] // ZAMIJENI SA TAČNIM IMENIMA
-    }
-];
-
-let instaHistory = [];
 
 function openInstaModal() {
     instaModal.classList.add('active');
@@ -773,10 +761,19 @@ function openInstaModal() {
     instaBackBtn.style.display = 'none';
     instaContent.className = 'insta-folder-grid';
     
-    // Optimizacija performansi: Gasi tešku animaciju pozadine
     if (typeof canvasAnimationId !== 'undefined' && canvasAnimationId) {
         cancelAnimationFrame(canvasAnimationId);
         canvasAnimationId = null;
+    }
+    
+    if (folderData.length === 0) {
+        instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#fff;">📂 Učitavam galeriju sa servera...</div>';
+        // Pokušaj ponovnog učitavanja ako je kasnilo
+        ucitajGaleriju().then(() => {
+            if(folderData.length > 0) showFolderGrid();
+            else instaContent.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#e63946;">Greška: Provjerite da li postoji galerija.json fajl na GitHub-u.</div>';
+        });
+        return;
     }
     
     showFolderGrid();
@@ -786,7 +783,6 @@ function closeInstaModal() {
     instaModal.classList.remove('active');
     document.body.style.overflow = '';
     
-    // Ponovo pali animaciju kada se modal zatvori
     if (typeof canvasAnimationId !== 'undefined' && !canvasAnimationId && typeof draw === 'function') {
         draw();
     }
@@ -794,7 +790,6 @@ function closeInstaModal() {
 
 function showFolderGrid() {
     instaContent.innerHTML = '';
-
     const fragment = document.createDocumentFragment();
 
     folderData.forEach(folder => {
@@ -804,8 +799,8 @@ function showFolderGrid() {
         const img = document.createElement('img');
         img.className = 'folder-image';
         img.alt = folder.name;
-        img.loading = "lazy"; // Spriječava istovremeno blokiranje RAM-a
-        img.decoding = "async"; // Asinhrono dekodiranje slike (ubrzava telefon)
+        img.loading = "lazy"; 
+        img.decoding = "async";
         
         if (folder.files && folder.files.length > 0) {
             img.src = `${folder.path}/${encodeURIComponent(folder.files[0])}`;
@@ -814,7 +809,7 @@ function showFolderGrid() {
         }
         
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">Nema slike</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%236b7280">Nema slika</text></svg>';
         };
         
         card.appendChild(img);
@@ -851,7 +846,6 @@ function openFolderImages(folder) {
     `;
     instaContent.appendChild(qualityBanner);
 
-    // Korištenje Fragmenta za drastično ubrzanje DOM manipulacije
     const fragment = document.createDocumentFragment();
 
     folder.files.forEach(fileName => {
@@ -861,11 +855,11 @@ function openFolderImages(folder) {
         const img = document.createElement('img');
         img.src = `${folder.path}/${encodeURIComponent(fileName)}`;
         img.alt = fileName;
-        img.loading = "lazy"; // Sprečava zamrzavanje skrolanja
-        img.decoding = "async"; // Ne blokira glavni (UI) thread
+        img.loading = "lazy";
+        img.decoding = "async";
         
         img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%239ca3af">Provjeri ime fajla</text></svg>';
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="%231a1f2a"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%23e63946">Fajl ne postoji</text></svg>';
         };
         
         img.onclick = function(e) {
@@ -894,13 +888,11 @@ function instaGoBack() {
 
 // ========== OSTALI FUNKCIONALNI SKRIPTOVI ==========
 (function() {
-    // SCROLL REVEAL
     const revealObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("active"); obs.unobserve(entry.target); } });
     }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // MUZIKA
     const music = document.getElementById('bg-music');
     const musicToggleBtn = document.getElementById('music-toggle');
     const musicWaves = document.getElementById('music-waves');
@@ -920,7 +912,6 @@ function instaGoBack() {
     }
     if (musicToggleBtn) musicToggleBtn.addEventListener('click', e => { e.stopPropagation(); toggleMusic(); });
 
-    // VIDEO LIGHTBOX
     const videoTrigger = document.getElementById('video-trigger');
     const videoLightbox = document.getElementById('video-lightbox');
     const videoElement = document.getElementById('intro-video');
@@ -939,7 +930,6 @@ function instaGoBack() {
     document.getElementById('close-video-btn').addEventListener('click', closeVideo);
     if (videoLightbox) videoLightbox.addEventListener('click', e => { if (e.target === videoLightbox) closeVideo(); });
 
-    // HEADER PROGRESS
     const headerPercentBtn = document.getElementById('header-percent-btn');
     const headerProgressBar = document.getElementById('header-progress-bar');
     window.addEventListener('scroll', () => {
@@ -950,13 +940,11 @@ function instaGoBack() {
         if(headerProgressBar) headerProgressBar.style.width = `${p}%`;
     }, {passive: true});
 
-    // LIGHTBOX
     const lightbox = document.getElementById('lightbox');
     function closeLb() { lightbox.classList.remove('active'); }
     if(lightbox) lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLb(); });
     document.getElementById('close-btn').addEventListener('click', closeLb);
 
-    // KONTAKT FORMA
     const contactForm = document.getElementById('clean-contact-form');
     const messagesContainer = document.getElementById('real-messages-container');
     function loadLocalMessages() {
@@ -1008,11 +996,9 @@ function instaGoBack() {
         });
     }
 
-    // BACK TO TOP
     const backBtn = document.getElementById('back-to-top');
     if(backBtn) backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-    // KARUSEL
     const trackEl = document.getElementById('carouselTrack');
     const dotsContainer = document.getElementById('carouselDots');
     const slides = Array.from(document.querySelectorAll('.carousel-slide'));
