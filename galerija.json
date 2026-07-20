@@ -2,49 +2,108 @@
     {
         "name": "Distributivne Mreže",
         "folder": "DistributivneMreze",
-        "files": ["DistibutivneMreze1_result.webp","DistributivneMreze2_result.webp","DistributivneMreze3_result.webp","DistributivneMreze4_result.webp","DistributivneMreze5_result.webp","DistributivneMreze6_result.webp","DistributivneMreze8_result.webp","DistributivneMreze9_result.webp","NestabilnostRecnogTla_result.webp"]
+        "files": [
+            "DistibutivneMreze1_result.webp",
+            "DistributivneMreze2_result.webp",
+            "DistributivneMreze3_result.webp",
+            "DistributivneMreze4_result.webp",
+            "DistributivneMreze5_result.webp",
+            "DistributivneMreze6_result.webp",
+            "DistributivneMreze8_result.webp",
+            "DistributivneMreze9_result.webp",
+            "NestabilnostRecnogTla_result.webp"
+        ]
     },
     {
         "name": "Javna Rasvjeta",
         "folder": "JavnaRasvjeta",
-        "files": ["JavnaRasvjeta_result.webp",
-"JavnaRasvjeta2_result.webp","JavnaRasvjeta3_result.webp","JavnaRAsvjeta4_result.webp","JavnaRasvjeta5_result.webp","JavnaRasvjeta6_result.webp","JavnaRasvjeta7_result.webp","JavnaRasvjeta8_result.webp","JavnaRasvjeta9_result.webp","JavnaRasvjeta10_result.webp","JavnaRasvjeta11_result.webp","JavnaRasvjeta12_result.webp","JavnaRasvjeta13_result.webp","JavnaRasvjeta14_result.webp","JavnaRasvjeta15_result.webp","JavnaRasvjeta16_result.webp"]
+        "files": [
+            "JavnaRasvjeta_result.webp",
+            "JavnaRasvjeta2_result.webp",
+            "JavnaRasvjeta3_result.webp",
+            "JavnaRAsvjeta4_result.webp",
+            "JavnaRasvjeta5_result.webp",
+            "JavnaRasvjeta6_result.webp",
+            "JavnaRasvjeta7_result.webp",
+            "JavnaRasvjeta8_result.webp",
+            "JavnaRasvjeta9_result.webp",
+            "JavnaRasvjeta10_result.webp",
+            "JavnaRasvjeta11_result.webp",
+            "JavnaRasvjeta12_result.webp",
+            "JavnaRasvjeta13_result.webp",
+            "JavnaRasvjeta14_result.webp",
+            "JavnaRasvjeta15_result.webp",
+            "JavnaRasvjeta16_result.webp"
+        ]
     },
     {
         "name": "Komercijalni Objekti",
         "folder": "KomercijalniObjekti",
-        "files": ["KomercijalniObjekti1_result.webp","KomercijalniObjekti2_result.webp","KomercijalniObjekti4_result.webp","KomercijalniObjekti5_result.webp","KomercijalniObjekti6_result.webp","KomercijalniObjekti7_result.webp","KomercijalniObjekti8_result.webp",
-"KomercijalniObjekti9_result.webp",
-"KomercijalniObjekti10_result.webp",
-"KomercijalniObjekti11_result.webp",
-"KomercijalniObjekti12_result.webp",
-"KomercijalniObjekti13_result.webp",
-"KomercijalniObjekti14_result.webp",
-"KomercijalniObjekti15_result.webp",
-"KomercijalniObjekti16_result.webp",
-"KomercijalniObjekti17_result.webp",
-"KomercijalniObjekti18_result.webp",
-"KomercijalniObjekti19_result.webp",
-"KomercijalniObjekti20_result.webp"]
+        "files": [
+            "KomercijalniObjekti1_result.webp",
+            "KomercijalniObjekti2_result.webp",
+            "KomercijalniObjekti4_result.webp",
+            "KomercijalniObjekti5_result.webp",
+            "KomercijalniObjekti6_result.webp",
+            "KomercijalniObjekti7_result.webp",
+            "KomercijalniObjekti8_result.webp",
+            "KomercijalniObjekti9_result.webp",
+            "KomercijalniObjekti10_result.webp",
+            "KomercijalniObjekti11_result.webp",
+            "KomercijalniObjekti12_result.webp",
+            "KomercijalniObjekti13_result.webp",
+            "KomercijalniObjekti14_result.webp",
+            "KomercijalniObjekti15_result.webp",
+            "KomercijalniObjekti16_result.webp",
+            "KomercijalniObjekti17_result.webp",
+            "KomercijalniObjekti18_result.webp",
+            "KomercijalniObjekti19_result.webp",
+            "KomercijalniObjekti20_result.webp"
+        ]
     },
     {
         "name": "Stambene Zgrade",
         "folder": "StambeneZgrade",
-        "files": ["StambeneZgrade1_result.webp","StambeneZgrade2_result.webp","StambeneZgrade3_result.webp","StambeneZgrade_result.webp"]
+        "files": [
+            "StambeneZgrade1_result.webp",
+            "StambeneZgrade2_result.webp",
+            "StambeneZgrade3_result.webp",
+            "StambeneZgrade_result.webp"
+        ]
     },
     {
         "name": "Kicenje Grada",
         "folder": "KicenjeGrada",
-        "files": ["KicenjeGrada1_result.webp","KicenjeGrada2_result.webp","KicenjeGrada3jpg_result.webp","KicenjeGrada4jpg_result.webp"]
+        "files": [
+            "KicenjeGrada1_result.webp",
+            "KicenjeGrada2_result.webp",
+            "KicenjeGrada3jpg_result.webp",
+            "KicenjeGrada4jpg_result.webp"
+        ]
     },
     {
         "name": "Odrzavanje trgovackog centra",
         "folder": "OdrzavanjeTrgovackogCentara",
-        "files": ["OdrzavanjeTrgovackihCentara_result.webp","OdrzavanjeTrgovackihCentara2_result.webp", "OdrzavanjeTrgovackihCentara3_result.webp","OdrzavanjeTrgovackihCentara4_result.webp","OdrzavanjeTrgovackihCentara5_result.webp","OdrzavanjeTrgovackihCentara6_result.webp""OdrzavanjeTrgovackihCentara7_result.webp","OdrzavanjeTrgovackihCentara8_result.webp","OdrzavanjeTrgovackihCentara9_result.webp","OdrzavanjeTrgovackihCentara10_result.webp"]
+        "files": [
+            "OdrzavanjeTrgovackihCentara_result.webp",
+            "OdrzavanjeTrgovackihCentara2_result.webp",
+            "OdrzavanjeTrgovackihCentara3_result.webp",
+            "OdrzavanjeTrgovackihCentara4_result.webp",
+            "OdrzavanjeTrgovackihCentara5_result.webp",
+            "OdrzavanjeTrgovackihCentara6_result.webp",
+            "OdrzavanjeTrgovackihCentara7_result.webp",
+            "OdrzavanjeTrgovackihCentara8_result.webp",
+            "OdrzavanjeTrgovackihCentara9_result.webp",
+            "OdrzavanjeTrgovackihCentara10_result.webp"
+        ]
     },
     {
         "name": "Vjerski Objekti",
         "folder": "VjerskiObjekti",
-        "files": ["1.jpg", "2.jpg", "3.jpg"]
-    },
+        "files": [
+            "1.jpg",
+            "2.jpg",
+            "3.jpg"
+        ]
+    }
 ]
