@@ -36,17 +36,15 @@
         "name": "Kicenje Grada",
         "folder": "KicenjeGrada",
         "files": ["KicenjeGrada1_result.webp","KicenjeGrada2_result.webp","KicenjeGrada3jpg_result.webp","KicenjeGrada4jpg_result.webp"]
-},
- {
+    },
+    {
         "name": "Odrzavanje trgovackog centra",
         "folder": "OdrzavanjeTrgovackogCentara",
         "files": ["OdrzavanjeTrgovackihCentara_result.webp","OdrzavanjeTrgovackihCentara2_result.webp", "OdrzavanjeTrgovackihCentara3_result.webp","OdrzavanjeTrgovackihCentara4_result.webp","OdrzavanjeTrgovackihCentara5_result.webp","OdrzavanjeTrgovackihCentara6_result.webp""OdrzavanjeTrgovackihCentara7_result.webp","OdrzavanjeTrgovackihCentara8_result.webp","OdrzavanjeTrgovackihCentara9_result.webp","OdrzavanjeTrgovackihCentara10_result.webp"]
     },
- {
+    {
         "name": "Vjerski Objekti",
         "folder": "VjerskiObjekti",
         "files": ["1.jpg", "2.jpg", "3.jpg"]
-    }
-
-
+    },
 ]
